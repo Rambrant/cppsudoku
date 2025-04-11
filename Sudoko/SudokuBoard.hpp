@@ -7,27 +7,38 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
-
-namespace Config
-{
-    inline constexpr int BOARD_SIZE      = 9;
-    inline constexpr int SUBSECTION_SIZE = 3;
-    inline constexpr int NO_VALUE        = 0;
-}
+#include <array>
 
 //
 // The board class
 //
 class SudokuBoard
 {
-    private:
-    
-        std::array<std::array<int, Config::BOARD_SIZE>, Config::BOARD_SIZE> mBoard;
-        
     public:
     
-        SudokuBoard( std::array<std::array<int, Config::BOARD_SIZE>, Config::BOARD_SIZE> anInitMatrix);
+        static constexpr int BOARD_SIZE      = 9;
+        static constexpr int SUBSECTION_SIZE = 3;
+        static constexpr int NO_VALUE        = 0;
+
+        using BoardArray = std::array< int, BOARD_SIZE>;
+        using Board      = std::array< BoardArray, BOARD_SIZE>;
+
+        SudokuBoard( Board anInitMatrix);
         
+        void solve();
+            
         friend std::ostream& operator<<(std::ostream& os, const SudokuBoard& board);
+    
+    private:
+    
+        Board mBoard;
+        
+        bool solve( Board& board);
+        bool isValid( Board& board, int value, int rowPos, int columnPos);
+        
+        bool rowConstraint( const Board& board, int value, int rowPos);
+        bool columnConstraint( const Board& board, int value, int columnPos);
+        bool sectionConstraint( const Board& board, int value, int rowPos, int columnPos);
+        
+        bool check( int value, const std::array<int, BOARD_SIZE>& arr);
 };
