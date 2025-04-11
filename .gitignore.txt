@@ -1,0 +1,20 @@
+# Xcode and iOS-related ignore patterns
+.xcodeproj/
+DerivedData/
+build/
+
+# Build products
+*.o
+*.obj
+*.exe
+*.app
+*.apk
+*.ipa
+
+# GDB and debugging
+.gdbinit
+*.gdb
+
+# Editor configurations
+.editorconfig
+*.xcodebuild
