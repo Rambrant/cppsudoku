@@ -11,6 +11,8 @@
 #include <string>
 #include <iterator>
 #include <type_traits>
+#include <utility>
+
 
 //
 // Joins the elements in an Iterable adding the given delimiter between them.
@@ -102,3 +104,22 @@ class IntRange
         int mBegin;
         int mEnd;
 };
+
+//
+//
+//
+
+template<std::size_t N, typename T = int, std::size_t... Is>
+constexpr std::array<T, N> make_range_array_impl(T start, T step, std::index_sequence<Is...>) {
+    std::array<T, N> arr{};
+
+    // Use initializer list expansion to assign each element
+    ((arr[Is] = start + static_cast<T>(Is) * step), ...);
+
+    return arr;
+}
+
+template<std::size_t N, typename T = int>
+constexpr std::array<T, N> make_range_array(T start = 0, T step = 1) {
+    return make_range_array_impl<N, T>(start, step, std::make_index_sequence<N>{});
+}

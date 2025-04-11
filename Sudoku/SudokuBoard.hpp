@@ -9,6 +9,8 @@
 #include <iostream>
 #include <array>
 
+#include "StreamUtil.hpp"
+
 //
 // The board class
 //
@@ -22,6 +24,9 @@ class SudokuBoard
 
         using BoardArray = std::array< int, BOARD_SIZE>;
         using Board      = std::array< BoardArray, BOARD_SIZE>;
+
+        static constexpr auto INDEX_RANGE = make_range_array<BOARD_SIZE>(0, 1);
+        static constexpr auto VALUE_RANGE = make_range_array<BOARD_SIZE>(1, 1);
 
         SudokuBoard( Board anInitMatrix);
         

@@ -28,13 +28,21 @@ void SudokuBoard::solve()
 //
 bool SudokuBoard::solve( Board& board)
 {
-    for( int rowIdx : IntRange( 0, BOARD_SIZE))
+/*    auto begin = VALUE_RANGE.begin();
+    auto end   = VALUE_RANGE.end();
+    
+    for( auto it = begin; it < end; ++it)
     {
-        for( int colIdx : IntRange( 0, BOARD_SIZE))
+        std::cout << *it;
+    }
+*/
+    for( int rowIdx : INDEX_RANGE)
+    {
+        for( int colIdx : INDEX_RANGE)
         {
             if( board[rowIdx][colIdx] == NO_VALUE)
             {
-                for( int value : IntRange( 1, BOARD_SIZE + 1))
+                for( int value : VALUE_RANGE)
                 {
                     if( isValid( board, value, rowIdx, colIdx) &&
                         solve( board))
