@@ -9,7 +9,8 @@
 #include <iostream>
 #include <array>
 
-#include "StreamUtil.hpp"
+#include "SudokuTraits.hpp"
+
 
 //
 // The board class
@@ -18,17 +19,9 @@ class SudokuBoard
 {
     public:
     
-        static constexpr int BOARD_SIZE      = 9;
-        static constexpr int SUBSECTION_SIZE = 3;
-        static constexpr int NO_VALUE        = 0;
-
-        using BoardArray = std::array< int, BOARD_SIZE>;
-        using Board      = std::array< BoardArray, BOARD_SIZE>;
-
-        static constexpr auto INDEX_RANGE = make_range_array<BOARD_SIZE>(0, 1);
-        static constexpr auto VALUE_RANGE = make_range_array<BOARD_SIZE>(1, 1);
-
-        SudokuBoard( Board anInitMatrix);
+        using Traits = SudokuTraits;
+        
+        SudokuBoard( Traits::Board anInitMatrix);
         
         void solve();
             
@@ -36,14 +29,14 @@ class SudokuBoard
     
     private:
     
-        Board mBoard;
+        Traits::Board mBoard;
         
-        bool solve( Board& board);
-        bool isValid( Board& board, int value, int rowPos, int columnPos);
+        bool solve( Traits::Board& board);
+        bool isValid( Traits::Board& board, int value, int rowPos, int columnPos);
         
-        bool rowConstraint( const Board& board, int value, int rowPos);
-        bool columnConstraint( const Board& board, int value, int columnPos);
-        bool sectionConstraint( const Board& board, int value, int rowPos, int columnPos);
+        bool rowConstraint( const Traits::Board& board, int value, int rowPos);
+        bool columnConstraint( const Traits::Board& board, int value, int columnPos);
+        bool sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos);
         
-        bool check( int value, const std::array<int, BOARD_SIZE>& arr);
+        bool check( int value, const std::array<int, Traits::BOARD_SIZE>& arr);
 };

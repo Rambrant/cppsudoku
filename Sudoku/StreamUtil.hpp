@@ -73,53 +73,27 @@ auto subrangeView( Container& c, std::size_t from, std::size_t to)
 }
 
 //
-// A Range implementation for integers
+// A Range implementation for constexpr Array initialisation
 //
-class IntIterator
-{
-    public:
-    
-        explicit IntIterator( int value) : mValue(value) {}
-
-        int          operator*() const { return mValue; }
-        IntIterator& operator++() { ++mValue; return *this; }
-        bool         operator!= (const IntIterator& other) const { return mValue != other.mValue; }
-
-    private:
-    
-        int mValue;
-};
-
-class IntRange
-{
-    public:
-    
-        IntRange(int begin, int end) : mBegin( begin), mEnd( end) {}
-
-        IntIterator begin() const { return IntIterator( mBegin); }
-        IntIterator end() const { return IntIterator( mEnd); }
-
-    private:
-    
-        int mBegin;
-        int mEnd;
-};
-
-//
-//
+// Usage:
+//  static constexpr auto VALUE_RANGE = RangeArray<4>(3, 2); // Create the range { 3, 5, 7, 9 }
 //
 
 template<std::size_t N, typename T = int, std::size_t... Is>
-constexpr std::array<T, N> make_range_array_impl(T start, T step, std::index_sequence<Is...>) {
+constexpr std::array<T, N> RangeArrayImpl(T start, T step, std::index_sequence<Is...>)
+{
     std::array<T, N> arr{};
 
+    //
     // Use initializer list expansion to assign each element
-    ((arr[Is] = start + static_cast<T>(Is) * step), ...);
+    //
+    ( ( arr[Is] = start + static_cast<T>(Is) * step), ...);
 
     return arr;
 }
 
 template<std::size_t N, typename T = int>
-constexpr std::array<T, N> make_range_array(T start = 0, T step = 1) {
-    return make_range_array_impl<N, T>(start, step, std::make_index_sequence<N>{});
+constexpr std::array<T, N> RangeArray(T start = 0, T step = 1)
+{
+    return RangeArrayImpl<N, T>( start, step, std::make_index_sequence<N>{});
 }

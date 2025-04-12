@@ -13,7 +13,7 @@
 //
 // Public methods
 //
-SudokuBoard::SudokuBoard( Board anInitMatrix):
+SudokuBoard::SudokuBoard( Traits::Board anInitMatrix):
     mBoard( std::move( anInitMatrix))
 {
 };
@@ -26,7 +26,7 @@ void SudokuBoard::solve()
 //
 // Private methods
 //
-bool SudokuBoard::solve( Board& board)
+bool SudokuBoard::solve( Traits::Board& board)
 {
 /*    auto begin = VALUE_RANGE.begin();
     auto end   = VALUE_RANGE.end();
@@ -36,13 +36,13 @@ bool SudokuBoard::solve( Board& board)
         std::cout << *it;
     }
 */
-    for( int rowIdx : INDEX_RANGE)
+    for( int rowIdx : Traits::INDEX_RANGE)
     {
-        for( int colIdx : INDEX_RANGE)
+        for( int colIdx : Traits::INDEX_RANGE)
         {
-            if( board[rowIdx][colIdx] == NO_VALUE)
+            if( board[rowIdx][colIdx] == Traits::NO_VALUE)
             {
-                for( int value : VALUE_RANGE)
+                for( int value : Traits::VALUE_RANGE)
                 {
                     if( isValid( board, value, rowIdx, colIdx) &&
                         solve( board))
@@ -59,7 +59,7 @@ bool SudokuBoard::solve( Board& board)
     return true;
 }
 
-bool SudokuBoard::isValid( Board& board, int value, int rowPos, int columnPos)
+bool SudokuBoard::isValid( Traits::Board& board, int value, int rowPos, int columnPos)
 {
     bool result = rowConstraint( board, value, rowPos)                  &&
                   columnConstraint( board, value, columnPos)            &&
@@ -71,42 +71,42 @@ bool SudokuBoard::isValid( Board& board, int value, int rowPos, int columnPos)
     }
     else
     {
-        board[rowPos][columnPos] = NO_VALUE;
+        board[rowPos][columnPos] = Traits::NO_VALUE;
     }
     
     return result;
 }
 
-bool SudokuBoard::rowConstraint( const Board& board, int value, int rowPos)
+bool SudokuBoard::rowConstraint( const Traits::Board& board, int value, int rowPos)
 {
     return check( value, board[ rowPos]);
 }
 
-bool SudokuBoard::columnConstraint( const Board& board, int value, int columnPos)
+bool SudokuBoard::columnConstraint( const Traits::Board& board, int value, int columnPos)
 {
-    BoardArray columnValues;
+    Traits::BoardArray columnValues;
     
     std::transform( board.begin(), board.end(), columnValues.begin(),
-        [columnPos]( const BoardArray& row){ return row[columnPos]; });
+        [columnPos]( const Traits::BoardArray& row){ return row[columnPos]; });
     
     return check( value, columnValues);
 }
         
-bool SudokuBoard::sectionConstraint( const Board& board, int value, int rowPos, int columnPos)
+bool SudokuBoard::sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos)
 {
     //
     // Calculate the board coordinates for the top left corner of the section
     //
-    int startRow = (rowPos / SUBSECTION_SIZE) * SUBSECTION_SIZE;
-    int endRow   = startRow + SUBSECTION_SIZE;
+    int startRow = (rowPos / Traits::SUBSECTION_SIZE) * Traits::SUBSECTION_SIZE;
+    int endRow   = startRow + Traits::SUBSECTION_SIZE;
     
-    int startCol = (columnPos / SUBSECTION_SIZE) * SUBSECTION_SIZE;
-    int endCol   = startCol + SUBSECTION_SIZE;
+    int startCol = (columnPos / Traits::SUBSECTION_SIZE) * Traits::SUBSECTION_SIZE;
+    int endCol   = startCol + Traits::SUBSECTION_SIZE;
 
     //
     // Loop over the section and collect the values
     //
-    BoardArray sectionValues;
+    Traits::BoardArray sectionValues;
     
     auto secIter = sectionValues.begin();
     
@@ -123,7 +123,7 @@ bool SudokuBoard::sectionConstraint( const Board& board, int value, int rowPos, 
     return check( value, sectionValues);
 }
 
-bool SudokuBoard::check( int value, const std::array<int, BOARD_SIZE>& arr)
+bool SudokuBoard::check( int value, const std::array<int, Traits::BOARD_SIZE>& arr)
 {
     //
     // Returns true if none of the elements in the array matches the given value
