@@ -11,6 +11,7 @@
 
 #include "SudokuTraits.hpp"
 
+class ISudokuSolver;
 
 //
 // The board class
@@ -23,20 +24,11 @@ class SudokuBoard
         
         SudokuBoard( Traits::Board anInitMatrix);
         
-        void solve();
+        void solve( ISudokuSolver& solver);
             
         friend std::ostream& operator<<(std::ostream& os, const SudokuBoard& board);
     
     private:
     
         Traits::Board mBoard;
-        
-        bool solve( Traits::Board& board);
-        bool isValid( Traits::Board& board, int value, int rowPos, int columnPos);
-        
-        bool rowConstraint( const Traits::Board& board, int value, int rowPos);
-        bool columnConstraint( const Traits::Board& board, int value, int columnPos);
-        bool sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos);
-        
-        bool check( int value, const std::array<int, Traits::BOARD_SIZE>& arr);
 };

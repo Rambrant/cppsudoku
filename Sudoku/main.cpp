@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "SudokuBoard.hpp"
+#include "BackTrackingSolver.hpp"
 
 constexpr SudokuBoard::Traits::Board initBoard {{
         {{8, 0, 0, 0, 0, 0, 0, 0, 0}},
@@ -23,11 +24,12 @@ constexpr SudokuBoard::Traits::Board initBoard {{
 
 int main()
 {
-    SudokuBoard board = SudokuBoard( initBoard);
+    SudokuBoard        board  = SudokuBoard( initBoard);
+    BackTrackingSolver solver = BackTrackingSolver();
     
     std::cout << board << std::endl;
     
-    board.solve();
+    board.solve( solver);
     
     std::cout << std::endl << board << std::endl;
     
