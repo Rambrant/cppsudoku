@@ -24,7 +24,7 @@ class SudokuBoard
         
         SudokuBoard( Traits::Board anInitMatrix);
         
-        void solve( const ISudokuSolver& solver);
+        bool solve( const ISudokuSolver& solver);
             
         friend std::ostream& operator<<(std::ostream& os, const SudokuBoard& board);
     

@@ -19,9 +19,9 @@ SudokuBoard::SudokuBoard( Traits::Board anInitMatrix):
 {
 }
 
-void SudokuBoard::solve( const ISudokuSolver& solver)
+bool SudokuBoard::solve( const ISudokuSolver& solver)
 {
-    solver.solve( mBoard);
+    return solver.solve( mBoard);
 }
 
 //

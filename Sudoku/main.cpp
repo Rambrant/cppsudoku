@@ -6,6 +6,7 @@
 //
 
 #include <iostream>
+#include <chrono>
 
 #include "SudokuBoard.hpp"
 #include "BackTrackingSolver.hpp"
@@ -29,9 +30,27 @@ int main()
     
     std::cout << board << std::endl;
     
-    board.solve( solver);
+    //
+    // Measure the time it takes to solve the Sudoku
+    //
+    auto start = std::chrono::high_resolution_clock::now();
+
+    bool result = board.solve( solver);
     
-    std::cout << std::endl << board << std::endl;
+    auto end      = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( end - start);
+    
+    //
+    // Present the result
+    //
+    if( result)
+    {
+        std::cout << "Found solution in " << duration << std::endl << std::endl << board << std::endl;
+    }
+    else
+    {
+        std::cout << std::endl << "No solution found!" << std::endl;
+    }
     
     return 0;
 }
