@@ -13,7 +13,7 @@
 //
 // Private methods
 //
-bool BackTrackingSolver::solve( Traits::Board& board)
+bool BackTrackingSolver::solve( Traits::Board& board) const
 {
     for( int rowIdx : Traits::INDEX_RANGE)
     {
@@ -38,7 +38,7 @@ bool BackTrackingSolver::solve( Traits::Board& board)
     return true;
 }
 
-bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, int columnPos)
+bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, int columnPos) const
 {
     bool result = rowConstraint( board, value, rowPos)                  &&
                   columnConstraint( board, value, columnPos)            &&
@@ -56,12 +56,12 @@ bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, i
     return result;
 }
 
-bool BackTrackingSolver::rowConstraint( const Traits::Board& board, int value, int rowPos)
+bool BackTrackingSolver::rowConstraint( const Traits::Board& board, int value, int rowPos) const
 {
     return check( value, board[ rowPos]);
 }
 
-bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value, int columnPos)
+bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value, int columnPos) const
 {
     Traits::BoardArray columnValues;
     
@@ -71,7 +71,7 @@ bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value
     return check( value, columnValues);
 }
         
-bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos)
+bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos) const
 {
     //
     // Calculate the board coordinates for the top left corner of the section
@@ -102,7 +102,7 @@ bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int valu
     return check( value, sectionValues);
 }
 
-bool BackTrackingSolver::check( int value, const std::array<int, Traits::BOARD_SIZE>& arr)
+bool BackTrackingSolver::check( int value, const std::array<int, Traits::BOARD_SIZE>& arr) const
 {
     //
     // Returns true if none of the elements in the array matches the given value

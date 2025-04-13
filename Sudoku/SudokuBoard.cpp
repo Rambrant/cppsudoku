@@ -19,11 +19,10 @@ SudokuBoard::SudokuBoard( Traits::Board anInitMatrix):
 {
 }
 
-void SudokuBoard::solve( ISudokuSolver& solver)
+void SudokuBoard::solve( const ISudokuSolver& solver)
 {
     solver.solve( mBoard);
 }
-
 
 //
 // Friend functions

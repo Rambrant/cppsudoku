@@ -22,15 +22,15 @@ class BackTrackingSolver : public ISudokuSolver
     
         using Traits = SudokuTraits;
         
-        bool solve( Traits::Board& board);
+        bool solve( Traits::Board& board) const;
     
     private:
     
-        bool isValid( Traits::Board& board, int value, int rowPos, int columnPos);
+        bool isValid( Traits::Board& board, int value, int rowPos, int columnPos) const;
         
-        bool rowConstraint( const Traits::Board& board, int value, int rowPos);
-        bool columnConstraint( const Traits::Board& board, int value, int columnPos);
-        bool sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos);
+        bool rowConstraint( const Traits::Board& board, int value, int rowPos) const;
+        bool columnConstraint( const Traits::Board& board, int value, int columnPos) const;
+        bool sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos) const;
         
-        bool check( int value, const Traits::BoardArray& arr);
+        bool check( int value, const Traits::BoardArray& arr) const;
 };
