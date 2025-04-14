@@ -1,6 +1,5 @@
 //
-//  Board.hpp
-//  Sudoko
+//  ISudokuSolver.hpp
 //
 //  Created by Thomas Rambrant on 2025-04-07.
 //

@@ -1,6 +1,5 @@
 //
 //  BackTrackingSolver.hpp
-//  Sudoku
 //
 //  Created by Thomas Rambrant on 2025-04-12.
 //
@@ -22,7 +21,7 @@ class BackTrackingSolver : public ISudokuSolver
     
         using Traits = SudokuTraits;
         
-        bool solve( Traits::Board& board) const;
+        bool solve( Traits::Board& board) const override;
     
     private:
     

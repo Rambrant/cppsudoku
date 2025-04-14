@@ -28,10 +28,13 @@ int main()
     SudokuBoard        board  = SudokuBoard( initBoard);
     BackTrackingSolver solver = BackTrackingSolver();
     
+    //
+    // Print the original board
+    //
     std::cout << board << std::endl;
     
     //
-    // Measure the time it takes to solve the Sudoku
+    // Solve tha given board. Measure the time it takes to solve the it
     //
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -45,7 +48,7 @@ int main()
     //
     if( result)
     {
-        std::cout << "Found solution in " << duration << std::endl << std::endl << board << std::endl;
+        std::cout << "Found solution in " << duration.count() << " ms" << std::endl << std::endl << board << std::endl;
     }
     else
     {

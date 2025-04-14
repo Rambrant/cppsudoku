@@ -1,6 +1,5 @@
 //
 //  SudokuTraits.hpp
-//  Sudoko
 //
 //  Created by Thomas Rambrant on 2025-04-11.
 //

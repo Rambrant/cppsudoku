@@ -1,6 +1,5 @@
 //
 //  StreamUtil.hpp
-//  Sudoko
 //
 //  Created by Thomas Rambrant on 2025-04-08.
 //
@@ -53,7 +52,7 @@ std::string join( const Iterable& iterable, const DelimT& delimiter)
 // Creates a view into the given container using a range iterator
 //
 // Usage:
-//  for (auto x : subrangeView( aVector, 2, 5)) { std::cout << x << " "; }
+// for (auto x : subrangeView( aVector, 2, 5)) { std::cout << x << " "; }
 //
 template <typename Iterator>
 struct IteratorRange {
@@ -76,7 +75,7 @@ auto subrangeView( Container& c, std::size_t from, std::size_t to)
 // A Range implementation for constexpr Array initialisation
 //
 // Usage:
-//  static constexpr auto VALUE_RANGE = RangeArray<4>(3, 2); // Create the range { 3, 5, 7, 9 }
+// static constexpr auto VALUE_RANGE = RangeArray<4>(3, 2); // Create the range { 3, 5, 7, 9 }
 //
 
 template<std::size_t N, typename T = int, std::size_t... Is>
