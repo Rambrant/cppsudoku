@@ -7,14 +7,15 @@
 #include "SudokuBoard.hpp"
 
 #include <algorithm>
+#include "ISudokuReader.hpp"
 #include "ISudokuSolver.hpp"
 #include "StreamUtil.hpp"
 
 //
 // Public methods
 //
-SudokuBoard::SudokuBoard( Traits::Board anInitMatrix):
-    mBoard( std::move( anInitMatrix))
+SudokuBoard::SudokuBoard( const ISudokuReader& reader):
+    mBoard( reader.read())
 {
 }
 

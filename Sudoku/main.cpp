@@ -10,8 +10,9 @@
 
 #include "SudokuBoard.hpp"
 #include "BackTrackingSolver.hpp"
+#include "SudokuStaticReader.hpp"
 
-constexpr SudokuBoard::Traits::Board initBoard {{
+constexpr SudokuBoard::Traits::Board staticBoard {{
         {{8, 0, 0, 0, 0, 0, 0, 0, 0}},
         {{0, 0, 3, 6, 0, 0, 0, 0, 0}},
         {{0, 7, 0, 0, 9, 0, 2, 0, 0}},
@@ -25,8 +26,10 @@ constexpr SudokuBoard::Traits::Board initBoard {{
 
 int main()
 {
-    SudokuBoard        board  = SudokuBoard( initBoard);
-    BackTrackingSolver solver = BackTrackingSolver();
+    SudokuStaticReader reader{ staticBoard};
+    BackTrackingSolver solver{};
+    
+    SudokuBoard        board{ reader};
     
     //
     // Print the original board
@@ -34,7 +37,7 @@ int main()
     std::cout << board << std::endl;
     
     //
-    // Solve tha given board. Measure the time it takes to solve the it
+    // Solve tha given board. Measure the time it takes to solve it
     //
     auto start = std::chrono::high_resolution_clock::now();
 

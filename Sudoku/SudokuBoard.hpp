@@ -6,10 +6,11 @@
 #pragma once
 
 #include <iostream>
-#include <array>
+
 
 #include "SudokuTraits.hpp"
 
+class ISudokuReader;
 class ISudokuSolver;
 
 //
@@ -21,7 +22,7 @@ class SudokuBoard
     
         using Traits = SudokuTraits;
         
-        SudokuBoard( Traits::Board anInitMatrix);
+        SudokuBoard( const ISudokuReader& reader);
         
         bool solve( const ISudokuSolver& solver);
             
