@@ -7,8 +7,7 @@
 
 #include "SudokuTraits.hpp"
 
-//
-// The ISudokuSolver class
+//------------------------------------------------------------------------------
 //
 class ISudokuSolver
 {

@@ -11,9 +11,7 @@
 #include "ISudokuSolver.hpp"
 #include "SudokuTraits.hpp"
 
-
-//
-// The BackTrackingSolver class
+//------------------------------------------------------------------------------
 //
 class BackTrackingSolver : public ISudokuSolver
 {

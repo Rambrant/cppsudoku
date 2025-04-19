@@ -24,6 +24,8 @@ constexpr SudokuBoard::Traits::Board staticBoard {{
         {{0, 9, 0, 0, 0, 0, 4, 0, 0}},
     }};
 
+//------------------------------------------------------------------------------
+//
 int main()
 {
     SudokuStaticReader reader{ staticBoard};

@@ -9,6 +9,8 @@
 #include "ISudokuReader.hpp"
 #include "SudokuTraits.hpp"
     
+//------------------------------------------------------------------------------
+//
 class SudokuStaticReader : public ISudokuReader
 {
     public:
@@ -23,4 +25,3 @@ class SudokuStaticReader : public ISudokuReader
     
         const Traits::Board& mInitBoard;
 };
-;

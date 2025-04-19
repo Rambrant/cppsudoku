@@ -10,6 +10,8 @@
 #include "StreamUtil.hpp"
 
 
+//------------------------------------------------------------------------------
+//
 struct SudokuTraits
 {
         static constexpr int  BOARD_SIZE      = 9;

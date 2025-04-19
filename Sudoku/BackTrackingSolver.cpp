@@ -9,8 +9,7 @@
 #include <algorithm>
 #include "BackTrackingSolver.hpp"
 
-//
-// Private methods
+//------------------------------------------------------------------------------
 //
 bool BackTrackingSolver::solve( Traits::Board& board) const
 {
@@ -37,6 +36,8 @@ bool BackTrackingSolver::solve( Traits::Board& board) const
     return true;
 }
 
+//------------------------------------------------------------------------------
+//
 bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, int columnPos) const
 {
     bool result = rowConstraint( board, value, rowPos)                  &&
@@ -55,11 +56,15 @@ bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, i
     return result;
 }
 
+//------------------------------------------------------------------------------
+//
 bool BackTrackingSolver::rowConstraint( const Traits::Board& board, int value, int rowPos) const
 {
     return check( value, board[ rowPos]);
 }
 
+//------------------------------------------------------------------------------
+//
 bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value, int columnPos) const
 {
     Traits::BoardArray columnValues;
@@ -70,6 +75,8 @@ bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value
     return check( value, columnValues);
 }
         
+//------------------------------------------------------------------------------
+//
 bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos) const
 {
     //
@@ -101,6 +108,8 @@ bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int valu
     return check( value, sectionValues);
 }
 
+//------------------------------------------------------------------------------
+//
 bool BackTrackingSolver::check( int value, const std::array<int, Traits::BOARD_SIZE>& arr) const
 {
     //

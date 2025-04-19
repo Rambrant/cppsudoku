@@ -8,8 +8,7 @@
 
 #include "SudokuTraits.hpp"
 
-//
-// The ISudokuReader interface
+//------------------------------------------------------------------------------
 //
 class ISudokuReader
 {

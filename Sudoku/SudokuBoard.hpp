@@ -7,14 +7,12 @@
 
 #include <iostream>
 
-
 #include "SudokuTraits.hpp"
 
 class ISudokuReader;
 class ISudokuSolver;
 
-//
-// The board class
+//------------------------------------------------------------------------------
 //
 class SudokuBoard
 {

@@ -48,6 +48,7 @@ std::string join( const Iterable& iterable, const DelimT& delimiter)
     return os.str();
 }
 
+//------------------------------------------------------------------------------
 //
 // Creates a view into the given container using a range iterator
 //
@@ -71,6 +72,7 @@ auto subrangeView( Container& c, std::size_t from, std::size_t to)
     };
 }
 
+//------------------------------------------------------------------------------
 //
 // A Range implementation for constexpr Array initialisation
 //
