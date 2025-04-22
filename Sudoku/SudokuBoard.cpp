@@ -30,10 +30,26 @@ bool SudokuBoard::solve( const ISudokuSolver& solver)
 //
 std::ostream& operator<<( std::ostream& os, const SudokuBoard& board)
 {
-    for( const auto& row : board.mBoard)
+    using Traits = SudokuTraits;
+
+    for( auto rowIdx : Traits::INDEX_RANGE)
     {
-    
-        std::cout << join( row, ' ') << std::endl;
+        if( rowIdx > 0 && rowIdx % Traits::SUBSECTION_SIZE == 0)
+        {
+            os << std::endl; // extra newline between subsections rows
+        }
+        
+        for( auto colIdx : Traits::INDEX_RANGE)
+        {
+            if( colIdx > 0 && colIdx % Traits::SUBSECTION_SIZE == 0)
+            {
+                os << " "; // extra spacing between subsection columns
+            }
+
+            os << board.mBoard[rowIdx][colIdx] << " ";
+        }
+        
+        os << std::endl;
     }
 
     return os;
