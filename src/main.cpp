@@ -8,7 +8,7 @@
 #include <iostream>
 #include <chrono>
 
-#include <SudokuBoard.hpp>
+#include "SudokuBoard.hpp"
 #include "BackTrackingSolver.hpp"
 #include "SudokuStaticReader.hpp"
 
