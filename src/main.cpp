@@ -8,7 +8,7 @@
 #include <iostream>
 #include <chrono>
 
-#include "SudokuBoard.hpp"
+#include <SudokuBoard.hpp>
 #include "BackTrackingSolver.hpp"
 #include "SudokuStaticReader.hpp"
 
@@ -28,10 +28,10 @@ constexpr SudokuBoard::Traits::Board staticBoard {{
 //
 int main()
 {
-    SudokuStaticReader reader{ staticBoard};
-    BackTrackingSolver solver{};
+    SudokuStaticReader staticReader{ staticBoard};
+    BackTrackingSolver backTrackingSolver{};
     
-    SudokuBoard        board{ reader};
+    SudokuBoard        board{ staticReader};
     
     //
     // Print the original board
@@ -39,11 +39,11 @@ int main()
     std::cout << board << std::endl;
     
     //
-    // Solve tha given board. Measure the time it takes to solve it
+    // Solve the given board. Measure the time it takes to solve it
     //
     auto start = std::chrono::high_resolution_clock::now();
 
-    bool result = board.solve( solver);
+    bool result = board.solve( backTrackingSolver);
     
     auto end      = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( end - start);

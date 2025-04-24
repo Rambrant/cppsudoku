@@ -63,6 +63,10 @@ struct IteratorRange {
     Iterator end() const { return mEnd; }
 };
 
+// Deduction Guide...
+template <typename Iterator>
+IteratorRange(Iterator, Iterator) -> IteratorRange<Iterator>;
+
 template <typename Container>
 auto subrangeView( Container& c, std::size_t from, std::size_t to)
 {
@@ -74,7 +78,7 @@ auto subrangeView( Container& c, std::size_t from, std::size_t to)
 
 //------------------------------------------------------------------------------
 //
-// A Range implementation for constexpr Array initialisation
+// A Range implementation for constexpr Array initialization
 //
 // Usage:
 // static constexpr auto VALUE_RANGE = RangeArray<4>(3, 2); // Create the range { 3, 5, 7, 9 }

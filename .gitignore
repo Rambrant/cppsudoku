@@ -1,10 +1,12 @@
 
-Sudoku.xcodeproj/xcuserdata/thomas.xcuserdatad/xcschemes/
-
-Sudoko.xcodeproj/xcuserdata/thomas.xcuserdatad/xcschemes/
-
 Sudoku.xcodeproj/
 
-docs/
-
 *.bak
+
+.idea/
+
+.vscode/
+
+build/
+
+docs/
