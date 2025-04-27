@@ -1,6 +1,5 @@
 //
 //  main.cpp
-//  Sudoko
 //
 //  Created by Thomas Rambrant on 2025-04-07.
 //
@@ -11,6 +10,7 @@
 #include "SudokuBoard.hpp"
 #include "BackTrackingSolver.hpp"
 #include "SudokuStaticReader.hpp"
+#include "SudokuFileReader.hpp"
 
 constexpr SudokuBoard::Traits::Board staticBoard {{
         {{8, 0, 0, 0, 0, 0, 0, 0, 0}},
@@ -28,10 +28,13 @@ constexpr SudokuBoard::Traits::Board staticBoard {{
 //
 int main()
 {
-    SudokuStaticReader staticReader{ staticBoard};
-    BackTrackingSolver backTrackingSolver{};
+//    auto reader = SudokuStaticReader{ staticBoard};
+//    auto solver = BackTrackingSolver{};
     
-    SudokuBoard        board{ staticReader};
+    auto reader = SudokuFileReader{ std::string( "../../board.txt")};
+    auto solver = BackTrackingSolver{};
+
+    SudokuBoard  board{ reader};
     
     //
     // Print the original board
@@ -43,7 +46,7 @@ int main()
     //
     auto start = std::chrono::high_resolution_clock::now();
 
-    bool result = board.solve( backTrackingSolver);
+    bool result = board.solve( solver);
     
     auto end      = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( end - start);

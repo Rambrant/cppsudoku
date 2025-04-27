@@ -1,7 +1,7 @@
 //
-//  SudokuStaticReader.hpp
+//  SudokuFileReader.hpp
 //
-//  Created by Thomas Rambrant on 2025-04-18.
+//  Created by Thomas Rambrant on 2025-04-24.
 //
 #pragma once
 
@@ -10,17 +10,17 @@
     
 //------------------------------------------------------------------------------
 //
-class SudokuStaticReader : public ISudokuReader
+class SudokuFileReader : public ISudokuReader
 {
     public:
         
         using Traits = SudokuTraits;
         
-        SudokuStaticReader( const Traits::Board& board);
+        explicit SudokuFileReader( const std::string& fileName);
         
         Traits::Board read() const override;
 
     private:
     
-        const Traits::Board& mInitBoard;
+        mutable Traits::Board mInitBoard;
 };
