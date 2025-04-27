@@ -16,7 +16,7 @@ class SudokuStaticReader : public ISudokuReader
         
         using Traits = SudokuTraits;
         
-        SudokuStaticReader( const Traits::Board& board);
+        explicit SudokuStaticReader( const Traits::Board& board);
         
         Traits::Board read() const override;
 

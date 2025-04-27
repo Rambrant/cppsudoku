@@ -20,7 +20,7 @@ class SudokuBoard
     
         using Traits = SudokuTraits;
         
-        SudokuBoard( const ISudokuReader& reader);
+        explicit SudokuBoard( const ISudokuReader& reader);
         
         bool solve( const ISudokuSolver& solver);
             
