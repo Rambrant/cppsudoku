@@ -31,7 +31,7 @@ int main()
 //    auto reader = SudokuStaticReader{ staticBoard};
 //    auto solver = BackTrackingSolver{};
     
-    auto reader = SudokuFileReader{ std::string( "../../board.txt")};
+    auto reader = SudokuFileReader{ std::string( "board.txt")};
     auto solver = BackTrackingSolver{};
 
     SudokuBoard  board{ reader};
