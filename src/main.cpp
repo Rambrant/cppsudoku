@@ -56,7 +56,7 @@ int main()
     //
     if( result)
     {
-        std::cout << "Found solution in " << duration.count() << " ms" << std::endl << std::endl << board << std::endl;
+        std::cout << "Found solution in " << duration.count() << " µs" << std::endl << std::endl << board << std::endl;
     }
     else
     {
