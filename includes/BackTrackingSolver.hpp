@@ -18,11 +18,16 @@ class BackTrackingSolver : public ISudokuSolver
     public:
     
         using Traits = SudokuTraits;
-        
-        bool solve( Traits::Board& board) const override;
+
+        BackTrackingSolver();
+
+        auto solve( Traits::Board& board) const -> Traits::BoardResult override;
     
     private:
-    
+
+        mutable std::size_t mRecursions;
+
+        bool solver( Traits::Board& board) const;
         bool isValid( Traits::Board& board, int value, int rowPos, int columnPos) const;
         
         bool rowConstraint( const Traits::Board& board, int value, int rowPos) const;

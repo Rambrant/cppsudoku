@@ -22,7 +22,7 @@ class SudokuBoard
         
         explicit SudokuBoard( const ISudokuReader& reader);
         
-        bool solve( const ISudokuSolver& solver);
+        auto solve( const ISudokuSolver& solver) -> Traits::BoardResult;
             
         friend std::ostream& operator<<(std::ostream& os, const SudokuBoard& board);
     

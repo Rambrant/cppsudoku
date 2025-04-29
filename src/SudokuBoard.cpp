@@ -19,7 +19,7 @@ SudokuBoard::SudokuBoard( const ISudokuReader& reader):
 
 //------------------------------------------------------------------------------
 //
-bool SudokuBoard::solve( const ISudokuSolver& solver)
+auto SudokuBoard::solve( const ISudokuSolver& solver) -> Traits::BoardResult
 {
     return solver.solve( mBoard);
 }

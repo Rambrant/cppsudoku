@@ -15,7 +15,7 @@ class ISudokuSolver
 
     public:
     
-       virtual bool solve( Traits::Board& board) const = 0;
+       virtual auto solve( Traits::Board& board) const -> Traits::BoardResult = 0;
        
        virtual ~ISudokuSolver() = default;
 };

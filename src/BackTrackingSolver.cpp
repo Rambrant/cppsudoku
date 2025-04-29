@@ -11,8 +11,25 @@
 
 //------------------------------------------------------------------------------
 //
-bool BackTrackingSolver::solve( Traits::Board& board) const
+BackTrackingSolver::BackTrackingSolver() :
+    mRecursions{}
+{ }
+
+//------------------------------------------------------------------------------
+//
+auto BackTrackingSolver::solve(Traits::Board &board) const -> Traits::BoardResult
 {
+    bool result = solver( board);
+
+    return { result, mRecursions};
+}
+
+//------------------------------------------------------------------------------
+//
+bool BackTrackingSolver::solver( Traits::Board &board) const // NOLINT(misc-no-recursion)
+{
+    ++mRecursions;
+
     for( int rowIdx : Traits::INDEX_RANGE)
     {
         for( int colIdx : Traits::INDEX_RANGE)
@@ -22,7 +39,7 @@ bool BackTrackingSolver::solve( Traits::Board& board) const
                 for( int value : Traits::VALUE_RANGE)
                 {
                     if( isValid( board, value, rowIdx, colIdx) &&
-                        solve( board))
+                        solver( board))
                     {
                         return true;
                     }
@@ -119,3 +136,4 @@ bool BackTrackingSolver::check( int value, const std::array<int, Traits::BOARD_S
         [value](int element) { return element != value; }
     );
 }
+
