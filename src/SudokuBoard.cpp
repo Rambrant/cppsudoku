@@ -8,7 +8,7 @@
 
 #include "ISudokuReader.hpp"
 #include "ISudokuSolver.hpp"
-#include "StreamUtil.hpp"
+#include "SudokuUtil.hpp"
 
 //------------------------------------------------------------------------------
 //

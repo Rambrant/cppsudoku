@@ -11,6 +11,7 @@
 #include "BackTrackingSolver.hpp"
 #include "SudokuStaticReader.hpp"
 #include "SudokuFileReader.hpp"
+#include "SudokuUtil.hpp"
 
 constexpr SudokuBoard::Traits::Board staticBoard {{
         {{ 8,0,0,  0,0,0, 0,0,0 }},
@@ -46,21 +47,17 @@ int main()
     //
     // Solve the given board. Measure the time it takes to solve it
     //
-    auto start = std::chrono::high_resolution_clock::now();
+    auto  [stats, duration]     = timedCall([&] { return board.solve( solver); });
+    auto& [ result, recursions] = stats;
 
-    auto [ result, recursions] = board.solve( solver);
-    
-    auto end      = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( end - start);
-    
     //
     // Present the result
     //
-    std::cout << "Made " << recursions << " Recursions" << std::endl;
+    std::cout << "Made " << recursions << " Recursions in " << duration.count() << " µs" << std::endl;
     
     if( result)
     {
-        std::cout << "Found solution in " << duration.count() << " µs" << std::endl << std::endl << board << std::endl;
+        std::cout << "Found a solution "  << std::endl << std::endl << board << std::endl;
     }
     else
     {

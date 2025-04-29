@@ -21,7 +21,7 @@ auto BackTrackingSolver::solve(Traits::Board &board) const -> Traits::BoardResul
 {
     bool result = solver( board);
 
-    return { result, mRecursions};
+    return std::make_tuple( result, mRecursions);
 }
 
 //------------------------------------------------------------------------------

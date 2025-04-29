@@ -102,3 +102,23 @@ constexpr std::array<T, N> RangeArray(T start = 0, T step = 1)
 {
     return RangeArrayImpl<N, T>( start, step, std::make_index_sequence<N>{});
 }
+
+//------------------------------------------------------------------------------
+//
+// A "decorator" that measures the execution time for the given function call
+//
+// Usage:
+// auto [result, duration] = timedCall( [&] {return board.solve( solver); });
+//
+template <typename Func, typename... Args>
+auto timedCall(Func&& func, Args&&... args)
+{
+    auto start = std::chrono::high_resolution_clock::now();
+
+    auto result = std::invoke( std::forward<Func>( func), std::forward<Args>( args)...);
+
+    auto end      = std::chrono::high_resolution_clock::now();
+    auto duration = duration_cast<std::chrono::microseconds>(end - start);
+
+    return std::make_tuple( std::move( result), duration);
+}
