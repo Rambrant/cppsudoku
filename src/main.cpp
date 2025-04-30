@@ -9,6 +9,7 @@
 
 #include "SudokuBoard.hpp"
 #include "BackTrackingSolver.hpp"
+#include "ConstraintPropagationSolver.h"
 #include "SudokuStaticReader.hpp"
 #include "SudokuFileReader.hpp"
 #include "SudokuUtil.hpp"
@@ -35,7 +36,7 @@ int main()
 //    auto solver = BackTrackingSolver{};
     
     auto reader = SudokuFileReader{ std::string( "board.txt")};
-    auto solver = BackTrackingSolver{};
+    auto solver = ConstraintPropagationSolver{};
 
     SudokuBoard  board{ reader};
     

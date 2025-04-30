@@ -9,9 +9,7 @@
 #include <sstream>
 #include <string>
 #include <iterator>
-#include <type_traits>
 #include <utility>
-
 
 //
 // Joins the elements in an Iterable adding the given delimiter between them.
@@ -29,7 +27,7 @@ std::string join( const Iterable& iterable, const DelimT& delimiter)
     auto end = std::end( iterable);
     
     //
-    // Add the first element if the given Iterable is non empty
+    // Add the first element if the given Iterable is non-empty
     //
     if( it != end)
     {
@@ -53,7 +51,7 @@ std::string join( const Iterable& iterable, const DelimT& delimiter)
 // Creates a view into the given container using a range iterator
 //
 // Usage:
-// for (auto x : subrangeView( aVector, 2, 5)) { std::cout << x << " "; }
+// for (auto x: subrangeView( aVector, 2, 5)) { std::cout << x << " "; }
 //
 template <typename Iterator>
 struct IteratorRange {
@@ -118,7 +116,7 @@ auto timedCall(Func&& func, Args&&... args)
     auto result = std::invoke( std::forward<Func>( func), std::forward<Args>( args)...);
 
     auto end      = std::chrono::high_resolution_clock::now();
-    auto duration = duration_cast<std::chrono::microseconds>(end - start);
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
     return std::make_tuple( std::move( result), duration);
 }

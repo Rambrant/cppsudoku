@@ -11,12 +11,6 @@
 
 //------------------------------------------------------------------------------
 //
-BackTrackingSolver::BackTrackingSolver() :
-    mRecursions{}
-{ }
-
-//------------------------------------------------------------------------------
-//
 auto BackTrackingSolver::solve(Traits::Board &board) const -> Traits::BoardResult
 {
     bool result = solver( board);
