@@ -59,9 +59,15 @@ ConstraintPropagationSolver::ConstraintPropagationSolver()
 
 auto ConstraintPropagationSolver::solve( Traits::Board &board) const -> Traits::BoardResult
 {
-    ValueMap values{ parseGrid( board)};
+    ValueMap originalValues{ parseGrid( board)};
+    ValueMap resultingValues{ search( originalValues)};
 
-    bool result = search( values);
+    bool result = ! resultingValues.empty();
+
+    for( const auto& [key, values] : resultingValues)
+    {
+        board[key.first][key.second] = values[0];
+    }
 
     return std::make_tuple( result, mRecursions);
 }
@@ -69,7 +75,41 @@ auto ConstraintPropagationSolver::solve( Traits::Board &board) const -> Traits::
 
 auto ConstraintPropagationSolver::search( ValueMap valuesMap) const -> ValueMap
 {
-    return true;
+    if( valuesMap.empty()) return {};
+
+    mRecursions++;
+
+    bool solved = std::all_of( mCellKeys.begin(), mCellKeys.end(), [&](CellKey key) {
+        return valuesMap[key].size() == 1;
+    });
+
+    if( solved)
+        return valuesMap;
+
+    auto const key = *min_element( mCellKeys.begin(), mCellKeys.end(), [&]( const CellKey& lKey, const CellKey& rKey) {
+        auto aSize = valuesMap[lKey].size();
+        auto bSize = valuesMap[rKey].size();
+
+        if (aSize == 1) aSize = std::numeric_limits<size_t>::max();
+        if (bSize == 1) bSize = std::numeric_limits<size_t>::max();
+
+        return aSize < bSize;
+    });
+
+    for( const int value : valuesMap[key])
+    {
+        ValueMap valueClone = valuesMap;
+
+        if( assign( valueClone, key, value))
+        {
+            auto result = search( valueClone);
+
+            if( ! result.empty())
+                return result;
+        }
+    }
+
+    return {};
 }
 
 auto ConstraintPropagationSolver::parseGrid( const Traits::Board & board) const -> ValueMap
