@@ -7,15 +7,22 @@
 
 #include "SudokuTraits.hpp"
 
-//------------------------------------------------------------------------------
-//
+/**
+ * @brief A reader interface for classes that can read a Sudoku board from some sort of source.
+ */
 class ISudokuReader
 {
-    using Traits = SudokuTraits;
-
     public:
-    
-       virtual Traits::Board read() const = 0;
-       
-       virtual ~ISudokuReader() = default;
+
+        /// @brief Alias to shorten access to @ref SudokuTraits.
+        using Traits = SudokuTraits;
+
+        /**
+         * @brief A method that reads a Sudoku board from a source.
+         * @return An initialized @ref SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
+         */
+        [[nodiscard]]
+        virtual Traits::Board read() const = 0;
+
+        virtual ~ISudokuReader() = default;
 };

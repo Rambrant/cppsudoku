@@ -7,8 +7,6 @@
 #include <fstream>
 #include "SudokuFileReader.hpp"
 
-//------------------------------------------------------------------------------
-//
 SudokuFileReader::SudokuFileReader( const std::string& fileName) :
     mInitBoard()
 {

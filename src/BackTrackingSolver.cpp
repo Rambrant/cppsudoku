@@ -9,17 +9,13 @@
 #include <algorithm>
 #include "BackTrackingSolver.hpp"
 
-//------------------------------------------------------------------------------
-//
-auto BackTrackingSolver::solve(Traits::Board &board) const -> Traits::BoardResult
+auto BackTrackingSolver::solve( Traits::Board &board) const -> Traits::BoardResult
 {
     bool result = solver( board);
 
     return std::make_tuple( result, mRecursions);
 }
 
-//------------------------------------------------------------------------------
-//
 bool BackTrackingSolver::solver( Traits::Board &board) const // NOLINT(misc-no-recursion)
 {
     ++mRecursions;
@@ -47,8 +43,6 @@ bool BackTrackingSolver::solver( Traits::Board &board) const // NOLINT(misc-no-r
     return true;
 }
 
-//------------------------------------------------------------------------------
-//
 bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, int columnPos) const
 {
     bool result = rowConstraint( board, value, rowPos)                  &&
@@ -57,26 +51,28 @@ bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, i
                   
     if( result)
     {
+        //
+        // Valid guess, set the value
+        //
         board[rowPos][columnPos] = value;
     }
     else
     {
+        //
+        // non-valid guess, back of
+        //
         board[rowPos][columnPos] = Traits::NO_VALUE;
     }
     
     return result;
 }
 
-//------------------------------------------------------------------------------
-//
-bool BackTrackingSolver::rowConstraint( const Traits::Board& board, int value, int rowPos) const
+bool BackTrackingSolver::rowConstraint( const Traits::Board& board, int value, int rowPos)
 {
     return check( value, board[ rowPos]);
 }
 
-//------------------------------------------------------------------------------
-//
-bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value, int columnPos) const
+bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value, int columnPos)
 {
     Traits::BoardArray columnValues;
     
@@ -86,9 +82,7 @@ bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value
     return check( value, columnValues);
 }
         
-//------------------------------------------------------------------------------
-//
-bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos) const
+bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos)
 {
     //
     // Calculate the board coordinates for the top left corner of the section
@@ -119,9 +113,7 @@ bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int valu
     return check( value, sectionValues);
 }
 
-//------------------------------------------------------------------------------
-//
-bool BackTrackingSolver::check( int value, const std::array<int, Traits::BOARD_SIZE>& arr) const
+bool BackTrackingSolver::check( int value, const std::array<int, Traits::BOARD_SIZE>& arr)
 {
     //
     // Returns true if none of the elements in the array matches the given value

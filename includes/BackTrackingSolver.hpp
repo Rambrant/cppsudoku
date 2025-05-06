@@ -6,19 +6,22 @@
 #pragma once
 
 #include <iostream>
-#include <array>
 
 #include "ISudokuSolver.hpp"
-#include "SudokuTraits.hpp"
 
-//------------------------------------------------------------------------------
-//
+/**
+ * @brief A Sudoku solver that uses a simple brute force backtracking algorithm
+ */
 class BackTrackingSolver : public ISudokuSolver
 {
     public:
     
-        using Traits = SudokuTraits;
-
+        /**
+         * @brief Solves the given Sudoku board using a brute force backtracking algorithm.
+         * @param board A @ref SudokuTraits.Board.
+         * @return A @ref SudokuTraits.BoardResult.
+         */
+        [[nodiscard]]
         auto solve( Traits::Board& board) const -> Traits::BoardResult override;
     
     private:
@@ -28,9 +31,9 @@ class BackTrackingSolver : public ISudokuSolver
         bool solver( Traits::Board& board) const;
         bool isValid( Traits::Board& board, int value, int rowPos, int columnPos) const;
         
-        bool rowConstraint( const Traits::Board& board, int value, int rowPos) const;
-        bool columnConstraint( const Traits::Board& board, int value, int columnPos) const;
-        bool sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos) const;
+        static bool rowConstraint( const Traits::Board& board, int value, int rowPos) ;
+        static bool columnConstraint( const Traits::Board& board, int value, int columnPos) ;
+        static bool sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos) ;
         
-        bool check( int value, const Traits::BoardArray& arr) const;
+        static bool check( int value, const Traits::BoardArray& arr) ;
 };

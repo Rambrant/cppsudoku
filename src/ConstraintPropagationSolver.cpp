@@ -2,9 +2,7 @@
 // Created by Thomas Rambrant on 2025-04-29.
 //
 #include <numeric>
-
 #include "ConstraintPropagationSolver.h"
-
 
 ConstraintPropagationSolver::ConstraintPropagationSolver()
 {
@@ -26,7 +24,7 @@ ConstraintPropagationSolver::ConstraintPropagationSolver()
     {
         auto [rowIdx, colIdx] = key;
 
-        CellList rowUnit, colUnit, boxUnit;
+        CellList rowUnit, colUnit, boxUnit;     // The list of units for every cell
 
         for ( auto c : Traits::INDEX_RANGE)
         {
@@ -52,8 +50,8 @@ ConstraintPropagationSolver::ConstraintPropagationSolver()
             }
         }
 
-        mUnits[key] = { rowUnit, colUnit, boxUnit};
-        mPeers[key].erase( key);    // Remove the key from the peers
+        mUnits[key] = { rowUnit, colUnit, boxUnit};     // Add the units for the current cell
+        mPeers[key].erase( key);                        // Remove the key from the peers
     }
 }
 
@@ -64,6 +62,9 @@ auto ConstraintPropagationSolver::solve( Traits::Board &board) const -> Traits::
 
     bool result = ! resultingValues.empty();
 
+    //
+    // Set the values in the board according the found values
+    //
     for( const auto& [key, values] : resultingValues)
     {
         board[key.first][key.second] = values[0];
@@ -79,6 +80,9 @@ auto ConstraintPropagationSolver::search( ValueMap valuesMap) const -> ValueMap
 
     mRecursions++;
 
+    //
+    // Check if we have a solution. The board is solved if all calls has only one value
+    //
     bool solved = std::all_of( mCellKeys.begin(), mCellKeys.end(), [&](CellKey key) {
         return valuesMap[key].size() == 1;
     });
@@ -86,6 +90,9 @@ auto ConstraintPropagationSolver::search( ValueMap valuesMap) const -> ValueMap
     if( solved)
         return valuesMap;
 
+    //
+    // Find the cell with the least number of possible values (not taking the already solved ones into account)
+    //
     auto const key = *min_element( mCellKeys.begin(), mCellKeys.end(), [&]( const CellKey& lKey, const CellKey& rKey) {
         auto aSize = valuesMap[lKey].size();
         auto bSize = valuesMap[rKey].size();
@@ -96,6 +103,9 @@ auto ConstraintPropagationSolver::search( ValueMap valuesMap) const -> ValueMap
         return aSize < bSize;
     });
 
+    //
+    // Try all possible values for the cell, and keep going recursively
+    //
     for( const int value : valuesMap[key])
     {
         ValueMap valueClone = valuesMap;
@@ -116,12 +126,18 @@ auto ConstraintPropagationSolver::parseGrid( const Traits::Board & board) const 
 {
     ValueMap values;
 
+    //
+    // Initialize all cells with all possible values
+    //
     for( auto key : mCellKeys)
     {
         auto& vec = values[key];
         vec.insert( vec.end(), Traits::VALUE_RANGE.begin(), Traits::VALUE_RANGE.end());
     }
 
+    //
+    // For every cell that has an initial value, assign it
+    //
     for( auto [ rowIdx, colIdx ] : mCellKeys)
     {
         auto value = board[ rowIdx][ colIdx];
@@ -165,15 +181,25 @@ auto ConstraintPropagationSolver::assign( ValueMap& valuesMap, const CellKey& ke
 
 auto ConstraintPropagationSolver::eliminate( ValueMap& valuesMap, const CellKey& key, const int value) const -> bool
 {
-    auto& valList = valuesMap[key];
+    auto& valList = valuesMap[key];     // The possible values for the given key
 
+    //
+    // Is the value already eliminated? Then signal success and return early
+    //
     if( find( valList.begin(), valList.end(), value) == valList.end())
         return true;
 
+    //
+    // Remove the value. If the list becomes empty, something is wrong... return early and signal failure
+    //
     valList.erase( remove( valList.begin(), valList.end(), value), valList.end());
 
-    if( valList.empty()) return false;
+    if( valList.empty())
+        return false;
 
+    //
+    // If there is only one value left, we found a potential solution. Remove that value from all of its peers
+    //
     if( valList.size() == 1)
     {
         int lastValue = valList[0];
@@ -185,19 +211,28 @@ auto ConstraintPropagationSolver::eliminate( ValueMap& valuesMap, const CellKey&
         }
     }
 
+    //
+    // We loop over all units, row, column and box (subsection) to check if the value can only go into one place
+    //
     for( const auto& unit : mUnits.at(key))
     {
         std::vector<CellKey> places;
 
-        for( const auto& s : unit)
+        for( const auto& k : unit)
         {
-            if( std::find( valuesMap[s].begin(), valuesMap[s].end(), value) != valuesMap[s].end())
-                places.push_back(s);
+            if( std::find( valuesMap[k].begin(), valuesMap[k].end(), value) != valuesMap[k].end())
+                places.push_back(k);
         }
 
+        //
+        // The value wasn't found anywhere among the units. This is a contradiction, bail out
+        //
         if( places.empty())
             return false;
 
+        //
+        // Only one place where the value can go, assign it there
+        //
         if( places.size() == 1)
         {
             if( ! assign( valuesMap, places[0], value))

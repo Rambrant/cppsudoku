@@ -10,24 +10,16 @@
 #include "ISudokuSolver.hpp"
 #include "SudokuUtil.hpp"
 
-//------------------------------------------------------------------------------
-//
 SudokuBoard::SudokuBoard( const ISudokuReader& reader):
     mBoard( reader.read())
 {
 }
 
-//------------------------------------------------------------------------------
-//
 auto SudokuBoard::solve( const ISudokuSolver& solver) -> Traits::BoardResult
 {
     return solver.solve( mBoard);
 }
 
-//------------------------------------------------------------------------------
-//
-// Friend functions
-//
 std::ostream& operator<<( std::ostream& os, const SudokuBoard& board)
 {
     using Traits = SudokuTraits;
@@ -36,7 +28,7 @@ std::ostream& operator<<( std::ostream& os, const SudokuBoard& board)
     {
         if( rowIdx > 0 && rowIdx % Traits::SUBSECTION_SIZE == 0)
         {
-            os << std::endl; // extra newline between subsections rows
+            os << std::endl; // extra newline between subsection rows
         }
         
         for( auto colIdx : Traits::INDEX_RANGE)

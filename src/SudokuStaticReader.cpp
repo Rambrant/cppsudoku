@@ -7,16 +7,11 @@
 
 #include "SudokuStaticReader.hpp"
 
-
-//------------------------------------------------------------------------------
-//
 SudokuStaticReader::SudokuStaticReader( const Traits::Board& board) :
     mInitBoard( std::move(board))
 {
 }
         
-//------------------------------------------------------------------------------
-//
 SudokuStaticReader::Traits::Board SudokuStaticReader::read() const
 {
     return mInitBoard;

@@ -21,8 +21,7 @@ file(GLOB_RECURSE SOURCES
 )
 
 # Create the executable
-add_executable(sudoku_solver ${SOURCES}
-        Doxyfile)
+add_executable(sudoku_solver ${SOURCES} )
 
 # Optionally: Organize source files in IDEs like Xcode/VS
 source_group(TREE ${PROJECT_SOURCE_DIR} FILES ${SOURCES})
@@ -32,3 +31,24 @@ install(TARGETS sudoku_solver DESTINATION bin)
 
 # Enable testing if you want to expand later
 enable_testing()
+
+#Doxygen support
+find_package(Doxygen REQUIRED)
+
+# Optionally add a CMake option to toggle doc generation
+option(BUILD_DOC "Build documentation with Doxygen" ON)
+
+if(BUILD_DOC)
+    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+
+    file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/docs)
+
+    add_custom_target(doc
+            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            COMMENT "Generating API documentation with Doxygen"
+            VERBATIM)
+endif()
