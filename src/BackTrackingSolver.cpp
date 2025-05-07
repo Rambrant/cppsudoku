@@ -43,11 +43,11 @@ bool BackTrackingSolver::solver( Traits::Board &board) const // NOLINT(misc-no-r
     return true;
 }
 
-bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, int columnPos) const
+auto BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, int columnPos ) -> bool
 {
     bool result = rowConstraint( board, value, rowPos)                  &&
                   columnConstraint( board, value, columnPos)            &&
-                  sectionConstraint( board, value, rowPos, columnPos);
+                  boxConstraint( board, value, rowPos, columnPos);
                   
     if( result)
     {
@@ -67,12 +67,12 @@ bool BackTrackingSolver::isValid( Traits::Board& board, int value, int rowPos, i
     return result;
 }
 
-bool BackTrackingSolver::rowConstraint( const Traits::Board& board, int value, int rowPos)
+auto BackTrackingSolver::rowConstraint( const Traits::Board & board, int value, int rowPos ) -> bool
 {
     return check( value, board[ rowPos]);
 }
 
-bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value, int columnPos)
+auto BackTrackingSolver::columnConstraint( const Traits::Board & board, int value, int columnPos ) -> bool
 {
     Traits::BoardArray columnValues;
     
@@ -82,43 +82,43 @@ bool BackTrackingSolver::columnConstraint( const Traits::Board& board, int value
     return check( value, columnValues);
 }
         
-bool BackTrackingSolver::sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos)
+auto BackTrackingSolver::boxConstraint( const Traits::Board & board, int value, int rowPos, int columnPos ) -> bool
 {
     //
-    // Calculate the board coordinates for the top left corner of the section
+    // Calculate the board coordinates for the top left corner of the box
     //
-    int startRow = (rowPos / Traits::SUBSECTION_SIZE) * Traits::SUBSECTION_SIZE;
-    int endRow   = startRow + Traits::SUBSECTION_SIZE;
+    int startRow = (rowPos / Traits::BOX_SIZE) * Traits::BOX_SIZE;
+    int endRow   = startRow + Traits::BOX_SIZE;
     
-    int startCol = (columnPos / Traits::SUBSECTION_SIZE) * Traits::SUBSECTION_SIZE;
-    int endCol   = startCol + Traits::SUBSECTION_SIZE;
+    int startCol = (columnPos / Traits::BOX_SIZE) * Traits::BOX_SIZE;
+    int endCol   = startCol + Traits::BOX_SIZE;
 
     //
-    // Loop over the section and collect the values
+    // Loop over the box squares and collect the values
     //
-    Traits::BoardArray sectionValues;
+    Traits::BoardArray boxValues;
     
-    auto secIter = sectionValues.begin();
+    auto boxIter = boxValues.begin();
     
     for( const auto& row : subrangeView( board, startRow, endRow))
     {
         for( int cell : subrangeView( row, startCol, endCol))
         {
-            *secIter = cell;
+            *boxIter = cell;
             
-            secIter++;
+            boxIter++;
         }
     }
     
-    return check( value, sectionValues);
+    return check( value, boxValues);
 }
 
-bool BackTrackingSolver::check( int value, const std::array<int, Traits::BOARD_SIZE>& arr)
+auto BackTrackingSolver::check( int value, const Traits::BoardArray & unitValues ) -> bool
 {
     //
     // Returns true if none of the elements in the array matches the given value
     //
-    return std::all_of( arr.begin(), arr.end(),
+    return std::all_of( unitValues.begin(), unitValues.end(),
         [value](int element) { return element != value; }
     );
 }

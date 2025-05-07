@@ -26,16 +26,16 @@ std::ostream& operator<<( std::ostream& os, const SudokuBoard& board)
 
     for( auto rowIdx : Traits::INDEX_RANGE)
     {
-        if( rowIdx > 0 && rowIdx % Traits::SUBSECTION_SIZE == 0)
+        if( rowIdx > 0 && rowIdx % Traits::BOX_SIZE == 0)
         {
-            os << std::endl; // extra newline between subsection rows
+            os << std::endl; // extra newline between box rows
         }
         
         for( auto colIdx : Traits::INDEX_RANGE)
         {
-            if( colIdx > 0 && colIdx % Traits::SUBSECTION_SIZE == 0)
+            if( colIdx > 0 && colIdx % Traits::BOX_SIZE == 0)
             {
-                os << " "; // extra spacing between subsection columns
+                os << " "; // extra spacing between box columns
             }
 
             os << board.mBoard[rowIdx][colIdx] << " ";

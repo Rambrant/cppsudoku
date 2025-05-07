@@ -6,7 +6,6 @@
 #include <map>
 #include <set>
 #include <utility>
-#include <optional>
 
 #include "ISudokuSolver.hpp"
 
@@ -16,21 +15,6 @@
 class ConstraintPropagationSolver : public ISudokuSolver
 {
     public:
-
-        /// @brief The coordinates to a cell (square) on the Sudoku board.
-        using CellKey  = std::pair< int, int>;
-
-        /// @brief A list of unique coordinates
-        using CellList = std::set< CellKey>;
-
-        /// @brief A Map for all possible values in a cell with a @ref CellKey as key
-        using ValueMap = std::map< CellKey, std::vector<int>>;
-
-        /// @brief A Map of @ref CellKey's containing all possible units for a cell, (All cells in  the same row, column and subsection).
-        using UnitMap  = std::map< CellKey, std::vector<CellList>>;
-
-        /// @brief A Map of @ref CellKey's containing all peers for a cell, (UnitMap flattened and without the actual cell).
-        using PeerMap  = std::map< CellKey, CellList>;
 
         ConstraintPropagationSolver();
         ~ConstraintPropagationSolver() override = default;
@@ -45,14 +29,20 @@ class ConstraintPropagationSolver : public ISudokuSolver
 
     private:
 
+        using Square       = std::pair< int, int>;                      // Coordinate of a single square on the Sudoku board.
+        using Squares      = std::set< Square>;                         // A set of unique square positions.
+        using SquareValues = std::map< Square, std::vector<int>>;       // Map from each square to its current list of possible values.
+        using Units        = std::map< Square, std::vector<Squares>>;   // Map from each square to its associated units (row, column, box).
+        using Peers        = std::map< Square, Squares>;                // Map from each square to its peers (other squares in its units, excluding itself).
+
         mutable std::size_t mRecursions{};
 
-        CellList mCellKeys{}; // All coordinates of the board cells
-        UnitMap  mUnits{};    // A list of all units, the cells in the row, column and subsection the cell belongs to
-        PeerMap  mPeers{};    // All the peers to the cell. mUnits flattened and without the actual cell
+        Squares mSquares{};  // All squares on the board
+        Units   mUnits{};    // Units (row, column, section) each square belongs to.
+        Peers   mPeers{};    // Peers of each square (flattened units minus the square).
 
-        auto parseGrid( const Traits::Board& board) const -> ValueMap;
-        auto assign( ValueMap& valuesMap, const CellKey& key, int value) const -> bool;
-        auto eliminate( ValueMap& valuesMap, const CellKey& key, int value) const -> bool;
-        auto search( ValueMap valuesMap) const -> ValueMap;
+        auto parseGrid( const Traits::Board& board) const -> SquareValues;
+        auto assign( SquareValues& allValues, const Square& square, int value) const -> bool;
+        auto eliminate( SquareValues& allValues, const Square& square, int value) const -> bool;
+        auto search( SquareValues allValues) const -> SquareValues;
 };

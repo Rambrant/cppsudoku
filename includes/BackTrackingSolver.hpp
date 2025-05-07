@@ -29,11 +29,12 @@ class BackTrackingSolver : public ISudokuSolver
         mutable std::size_t mRecursions{ 0};
 
         bool solver( Traits::Board& board) const;
-        bool isValid( Traits::Board& board, int value, int rowPos, int columnPos) const;
+
+        static auto isValid( Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
+
+        static auto rowConstraint( const Traits::Board & board, int value, int rowPos ) -> bool;
+        static auto columnConstraint( const Traits::Board & board, int value, int columnPos ) -> bool;
+        static auto boxConstraint( const Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
         
-        static bool rowConstraint( const Traits::Board& board, int value, int rowPos) ;
-        static bool columnConstraint( const Traits::Board& board, int value, int columnPos) ;
-        static bool sectionConstraint( const Traits::Board& board, int value, int rowPos, int columnPos) ;
-        
-        static bool check( int value, const Traits::BoardArray& arr) ;
+        static auto check( int value, const Traits::BoardArray & unitValues ) -> bool;
 };

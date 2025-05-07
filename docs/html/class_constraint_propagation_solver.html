@@ -104,7 +104,6 @@ $(function(){initNavTree('class_constraint_propagation_solver.html',''); initRes
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_constraint_propagation_solver-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ConstraintPropagationSolver Class Reference</div></div>
@@ -125,39 +124,19 @@ Inheritance diagram for ConstraintPropagationSolver:</div>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a2328ea3346890faaba433421ba5acec2" id="r_a2328ea3346890faaba433421ba5acec2"><td class="memItemLeft" align="right" valign="top"><a id="a2328ea3346890faaba433421ba5acec2" name="a2328ea3346890faaba433421ba5acec2"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>CellKey</b> = std::pair&lt; int, int&gt;</td></tr>
-<tr class="memdesc:a2328ea3346890faaba433421ba5acec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinates to a cell (square) on the Sudoku board. <br /></td></tr>
-<tr class="separator:a2328ea3346890faaba433421ba5acec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bdba414376b2c8b78560df4efd75864" id="r_a8bdba414376b2c8b78560df4efd75864"><td class="memItemLeft" align="right" valign="top"><a id="a8bdba414376b2c8b78560df4efd75864" name="a8bdba414376b2c8b78560df4efd75864"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>CellList</b> = std::set&lt; <a class="el" href="#a2328ea3346890faaba433421ba5acec2">CellKey</a>&gt;</td></tr>
-<tr class="memdesc:a8bdba414376b2c8b78560df4efd75864"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of unique coordinates. <br /></td></tr>
-<tr class="separator:a8bdba414376b2c8b78560df4efd75864"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fa9afeca35cc5a4e63ac1541235adbf" id="r_a0fa9afeca35cc5a4e63ac1541235adbf"><td class="memItemLeft" align="right" valign="top"><a id="a0fa9afeca35cc5a4e63ac1541235adbf" name="a0fa9afeca35cc5a4e63ac1541235adbf"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ValueMap</b> = std::map&lt; <a class="el" href="#a2328ea3346890faaba433421ba5acec2">CellKey</a>, std::vector&lt;int&gt;&gt;</td></tr>
-<tr class="memdesc:a0fa9afeca35cc5a4e63ac1541235adbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Map for all possible values in a cell with a <a class="el" href="#a2328ea3346890faaba433421ba5acec2">CellKey</a> as key. <br /></td></tr>
-<tr class="separator:a0fa9afeca35cc5a4e63ac1541235adbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16bdd230ba183a03737c7fbd5a701510" id="r_a16bdd230ba183a03737c7fbd5a701510"><td class="memItemLeft" align="right" valign="top"><a id="a16bdd230ba183a03737c7fbd5a701510" name="a16bdd230ba183a03737c7fbd5a701510"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>UnitMap</b> = std::map&lt; <a class="el" href="#a2328ea3346890faaba433421ba5acec2">CellKey</a>, std::vector&lt;<a class="el" href="#a8bdba414376b2c8b78560df4efd75864">CellList</a>&gt;&gt;</td></tr>
-<tr class="memdesc:a16bdd230ba183a03737c7fbd5a701510"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Map of <a class="el" href="#a2328ea3346890faaba433421ba5acec2">CellKey</a>'s containing all possible units for a cell, (All cells in the same row, column and subsection). <br /></td></tr>
-<tr class="separator:a16bdd230ba183a03737c7fbd5a701510"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec3dbcde914a3f6649334a31c906bad0" id="r_aec3dbcde914a3f6649334a31c906bad0"><td class="memItemLeft" align="right" valign="top"><a id="aec3dbcde914a3f6649334a31c906bad0" name="aec3dbcde914a3f6649334a31c906bad0"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>PeerMap</b> = std::map&lt; <a class="el" href="#a2328ea3346890faaba433421ba5acec2">CellKey</a>, <a class="el" href="#a8bdba414376b2c8b78560df4efd75864">CellList</a>&gt;</td></tr>
-<tr class="memdesc:aec3dbcde914a3f6649334a31c906bad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Map of <a class="el" href="#a2328ea3346890faaba433421ba5acec2">CellKey</a>'s containing all peers for a cell, (<a class="el" href="#a16bdd230ba183a03737c7fbd5a701510" title="A Map of CellKey&#39;s containing all possible units for a cell, (All cells in the same row,...">UnitMap</a> flattened and without the actual cell). <br /></td></tr>
-<tr class="separator:aec3dbcde914a3f6649334a31c906bad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_class_i_sudoku_solver"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_types_class_i_sudoku_solver')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_i_sudoku_solver.html">ISudokuSolver</a></td></tr>
-<tr class="memitem:aebe48f80770c84b4dc5edb45734b117b inherit pub_types_class_i_sudoku_solver" id="r_aebe48f80770c84b4dc5edb45734b117b"><td class="memItemLeft" align="right" valign="top">
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a class="el" href="struct_sudoku_traits.html">SudokuTraits</a></td></tr>
-<tr class="memdesc:aebe48f80770c84b4dc5edb45734b117b inherit pub_types_class_i_sudoku_solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias to shorten access to <a class="el" href="struct_sudoku_traits.html">SudokuTraits</a>. <br /></td></tr>
-<tr class="separator:aebe48f80770c84b4dc5edb45734b117b inherit pub_types_class_i_sudoku_solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a351c2112eb1f24ea49352590f00086" id="r_a2a351c2112eb1f24ea49352590f00086"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a351c2112eb1f24ea49352590f00086">solve</a> (<a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a> &amp;board) const -&gt; <a class="el" href="struct_sudoku_traits.html#a8ddc2d97568df299026cfc191399dd4d">Traits::BoardResult</a> override</td></tr>
 <tr class="memdesc:a2a351c2112eb1f24ea49352590f00086"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the given Sudoku board using a constraint propagation algorithm.  <br /></td></tr>
 <tr class="separator:a2a351c2112eb1f24ea49352590f00086"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_class_i_sudoku_solver"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_types_class_i_sudoku_solver')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_i_sudoku_solver.html">ISudokuSolver</a></td></tr>
+<tr class="memitem:aebe48f80770c84b4dc5edb45734b117b inherit pub_types_class_i_sudoku_solver" id="r_aebe48f80770c84b4dc5edb45734b117b"><td class="memItemLeft" align="right" valign="top">
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a class="el" href="struct_sudoku_traits.html">SudokuTraits</a></td></tr>
+<tr class="memdesc:aebe48f80770c84b4dc5edb45734b117b inherit pub_types_class_i_sudoku_solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias to shorten access to <a class="el" href="struct_sudoku_traits.html">SudokuTraits</a>. <br /></td></tr>
+<tr class="separator:aebe48f80770c84b4dc5edb45734b117b inherit pub_types_class_i_sudoku_solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvig,. </p>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['subsection_5fsize_0',['SUBSECTION_SIZE',['../struct_sudoku_traits.html#ab99d77c11edbc1e2ecc7b963dafa9fc9',1,'SudokuTraits']]]
+  ['value_5frange_0',['VALUE_RANGE',['../struct_sudoku_traits.html#a77d7d7bd5cb9dea265e096b9f1feca63',1,'SudokuTraits']]]
 ];

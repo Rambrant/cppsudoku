@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "bchijnoprstuv",
+  0: "bchijnorstv",
   1: "bcis",
   2: "jrst",
-  3: "binsv",
-  4: "bcptuv",
+  3: "binv",
+  4: "bt",
   5: "o",
   6: "ht"
 };
