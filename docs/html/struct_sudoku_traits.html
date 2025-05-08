@@ -141,6 +141,10 @@ static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>BOARD
 static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>BOX_SIZE</b> = 3</td></tr>
 <tr class="memdesc:a32391881278bdffcf03ec578152951d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of a box on the board. <br /></td></tr>
 <tr class="separator:a32391881278bdffcf03ec578152951d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a948b3806b4dcdb830278797c12189dec" id="r_a948b3806b4dcdb830278797c12189dec"><td class="memItemLeft" align="right" valign="top"><a id="a948b3806b4dcdb830278797c12189dec" name="a948b3806b4dcdb830278797c12189dec"></a>
+static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_VALUE</b> = <a class="el" href="#a952a9f33250df70dc9fc1bdc977b0142">BOARD_SIZE</a></td></tr>
+<tr class="memdesc:a948b3806b4dcdb830278797c12189dec"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum value for a square. <br /></td></tr>
+<tr class="separator:a948b3806b4dcdb830278797c12189dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a655e344dec392ec6dfb97a240b357cd3" id="r_a655e344dec392ec6dfb97a240b357cd3"><td class="memItemLeft" align="right" valign="top"><a id="a655e344dec392ec6dfb97a240b357cd3" name="a655e344dec392ec6dfb97a240b357cd3"></a>
 static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>NO_VALUE</b> = 0</td></tr>
 <tr class="memdesc:a655e344dec392ec6dfb97a240b357cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Denotes the presence of no values at all. <br /></td></tr>
@@ -150,8 +154,8 @@ static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>INDE
 <tr class="memdesc:a140da533e093b60b550866d6cea1ec08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range from 0 to the <a class="el" href="#a952a9f33250df70dc9fc1bdc977b0142">BOARD_SIZE</a>. <br /></td></tr>
 <tr class="separator:a140da533e093b60b550866d6cea1ec08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77d7d7bd5cb9dea265e096b9f1feca63" id="r_a77d7d7bd5cb9dea265e096b9f1feca63"><td class="memItemLeft" align="right" valign="top"><a id="a77d7d7bd5cb9dea265e096b9f1feca63" name="a77d7d7bd5cb9dea265e096b9f1feca63"></a>
-static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>VALUE_RANGE</b> = <a class="el" href="group___helpers.html#gac42e7511d9dcdd425577a1b13745919b">RangeArray</a>&lt;<a class="el" href="#a952a9f33250df70dc9fc1bdc977b0142">BOARD_SIZE</a>&gt;(1, 1)</td></tr>
-<tr class="memdesc:a77d7d7bd5cb9dea265e096b9f1feca63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range of possible values in each board cell, 1 to the BOARD_SIZE. <br /></td></tr>
+static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>VALUE_RANGE</b> = <a class="el" href="group___helpers.html#gac42e7511d9dcdd425577a1b13745919b">RangeArray</a>&lt;<a class="el" href="#a948b3806b4dcdb830278797c12189dec">MAX_VALUE</a>&gt;(1, 1)</td></tr>
+<tr class="memdesc:a77d7d7bd5cb9dea265e096b9f1feca63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range of possible values in each board cell, 1 to the MAX_VALUE. <br /></td></tr>
 <tr class="separator:a77d7d7bd5cb9dea265e096b9f1feca63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>

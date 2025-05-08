@@ -4,45 +4,50 @@
 //  Created by Thomas Rambrant on 2025-04-07.
 //
 
+#include <regex>
+
 #include "SudokuBoard.hpp"
+
+#include <tuple>
+#include <tuple>
+#include <utility>
 
 #include "ISudokuReader.hpp"
 #include "ISudokuSolver.hpp"
 #include "SudokuUtil.hpp"
 
-SudokuBoard::SudokuBoard( const ISudokuReader& reader):
-    mBoard( reader.read())
+
+SudokuBoard::SudokuBoard( const ISudokuReader& reader, const ISudokuWriter& writer, SolverList solvers) :
+    mBoard{},
+    mReader{ reader},
+    mWriter{ writer},
+    mSolvers{ std::move( solvers) }
+{}
+
+auto SudokuBoard::read() const -> void
 {
+    mBoard = mReader.read();
 }
 
-auto SudokuBoard::solve( const ISudokuSolver& solver) -> Traits::BoardResult
+auto SudokuBoard::write() const -> void
 {
-    return solver.solve( mBoard);
+    mWriter.write( mBoard);
 }
 
-std::ostream& operator<<( std::ostream& os, const SudokuBoard& board)
+auto SudokuBoard::solve() const -> Traits::BoardResult
 {
-    using Traits = SudokuTraits;
-
-    for( auto rowIdx : Traits::INDEX_RANGE)
+    for( auto solver : mSolvers)
     {
-        if( rowIdx > 0 && rowIdx % Traits::BOX_SIZE == 0)
-        {
-            os << std::endl; // extra newline between box rows
-        }
-        
-        for( auto colIdx : Traits::INDEX_RANGE)
-        {
-            if( colIdx > 0 && colIdx % Traits::BOX_SIZE == 0)
-            {
-                os << " "; // extra spacing between box columns
-            }
+        Traits::Board       board{ mBoard};
+        auto [ result, recursions] = solver.get().solve( board);
 
-            os << board.mBoard[rowIdx][colIdx] << " ";
+        if( result)
+        {
+            mBoard = board;
+
+            return { result, recursions };
         }
-        
-        os << std::endl;
     }
 
-    return os;
+    return { false, 0};
 }

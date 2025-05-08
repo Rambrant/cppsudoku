@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['operator_3c_3c_0',['operator&lt;&lt;',['../class_sudoku_board.html#a8781bb72b3b13e672074053ad82e215e',1,'SudokuBoard']]]
+  ['max_5fvalue_0',['MAX_VALUE',['../struct_sudoku_traits.html#a948b3806b4dcdb830278797c12189dec',1,'SudokuTraits']]],
+  ['mode_1',['Mode',['../class_file_stream.html#aaf05446ac5aba9a64a2d2d75be3a89f0',1,'FileStream']]]
 ];

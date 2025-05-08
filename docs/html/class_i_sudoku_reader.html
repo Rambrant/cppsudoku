@@ -121,8 +121,7 @@ Inheritance diagram for ISudokuReader:</div>
  <div class="center">
   <img src="class_i_sudoku_reader.png" usemap="#ISudokuReader_map" alt=""/>
   <map id="ISudokuReader_map" name="ISudokuReader_map">
-<area href="class_sudoku_file_reader.html" title="A board reader that reads a Sudoku board from a file." alt="SudokuFileReader" shape="rect" coords="0,56,126,80"/>
-<area href="class_sudoku_static_reader.html" title="A Sudoku board reader that &quot;reads&quot; from a statically initialized SudokuTraits.Board instance." alt="SudokuStaticReader" shape="rect" coords="136,56,262,80"/>
+<area href="class_sudoku_ascii_reader.html" title="A board reader that reads a Sudoku board from a file." alt="SudokuAsciiReader" shape="rect" coords="0,56,123,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -135,15 +134,15 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4730e898d49a4c78f6b77fb44bab32c3" id="r_a4730e898d49a4c78f6b77fb44bab32c3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4730e898d49a4c78f6b77fb44bab32c3">read</a> () const =0</td></tr>
-<tr class="memdesc:a4730e898d49a4c78f6b77fb44bab32c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that reads a Sudoku board from a source.  <br /></td></tr>
-<tr class="separator:a4730e898d49a4c78f6b77fb44bab32c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c140522da2eccbaa8d50f61636b797" id="r_ab5c140522da2eccbaa8d50f61636b797"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5c140522da2eccbaa8d50f61636b797">read</a> () const -&gt; <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a>=0</td></tr>
+<tr class="memdesc:ab5c140522da2eccbaa8d50f61636b797"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that reads a Sudoku board from a source.  <br /></td></tr>
+<tr class="separator:ab5c140522da2eccbaa8d50f61636b797"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A reader interface for classes that can read a Sudoku board from some sort of source. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4730e898d49a4c78f6b77fb44bab32c3" name="a4730e898d49a4c78f6b77fb44bab32c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4730e898d49a4c78f6b77fb44bab32c3">&#9670;&#160;</a></span>read()</h2>
+<a id="ab5c140522da2eccbaa8d50f61636b797" name="ab5c140522da2eccbaa8d50f61636b797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c140522da2eccbaa8d50f61636b797">&#9670;&#160;</a></span>read()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,10 +151,10 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a> ISudokuReader::read </td>
+          <td class="memname">virtual auto ISudokuReader::read </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
+          <td> const -&gt;  <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a></td>
         </tr>
       </table>
   </td>
@@ -168,7 +167,7 @@ Public Member Functions</h2></td></tr>
 <p>A method that reads a Sudoku board from a source. </p>
 <dl class="section return"><dt>Returns</dt><dd>An initialized <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">SudokuTraits::Board</a>. Usually a 9x9 grid with values 1-9 (zero representing no value). </dd></dl>
 
-<p>Implemented in <a class="el" href="class_sudoku_file_reader.html#aa4d4720f2b2160d4bcf53a6f0dab03ff">SudokuFileReader</a>, and <a class="el" href="class_sudoku_static_reader.html#ab4790359783caf95136c66aef4a26582">SudokuStaticReader</a>.</p>
+<p>Implemented in <a class="el" href="class_sudoku_ascii_reader.html#acc623d82bbdd12c99ed9dc513eeb898e">SudokuAsciiReader</a>.</p>
 
 </div>
 </div>

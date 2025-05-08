@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['solve_0',['solve',['../class_back_tracking_solver.html#a02a96f03527f45cc1230eacf929c7e6d',1,'BackTrackingSolver::solve()'],['../class_constraint_propagation_solver.html#a2a351c2112eb1f24ea49352590f00086',1,'ConstraintPropagationSolver::solve()'],['../class_i_sudoku_solver.html#a191c5246ad1ee8fa2a8320832c0e2259',1,'ISudokuSolver::solve()'],['../class_sudoku_board.html#a9d21dbbb047d5f22b5739ab3eea2914c',1,'SudokuBoard::solve()']]],
-  ['subrangeview_1',['subrangeView',['../group___helpers.html#ga2a50778af52e0e5d92dc7e6f657b435c',1,'SudokuUtil.hpp']]],
-  ['sudokuboard_2',['SudokuBoard',['../class_sudoku_board.html#a11f9f6b589bf91ba3f7a706dee5bdbc3',1,'SudokuBoard']]],
-  ['sudokufilereader_3',['SudokuFileReader',['../class_sudoku_file_reader.html#af6a1c2bc7892bef701806808de835cf3',1,'SudokuFileReader']]],
-  ['sudokustaticreader_4',['SudokuStaticReader',['../class_sudoku_static_reader.html#a21c1ffe7a933cfe9b3e3888e2d94d00a',1,'SudokuStaticReader']]]
+  ['rangearray_0',['RangeArray',['../group___helpers.html#gac42e7511d9dcdd425577a1b13745919b',1,'SudokuUtil.hpp']]],
+  ['read_1',['read',['../class_i_sudoku_reader.html#ab5c140522da2eccbaa8d50f61636b797',1,'ISudokuReader::read()'],['../class_sudoku_ascii_reader.html#acc623d82bbdd12c99ed9dc513eeb898e',1,'SudokuAsciiReader::read()'],['../class_sudoku_board.html#a99b2f48e17f7c5f524a22cb3308b83ba',1,'SudokuBoard::read()']]]
 ];

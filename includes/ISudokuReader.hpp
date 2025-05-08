@@ -22,7 +22,7 @@ class ISudokuReader
          * @return An initialized @ref SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
          */
         [[nodiscard]]
-        virtual Traits::Board read() const = 0;
+        virtual auto read() const -> Traits::Board = 0;
 
         virtual ~ISudokuReader() = default;
 };

@@ -7,9 +7,11 @@
 
 #include <iostream>
 
+#include "ISudokuWriter.hpp"
 #include "SudokuTraits.hpp"
 
 class ISudokuReader;
+class ISudokuWriter;
 class ISudokuSolver;
 
 /**
@@ -21,29 +23,38 @@ class SudokuBoard
     
         /// @brief Alias to shorten access to @ref SudokuTraits.
         using Traits = SudokuTraits;
-        
+
+        /// @brief A list of references to @ref ISudokuSolver references
+        using SolverList = std::vector<std::reference_wrapper<ISudokuSolver>>;
+
         /**
          * @brief Constructs the board and initializes the reader.
-         * @param reader An existing object of @ref ISudokuReader type.
+         * @param reader An @ref ISudokuReader. The reader must exist during the lifetime of the SudokuBoard
+         * @param writer A @ref ISudokuWriter. The writer must exist during the lifetime of the SudokuBoard
+         * @param solvers A list of @ref ISudokuSolver. The solvers must exist during the lifetime of the SudokuBoard
          */
-        explicit SudokuBoard( const ISudokuReader& reader);
-        
+        explicit SudokuBoard( const ISudokuReader& reader, const ISudokuWriter& writer, SolverList solvers);
+
         /**
-         * @brief Solves the Sudoku board
-         * @param solver An existing object of @ref ISudokuSolver type.
+         * @brief Reads the board from the @ref ISudokuReader given in the constructor
+         */
+        auto read() const -> void;
+
+        /**
+         * @brief Writes the board using the @ref ISudokuWriter given in the constructor
+         */
+        auto write() const -> void;
+
+        /**
+         * @brief Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order
          * @return A SudokuTraits.BoardResult
          */
-        auto solve( const ISudokuSolver& solver) -> Traits::BoardResult;
-            
-        /**
-         * @brief Prints a formatted board to an output stream
-         * @param os An output stream.
-         * @param board A SudokuBoard.
-         * @return A SudokuTraits.BoardResult
-         */
-        friend std::ostream& operator<<(std::ostream& os, const SudokuBoard& board);
-    
+        auto solve() const -> Traits::BoardResult;
+
     private:
     
-        Traits::Board mBoard;
+        mutable Traits::Board  mBoard;
+        const   ISudokuReader& mReader;
+        const   ISudokuWriter& mWriter;
+        const   SolverList     mSolvers;
 };

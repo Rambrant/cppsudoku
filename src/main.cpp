@@ -6,62 +6,54 @@
 
 #include <iostream>
 #include <chrono>
+#include <fstream>
 
 #include "SudokuBoard.hpp"
 #include "BackTrackingSolver.hpp"
 #include "ConstraintPropagationSolver.h"
-#include "SudokuStaticReader.hpp"
-#include "SudokuFileReader.hpp"
+#include "FileStream.hpp"
+#include "SudokuAsciiReader.hpp"
+#include "SudokuPrettyWriter.hpp"
 #include "SudokuUtil.hpp"
-
-constexpr SudokuBoard::Traits::Board staticBoard {{
-        {{ 8,0,0,  0,0,0, 0,0,0 }},
-        {{ 0,0,3,  6,0,0, 0,0,0 }},
-        {{ 0,7,0,  0,9,0, 2,0,0 }},
-
-        {{ 0,5,0,  0,0,7, 0,0,0 }},
-        {{ 0,0,0,  0,4,5, 7,0,0 }},
-        {{ 0,0,0,  1,0,0, 0,3,0 }},
-
-        {{ 0,0,1,  0,0,0, 0,6,8 }},
-        {{ 0,0,8,  5,0,0, 0,1,0 }},
-        {{ 0,9,0,  0,0,0, 4,0,0 }},
-    }};
 
 int main()
 {
-//    auto reader = SudokuStaticReader{ staticBoard};
-//    auto solver = BackTrackingSolver{};
-    
-    auto reader = SudokuFileReader{ std::string( "board.txt")};
-    auto solver = ConstraintPropagationSolver{};
+    auto input  = FileStream{ "board_hard.txt"};
+    auto reader = SudokuAsciiReader{ input};
+    auto writer = SudokuPrettyWriter( std::cout);
 
-    SudokuBoard  board{ reader};
-    
+    auto backtrackSolver  = BackTrackingSolver{};
+    auto constraintSolver = ConstraintPropagationSolver{};
+
+    SudokuBoard  board{ reader, writer, { backtrackSolver, constraintSolver}};
+
     //
     // Print the original board
     //
-    std::cout << board << std::endl;
-    
-    //
-    // Solve the given board. Measure the time it takes to solve it
-    //
-    auto  [stats, duration]     = timedCall([&] { return board.solve( solver); });
+    board.read();
+    board.write();
+
+    std::cout << std::endl;
+
+    auto  [stats, duration] = timedCall([&] { return board.solve(); });
+
     auto& [ result, recursions] = stats;
 
     //
     // Present the result
     //
     std::cout << "Made " << recursions << " Recursions in " << duration.count() << " µs" << std::endl;
-    
+
     if( result)
     {
-        std::cout << "Found a solution "  << std::endl << std::endl << board << std::endl;
+        std::cout << "Found a solution "  << std::endl;
+
+        board.write();
     }
     else
     {
         std::cout << std::endl << "No solution found!" << std::endl;
     }
-    
+
     return 0;
 }

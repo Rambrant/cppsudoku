@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['sudokuboard_0',['SudokuBoard',['../class_sudoku_board.html',1,'']]],
-  ['sudokufilereader_1',['SudokuFileReader',['../class_sudoku_file_reader.html',1,'']]],
-  ['sudokustaticreader_2',['SudokuStaticReader',['../class_sudoku_static_reader.html',1,'']]],
-  ['sudokutraits_3',['SudokuTraits',['../struct_sudoku_traits.html',1,'']]]
+  ['isudokureader_0',['ISudokuReader',['../class_i_sudoku_reader.html',1,'']]],
+  ['isudokusolver_1',['ISudokuSolver',['../class_i_sudoku_solver.html',1,'']]],
+  ['isudokuwriter_2',['ISudokuWriter',['../class_i_sudoku_writer.html',1,'']]]
 ];

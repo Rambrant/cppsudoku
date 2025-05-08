@@ -10,24 +10,24 @@
 /**
  * @brief A board reader that reads a Sudoku board from a file.
  */
-class SudokuFileReader : public ISudokuReader
+class SudokuAsciiReader final : public ISudokuReader
 {
     public:
         
         /**
          * @brief Constructs the class and reads the board.
-         * @param fileName The name of an existing file containing a Sudoku board.
+         * @param is The existing in stream.
          */
-        explicit SudokuFileReader( const std::string& fileName);
+        explicit SudokuAsciiReader( std::istream& is);
         
         /**
          * @brief Reads the Sudoku board
          * @return The @ref SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
          */
         [[nodiscard]]
-        Traits::Board read() const override;
+        auto read() const -> Traits::Board override;
 
     private:
     
-        mutable Traits::Board mInitBoard;
+        std::istream& mStream;
 };

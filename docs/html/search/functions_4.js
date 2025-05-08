@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['join_0',['join',['../_sudoku_util_8hpp.html#a1b35e595296f067f6fd202cd769c388d',1,'SudokuUtil.hpp']]]
+  ['timedcall_0',['timedCall',['../group___helpers.html#gad9a06a755ffbcebe52c55fbf962e6ece',1,'SudokuUtil.hpp']]]
 ];

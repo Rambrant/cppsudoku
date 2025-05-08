@@ -21,14 +21,17 @@ struct SudokuTraits
         /// @brief Size of a box on the board
         static constexpr int  BOX_SIZE    = 3;
 
+        /// @brief The maximum value for a square
+        static constexpr int  MAX_VALUE   = BOARD_SIZE;
+
         /// @brief Denotes the presence of no values at all
         static constexpr int  NO_VALUE    = 0;
 
         /// @brief Range from 0 to the @ref BOARD_SIZE
         static constexpr auto INDEX_RANGE = RangeArray<BOARD_SIZE>(0, 1);
 
-        /// @brief Range of possible values in each board cell, 1 to the BOARD_SIZE
-        static constexpr auto VALUE_RANGE = RangeArray<BOARD_SIZE>(1, 1);
+        /// @brief Range of possible values in each board cell, 1 to the MAX_VALUE
+        static constexpr auto VALUE_RANGE = RangeArray<MAX_VALUE>(1, 1);
 
         /// @brief Result from a solver. Success or not and the number of recursions
         using BoardResult                 = std::tuple< bool, std::size_t>;
