@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['rangearray_0',['RangeArray',['../_sudoku_util_8hpp.html#ac42e7511d9dcdd425577a1b13745919b',1,'SudokuUtil.hpp']]],
-  ['rangearrayimpl_1',['RangeArrayImpl',['../_sudoku_util_8hpp.html#a6f8666c39f93debb771bb2b19ed99c10',1,'SudokuUtil.hpp']]],
-  ['read_2',['read',['../class_i_sudoku_reader.html#a4730e898d49a4c78f6b77fb44bab32c3',1,'ISudokuReader::read()'],['../class_sudoku_file_reader.html#aa4d4720f2b2160d4bcf53a6f0dab03ff',1,'SudokuFileReader::read()'],['../class_sudoku_static_reader.html#ab4790359783caf95136c66aef4a26582',1,'SudokuStaticReader::read()']]]
+  ['write_0',['write',['../class_i_sudoku_writer.html#ae547ac5aa617adc27d43db9eeb81f616',1,'ISudokuWriter::write()'],['../class_sudoku_block_writer.html#ad231a10910f15308ae36727afc2b075d',1,'SudokuBlockWriter::write()'],['../class_sudoku_board.html#a3674a0f19763d4c0fd6e437466f6c2fc',1,'SudokuBoard::write()'],['../class_sudoku_line_writer.html#a9f9343e0a76efeb8b8a3dd57cae5f0bd',1,'SudokuLineWriter::write()'],['../class_sudoku_pretty_writer.html#a2386e45326e639d5ab3da3de49b25d47',1,'SudokuPrettyWriter::write()']]]
 ];

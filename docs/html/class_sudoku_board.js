@@ -4,7 +4,6 @@ var class_sudoku_board =
     [ "Traits", "class_sudoku_board.html#aca6642ba8a284c12fd349487c1356322", null ],
     [ "SudokuBoard", "class_sudoku_board.html#a35b0fa275d1db336926dfdf088b14f31", null ],
     [ "read", "class_sudoku_board.html#a99b2f48e17f7c5f524a22cb3308b83ba", null ],
-    [ "solve", "class_sudoku_board.html#ace66d3d251b695929ebd47447e4103a6", null ],
-    [ "write", "class_sudoku_board.html#a3674a0f19763d4c0fd6e437466f6c2fc", null ],
-    [ "operator<<", "class_sudoku_board.html#a8781bb72b3b13e672074053ad82e215e", null ]
+    [ "solve", "class_sudoku_board.html#a455ec2a59671085ac04c3db5ab9eabab", null ],
+    [ "write", "class_sudoku_board.html#a3674a0f19763d4c0fd6e437466f6c2fc", null ]
 ];

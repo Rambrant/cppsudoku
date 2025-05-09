@@ -13,14 +13,18 @@
 #include "ConstraintPropagationSolver.h"
 #include "FileStream.hpp"
 #include "SudokuAsciiReader.hpp"
+#include "SudokuBlockWriter.hpp"
+#include "SudokuLineWriter.hpp"
 #include "SudokuPrettyWriter.hpp"
 #include "SudokuUtil.hpp"
 
 int main()
 {
-    auto input  = FileStream{ "board_hard.txt"};
+    auto input  = FileStream{ "board_simple.txt"};
     auto reader = SudokuAsciiReader{ input};
     auto writer = SudokuPrettyWriter( std::cout);
+//    auto writer = SudokuBlockWriter( std::cout);
+//    auto writer = SudokuLineWriter( std::cout);
 
     auto backtrackSolver  = BackTrackingSolver{};
     auto constraintSolver = ConstraintPropagationSolver{};

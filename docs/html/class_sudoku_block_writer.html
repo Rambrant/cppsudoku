@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Sudoku Solver: SudokuPrettyWriter Class Reference</title>
+<title>Sudoku Solver: SudokuBlockWriter Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -77,7 +77,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('class_sudoku_pretty_writer.html',''); initResizable(true); });
+$(function(){initNavTree('class_sudoku_block_writer.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -105,33 +105,33 @@ $(function(){initNavTree('class_sudoku_pretty_writer.html',''); initResizable(tr
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_sudoku_pretty_writer-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">SudokuPrettyWriter Class Reference</div></div>
+<a href="class_sudoku_block_writer-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">SudokuBlockWriter Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>A board writer that prints out a pretty formatted output to the stream.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_sudoku_pretty_writer_8hpp_source.html">SudokuPrettyWriter.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_sudoku_block_writer_8hpp_source.html">SudokuBlockWriter.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for SudokuPrettyWriter:</div>
+Inheritance diagram for SudokuBlockWriter:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_sudoku_pretty_writer.png" usemap="#SudokuPrettyWriter_map" alt=""/>
-  <map id="SudokuPrettyWriter_map" name="SudokuPrettyWriter_map">
-<area href="class_i_sudoku_writer.html" title="A reader interface for classes that can read a Sudoku board from some sort of source." alt="ISudokuWriter" shape="rect" coords="0,0,121,24"/>
+  <img src="class_sudoku_block_writer.png" usemap="#SudokuBlockWriter_map" alt=""/>
+  <map id="SudokuBlockWriter_map" name="SudokuBlockWriter_map">
+<area href="class_i_sudoku_writer.html" title="A reader interface for classes that can read a Sudoku board from some sort of source." alt="ISudokuWriter" shape="rect" coords="0,0,119,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae09bedf0ec14b48ab21989261072e7ab" id="r_ae09bedf0ec14b48ab21989261072e7ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae09bedf0ec14b48ab21989261072e7ab">SudokuPrettyWriter</a> (std::ostream &amp;os)</td></tr>
-<tr class="memdesc:ae09bedf0ec14b48ab21989261072e7ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the class that writes the board formatted in a "pretty" way.  <br /></td></tr>
-<tr class="separator:ae09bedf0ec14b48ab21989261072e7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2386e45326e639d5ab3da3de49b25d47" id="r_a2386e45326e639d5ab3da3de49b25d47"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2386e45326e639d5ab3da3de49b25d47">write</a> (const <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a> &amp;board) const -&gt; void override</td></tr>
-<tr class="memdesc:a2386e45326e639d5ab3da3de49b25d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given board to the stream.  <br /></td></tr>
-<tr class="separator:a2386e45326e639d5ab3da3de49b25d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53f0a1a180d1346d9f29512e3aefa011" id="r_a53f0a1a180d1346d9f29512e3aefa011"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53f0a1a180d1346d9f29512e3aefa011">SudokuBlockWriter</a> (std::ostream &amp;os)</td></tr>
+<tr class="memdesc:a53f0a1a180d1346d9f29512e3aefa011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the class that writes the board in a "block". A one row per line.  <br /></td></tr>
+<tr class="separator:a53f0a1a180d1346d9f29512e3aefa011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad231a10910f15308ae36727afc2b075d" id="r_ad231a10910f15308ae36727afc2b075d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad231a10910f15308ae36727afc2b075d">write</a> (const <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a> &amp;board) const -&gt; void override</td></tr>
+<tr class="memdesc:ad231a10910f15308ae36727afc2b075d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given board to the stream.  <br /></td></tr>
+<tr class="separator:ad231a10910f15308ae36727afc2b075d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -144,8 +144,8 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A board writer that prints out a pretty formatted output to the stream. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae09bedf0ec14b48ab21989261072e7ab" name="ae09bedf0ec14b48ab21989261072e7ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae09bedf0ec14b48ab21989261072e7ab">&#9670;&#160;</a></span>SudokuPrettyWriter()</h2>
+<a id="a53f0a1a180d1346d9f29512e3aefa011" name="a53f0a1a180d1346d9f29512e3aefa011"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53f0a1a180d1346d9f29512e3aefa011">&#9670;&#160;</a></span>SudokuBlockWriter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +154,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">SudokuPrettyWriter::SudokuPrettyWriter </td>
+          <td class="memname">SudokuBlockWriter::SudokuBlockWriter </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;</td>          <td class="paramname"><span class="paramname"><em>os</em></span></td><td>)</td>
           <td></td>
@@ -167,7 +167,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 </table>
 </div><div class="memdoc">
 
-<p>Constructs the class that writes the board formatted in a "pretty" way. </p>
+<p>Constructs the class that writes the board in a "block". A one row per line. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">os</td><td>The existing outstream to write to. </td></tr>
@@ -178,8 +178,8 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2386e45326e639d5ab3da3de49b25d47" name="a2386e45326e639d5ab3da3de49b25d47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2386e45326e639d5ab3da3de49b25d47">&#9670;&#160;</a></span>write()</h2>
+<a id="ad231a10910f15308ae36727afc2b075d" name="ad231a10910f15308ae36727afc2b075d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad231a10910f15308ae36727afc2b075d">&#9670;&#160;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +188,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto SudokuPrettyWriter::write </td>
+          <td class="memname">auto SudokuBlockWriter::write </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>board</em></span></td><td>)</td>
           <td> const -&gt; void</td>
@@ -214,15 +214,15 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_sudoku_pretty_writer_8hpp_source.html">SudokuPrettyWriter.hpp</a></li>
-<li><b>SudokuPrettyWriter.cpp</b></li>
+<li><a class="el" href="_sudoku_block_writer_8hpp_source.html">SudokuBlockWriter.hpp</a></li>
+<li><b>SudokuBlockWriter.cpp</b></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="class_sudoku_pretty_writer.html">SudokuPrettyWriter</a></li>
+    <li class="navelem"><a class="el" href="class_sudoku_block_writer.html">SudokuBlockWriter</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

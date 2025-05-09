@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['join_0',['join',['../group___helpers.html#ga1b35e595296f067f6fd202cd769c388d',1,'SudokuUtil.hpp']]]
+  ['filestream_0',['FileStream',['../class_file_stream.html#a8864636f1ae945682eb340ed7b967e54',1,'FileStream']]]
 ];

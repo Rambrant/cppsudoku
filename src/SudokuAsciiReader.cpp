@@ -16,53 +16,30 @@ SudokuAsciiReader::SudokuAsciiReader( std::istream& is) :
 
 auto SudokuAsciiReader::read() const -> Traits::Board
 {
-    Traits::Board board;
+    constexpr int MAX_VALUES = Traits::BOARD_SIZE * Traits::BOARD_SIZE;
 
-    std::string line;
-    std::size_t row = 0;
+    Traits::Board board{};
 
-    while( row < Traits::BOARD_SIZE && std::getline( mStream, line))
+    int  count = 0;
+    char ch;
+
+    while( count < MAX_VALUES && mStream.get( ch))
     {
-        //
-        // Replace '.' with zeros and replace everything else that isn't a number with space
-        //
-        std::replace( line.begin(), line.end(), '.', '0');
-        line = std::regex_replace( line, std::regex("[^0-9 ]"), " ");
+        if( ch == '.') ch = '0';
 
-        //
-        // If the resulting line is just white-space, skip it
-        //
-        if( line.find_first_not_of( " \t\n\v\f\r") == std::string::npos)
-            continue;
+        int value = charToValue<Traits::BOARD_SIZE>( ch);
 
-        //
-        // Read all found integers and check
-        std::istringstream iss( line);
-
-        for( int col = 0, value; iss >> value; ++col)
+        if (value != -1)
         {
-            if( value < 0 || value > Traits::MAX_VALUE)
-            {
-                throw std::runtime_error( "Invalid value " + std::to_string( value) + " in row " + std::to_string( row + 1));
-            }
-
-            if( col < Traits::BOARD_SIZE)
-            {
-                board[row][col] = value;
-            }
-            else
-            {
-                throw std::runtime_error( "Invalid number of columns in row " + std::to_string( row + 1));
-            }
+            board[count / Traits::BOARD_SIZE][count % Traits::BOARD_SIZE] = value;
+            ++count;
         }
-
-        ++row;
     }
 
-    if( row != Traits::BOARD_SIZE)
+    if( count != MAX_VALUES)
     {
-        throw std::runtime_error( "Invalid number of columns in row " + std::to_string( row + 1));
+        throw std::runtime_error( "Not enough values to fill the Sudoku board.");
     }
 
-    return board;;
+    return board;
 }

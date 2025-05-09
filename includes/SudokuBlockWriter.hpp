@@ -1,6 +1,7 @@
 //
-// Created by Thomas Rambrant on 2025-05-08.
+// Created by Thomas Rambrant on 2025-05-09.
 //
+
 #pragma once
 
 #include "ISudokuWriter.hpp"
@@ -8,15 +9,15 @@
 /**
  * @brief A board writer that prints out a pretty formatted output to the stream
  */
-class SudokuPrettyWriter : public ISudokuWriter
+class SudokuBlockWriter : public ISudokuWriter
 {
     public:
 
         /**
-         * @brief Constructs the class that writes the board formatted in a "pretty" way
+         * @brief Constructs the class that writes the board in a "block". A one row per line
          * @param os The existing outstream to write to.
          */
-        explicit SudokuPrettyWriter( std::ostream& os);
+        explicit SudokuBlockWriter( std::ostream& os);
 
         /**
          * @brief Writes the given board to the stream
@@ -28,3 +29,4 @@ class SudokuPrettyWriter : public ISudokuWriter
 
         std::ostream& mStream;
 };
+

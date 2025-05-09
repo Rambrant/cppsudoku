@@ -16,19 +16,19 @@ auto SudokuPrettyWriter::write( const Traits::Board & board ) const -> void
     {
         if( rowIdx > 0 && rowIdx % Traits::BOX_SIZE == 0)
         {
-            mStream << std::endl; // extra newline between box rows
+            mStream << "-------+--------+------" << std::endl; // extra newline between box rows
         }
 
         for( auto colIdx : Traits::INDEX_RANGE)
         {
             if( colIdx > 0 && colIdx % Traits::BOX_SIZE == 0)
             {
-                mStream << "  "; // extra spacing between box columns
+                mStream << " | "; // extra spacing between box columns
             }
 
-            std::string val = std::to_string( board[rowIdx][colIdx]);
+            char ch = valueToChar<Traits::BOARD_SIZE>( board[rowIdx][colIdx]);
 
-            mStream << (val == "0" ? "." : val) << " ";
+            mStream << (ch == '0' ? '.' : ch) << " ";
         }
 
         mStream << std::endl;

@@ -77,7 +77,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('class_sudoku_board.html',''); initResizable(true); });
+$(function(){initNavTree('class_sudoku_line_writer.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -103,18 +103,16 @@ $(function(){initNavTree('class_sudoku_board.html',''); initResizable(true); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SudokuBoard Member List</div></div>
+  <div class="headertitle"><div class="title">SudokuLineWriter Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="class_sudoku_board.html">SudokuBoard</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="class_sudoku_line_writer.html">SudokuLineWriter</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_sudoku_board.html#a99b2f48e17f7c5f524a22cb3308b83ba">read</a>() const -&gt; void</td><td class="entry"><a class="el" href="class_sudoku_board.html">SudokuBoard</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="class_sudoku_board.html#a455ec2a59671085ac04c3db5ab9eabab">solve</a>() const -&gt; Traits::BoardResult</td><td class="entry"><a class="el" href="class_sudoku_board.html">SudokuBoard</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_sudoku_board.html#a6e1fc3bcd963040390bf124420de3f11">SolverList</a> typedef</td><td class="entry"><a class="el" href="class_sudoku_board.html">SudokuBoard</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="class_sudoku_board.html#a35b0fa275d1db336926dfdf088b14f31">SudokuBoard</a>(const ISudokuReader &amp;reader, const ISudokuWriter &amp;writer, SolverList solvers)</td><td class="entry"><a class="el" href="class_sudoku_board.html">SudokuBoard</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_sudoku_board.html#aca6642ba8a284c12fd349487c1356322">Traits</a> typedef</td><td class="entry"><a class="el" href="class_sudoku_board.html">SudokuBoard</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="class_sudoku_board.html#a3674a0f19763d4c0fd6e437466f6c2fc">write</a>() const -&gt; void</td><td class="entry"><a class="el" href="class_sudoku_board.html">SudokuBoard</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_sudoku_line_writer.html#a5dc0f951f31a3b475ae75e7dc9d0e029">SudokuLineWriter</a>(std::ostream &amp;os)</td><td class="entry"><a class="el" href="class_sudoku_line_writer.html">SudokuLineWriter</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_i_sudoku_writer.html#a426cb5a753ce6fe271716d3f49733540">Traits</a> typedef</td><td class="entry"><a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_sudoku_line_writer.html#a9f9343e0a76efeb8b8a3dd57cae5f0bd">write</a>(const Traits::Board &amp;board) const -&gt; void override</td><td class="entry"><a class="el" href="class_sudoku_line_writer.html">SudokuLineWriter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>~ISudokuWriter</b>()=default (defined in <a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a>)</td><td class="entry"><a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

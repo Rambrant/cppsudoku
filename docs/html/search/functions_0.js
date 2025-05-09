@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['filestream_0',['FileStream',['../class_file_stream.html#a8864636f1ae945682eb340ed7b967e54',1,'FileStream']]]
+  ['chartovalue_0',['charToValue',['../group___helpers.html#ga32063f31f3fded8f45aff9d560c6874e',1,'SudokuUtil.hpp']]]
 ];

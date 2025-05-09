@@ -221,8 +221,54 @@ $(function(){initNavTree('_sudoku_util_8hpp_source.html',''); initResizable(true
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
 </div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="keyword">template</span>&lt; <span class="keywordtype">int</span> size&gt;</div>
+<div class="foldopen" id="foldopen00197" data-start="{" data-end="}">
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="group___helpers.html#ga32063f31f3fded8f45aff9d560c6874e">  197</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="group___helpers.html#ga32063f31f3fded8f45aff9d560c6874e">charToValue</a>( <span class="keywordtype">char</span> ch)</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>{</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keywordflow">if</span>( std::isdigit( ch))</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordflow">return</span> ch - <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="comment">// Don&#39;t even compile this if the size of the board is 9 or less</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( size &gt; 9)</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    {</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordtype">char</span> c = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>( std::toupper( <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(ch))); <span class="comment">// A mouthful to avoid &#39;narrowing conversion&#39; warnings</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        <span class="keywordflow">if</span>( c &gt;= <span class="charliteral">&#39;A&#39;</span> &amp;&amp; c &lt; <span class="charliteral">&#39;A&#39;</span> + (size - 9))</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <span class="keywordflow">return</span> 10 + (c - <span class="charliteral">&#39;A&#39;</span>);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordflow">return</span> -1;  <span class="comment">// skip or invalid</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>}</div>
+</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="keyword">template</span>&lt; <span class="keywordtype">int</span> size&gt;</div>
+<div class="foldopen" id="foldopen00228" data-start="{" data-end="}">
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="group___helpers.html#ga83847d7c329fe6c167de83fe18b9d4dc">  228</a></span><span class="keywordtype">char</span> <a class="code hl_function" href="group___helpers.html#ga83847d7c329fe6c167de83fe18b9d4dc">valueToChar</a>( <span class="keyword">const</span> <span class="keywordtype">int</span> val)</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>{</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keywordflow">if</span>( val &gt;= 0 &amp;&amp; val &lt;= 9)</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>( <span class="charliteral">&#39;0&#39;</span> + val);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    }</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="comment">// Don&#39;t even compile this if the size of the board is 9 or less</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span>( size &gt; 9)</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">if</span>( val &gt;= 10 &amp;&amp; val &lt;= size)</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>( <span class="charliteral">&#39;A&#39;</span> + (val - 10));</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    }</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordflow">return</span> <span class="charliteral">&#39;?&#39;</span>; <span class="comment">// fallback for unexpected values</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>}</div>
+</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span></div>
 <div class="ttc" id="agroup___helpers_html_ga1b35e595296f067f6fd202cd769c388d"><div class="ttname"><a href="group___helpers.html#ga1b35e595296f067f6fd202cd769c388d">join</a></div><div class="ttdeci">std::string join(const Iterable &amp;iterable, const DelimT &amp;delimiter)</div><div class="ttdoc">Joins the elements in an Iterable adding the given delimiter between them.</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:31</div></div>
 <div class="ttc" id="agroup___helpers_html_ga2a50778af52e0e5d92dc7e6f657b435c"><div class="ttname"><a href="group___helpers.html#ga2a50778af52e0e5d92dc7e6f657b435c">subrangeView</a></div><div class="ttdeci">auto subrangeView(Container &amp;container, std::size_t from, std::size_t to)</div><div class="ttdoc">*‍/</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:101</div></div>
+<div class="ttc" id="agroup___helpers_html_ga32063f31f3fded8f45aff9d560c6874e"><div class="ttname"><a href="group___helpers.html#ga32063f31f3fded8f45aff9d560c6874e">charToValue</a></div><div class="ttdeci">int charToValue(char ch)</div><div class="ttdoc">A converter from character to the corresponding integer. Integers over nine is treated as if hexadeci...</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:197</div></div>
+<div class="ttc" id="agroup___helpers_html_ga83847d7c329fe6c167de83fe18b9d4dc"><div class="ttname"><a href="group___helpers.html#ga83847d7c329fe6c167de83fe18b9d4dc">valueToChar</a></div><div class="ttdeci">char valueToChar(const int val)</div><div class="ttdoc">A converter from integer to the corresponding character. Integers over nine is treated as if hexadeci...</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:228</div></div>
 <div class="ttc" id="agroup___helpers_html_gac42e7511d9dcdd425577a1b13745919b"><div class="ttname"><a href="group___helpers.html#gac42e7511d9dcdd425577a1b13745919b">RangeArray</a></div><div class="ttdeci">constexpr std::array&lt; T, N &gt; RangeArray(T start=0, T step=1)</div><div class="ttdoc">Generate a constexpr array of N elements using a start value and a step.</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:156</div></div>
 <div class="ttc" id="agroup___helpers_html_gad9a06a755ffbcebe52c55fbf962e6ece"><div class="ttname"><a href="group___helpers.html#gad9a06a755ffbcebe52c55fbf962e6ece">timedCall</a></div><div class="ttdeci">auto timedCall(Func &amp;&amp;func, Args &amp;&amp;... args)</div><div class="ttdoc">A &quot;decorator&quot; that measures the execution time for the given function call.</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:173</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -11,6 +11,8 @@ var hierarchy =
       [ "ConstraintPropagationSolver", "class_constraint_propagation_solver.html", null ]
     ] ],
     [ "ISudokuWriter", "class_i_sudoku_writer.html", [
+      [ "SudokuBlockWriter", "class_sudoku_block_writer.html", null ],
+      [ "SudokuLineWriter", "class_sudoku_line_writer.html", null ],
       [ "SudokuPrettyWriter", "class_sudoku_pretty_writer.html", null ]
     ] ],
     [ "SudokuBoard", "class_sudoku_board.html", null ],

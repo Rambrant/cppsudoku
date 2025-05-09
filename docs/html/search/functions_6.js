@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_3c_3c_0',['operator&lt;&lt;',['../_sudoku_board_8cpp.html#a8781bb72b3b13e672074053ad82e215e',1,'SudokuBoard.cpp']]]
+  ['valuetochar_0',['valueToChar',['../group___helpers.html#ga83847d7c329fe6c167de83fe18b9d4dc',1,'SudokuUtil.hpp']]]
 ];

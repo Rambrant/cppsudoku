@@ -110,7 +110,7 @@ $(function(){initNavTree('class_sudoku_ascii_reader.html',''); initResizable(tru
 </div><!--header-->
 <div class="contents">
 
-<p>A board reader that reads a Sudoku board from a file.  
+<p>A reader that reads a board from an input stream. The reads all digits, '.' is zero' even hexadecimal if the board is more than 9x9.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_sudoku_ascii_reader_8hpp_source.html">SudokuAsciiReader.hpp</a>&gt;</code></p>
@@ -127,7 +127,7 @@ Inheritance diagram for SudokuAsciiReader:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0e4b0f505aa5ff5c5a69fe623a1005d6" id="r_a0e4b0f505aa5ff5c5a69fe623a1005d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e4b0f505aa5ff5c5a69fe623a1005d6">SudokuAsciiReader</a> (std::istream &amp;is)</td></tr>
-<tr class="memdesc:a0e4b0f505aa5ff5c5a69fe623a1005d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the class and reads the board.  <br /></td></tr>
+<tr class="memdesc:a0e4b0f505aa5ff5c5a69fe623a1005d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the class with for an in stream.  <br /></td></tr>
 <tr class="separator:a0e4b0f505aa5ff5c5a69fe623a1005d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc623d82bbdd12c99ed9dc513eeb898e" id="r_acc623d82bbdd12c99ed9dc513eeb898e"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc623d82bbdd12c99ed9dc513eeb898e">read</a> () const -&gt; <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a> override</td></tr>
 <tr class="memdesc:acc623d82bbdd12c99ed9dc513eeb898e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Sudoku board.  <br /></td></tr>
@@ -142,7 +142,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 <tr class="separator:a91f5f11cf3fcff5a5987daffa78678b9 inherit pub_types_class_i_sudoku_reader"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A board reader that reads a Sudoku board from a file. </p>
+<div class="textblock"><p>A reader that reads a board from an input stream. The reads all digits, '.' is zero' even hexadecimal if the board is more than 9x9. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0e4b0f505aa5ff5c5a69fe623a1005d6" name="a0e4b0f505aa5ff5c5a69fe623a1005d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e4b0f505aa5ff5c5a69fe623a1005d6">&#9670;&#160;</a></span>SudokuAsciiReader()</h2>
@@ -167,7 +167,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 </table>
 </div><div class="memdoc">
 
-<p>Constructs the class and reads the board. </p>
+<p>Constructs the class with for an in stream. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">is</td><td>The existing in stream. </td></tr>

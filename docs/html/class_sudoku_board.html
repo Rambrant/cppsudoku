@@ -106,7 +106,6 @@ $(function(){initNavTree('class_sudoku_board.html',''); initResizable(true); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="class_sudoku_board-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">SudokuBoard Class Reference</div></div>
 </div><!--header-->
@@ -141,15 +140,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>read</b> () const -&g
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&gt; void</td></tr>
 <tr class="memdesc:a3674a0f19763d4c0fd6e437466f6c2fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the board using the <a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a> given in the constructor. <br /></td></tr>
 <tr class="separator:a3674a0f19763d4c0fd6e437466f6c2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace66d3d251b695929ebd47447e4103a6" id="r_ace66d3d251b695929ebd47447e4103a6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace66d3d251b695929ebd47447e4103a6">solve</a> () -&gt; <a class="el" href="struct_sudoku_traits.html#a8ddc2d97568df299026cfc191399dd4d">Traits::BoardResult</a></td></tr>
-<tr class="memdesc:ace66d3d251b695929ebd47447e4103a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order.  <br /></td></tr>
-<tr class="separator:ace66d3d251b695929ebd47447e4103a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a8781bb72b3b13e672074053ad82e215e" id="r_a8781bb72b3b13e672074053ad82e215e"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8781bb72b3b13e672074053ad82e215e">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="class_sudoku_board.html">SudokuBoard</a> &amp;board)</td></tr>
-<tr class="memdesc:a8781bb72b3b13e672074053ad82e215e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a formatted board to an output stream.  <br /></td></tr>
-<tr class="separator:a8781bb72b3b13e672074053ad82e215e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a455ec2a59671085ac04c3db5ab9eabab" id="r_a455ec2a59671085ac04c3db5ab9eabab"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a455ec2a59671085ac04c3db5ab9eabab">solve</a> () const -&gt; <a class="el" href="struct_sudoku_traits.html#a8ddc2d97568df299026cfc191399dd4d">Traits::BoardResult</a></td></tr>
+<tr class="memdesc:a455ec2a59671085ac04c3db5ab9eabab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order.  <br /></td></tr>
+<tr class="separator:a455ec2a59671085ac04c3db5ab9eabab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvig,. </p>
@@ -200,8 +193,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ace66d3d251b695929ebd47447e4103a6" name="ace66d3d251b695929ebd47447e4103a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace66d3d251b695929ebd47447e4103a6">&#9670;&#160;</a></span>solve()</h2>
+<a id="a455ec2a59671085ac04c3db5ab9eabab" name="a455ec2a59671085ac04c3db5ab9eabab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a455ec2a59671085ac04c3db5ab9eabab">&#9670;&#160;</a></span>solve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,53 +203,13 @@ Friends</h2></td></tr>
           <td class="memname">auto SudokuBoard::solve </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> -&gt; <a class="el" href="struct_sudoku_traits.html#a8ddc2d97568df299026cfc191399dd4d">Traits::BoardResult</a></td>
+          <td> const -&gt; <a class="el" href="struct_sudoku_traits.html#a8ddc2d97568df299026cfc191399dd4d">Traits::BoardResult</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order. </p>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="struct_sudoku_traits.html#a8ddc2d97568df299026cfc191399dd4d" title="Result from a solver. Success or not and the number of recursions.">SudokuTraits.BoardResult</a> </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a8781bb72b3b13e672074053ad82e215e" name="a8781bb72b3b13e672074053ad82e215e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8781bb72b3b13e672074053ad82e215e">&#9670;&#160;</a></span>operator&lt;&lt;</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;</td>          <td class="paramname"><span class="paramname"><em>os</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_sudoku_board.html">SudokuBoard</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>board</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Writes a formatted board to an output stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">os</td><td>An output stream. </td></tr>
-    <tr><td class="paramname">board</td><td>A <a class="el" href="class_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the output stream to allow for chaining multiple calls </dd></dl>
 
 </div>
 </div>
