@@ -7,23 +7,26 @@
 
 #include "SudokuTraits.hpp"
 
-/**
- * @brief A solver interface for classes that can solve a Sudoku board using some sort of algorithm.
- */
-class ISudokuSolver
+namespace com::rambrant::sudoku
 {
-    public:
-    
-        /// @brief Alias to shorten access to @ref SudokuTraits.
-        using Traits = SudokuTraits;
+    /**
+     * @brief A solver interface for classes that can solve a Sudoku board using some sort of algorithm.
+     */
+    class ISudokuSolver
+    {
+        public:
 
-        /**
-         * @brief Solves the given Sudoku board
-         * @param board A SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
-         * @return A SudokuTraits.BoardResult
-         */
-        [[nodiscard]]
-        virtual auto solve( Traits::Board& board) const -> Traits::BoardResult = 0;
+            /// @brief Alias to shorten access to @ref SudokuTraits.
+            using Traits = SudokuTraits;
 
-       virtual ~ISudokuSolver() = default;
-};
+            /**
+             * @brief Solves the given Sudoku board
+             * @param board A SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
+             * @return A SudokuTraits.BoardResult
+             */
+            [[nodiscard]]
+            virtual auto solve( Traits::Board& board) const -> Traits::BoardResult = 0;
+
+            virtual ~ISudokuSolver() = default;
+    };
+}

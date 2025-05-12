@@ -1,32 +1,36 @@
 //
 // Created by Thomas Rambrant on 2025-05-09.
 //
+#include <ostream>
 
-#include "../includes/SudokuBlockWriter.hpp"
+#include "SudokuBlockWriter.hpp"
 
-SudokuBlockWriter::SudokuBlockWriter( std::ostream& os) :
-    mStream( os)
-{ }
-
-auto SudokuBlockWriter::write( const Traits::Board & board ) const -> void
+namespace com::rambrant::sudoku
 {
-    for( auto rowIdx : Traits::INDEX_RANGE)
-    {
-        if( rowIdx > 0 && rowIdx % Traits::BOX_SIZE == 0)
-        {
-            mStream << std::endl; // extra newline between box rows
-        }
+    SudokuBlockWriter::SudokuBlockWriter( std::ostream& os) :
+        mStream( os)
+    { }
 
-        for( auto colIdx : Traits::INDEX_RANGE)
+    auto SudokuBlockWriter::write( const Traits::Board & board ) const -> void
+    {
+        for( auto rowIdx : Traits::INDEX_RANGE)
         {
-            if( colIdx > 0 && colIdx % Traits::BOX_SIZE == 0)
+            if( rowIdx > 0 && rowIdx % Traits::BOX_SIZE == 0)
             {
-                mStream << "  "; // extra spacing between box columns
+                mStream << std::endl; // extra newline between box rows
             }
 
-            mStream << valueToChar<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
-        }
+            for( auto colIdx : Traits::INDEX_RANGE)
+            {
+                if( colIdx > 0 && colIdx % Traits::BOX_SIZE == 0)
+                {
+                    mStream << "  "; // extra spacing between box columns
+                }
 
-        mStream << std::endl;
+                mStream << valueToChar<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
+            }
+
+            mStream << std::endl;
+        }
     }
 }

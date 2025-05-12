@@ -1,6 +1,4 @@
 //
-//  SudokuTraits.hpp
-//
 //  Created by Thomas Rambrant on 2025-04-11.
 //
 #pragma once
@@ -10,11 +8,13 @@
 
 #include "SudokuUtil.hpp"
 
-/**
- * @brief Basic constants and type definitions for a Sudoku board.
- */
-struct SudokuTraits
+namespace com::rambrant::sudoku
 {
+    /**
+     * @brief Basic constants and type definitions for a Sudoku board.
+     */
+    struct SudokuTraits
+    {
         /// @brief Size of the Sudoku board. Usually a 9x9 grid
         static constexpr int  BOARD_SIZE  = 9;
 
@@ -41,4 +41,5 @@ struct SudokuTraits
 
         /// @brief 2D grid of @ref BOARD_SIZE number of @ref BoardArray's
         using Board                       = std::array< BoardArray, BOARD_SIZE>;
-};
+    };
+}

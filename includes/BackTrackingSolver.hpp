@@ -9,32 +9,35 @@
 
 #include "ISudokuSolver.hpp"
 
-/**
- * @brief A Sudoku solver that uses a simple brute force backtracking algorithm
- */
-class BackTrackingSolver : public ISudokuSolver
+namespace com::rambrant::sudoku
 {
-    public:
-    
-        /**
-         * @brief Solves the given Sudoku board using a brute force backtracking algorithm.
-         * @param board A @ref SudokuTraits.Board.
-         * @return A @ref SudokuTraits.BoardResult.
-         */
-        [[nodiscard]]
-        auto solve( Traits::Board& board) const -> Traits::BoardResult override;
-    
-    private:
+    /**
+     * @brief A Sudoku solver that uses a simple brute force backtracking algorithm
+     */
+    class BackTrackingSolver : public ISudokuSolver
+    {
+        public:
 
-        mutable std::size_t mRecursions{ 0};
+            /**
+             * @brief Solves the given Sudoku board using a brute force backtracking algorithm.
+             * @param board A @ref SudokuTraits.Board.
+             * @return A @ref SudokuTraits.BoardResult.
+             */
+            [[nodiscard]]
+            auto solve( Traits::Board& board) const -> Traits::BoardResult override;
 
-        bool solver( Traits::Board& board) const;
+        private:
 
-        static auto isValid( Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
+            mutable std::size_t mRecursions{ 0};
 
-        static auto rowConstraint( const Traits::Board & board, int value, int rowPos ) -> bool;
-        static auto columnConstraint( const Traits::Board & board, int value, int columnPos ) -> bool;
-        static auto boxConstraint( const Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
-        
-        static auto check( int value, const Traits::BoardArray & unitValues ) -> bool;
-};
+            bool solver( Traits::Board& board) const;
+
+            static auto isValid( Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
+
+            static auto rowConstraint( const Traits::Board & board, int value, int rowPos ) -> bool;
+            static auto columnConstraint( const Traits::Board & board, int value, int columnPos ) -> bool;
+            static auto boxConstraint( const Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
+
+            static auto check( int value, const Traits::BoardArray & unitValues ) -> bool;
+    };
+}

@@ -5,13 +5,12 @@
 //
 
 #include <iostream>
-#include <chrono>
 #include <fstream>
 
 #include "SudokuBoard.hpp"
 #include "Logger.hpp"
 #include "BackTrackingSolver.hpp"
-#include "ConstraintPropagationSolver.h"
+#include "ConstraintPropagationSolver.hpp"
 #include "FileStream.hpp"
 #include "SudokuAsciiReader.hpp"
 #include "SudokuBlockWriter.hpp"

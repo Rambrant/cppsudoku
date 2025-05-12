@@ -1,8 +1,6 @@
 //
 // Created by Thomas Rambrant on 2025-05-12.
 //
-
-// Logger.cpp
 #include "Logger.hpp"
 
 namespace com::rambrant::sudoku

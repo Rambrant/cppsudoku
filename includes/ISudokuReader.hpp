@@ -8,32 +8,35 @@
 #include "Logger.hpp"
 #include "SudokuTraits.hpp"
 
-/**
- * @brief A reader interface for classes that can read a Sudoku board from some sort of source.
- */
-class ISudokuReader
+namespace com::rambrant::sudoku
 {
-    public:
+    /**
+     * @brief A reader interface for classes that can read a Sudoku board from some sort of source.
+     */
+    class ISudokuReader
+    {
+        public:
 
-        /**
-         * @brief Base class constructor that initiates the logger member to be used by the subclasses
-         * @param logger The logger instance. Must be valid during the lifetime of the readers
-         */
-        explicit ISudokuReader( com::rambrant::sudoku::Logger& logger) : mLogger( logger ) {};
-        virtual  ~ISudokuReader() = default;
+            /**
+             * @brief Base class constructor that initiates the logger member to be used by the subclasses
+             * @param logger The logger instance. Must be valid during the lifetime of the readers
+             */
+            explicit ISudokuReader( com::rambrant::sudoku::Logger& logger) : mLogger( logger ) {};
+            virtual  ~ISudokuReader() = default;
 
-        /// @brief Alias to shorten access to @ref SudokuTraits.
-        using Traits = SudokuTraits;
+            /// @brief Alias to shorten access to @ref SudokuTraits.
+            using Traits = SudokuTraits;
 
-        /**
-         * @brief A method that reads a Sudoku board from a source.
-         * @return An initialized @ref SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
-         */
-        [[nodiscard]]
-        virtual auto read() const -> Traits::Board = 0;
+            /**
+             * @brief A method that reads a Sudoku board from a source.
+             * @return An initialized @ref SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
+             */
+            [[nodiscard]]
+            virtual auto read() const -> Traits::Board = 0;
 
-    protected:
+        protected:
 
-        /// @brief internal logger reference to be used by the subclasses to write log messages to
-        com::rambrant::sudoku::Logger& mLogger;
-};
+            /// @brief internal logger reference to be used by the subclasses to write log messages to
+            com::rambrant::sudoku::Logger& mLogger;
+    };
+}
