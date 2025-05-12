@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['write_0',['Write',['../class_file_stream.html#aaf05446ac5aba9a64a2d2d75be3a89f0a1129c0e4d43f2d121652a7302712cff6',1,'FileStream']]],
-  ['write_1',['write',['../class_i_sudoku_writer.html#ae547ac5aa617adc27d43db9eeb81f616',1,'ISudokuWriter::write()'],['../class_sudoku_board.html#a3674a0f19763d4c0fd6e437466f6c2fc',1,'SudokuBoard::write()'],['../class_sudoku_pretty_writer.html#a2386e45326e639d5ab3da3de49b25d47',1,'SudokuPrettyWriter::write()']]]
+  ['template_20helpers_0',['Template Helpers',['../group___helpers.html',1,'']]],
+  ['timedcall_1',['timedCall',['../group___helpers.html#gad9a06a755ffbcebe52c55fbf962e6ece',1,'SudokuUtil.hpp']]],
+  ['traits_2',['Traits',['../class_i_sudoku_reader.html#a91f5f11cf3fcff5a5987daffa78678b9',1,'ISudokuReader::Traits'],['../class_i_sudoku_solver.html#aebe48f80770c84b4dc5edb45734b117b',1,'ISudokuSolver::Traits'],['../class_i_sudoku_writer.html#a426cb5a753ce6fe271716d3f49733540',1,'ISudokuWriter::Traits'],['../class_sudoku_board.html#aca6642ba8a284c12fd349487c1356322',1,'SudokuBoard::Traits']]]
 ];

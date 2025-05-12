@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mode_0',['Mode',['../class_file_stream.html#aaf05446ac5aba9a64a2d2d75be3a89f0',1,'FileStream']]]
+  ['loglevel_0',['LogLevel',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ae26a91937e2e4554ec72f00b0eee03b0',1,'com::rambrant::sudoku::Logger']]]
 ];

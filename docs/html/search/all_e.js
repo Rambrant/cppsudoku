@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['_7econstraintpropagationsolver_0',['~ConstraintPropagationSolver',['../class_constraint_propagation_solver.html#a4c2c5438382c6604c6e2213a032528ff',1,'ConstraintPropagationSolver']]],
-  ['_7eisudokureader_1',['~ISudokuReader',['../class_i_sudoku_reader.html#a90a1cd3485256b4c571528d1bb66c51f',1,'ISudokuReader']]],
-  ['_7eisudokusolver_2',['~ISudokuSolver',['../class_i_sudoku_solver.html#a0cb7e18e41229777bc99a5c46b6c1f3f',1,'ISudokuSolver']]]
+  ['value_5frange_0',['VALUE_RANGE',['../struct_sudoku_traits.html#a77d7d7bd5cb9dea265e096b9f1feca63',1,'SudokuTraits']]],
+  ['valuetochar_1',['valueToChar',['../group___helpers.html#ga83847d7c329fe6c167de83fe18b9d4dc',1,'SudokuUtil.hpp']]],
+  ['verbose_2',['Verbose',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ae26a91937e2e4554ec72f00b0eee03b0ad4a9fa383ab700c5bdd6f31cf7df0faf',1,'com::rambrant::sudoku::Logger']]],
+  ['verbose_3',['verbose',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#a2f2b3078280e50fb451f0d0634738dc7',1,'com::rambrant::sudoku::Logger']]]
 ];

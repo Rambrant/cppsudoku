@@ -33,8 +33,12 @@ namespace com::rambrant::sudoku
                 Verbose = 2
             };
 
+            /**
+             * @brief An interan maniplulator to control the level of the messages printed onn the stream
+             */
             struct LevelManipulator
             {
+                /// @brief the manipulators loglevel
                 LogLevel mLevel;
             };
 
@@ -87,6 +91,7 @@ namespace com::rambrant::sudoku
             auto shouldPrint() const -> bool;
     };
 
+    /// \cond DOXYGEN_SUPPRESS
     template<typename T>
     Logger& Logger::operator<<( const T& value)
     {
@@ -94,4 +99,5 @@ namespace com::rambrant::sudoku
             mOut << value;
         return *this;
     }
+    /// \endcond
 }

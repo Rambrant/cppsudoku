@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['write_0',['Write',['../class_file_stream.html#aaf05446ac5aba9a64a2d2d75be3a89f0a1129c0e4d43f2d121652a7302712cff6',1,'FileStream']]]
+  ['quiet_0',['Quiet',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ae26a91937e2e4554ec72f00b0eee03b0a098753f8980036f4b936e3d4b6997111',1,'com::rambrant::sudoku::Logger']]]
 ];

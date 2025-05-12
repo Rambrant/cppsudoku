@@ -33,5 +33,7 @@ class ISudokuReader
         virtual auto read() const -> Traits::Board = 0;
 
     protected:
+
+        /// @brief internal logger reference to be used by the subclasses to write log messages to
         com::rambrant::sudoku::Logger& mLogger;
 };

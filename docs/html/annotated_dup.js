@@ -1,5 +1,12 @@
 var annotated_dup =
 [
+    [ "com", null, [
+      [ "rambrant", null, [
+        [ "sudoku", null, [
+          [ "Logger", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html", "classcom_1_1rambrant_1_1sudoku_1_1_logger" ]
+        ] ]
+      ] ]
+    ] ],
     [ "BackTrackingSolver", "class_back_tracking_solver.html", "class_back_tracking_solver" ],
     [ "ConstraintPropagationSolver", "class_constraint_propagation_solver.html", "class_constraint_propagation_solver" ],
     [ "FileStream", "class_file_stream.html", "class_file_stream" ],

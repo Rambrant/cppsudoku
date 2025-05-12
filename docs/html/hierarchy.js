@@ -15,6 +15,8 @@ var hierarchy =
       [ "SudokuLineWriter", "class_sudoku_line_writer.html", null ],
       [ "SudokuPrettyWriter", "class_sudoku_pretty_writer.html", null ]
     ] ],
+    [ "com::rambrant::sudoku::Logger::LevelManipulator", "structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html", null ],
+    [ "com::rambrant::sudoku::Logger", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html", null ],
     [ "SudokuBoard", "class_sudoku_board.html", null ],
     [ "SudokuTraits", "struct_sudoku_traits.html", null ]
 ];

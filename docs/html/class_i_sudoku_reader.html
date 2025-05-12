@@ -106,6 +106,7 @@ $(function(){initNavTree('class_i_sudoku_reader.html',''); initResizable(true); 
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_i_sudoku_reader-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ISudokuReader Class Reference<span class="mlabels"><span class="mlabel abstract">abstract</span></span></div></div>
 </div><!--header-->
@@ -134,13 +135,57 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ac87fdaf2c469f797e67650e17ada777e" id="r_ac87fdaf2c469f797e67650e17ada777e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac87fdaf2c469f797e67650e17ada777e">ISudokuReader</a> (<a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">com::rambrant::sudoku::Logger</a> &amp;logger)</td></tr>
+<tr class="memdesc:ac87fdaf2c469f797e67650e17ada777e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class constructor that initiates the logger member to be used by the subclasses.  <br /></td></tr>
+<tr class="separator:ac87fdaf2c469f797e67650e17ada777e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5c140522da2eccbaa8d50f61636b797" id="r_ab5c140522da2eccbaa8d50f61636b797"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5c140522da2eccbaa8d50f61636b797">read</a> () const -&gt; <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a>=0</td></tr>
 <tr class="memdesc:ab5c140522da2eccbaa8d50f61636b797"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that reads a Sudoku board from a source.  <br /></td></tr>
 <tr class="separator:ab5c140522da2eccbaa8d50f61636b797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a48daadd1f063295d8c9ef4912cbecf8b" id="r_a48daadd1f063295d8c9ef4912cbecf8b"><td class="memItemLeft" align="right" valign="top"><a id="a48daadd1f063295d8c9ef4912cbecf8b" name="a48daadd1f063295d8c9ef4912cbecf8b"></a>
+<a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">com::rambrant::sudoku::Logger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>mLogger</b></td></tr>
+<tr class="memdesc:a48daadd1f063295d8c9ef4912cbecf8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">internal logger reference to be used by the subclasses to write log messages to <br /></td></tr>
+<tr class="separator:a48daadd1f063295d8c9ef4912cbecf8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A reader interface for classes that can read a Sudoku board from some sort of source. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac87fdaf2c469f797e67650e17ada777e" name="ac87fdaf2c469f797e67650e17ada777e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac87fdaf2c469f797e67650e17ada777e">&#9670;&#160;</a></span>ISudokuReader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ISudokuReader::ISudokuReader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">com::rambrant::sudoku::Logger</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>logger</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Base class constructor that initiates the logger member to be used by the subclasses. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logger</td><td>The logger instance. Must be valid during the lifetime of the readers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab5c140522da2eccbaa8d50f61636b797" name="ab5c140522da2eccbaa8d50f61636b797"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab5c140522da2eccbaa8d50f61636b797">&#9670;&#160;</a></span>read()</h2>
 
