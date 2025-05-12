@@ -5,6 +5,7 @@
 //
 #pragma once
 
+#include "Logger.hpp"
 #include "SudokuTraits.hpp"
 
 /**
@@ -13,6 +14,13 @@
 class ISudokuReader
 {
     public:
+
+        /**
+         * @brief Base class constructor that initiates the logger member to be used by the subclasses
+         * @param logger The logger instance. Must be valid during the lifetime of the readers
+         */
+        explicit ISudokuReader( com::rambrant::sudoku::Logger& logger) : mLogger( logger ) {};
+        virtual  ~ISudokuReader() = default;
 
         /// @brief Alias to shorten access to @ref SudokuTraits.
         using Traits = SudokuTraits;
@@ -24,5 +32,6 @@ class ISudokuReader
         [[nodiscard]]
         virtual auto read() const -> Traits::Board = 0;
 
-        virtual ~ISudokuReader() = default;
+    protected:
+        com::rambrant::sudoku::Logger& mLogger;
 };

@@ -15,10 +15,11 @@ class SudokuAsciiReader final : public ISudokuReader
     public:
         
         /**
-         * @brief Constructs the class with for an in stream.
-         * @param is The existing in stream.
+         * @brief Constructs the class with for an instream and a Logger
+         * @param is The existing instream to read from
+         * @param logger The logger instance. Must be valid during the lifetime of the readers
          */
-        explicit SudokuAsciiReader( std::istream& is);
+        explicit SudokuAsciiReader( std::istream& is, com::rambrant::sudoku::Logger& logger);
         
         /**
          * @brief Reads the Sudoku board

@@ -9,7 +9,8 @@
 
 #include "SudokuAsciiReader.hpp"
 
-SudokuAsciiReader::SudokuAsciiReader( std::istream& is) :
+SudokuAsciiReader::SudokuAsciiReader( std::istream& is, com::rambrant::sudoku::Logger& logger) :
+    ISudokuReader( logger),
     mStream( is)
 {
 }
@@ -22,6 +23,10 @@ auto SudokuAsciiReader::read() const -> Traits::Board
 
     int  count = 0;
     char ch;
+
+    mLogger << "Reading board" << std::endl;
+    mLogger << com::rambrant::sudoku::Logger::verbose << "Reading detailed verbose log" << std::endl;
+    mLogger << "back to defaul" << std::endl;
 
     while( count < MAX_VALUES && mStream.get( ch))
     {

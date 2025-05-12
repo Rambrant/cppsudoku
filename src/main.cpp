@@ -9,6 +9,7 @@
 #include <fstream>
 
 #include "SudokuBoard.hpp"
+#include "Logger.hpp"
 #include "BackTrackingSolver.hpp"
 #include "ConstraintPropagationSolver.h"
 #include "FileStream.hpp"
@@ -20,10 +21,13 @@
 
 int main()
 {
+    using namespace com::rambrant::sudoku;
+
     try
     {
+        auto logger = Logger{ Logger::LogLevel::Quiet};
         auto input  = FileStream{ "board_simple.txt"};
-        auto reader = SudokuAsciiReader{ input};
+        auto reader = SudokuAsciiReader{ input, logger};
         auto writer = SudokuPrettyWriter( std::cout);
         //    auto writer = SudokuBlockWriter( std::cout);
         //    auto writer = SudokuLineWriter( std::cout);
@@ -48,17 +52,17 @@ int main()
         //
         // Present the result
         //
-        std::cout << "Made " << recursions << " Recursions in " << duration.count() << " µs" << std::endl;
+        logger << "Made " << recursions << " Recursions in " << duration.count() << " µs" << std::endl;
 
         if( result)
         {
-            std::cout << "Found a solution "  << std::endl;
+            logger << "Found a solution "  << std::endl;
 
             board.write();
         }
         else
         {
-            std::cout << std::endl << "No solution found!" << std::endl;
+            logger << std::endl << "No solution found!" << std::endl;
         }
 
         return 0;
@@ -70,3 +74,4 @@ int main()
 
     return 1;
 }
+
