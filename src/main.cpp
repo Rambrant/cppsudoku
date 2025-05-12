@@ -20,44 +20,53 @@
 
 int main()
 {
-    auto input  = FileStream{ "board_simple.txt"};
-    auto reader = SudokuAsciiReader{ input};
-    auto writer = SudokuPrettyWriter( std::cout);
-//    auto writer = SudokuBlockWriter( std::cout);
-//    auto writer = SudokuLineWriter( std::cout);
-
-    auto backtrackSolver  = BackTrackingSolver{};
-    auto constraintSolver = ConstraintPropagationSolver{};
-
-    SudokuBoard  board{ reader, writer, { backtrackSolver, constraintSolver}};
-
-    //
-    // Print the original board
-    //
-    board.read();
-    board.write();
-
-    std::cout << std::endl;
-
-    auto  [stats, duration] = timedCall([&] { return board.solve(); });
-
-    auto& [ result, recursions] = stats;
-
-    //
-    // Present the result
-    //
-    std::cout << "Made " << recursions << " Recursions in " << duration.count() << " µs" << std::endl;
-
-    if( result)
+    try
     {
-        std::cout << "Found a solution "  << std::endl;
+        auto input  = FileStream{ "board_simple.txt"};
+        auto reader = SudokuAsciiReader{ input};
+        auto writer = SudokuPrettyWriter( std::cout);
+        //    auto writer = SudokuBlockWriter( std::cout);
+        //    auto writer = SudokuLineWriter( std::cout);
 
+        auto backtrackSolver  = BackTrackingSolver{};
+        auto constraintSolver = ConstraintPropagationSolver{};
+
+        SudokuBoard  board{ reader, writer, { backtrackSolver, constraintSolver}};
+
+        //
+        // Print the original board
+        //
+        board.read();
         board.write();
+
+        std::cout << std::endl;
+
+        auto  [stats, duration] = timedCall([&] { return board.solve(); });
+
+        auto& [ result, recursions] = stats;
+
+        //
+        // Present the result
+        //
+        std::cout << "Made " << recursions << " Recursions in " << duration.count() << " µs" << std::endl;
+
+        if( result)
+        {
+            std::cout << "Found a solution "  << std::endl;
+
+            board.write();
+        }
+        else
+        {
+            std::cout << std::endl << "No solution found!" << std::endl;
+        }
+
+        return 0;
     }
-    else
+    catch( const std::exception& e)
     {
-        std::cout << std::endl << "No solution found!" << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 
-    return 0;
+    return 1;
 }
