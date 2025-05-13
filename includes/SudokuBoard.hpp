@@ -52,7 +52,7 @@ namespace com::rambrant::sudoku
              * @brief Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order
              * @return A SudokuTraits.BoardResult
              */
-            auto solve() const -> Traits::BoardResult;
+            auto solve() const -> bool;
 
         private:
 

@@ -10,6 +10,7 @@
 #include "ISudokuReader.hpp"
 #include "ISudokuWriter.hpp"
 #include "ISudokuSolver.hpp"
+#include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -31,21 +32,29 @@ namespace com::rambrant::sudoku
         mWriter.write( mBoard);
     }
 
-    auto SudokuBoard::solve() const -> Traits::BoardResult
+    auto SudokuBoard::solve() const -> bool
     {
+        mLogger << "Solving Sudoku board" << std::endl;
+
+        int count{1};
+
         for( auto solver : mSolvers)
         {
+            mLogger << Logger::verbose << "...Trying solver " << count++ << " --> ";
+
             Traits::Board       board{ mBoard};
             auto [ result, recursions] = solver.get().solve( board);
+
+            mLogger << Logger::verbose << "result: " << std::boolalpha << result << ", recursions: " << recursions << std::endl;
 
             if( result)
             {
                 mBoard = board;
 
-                return { result, recursions };
+                return result;
             }
         }
 
-        return { false, 0};
+        return false;
     }
 }

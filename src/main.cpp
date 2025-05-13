@@ -24,8 +24,8 @@ int main()
 
     try
     {
-        auto logger = Logger{ Logger::LogLevel::Verbose};
-        auto input  = FileStream{ "board_simple.txt"};
+        auto logger = Logger{ Logger::LogLevel::Normal};
+        auto input  = FileStream{ "board_hard.txt"};
         auto reader = SudokuAsciiReader{ input, logger};
         auto writer = SudokuPrettyWriter( std::cout, logger);
         //    auto writer = SudokuBlockWriter( std::cout, logger);
@@ -40,28 +40,24 @@ int main()
         // Print the original board
         //
         board.read();
-        board.write();
 
-        std::cout << std::endl;
-
-        auto  [stats, duration] = timedCall([&] { return board.solve(); });
-
-        auto& [ result, recursions] = stats;
+        //
+        // Solve the board
+        //
+        auto  [result, duration] = timedCall([&] { return board.solve(); });
 
         //
         // Present the result
         //
-        logger << "Made " << recursions << " Recursions in " << duration.count() << " µs" << std::endl;
-
         if( result)
         {
-            logger << "Found a solution "  << std::endl;
+            logger << "Solved in " << duration.count() << " µs" << std::endl << std::endl;
 
             board.write();
         }
         else
         {
-            logger << std::endl << "No solution found!" << std::endl;
+            throw std::runtime_error( "No solution found!");
         }
 
         return 0;

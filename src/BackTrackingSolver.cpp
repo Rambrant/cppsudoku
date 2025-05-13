@@ -8,7 +8,7 @@
 
 namespace com::rambrant::sudoku
 {
-    BackTrackingSolver::BackTrackingSolver( const Logger & logger ) :
+    BackTrackingSolver::BackTrackingSolver( const Logger & logger) :
         ISudokuSolver( logger)
     {}
 

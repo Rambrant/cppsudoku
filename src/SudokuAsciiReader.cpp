@@ -23,13 +23,12 @@ namespace com::rambrant::sudoku
         int  count = 0;
         char ch;
 
-        mLogger << "Reading board" << std::endl;
-        mLogger << Logger::verbose << "Reading detailed verbose log" << std::endl;
-        mLogger << "back to defaul" << std::endl;
+        mLogger << "Reading [" << Traits::BOARD_SIZE << "x" << Traits::BOARD_SIZE <<"] board with Ascii reader" << std::endl;
 
         while( count < MAX_VALUES && mStream.get( ch))
         {
-            if( ch == '.') ch = '0';
+            if( ch == '.')
+                ch = '0';
 
             int value = charToValue<Traits::BOARD_SIZE>( ch);
 
