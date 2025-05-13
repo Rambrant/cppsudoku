@@ -4,10 +4,12 @@
 #include <ostream>
 
 #include "SudokuPrettyWriter.hpp"
+#include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
-    SudokuPrettyWriter::SudokuPrettyWriter( std::ostream& os) :
+    SudokuPrettyWriter::SudokuPrettyWriter( std::ostream& os, const Logger& logger) :
+        ISudokuWriter( logger),
         mStream( os)
     { }
 

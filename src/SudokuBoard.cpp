@@ -13,8 +13,9 @@
 
 namespace com::rambrant::sudoku
 {
-    SudokuBoard::SudokuBoard( const ISudokuReader& reader, const ISudokuWriter& writer, SolverList solvers) :
+    SudokuBoard::SudokuBoard( const ISudokuReader& reader, const ISudokuWriter& writer, SolverList solvers, const Logger& logger) :
         mBoard{},
+        mLogger{ logger},
         mReader{ reader},
         mWriter{ writer},
         mSolvers{ std::move( solvers) }

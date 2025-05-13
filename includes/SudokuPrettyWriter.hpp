@@ -17,8 +17,9 @@ namespace com::rambrant::sudoku
             /**
              * @brief Constructs the class that writes the board formatted in a "pretty" way
              * @param os The existing outstream to write to.
+             * @param logger The @ref Logger instance. Must be valid during the lifetime of the writer
              */
-            explicit SudokuPrettyWriter( std::ostream& os);
+            SudokuPrettyWriter( std::ostream& os, const Logger& logger);
 
             /**
              * @brief Writes the given board to the stream

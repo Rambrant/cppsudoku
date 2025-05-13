@@ -19,6 +19,12 @@ namespace com::rambrant::sudoku
         public:
 
             /**
+             * @brief Constructs the class with a Logger
+             * @param logger The @ref Logger instance. Must be valid during the lifetime of the solver
+             */
+            explicit BackTrackingSolver( const Logger& logger);
+
+            /**
              * @brief Solves the given Sudoku board using a brute force backtracking algorithm.
              * @param board A @ref SudokuTraits.Board.
              * @return A @ref SudokuTraits.BoardResult.

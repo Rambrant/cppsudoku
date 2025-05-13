@@ -8,6 +8,10 @@
 
 namespace com::rambrant::sudoku
 {
+    BackTrackingSolver::BackTrackingSolver( const Logger & logger ) :
+        ISudokuSolver( logger)
+    {}
+
     auto BackTrackingSolver::solve( Traits::Board &board) const -> Traits::BoardResult
     {
         bool result = solver( board);

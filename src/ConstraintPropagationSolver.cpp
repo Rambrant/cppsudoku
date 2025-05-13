@@ -7,7 +7,8 @@
 
 namespace com::rambrant::sudoku
 {
-    ConstraintPropagationSolver::ConstraintPropagationSolver()
+    ConstraintPropagationSolver::ConstraintPropagationSolver( const Logger& logger) :
+        ISudokuSolver( logger)
     {
         //
         // Init all the square coordinates

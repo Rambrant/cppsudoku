@@ -19,7 +19,11 @@ namespace com::rambrant::sudoku
     {
         public:
 
-            ConstraintPropagationSolver();
+            /**
+             * @brief Constructs the class with a Logger
+             * @param logger The @ref Logger instance. Must be valid during the lifetime of the solver
+             */
+            explicit ConstraintPropagationSolver( const Logger& logger);
             ~ConstraintPropagationSolver() override = default;
 
             /**

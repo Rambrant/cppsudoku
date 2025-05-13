@@ -4,10 +4,14 @@
 #include <ostream>
 
 #include "SudokuBlockWriter.hpp"
+#include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
-    SudokuBlockWriter::SudokuBlockWriter( std::ostream& os) :
+    class Logger;
+
+    SudokuBlockWriter::SudokuBlockWriter( std::ostream& os, const Logger& logger) :
+        ISudokuWriter( logger),
         mStream( os)
     { }
 

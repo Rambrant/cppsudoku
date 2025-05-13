@@ -9,6 +9,8 @@
 
 namespace com::rambrant::sudoku
 {
+    class Logger;
+
     /**
      * @brief A solver interface for classes that can solve a Sudoku board using some sort of algorithm.
      */
@@ -20,6 +22,13 @@ namespace com::rambrant::sudoku
             using Traits = SudokuTraits;
 
             /**
+              * @brief Base class constructor that initiates the logger member to be used by the subclasses
+              * @param logger The logger instance. Must be valid during the lifetime of the readers
+              */
+            explicit ISudokuSolver( const Logger& logger) : mLogger( logger) {};
+            virtual ~ISudokuSolver() = default;
+
+            /**
              * @brief Solves the given Sudoku board
              * @param board A SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
              * @return A SudokuTraits.BoardResult
@@ -27,6 +36,9 @@ namespace com::rambrant::sudoku
             [[nodiscard]]
             virtual auto solve( Traits::Board& board) const -> Traits::BoardResult = 0;
 
-            virtual ~ISudokuSolver() = default;
+        protected:
+
+            /// @brief internal logger reference to be used by the subclasses to write log messages to
+            const Logger& mLogger;
     };
 }

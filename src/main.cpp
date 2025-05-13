@@ -24,17 +24,17 @@ int main()
 
     try
     {
-        auto logger = Logger{ Logger::LogLevel::Quiet};
+        auto logger = Logger{ Logger::LogLevel::Verbose};
         auto input  = FileStream{ "board_simple.txt"};
         auto reader = SudokuAsciiReader{ input, logger};
-        auto writer = SudokuPrettyWriter( std::cout);
-        //    auto writer = SudokuBlockWriter( std::cout);
-        //    auto writer = SudokuLineWriter( std::cout);
+        auto writer = SudokuPrettyWriter( std::cout, logger);
+        //    auto writer = SudokuBlockWriter( std::cout, logger);
+        //    auto writer = SudokuLineWriter( std::cout, logger);
 
-        auto backtrackSolver  = BackTrackingSolver{};
-        auto constraintSolver = ConstraintPropagationSolver{};
+        auto backtrackSolver  = BackTrackingSolver{ logger};
+        auto constraintSolver = ConstraintPropagationSolver{ logger};
 
-        SudokuBoard  board{ reader, writer, { backtrackSolver, constraintSolver}};
+        SudokuBoard  board{ reader, writer, { backtrackSolver, constraintSolver}, logger};
 
         //
         // Print the original board

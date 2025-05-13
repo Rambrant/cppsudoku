@@ -11,13 +11,13 @@ namespace com::rambrant::sudoku
         mOut( std::cout)
     {}
 
-    auto Logger::operator<<( const LevelManipulator & manip ) -> Logger&
+    auto Logger::operator<<( const LevelManipulator & manip ) const -> const Logger&
     {
         mCurrentLevel = manip.mLevel;
         return *this;
     }
 
-    auto Logger::operator<<( std::ostream & (*manip)( std::ostream & ) ) -> Logger&
+    auto Logger::operator<<( std::ostream & (*manip)( std::ostream & )) const -> const Logger&
     {
         if( shouldPrint())
             mOut << manip;

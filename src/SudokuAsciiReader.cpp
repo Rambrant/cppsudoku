@@ -1,14 +1,14 @@
 //
 //  Created by Thomas Rambrant on 2025-04-24.
 //
+#include <fstream>
 
 #include "SudokuAsciiReader.hpp"
-
-#include <fstream>
+#include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
-    SudokuAsciiReader::SudokuAsciiReader( std::istream& is, Logger& logger) :
+    SudokuAsciiReader::SudokuAsciiReader( std::istream& is, const Logger& logger) :
         ISudokuReader( logger),
         mStream( is)
     {

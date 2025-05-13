@@ -63,14 +63,14 @@ namespace com::rambrant::sudoku
              * @param manip the manipulator Logger::normal, Logger::verbose
              * @return The Logger to allow chaining of calls
              */
-            auto operator<<( const LevelManipulator & manip ) -> Logger&;
+            auto operator<<( const LevelManipulator & manip ) const -> const Logger&;
 
             /**
              * @brief Stream output operator that takes standard library manipulator such as std::endl, std::flush. Resets the stream to the default level
              * @param manip
              * @return The Logger to allow chaining of calls
              */
-            auto operator<<( std::ostream & (*manip)( std::ostream & ) ) -> Logger&;
+            auto operator<<( std::ostream & (*manip)( std::ostream & ) ) const -> const Logger&;
 
 
             /**
@@ -80,12 +80,12 @@ namespace com::rambrant::sudoku
              * @return The Logger to allow chaining of calls
              */
             template<typename T>
-            auto operator<<( const T & value ) -> Logger&;
+            auto operator<<( const T & value ) const -> const Logger&;
 
         private:
-            LogLevel      mDefaultLevel;
-            LogLevel      mCurrentLevel;
-            std::ostream& mOut;
+            LogLevel          mDefaultLevel;
+            mutable LogLevel  mCurrentLevel;
+            std::ostream&     mOut;
 
             [[nodiscard]]
             auto shouldPrint() const -> bool;
@@ -93,7 +93,7 @@ namespace com::rambrant::sudoku
 
     /// \cond DOXYGEN_SUPPRESS
     template<typename T>
-    Logger& Logger::operator<<( const T& value)
+    auto Logger::operator<<( const T & value ) const -> const Logger&
     {
         if( shouldPrint())
             mOut << value;

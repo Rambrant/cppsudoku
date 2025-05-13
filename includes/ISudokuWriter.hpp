@@ -7,6 +7,8 @@
 
 namespace com::rambrant::sudoku
 {
+    class Logger;
+
     /**
      * @brief A reader interface for classes that can read a Sudoku board from some sort of source.
      */
@@ -18,11 +20,22 @@ namespace com::rambrant::sudoku
             using Traits = SudokuTraits;
 
             /**
+             * @brief Base class constructor that initiates the logger member to be used by the subclasses
+             * @param logger The logger instance. Must be valid during the lifetime of the writers
+             */
+            explicit ISudokuWriter( const Logger& logger) : mLogger( logger) {};
+            virtual ~ISudokuWriter() = default;
+
+            /**
              * @brief A method that writes a Sudoku board to destination.
              * @param board The board to print ou to the stream
              */
             virtual auto write( const Traits::Board& board) const -> void = 0;
 
-            virtual ~ISudokuWriter() = default;
+
+        protected:
+
+            /// @brief internal logger reference to be used by the subclasses to write log messages to
+            const Logger& mLogger;
     };
 }

@@ -5,11 +5,12 @@
 //
 #pragma once
 
-#include "Logger.hpp"
 #include "SudokuTraits.hpp"
 
 namespace com::rambrant::sudoku
 {
+    class Logger;
+
     /**
      * @brief A reader interface for classes that can read a Sudoku board from some sort of source.
      */
@@ -21,7 +22,7 @@ namespace com::rambrant::sudoku
              * @brief Base class constructor that initiates the logger member to be used by the subclasses
              * @param logger The logger instance. Must be valid during the lifetime of the readers
              */
-            explicit ISudokuReader( com::rambrant::sudoku::Logger& logger) : mLogger( logger ) {};
+            explicit ISudokuReader( const Logger& logger) : mLogger( logger) {};
             virtual  ~ISudokuReader() = default;
 
             /// @brief Alias to shorten access to @ref SudokuTraits.
@@ -37,6 +38,6 @@ namespace com::rambrant::sudoku
         protected:
 
             /// @brief internal logger reference to be used by the subclasses to write log messages to
-            com::rambrant::sudoku::Logger& mLogger;
+            const Logger& mLogger;
     };
 }

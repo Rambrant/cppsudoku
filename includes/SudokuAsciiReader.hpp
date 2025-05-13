@@ -21,7 +21,7 @@ namespace com::rambrant::sudoku
              * @param is The existing instream to read from
              * @param logger The @ref Logger instance. Must be valid during the lifetime of the readers
              */
-            explicit SudokuAsciiReader( std::istream& is, Logger& logger);
+            SudokuAsciiReader( std::istream& is, const Logger& logger);
 
             /**
              * @brief Reads the Sudoku board

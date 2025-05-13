@@ -1,14 +1,15 @@
 //
 // Created by Thomas Rambrant on 2025-05-09.
 //
-
 #include <ostream>
 
 #include "SudokuLineWriter.hpp"
+#include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
-    SudokuLineWriter::SudokuLineWriter( std::ostream& os) :
+    SudokuLineWriter::SudokuLineWriter( std::ostream& os, const Logger& logger) :
+        ISudokuWriter( logger),
         mStream( os)
     { }
 
