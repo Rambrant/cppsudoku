@@ -3,20 +3,20 @@ var annotated_dup =
     [ "com", null, [
       [ "rambrant", null, [
         [ "sudoku", null, [
-          [ "Logger", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html", "classcom_1_1rambrant_1_1sudoku_1_1_logger" ]
+          [ "BackTrackingSolver", "classcom_1_1rambrant_1_1sudoku_1_1_back_tracking_solver.html", "classcom_1_1rambrant_1_1sudoku_1_1_back_tracking_solver" ],
+          [ "ConstraintPropagationSolver", "classcom_1_1rambrant_1_1sudoku_1_1_constraint_propagation_solver.html", "classcom_1_1rambrant_1_1sudoku_1_1_constraint_propagation_solver" ],
+          [ "FileStream", "classcom_1_1rambrant_1_1sudoku_1_1_file_stream.html", "classcom_1_1rambrant_1_1sudoku_1_1_file_stream" ],
+          [ "ISudokuReader", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader" ],
+          [ "ISudokuSolver", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver" ],
+          [ "ISudokuWriter", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer" ],
+          [ "Logger", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html", "classcom_1_1rambrant_1_1sudoku_1_1_logger" ],
+          [ "SudokuAsciiReader", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_ascii_reader.html", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_ascii_reader" ],
+          [ "SudokuBlockWriter", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_block_writer.html", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_block_writer" ],
+          [ "SudokuBoard", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board" ],
+          [ "SudokuLineWriter", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer" ],
+          [ "SudokuPrettyWriter", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_pretty_writer.html", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_pretty_writer" ],
+          [ "SudokuTraits", "structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html", "structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits" ]
         ] ]
       ] ]
-    ] ],
-    [ "BackTrackingSolver", "class_back_tracking_solver.html", "class_back_tracking_solver" ],
-    [ "ConstraintPropagationSolver", "class_constraint_propagation_solver.html", "class_constraint_propagation_solver" ],
-    [ "FileStream", "class_file_stream.html", "class_file_stream" ],
-    [ "ISudokuReader", "class_i_sudoku_reader.html", "class_i_sudoku_reader" ],
-    [ "ISudokuSolver", "class_i_sudoku_solver.html", "class_i_sudoku_solver" ],
-    [ "ISudokuWriter", "class_i_sudoku_writer.html", "class_i_sudoku_writer" ],
-    [ "SudokuAsciiReader", "class_sudoku_ascii_reader.html", "class_sudoku_ascii_reader" ],
-    [ "SudokuBlockWriter", "class_sudoku_block_writer.html", "class_sudoku_block_writer" ],
-    [ "SudokuBoard", "class_sudoku_board.html", "class_sudoku_board" ],
-    [ "SudokuLineWriter", "class_sudoku_line_writer.html", "class_sudoku_line_writer" ],
-    [ "SudokuPrettyWriter", "class_sudoku_pretty_writer.html", "class_sudoku_pretty_writer" ],
-    [ "SudokuTraits", "struct_sudoku_traits.html", "struct_sudoku_traits" ]
+    ] ]
 ];

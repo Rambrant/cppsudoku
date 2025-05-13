@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rangearray_0',['RangeArray',['../group___helpers.html#gac42e7511d9dcdd425577a1b13745919b',1,'SudokuUtil.hpp']]],
-  ['read_1',['read',['../class_i_sudoku_reader.html#ab5c140522da2eccbaa8d50f61636b797',1,'ISudokuReader::read()'],['../class_sudoku_ascii_reader.html#acc623d82bbdd12c99ed9dc513eeb898e',1,'SudokuAsciiReader::read()'],['../class_sudoku_board.html#a99b2f48e17f7c5f524a22cb3308b83ba',1,'SudokuBoard::read()']]]
+  ['operator_3c_3c_0',['operator&lt;&lt;',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#aa94148cfcdc1d9a0a340179a65460d8f',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(const LevelManipulator &amp;manip) const -&gt; const Logger &amp;'],['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ab62976f71ffc1990aac84ab907d3d1dc',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(std::ostream &amp;(*manip)(std::ostream &amp;)) const -&gt; const Logger &amp;'],['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ab7e21b4159547df529d3723b07ae3bc2',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(const T &amp;value) const -&gt; const Logger &amp;']]]
 ];

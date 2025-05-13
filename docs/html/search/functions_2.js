@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['isudokureader_0',['ISudokuReader',['../class_i_sudoku_reader.html#ac87fdaf2c469f797e67650e17ada777e',1,'ISudokuReader']]]
+  ['filestream_0',['FileStream',['../classcom_1_1rambrant_1_1sudoku_1_1_file_stream.html#a07420c9cb1466f55416b623d0be076a7',1,'com::rambrant::sudoku::FileStream']]]
 ];

@@ -123,22 +123,22 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
 <tr class="memdesc:aca6642ba8a284c12fd349487c1356322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias to shorten access to <a class="el" href="struct_sudoku_traits.html">SudokuTraits</a>. <br /></td></tr>
 <tr class="separator:aca6642ba8a284c12fd349487c1356322"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e1fc3bcd963040390bf124420de3f11" id="r_a6e1fc3bcd963040390bf124420de3f11"><td class="memItemLeft" align="right" valign="top"><a id="a6e1fc3bcd963040390bf124420de3f11" name="a6e1fc3bcd963040390bf124420de3f11"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SolverList</b> = std::vector&lt;std::reference_wrapper&lt;<a class="el" href="class_i_sudoku_solver.html">ISudokuSolver</a>&gt;&gt;</td></tr>
-<tr class="memdesc:a6e1fc3bcd963040390bf124420de3f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of references to <a class="el" href="class_i_sudoku_solver.html">ISudokuSolver</a> references. <br /></td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SolverList</b> = std::vector&lt;std::reference_wrapper&lt;ISudokuSolver&gt;&gt;</td></tr>
+<tr class="memdesc:a6e1fc3bcd963040390bf124420de3f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of references to ISudokuSolver references. <br /></td></tr>
 <tr class="separator:a6e1fc3bcd963040390bf124420de3f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a35b0fa275d1db336926dfdf088b14f31" id="r_a35b0fa275d1db336926dfdf088b14f31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35b0fa275d1db336926dfdf088b14f31">SudokuBoard</a> (const <a class="el" href="class_i_sudoku_reader.html">ISudokuReader</a> &amp;reader, const <a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a> &amp;writer, <a class="el" href="#a6e1fc3bcd963040390bf124420de3f11">SolverList</a> solvers)</td></tr>
+<tr class="memitem:a35b0fa275d1db336926dfdf088b14f31" id="r_a35b0fa275d1db336926dfdf088b14f31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35b0fa275d1db336926dfdf088b14f31">SudokuBoard</a> (const ISudokuReader &amp;reader, const ISudokuWriter &amp;writer, <a class="el" href="#a6e1fc3bcd963040390bf124420de3f11">SolverList</a> solvers)</td></tr>
 <tr class="memdesc:a35b0fa275d1db336926dfdf088b14f31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the board and initializes the reader.  <br /></td></tr>
 <tr class="separator:a35b0fa275d1db336926dfdf088b14f31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99b2f48e17f7c5f524a22cb3308b83ba" id="r_a99b2f48e17f7c5f524a22cb3308b83ba"><td class="memItemLeft" align="right" valign="top"><a id="a99b2f48e17f7c5f524a22cb3308b83ba" name="a99b2f48e17f7c5f524a22cb3308b83ba"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>read</b> () const -&gt; void</td></tr>
-<tr class="memdesc:a99b2f48e17f7c5f524a22cb3308b83ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the board from the <a class="el" href="class_i_sudoku_reader.html">ISudokuReader</a> given in the constructor. <br /></td></tr>
+<tr class="memdesc:a99b2f48e17f7c5f524a22cb3308b83ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the board from the ISudokuReader given in the constructor. <br /></td></tr>
 <tr class="separator:a99b2f48e17f7c5f524a22cb3308b83ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3674a0f19763d4c0fd6e437466f6c2fc" id="r_a3674a0f19763d4c0fd6e437466f6c2fc"><td class="memItemLeft" align="right" valign="top"><a id="a3674a0f19763d4c0fd6e437466f6c2fc" name="a3674a0f19763d4c0fd6e437466f6c2fc"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&gt; void</td></tr>
-<tr class="memdesc:a3674a0f19763d4c0fd6e437466f6c2fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the board using the <a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a> given in the constructor. <br /></td></tr>
+<tr class="memdesc:a3674a0f19763d4c0fd6e437466f6c2fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the board using the ISudokuWriter given in the constructor. <br /></td></tr>
 <tr class="separator:a3674a0f19763d4c0fd6e437466f6c2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a455ec2a59671085ac04c3db5ab9eabab" id="r_a455ec2a59671085ac04c3db5ab9eabab"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a455ec2a59671085ac04c3db5ab9eabab">solve</a> () const -&gt; <a class="el" href="struct_sudoku_traits.html#a8ddc2d97568df299026cfc191399dd4d">Traits::BoardResult</a></td></tr>
 <tr class="memdesc:a455ec2a59671085ac04c3db5ab9eabab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order.  <br /></td></tr>
@@ -160,12 +160,12 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&
         <tr>
           <td class="memname">SudokuBoard::SudokuBoard </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_i_sudoku_reader.html">ISudokuReader</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>reader</em></span>, </td>
+          <td class="paramtype">const ISudokuReader &amp;</td>          <td class="paramname"><span class="paramname"><em>reader</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>writer</em></span>, </td>
+          <td class="paramtype">const ISudokuWriter &amp;</td>          <td class="paramname"><span class="paramname"><em>writer</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -183,9 +183,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&
 <p>Constructs the board and initializes the reader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reader</td><td>An <a class="el" href="class_i_sudoku_reader.html">ISudokuReader</a>. The reader must exist during the lifetime of the <a class="el" href="class_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
-    <tr><td class="paramname">writer</td><td>A <a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a>. The writer must exist during the lifetime of the <a class="el" href="class_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
-    <tr><td class="paramname">solvers</td><td>A list of <a class="el" href="class_i_sudoku_solver.html">ISudokuSolver</a>. The solvers must exist during the lifetime of the <a class="el" href="class_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
+    <tr><td class="paramname">reader</td><td>An ISudokuReader. The reader must exist during the lifetime of the <a class="el" href="class_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
+    <tr><td class="paramname">writer</td><td>A ISudokuWriter. The writer must exist during the lifetime of the <a class="el" href="class_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
+    <tr><td class="paramname">solvers</td><td>A list of ISudokuSolver. The solvers must exist during the lifetime of the <a class="el" href="class_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
   </table>
   </dd>
 </dl>

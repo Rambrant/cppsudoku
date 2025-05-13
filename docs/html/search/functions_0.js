@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['chartovalue_0',['charToValue',['../group___helpers.html#ga32063f31f3fded8f45aff9d560c6874e',1,'SudokuUtil.hpp']]]
+  ['backtrackingsolver_0',['BackTrackingSolver',['../classcom_1_1rambrant_1_1sudoku_1_1_back_tracking_solver.html#ad83bceece6ad0e4f8228d2a0c859c949',1,'com::rambrant::sudoku::BackTrackingSolver']]]
 ];

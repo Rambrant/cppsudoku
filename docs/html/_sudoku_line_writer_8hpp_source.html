@@ -106,32 +106,40 @@ $(function(){initNavTree('_sudoku_line_writer_8hpp_source.html',''); initResizab
   <div class="headertitle"><div class="title">SudokuLineWriter.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Created by Thomas Rambrant on 2025-05-09.</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Created by Thomas Rambrant on 2025-05-09.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;ISudokuWriter.hpp&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span></div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_sudoku_line_writer.html">   12</a></span><span class="keyword">class </span><a class="code hl_function" href="class_sudoku_line_writer.html#a5dc0f951f31a3b475ae75e7dc9d0e029">SudokuLineWriter</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_i_sudoku_writer.html">ISudokuWriter</a></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_sudoku_line_writer.html#a5dc0f951f31a3b475ae75e7dc9d0e029">SudokuLineWriter</a>( std::ostream&amp; os);</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;ISudokuWriter.hpp&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>com::rambrant::sudoku</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">class </span><a class="code hl_class" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html">   18</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html#a779c065089e0ebd6ed329d38e3ac1590">SudokuLineWriter</a> : <span class="keyword">public</span> <a class="code hl_function" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html#aedaf6092a1341ae516b0bf1d51ec69cf">ISudokuWriter</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">auto</span> <a class="code hl_function" href="class_sudoku_line_writer.html#a9f9343e0a76efeb8b8a3dd57cae5f0bd">write</a>( <span class="keyword">const</span> <a class="code hl_typedef" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a>&amp; board) <span class="keyword">const</span> -&gt; <span class="keywordtype">void</span> <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        std::ostream&amp; mStream;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <a class="code hl_function" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html#a779c065089e0ebd6ed329d38e3ac1590">SudokuLineWriter</a>( std::ostream&amp; os, <span class="keyword">const</span> <a class="code hl_class" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a>&amp; logger);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <span class="keyword">auto</span> <a class="code hl_function" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html#a2c030164e7673ee982dc4eb2c3115429">write</a>( <span class="keyword">const</span> <a class="code hl_typedef" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html#a7b22cc8693d63eda1221b8012cec5a9f">Traits::Board</a>&amp; board) <span class="keyword">const</span> -&gt; <span class="keywordtype">void</span> <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            std::ostream&amp; mStream;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    };</div>
 </div>
-<div class="ttc" id="aclass_i_sudoku_writer_html"><div class="ttname"><a href="class_i_sudoku_writer.html">ISudokuWriter</a></div><div class="ttdoc">A reader interface for classes that can read a Sudoku board from some sort of source.</div><div class="ttdef"><b>Definition</b> ISudokuWriter.hpp:12</div></div>
-<div class="ttc" id="aclass_sudoku_line_writer_html_a5dc0f951f31a3b475ae75e7dc9d0e029"><div class="ttname"><a href="class_sudoku_line_writer.html#a5dc0f951f31a3b475ae75e7dc9d0e029">SudokuLineWriter::SudokuLineWriter</a></div><div class="ttdeci">SudokuLineWriter(std::ostream &amp;os)</div><div class="ttdoc">Constructs the class that writes the board in a single line.</div><div class="ttdef"><b>Definition</b> SudokuLineWriter.cpp:8</div></div>
-<div class="ttc" id="aclass_sudoku_line_writer_html_a9f9343e0a76efeb8b8a3dd57cae5f0bd"><div class="ttname"><a href="class_sudoku_line_writer.html#a9f9343e0a76efeb8b8a3dd57cae5f0bd">SudokuLineWriter::write</a></div><div class="ttdeci">auto write(const Traits::Board &amp;board) const -&gt; void override</div><div class="ttdoc">Writes the given board to the stream.</div><div class="ttdef"><b>Definition</b> SudokuLineWriter.cpp:12</div></div>
-<div class="ttc" id="astruct_sudoku_traits_html_a63285b90a911f18daa71d4623012abb5"><div class="ttname"><a href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">SudokuTraits::Board</a></div><div class="ttdeci">std::array&lt; BoardArray, BOARD_SIZE &gt; Board</div><div class="ttdoc">2D grid of BOARD_SIZE number of BoardArray&#39;s</div><div class="ttdef"><b>Definition</b> SudokuTraits.hpp:43</div></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="ttc" id="aclasscom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer_html_aedaf6092a1341ae516b0bf1d51ec69cf"><div class="ttname"><a href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html#aedaf6092a1341ae516b0bf1d51ec69cf">com::rambrant::sudoku::ISudokuWriter::ISudokuWriter</a></div><div class="ttdeci">ISudokuWriter(const Logger &amp;logger)</div><div class="ttdoc">Base class constructor that initiates the logger member to be used by the subclasses.</div><div class="ttdef"><b>Definition</b> ISudokuWriter.hpp:26</div></div>
+<div class="ttc" id="aclasscom_1_1rambrant_1_1sudoku_1_1_logger_html"><div class="ttname"><a href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">com::rambrant::sudoku::Logger</a></div><div class="ttdoc">A std::cout compatible logger that supports different levels of logging.</div><div class="ttdef"><b>Definition</b> Logger.hpp:15</div></div>
+<div class="ttc" id="aclasscom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer_html_a2c030164e7673ee982dc4eb2c3115429"><div class="ttname"><a href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html#a2c030164e7673ee982dc4eb2c3115429">com::rambrant::sudoku::SudokuLineWriter::write</a></div><div class="ttdeci">auto write(const Traits::Board &amp;board) const -&gt; void override</div><div class="ttdoc">Writes the given board to the stream.</div><div class="ttdef"><b>Definition</b> SudokuLineWriter.cpp:16</div></div>
+<div class="ttc" id="aclasscom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer_html_a779c065089e0ebd6ed329d38e3ac1590"><div class="ttname"><a href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html#a779c065089e0ebd6ed329d38e3ac1590">com::rambrant::sudoku::SudokuLineWriter::SudokuLineWriter</a></div><div class="ttdeci">SudokuLineWriter(std::ostream &amp;os, const Logger &amp;logger)</div><div class="ttdoc">Constructs the class that writes the board in a single line.</div><div class="ttdef"><b>Definition</b> SudokuLineWriter.cpp:11</div></div>
+<div class="ttc" id="astructcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits_html_a7b22cc8693d63eda1221b8012cec5a9f"><div class="ttname"><a href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html#a7b22cc8693d63eda1221b8012cec5a9f">com::rambrant::sudoku::SudokuTraits::Board</a></div><div class="ttdeci">std::array&lt; BoardArray, BOARD_SIZE &gt; Board</div><div class="ttdoc">2D grid of BOARD_SIZE number of BoardArray&#39;s</div><div class="ttdef"><b>Definition</b> SudokuTraits.hpp:43</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['solve_0',['solve',['../class_back_tracking_solver.html#a02a96f03527f45cc1230eacf929c7e6d',1,'BackTrackingSolver::solve()'],['../class_constraint_propagation_solver.html#a2a351c2112eb1f24ea49352590f00086',1,'ConstraintPropagationSolver::solve()'],['../class_i_sudoku_solver.html#a191c5246ad1ee8fa2a8320832c0e2259',1,'ISudokuSolver::solve()'],['../class_sudoku_board.html#a455ec2a59671085ac04c3db5ab9eabab',1,'SudokuBoard::solve()']]],
-  ['subrangeview_1',['subrangeView',['../group___helpers.html#ga2a50778af52e0e5d92dc7e6f657b435c',1,'SudokuUtil.hpp']]],
-  ['sudokuasciireader_2',['SudokuAsciiReader',['../class_sudoku_ascii_reader.html#a23b297ea7773135c670e5144c0f5404e',1,'SudokuAsciiReader']]],
-  ['sudokublockwriter_3',['SudokuBlockWriter',['../class_sudoku_block_writer.html#a53f0a1a180d1346d9f29512e3aefa011',1,'SudokuBlockWriter']]],
-  ['sudokuboard_4',['SudokuBoard',['../class_sudoku_board.html#a35b0fa275d1db336926dfdf088b14f31',1,'SudokuBoard']]],
-  ['sudokulinewriter_5',['SudokuLineWriter',['../class_sudoku_line_writer.html#a5dc0f951f31a3b475ae75e7dc9d0e029',1,'SudokuLineWriter']]],
-  ['sudokuprettywriter_6',['SudokuPrettyWriter',['../class_sudoku_pretty_writer.html#ae09bedf0ec14b48ab21989261072e7ab',1,'SudokuPrettyWriter']]]
+  ['rangearray_0',['RangeArray',['../group___helpers.html#ga4dcf46bcf153cf2ed6d57e4eebaf8aa7',1,'com::rambrant::sudoku']]],
+  ['read_1',['read',['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html#a9d53cdf38379871810c717e0b49a894d',1,'com::rambrant::sudoku::ISudokuReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_ascii_reader.html#a332372412b99617f7a9ead36532beb93',1,'com::rambrant::sudoku::SudokuAsciiReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html#a6993f1ffd4ef1f139aaadf526ea10948',1,'com::rambrant::sudoku::SudokuBoard::read()']]]
 ];

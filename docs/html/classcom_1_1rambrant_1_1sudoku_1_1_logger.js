@@ -7,7 +7,7 @@ var classcom_1_1rambrant_1_1sudoku_1_1_logger =
       [ "Verbose", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ae26a91937e2e4554ec72f00b0eee03b0ad4a9fa383ab700c5bdd6f31cf7df0faf", null ]
     ] ],
     [ "Logger", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html#a7360ccfb56099800f87c970edcefeb45", null ],
-    [ "operator<<", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html#aa60e9cae9904ebaaca40a39172d8deae", null ],
-    [ "operator<<", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html#a66c5d8dd2af707313d9eb33d27b245e1", null ],
-    [ "operator<<", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ad0e2be88221dd464774a3024fdcddd67", null ]
+    [ "operator<<", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html#aa94148cfcdc1d9a0a340179a65460d8f", null ],
+    [ "operator<<", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ab7e21b4159547df529d3723b07ae3bc2", null ],
+    [ "operator<<", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ab62976f71ffc1990aac84ab907d3d1dc", null ]
 ];

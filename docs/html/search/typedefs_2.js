@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['traits_0',['Traits',['../class_i_sudoku_reader.html#a91f5f11cf3fcff5a5987daffa78678b9',1,'ISudokuReader::Traits'],['../class_i_sudoku_solver.html#aebe48f80770c84b4dc5edb45734b117b',1,'ISudokuSolver::Traits'],['../class_i_sudoku_writer.html#a426cb5a753ce6fe271716d3f49733540',1,'ISudokuWriter::Traits'],['../class_sudoku_board.html#aca6642ba8a284c12fd349487c1356322',1,'SudokuBoard::Traits']]]
+  ['traits_0',['Traits',['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html#aff3de1d100c2868dbd39654acda9256b',1,'com::rambrant::sudoku::ISudokuReader::Traits'],['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html#a5e1ac421210927d90cd16bc0d78f42bc',1,'com::rambrant::sudoku::ISudokuSolver::Traits'],['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html#a1e532befdb0d5924aa1e0d6f3f845624',1,'com::rambrant::sudoku::ISudokuWriter::Traits'],['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html#a79c4e8d0680b0659ef9640463a03d5cb',1,'com::rambrant::sudoku::SudokuBoard::Traits']]]
 ];

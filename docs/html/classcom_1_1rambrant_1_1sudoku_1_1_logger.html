@@ -138,16 +138,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7360ccfb56099800f87c970edcefeb45" id="r_a7360ccfb56099800f87c970edcefeb45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7360ccfb56099800f87c970edcefeb45">Logger</a> (<a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0">LogLevel</a> defaultLevel=<a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0a960b44c579bc2f6818d2daaf9e4c16f0">LogLevel::Normal</a>)</td></tr>
 <tr class="memdesc:a7360ccfb56099800f87c970edcefeb45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a logger with a specific level.  <br /></td></tr>
 <tr class="separator:a7360ccfb56099800f87c970edcefeb45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa60e9cae9904ebaaca40a39172d8deae" id="r_aa60e9cae9904ebaaca40a39172d8deae"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa60e9cae9904ebaaca40a39172d8deae">operator&lt;&lt;</a> (const <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html">LevelManipulator</a> &amp;manip) -&gt; <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td></tr>
-<tr class="memdesc:aa60e9cae9904ebaaca40a39172d8deae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output operator that takes one of the internal manipulators to set the level of the following message.  <br /></td></tr>
-<tr class="separator:aa60e9cae9904ebaaca40a39172d8deae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0e2be88221dd464774a3024fdcddd67" id="r_ad0e2be88221dd464774a3024fdcddd67"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0e2be88221dd464774a3024fdcddd67">operator&lt;&lt;</a> (std::ostream &amp;(*manip)(std::ostream &amp;)) -&gt; <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td></tr>
-<tr class="memdesc:ad0e2be88221dd464774a3024fdcddd67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output operator that takes standard library manipulator such as std::endl, std::flush. Resets the stream to the default level.  <br /></td></tr>
-<tr class="separator:ad0e2be88221dd464774a3024fdcddd67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66c5d8dd2af707313d9eb33d27b245e1" id="r_a66c5d8dd2af707313d9eb33d27b245e1"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:a66c5d8dd2af707313d9eb33d27b245e1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a66c5d8dd2af707313d9eb33d27b245e1">operator&lt;&lt;</a> (const T &amp;value) -&gt; <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td></tr>
-<tr class="memdesc:a66c5d8dd2af707313d9eb33d27b245e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output operator to print out any type that can be converted to std::string.  <br /></td></tr>
-<tr class="separator:a66c5d8dd2af707313d9eb33d27b245e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa94148cfcdc1d9a0a340179a65460d8f" id="r_aa94148cfcdc1d9a0a340179a65460d8f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa94148cfcdc1d9a0a340179a65460d8f">operator&lt;&lt;</a> (const <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html">LevelManipulator</a> &amp;manip) const -&gt; const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td></tr>
+<tr class="memdesc:aa94148cfcdc1d9a0a340179a65460d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output operator that takes one of the internal manipulators to set the level of the following message.  <br /></td></tr>
+<tr class="separator:aa94148cfcdc1d9a0a340179a65460d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab62976f71ffc1990aac84ab907d3d1dc" id="r_ab62976f71ffc1990aac84ab907d3d1dc"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab62976f71ffc1990aac84ab907d3d1dc">operator&lt;&lt;</a> (std::ostream &amp;(*manip)(std::ostream &amp;)) const -&gt; const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td></tr>
+<tr class="memdesc:ab62976f71ffc1990aac84ab907d3d1dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output operator that takes standard library manipulator such as std::endl, std::flush. Resets the stream to the default level.  <br /></td></tr>
+<tr class="separator:ab62976f71ffc1990aac84ab907d3d1dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7e21b4159547df529d3723b07ae3bc2" id="r_ab7e21b4159547df529d3723b07ae3bc2"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ab7e21b4159547df529d3723b07ae3bc2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab7e21b4159547df529d3723b07ae3bc2">operator&lt;&lt;</a> (const T &amp;value) const -&gt; const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td></tr>
+<tr class="memdesc:ab7e21b4159547df529d3723b07ae3bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output operator to print out any type that can be converted to std::string.  <br /></td></tr>
+<tr class="separator:ab7e21b4159547df529d3723b07ae3bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -230,8 +230,8 @@ static constexpr <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa60e9cae9904ebaaca40a39172d8deae" name="aa60e9cae9904ebaaca40a39172d8deae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa60e9cae9904ebaaca40a39172d8deae">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/3]</span></h2>
+<a id="aa94148cfcdc1d9a0a340179a65460d8f" name="aa94148cfcdc1d9a0a340179a65460d8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa94148cfcdc1d9a0a340179a65460d8f">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,7 +240,7 @@ static constexpr <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_
           <td class="memname">auto com::rambrant::sudoku::Logger::operator&lt;&lt; </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html">LevelManipulator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>manip</em></span></td><td>)</td>
-          <td> -&gt; <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a>&amp;</td>
+          <td> const -&gt; const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a>&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -256,8 +256,8 @@ static constexpr <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_
 
 </div>
 </div>
-<a id="a66c5d8dd2af707313d9eb33d27b245e1" name="a66c5d8dd2af707313d9eb33d27b245e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66c5d8dd2af707313d9eb33d27b245e1">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/3]</span></h2>
+<a id="ab7e21b4159547df529d3723b07ae3bc2" name="ab7e21b4159547df529d3723b07ae3bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7e21b4159547df529d3723b07ae3bc2">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -268,7 +268,7 @@ template&lt;typename T&gt; </div>
           <td class="memname">auto com::rambrant::sudoku::Logger::operator&lt;&lt; </td>
           <td>(</td>
           <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
-          <td> -&gt;  <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td>
+          <td> const -&gt;  const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -290,8 +290,8 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a id="ad0e2be88221dd464774a3024fdcddd67" name="ad0e2be88221dd464774a3024fdcddd67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0e2be88221dd464774a3024fdcddd67">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/3]</span></h2>
+<a id="ab62976f71ffc1990aac84ab907d3d1dc" name="ab62976f71ffc1990aac84ab907d3d1dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab62976f71ffc1990aac84ab907d3d1dc">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,7 +300,7 @@ template&lt;typename T&gt; </div>
           <td class="memname">auto com::rambrant::sudoku::Logger::operator&lt;&lt; </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;(*</td>          <td class="paramname"><span class="paramname"><em>manip&#160;</em></span>)(std::ostream &amp;)</td><td>)</td>
-          <td> -&gt; <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a>&amp;</td>
+          <td> const -&gt; const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a>&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">

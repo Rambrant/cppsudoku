@@ -118,28 +118,17 @@ $(function(){initNavTree('class_sudoku_block_writer.html',''); initResizable(tru
 Inheritance diagram for SudokuBlockWriter:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_sudoku_block_writer.png" usemap="#SudokuBlockWriter_map" alt=""/>
-  <map id="SudokuBlockWriter_map" name="SudokuBlockWriter_map">
-<area href="class_i_sudoku_writer.html" title="A reader interface for classes that can read a Sudoku board from some sort of source." alt="ISudokuWriter" shape="rect" coords="0,0,119,24"/>
-  </map>
-</div></div>
+  <img src="class_sudoku_block_writer.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a53f0a1a180d1346d9f29512e3aefa011" id="r_a53f0a1a180d1346d9f29512e3aefa011"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53f0a1a180d1346d9f29512e3aefa011">SudokuBlockWriter</a> (std::ostream &amp;os)</td></tr>
 <tr class="memdesc:a53f0a1a180d1346d9f29512e3aefa011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the class that writes the board in a "block". A one row per line.  <br /></td></tr>
 <tr class="separator:a53f0a1a180d1346d9f29512e3aefa011"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad231a10910f15308ae36727afc2b075d" id="r_ad231a10910f15308ae36727afc2b075d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad231a10910f15308ae36727afc2b075d">write</a> (const <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a> &amp;board) const -&gt; void override</td></tr>
+<tr class="memitem:ad231a10910f15308ae36727afc2b075d" id="r_ad231a10910f15308ae36727afc2b075d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad231a10910f15308ae36727afc2b075d">write</a> (const Traits::Board &amp;board) const -&gt; void override</td></tr>
 <tr class="memdesc:ad231a10910f15308ae36727afc2b075d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given board to the stream.  <br /></td></tr>
 <tr class="separator:ad231a10910f15308ae36727afc2b075d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_class_i_sudoku_writer"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_types_class_i_sudoku_writer')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_i_sudoku_writer.html">ISudokuWriter</a></td></tr>
-<tr class="memitem:a426cb5a753ce6fe271716d3f49733540 inherit pub_types_class_i_sudoku_writer" id="r_a426cb5a753ce6fe271716d3f49733540"><td class="memItemLeft" align="right" valign="top">
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a class="el" href="struct_sudoku_traits.html">SudokuTraits</a></td></tr>
-<tr class="memdesc:a426cb5a753ce6fe271716d3f49733540 inherit pub_types_class_i_sudoku_writer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias to shorten access to <a class="el" href="struct_sudoku_traits.html">SudokuTraits</a>. <br /></td></tr>
-<tr class="separator:a426cb5a753ce6fe271716d3f49733540 inherit pub_types_class_i_sudoku_writer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A board writer that prints out a pretty formatted output to the stream. </p>
@@ -190,13 +179,13 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
         <tr>
           <td class="memname">auto SudokuBlockWriter::write </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_sudoku_traits.html#a63285b90a911f18daa71d4623012abb5">Traits::Board</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>board</em></span></td><td>)</td>
+          <td class="paramtype">const Traits::Board &amp;</td>          <td class="paramname"><span class="paramname"><em>board</em></span></td><td>)</td>
           <td> const -&gt; void</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -208,8 +197,6 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a clas
   </table>
   </dd>
 </dl>
-
-<p>Implements <a class="el" href="class_i_sudoku_writer.html#ae547ac5aa617adc27d43db9eeb81f616">ISudokuWriter</a>.</p>
 
 </div>
 </div>
