@@ -10,6 +10,7 @@
 #include "SudokuBoard.hpp"
 #include "Logger.hpp"
 #include "BackTrackingSolver.hpp"
+#include "CommandLineParser.h"
 #include "ConstraintPropagationSolver.hpp"
 #include "FileStream.hpp"
 #include "SudokuAsciiReader.hpp"
@@ -18,27 +19,115 @@
 #include "SudokuPrettyWriter.hpp"
 #include "SudokuUtil.hpp"
 
-int main()
+int main( int argc, char* argv[])
 {
     using namespace com::rambrant::sudoku;
 
     try
     {
-        auto logger = Logger{ Logger::LogLevel::Normal};
-        auto input  = FileStream{ "board_hard.txt"};
-        auto reader = SudokuAsciiReader{ input, logger};
-        auto writer = SudokuPrettyWriter( std::cout, logger);
-        //    auto writer = SudokuBlockWriter( std::cout, logger);
-        //    auto writer = SudokuLineWriter( std::cout, logger);
+        using Traits =SudokuTraits;
 
+        //
+        // Parse the command line
+        //
+        Option<bool>        verboseOpt{   "--verbose", "-v", false};
+        Option<bool>        quietOpt{     "--quiet", "-q", false};
+        Option<std::string> inputOpt{     "--input", "-i"};
+        Option<std::string> outputOpt{    "--output", "-o"};
+        Option<std::string> outFormatOpt{ "--output-format", "-O", "block"};
+        Option<std::string> inFormatOpt{  "--input-format", "-I", "text"};
+
+        CommandLineParser parser( verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt);
+        parser.parse( argc, argv);
+
+        //
+        //  Set the log level
+        //
+        parser.assertNotBoth( verboseOpt, quietOpt);
+
+        auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
+        auto logger = Logger{ logLevel };
+
+        logger << Logger::verbose << "Initializing" << std::endl;
+
+        //
+        // Initialize the board reader
+        //
+        parser.assertValueIn( inFormatOpt, { "text"});
+
+        std::unique_ptr<ISudokuReader>  reader;
+        std::unique_ptr<FileStream>     inputStream;
+        std::istream*                   input = &std::cin;
+
+        if( inputOpt.isSet())
+        {
+            inputStream = std::make_unique<FileStream>( inputOpt.get());
+            input       = inputStream.get();
+
+            logger << Logger::verbose << "...Reading from file '" << inputOpt.get() << "'";
+        }
+        else
+        {
+            logger << Logger::verbose << "...Reading from stdin";
+        }
+
+        if( inFormatOpt.get() == "text")
+        {
+            reader = std::make_unique<SudokuAsciiReader>( *input, logger);
+
+            logger << Logger::verbose << " [text format]" << std::endl;
+        }
+
+        //
+        // Initialize the board writer
+        //
+        parser.assertValueIn( outFormatOpt, { "pretty", "block", "line"});
+
+        std::unique_ptr<ISudokuWriter>  writer;
+        std::unique_ptr<FileStream>     outputStream;
+        std::ostream*                   output = &std::cout;
+
+        if( outputOpt.isSet())
+        {
+            outputStream = std::make_unique<FileStream>( outputOpt.get(), FileStream::Mode::Write);
+            output       = outputStream.get();
+
+            logger << Logger::verbose << "...Writing to file '" << outputOpt.get() << "'";
+        }
+        else
+        {
+            logger << Logger::verbose << "...Writing to stdout" ;
+        }
+
+        writer = std::make_unique<SudokuBlockWriter>( *output, logger);
+
+        if( outFormatOpt.get() == "pretty")
+        {
+            writer = std::make_unique<SudokuPrettyWriter>( *output, logger);
+
+            logger << Logger::verbose << " [pretty format]" << std::endl;
+        }
+        else if( outFormatOpt.get() == "line")
+        {
+            writer = std::make_unique<SudokuLineWriter>( *output, logger);
+
+            logger << Logger::verbose << " [line format]" << std::endl;
+        }
+        else
+        {
+            logger << Logger::verbose << " [block format]" << std::endl;
+        }
+
+        //
+        // Setting up and solving the board
+        //
         auto backtrackSolver  = BackTrackingSolver{ logger};
         auto constraintSolver = ConstraintPropagationSolver{ logger};
 
-        SudokuBoard  board{ reader, writer, { backtrackSolver, constraintSolver}, logger};
+        SudokuBoard  board{ *reader, *writer, { backtrackSolver, constraintSolver}, logger};
 
-        //
-        // Print the original board
-        //
+        logger << Logger::verbose << "Reading [" << Traits::BOARD_SIZE << "x" << Traits::BOARD_SIZE <<"] board" << std::endl;
+
         board.read();
 
         //

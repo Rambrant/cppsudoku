@@ -23,8 +23,6 @@ namespace com::rambrant::sudoku
         int  count = 0;
         char ch;
 
-        mLogger << "Reading [" << Traits::BOARD_SIZE << "x" << Traits::BOARD_SIZE <<"] board with Ascii reader" << std::endl;
-
         while( count < MAX_VALUES && mStream.get( ch))
         {
             if( ch == '.')
