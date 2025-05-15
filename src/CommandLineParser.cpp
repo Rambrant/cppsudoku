@@ -16,7 +16,7 @@ namespace com::rambrant::sudoku
 
             for( auto* opt : options)
             {
-                if( opt->is( arg))
+                if( opt->isMatched( arg))
                 {
                     matched = opt;
                     break;
@@ -34,11 +34,11 @@ namespace com::rambrant::sudoku
                 if( i + 1 >= argc)
                     throw std::runtime_error( "Expected value after " + arg);
 
-                matched->parseValue( argv[ ++i]);
+                matched->convertValue( argv[ ++i]);
             }
             else
             {
-                matched->parseValue( "");
+                matched->convertValue( "");
             }
         }
     }

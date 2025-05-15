@@ -140,9 +140,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>read</b> () const -&g
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&gt; void</td></tr>
 <tr class="memdesc:a5964acfa0b865cc58dd785cff2d81069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the board using the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html">ISudokuWriter</a> given in the constructor. <br /></td></tr>
 <tr class="separator:a5964acfa0b865cc58dd785cff2d81069"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41eb11a083427d38a3c3f3f964c4e4c3" id="r_a41eb11a083427d38a3c3f3f964c4e4c3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41eb11a083427d38a3c3f3f964c4e4c3">solve</a> () const -&gt; <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html#a0811f73cbe20cebc99fe473b74e8c1bd">Traits::BoardResult</a></td></tr>
-<tr class="memdesc:a41eb11a083427d38a3c3f3f964c4e4c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order.  <br /></td></tr>
-<tr class="separator:a41eb11a083427d38a3c3f3f964c4e4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5378e3996f4e9b4341a365bb042a9951" id="r_a5378e3996f4e9b4341a365bb042a9951"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5378e3996f4e9b4341a365bb042a9951">solve</a> () const -&gt; bool</td></tr>
+<tr class="memdesc:a5378e3996f4e9b4341a365bb042a9951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order.  <br /></td></tr>
+<tr class="separator:a5378e3996f4e9b4341a365bb042a9951"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvig,. </p>
@@ -191,8 +191,8 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a41eb11a083427d38a3c3f3f964c4e4c3" name="a41eb11a083427d38a3c3f3f964c4e4c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41eb11a083427d38a3c3f3f964c4e4c3">&#9670;&#160;</a></span>solve()</h2>
+<a id="a5378e3996f4e9b4341a365bb042a9951" name="a5378e3996f4e9b4341a365bb042a9951"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5378e3996f4e9b4341a365bb042a9951">&#9670;&#160;</a></span>solve()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +201,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&
           <td class="memname">auto com::rambrant::sudoku::SudokuBoard::solve </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const -&gt; <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html#a0811f73cbe20cebc99fe473b74e8c1bd">Traits::BoardResult</a></td>
+          <td> const -&gt; bool</td>
         </tr>
       </table>
 </div><div class="memdoc">

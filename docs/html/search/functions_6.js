@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['operator_3c_3c_0',['operator&lt;&lt;',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#aa94148cfcdc1d9a0a340179a65460d8f',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(const LevelManipulator &amp;manip) const -&gt; const Logger &amp;'],['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ab62976f71ffc1990aac84ab907d3d1dc',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(std::ostream &amp;(*manip)(std::ostream &amp;)) const -&gt; const Logger &amp;'],['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ab7e21b4159547df529d3723b07ae3bc2',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(const T &amp;value) const -&gt; const Logger &amp;']]]
+  ['ismatched_0',['isMatched',['../classcom_1_1rambrant_1_1sudoku_1_1_i_option.html#a9b0b06cf87ec77de601617475c12d7a3',1,'com::rambrant::sudoku::IOption::isMatched()'],['../classcom_1_1rambrant_1_1sudoku_1_1_option.html#acf9b1a7de9d1167a215755edea3c4775',1,'com::rambrant::sudoku::Option::isMatched()']]],
+  ['isset_1',['isSet',['../classcom_1_1rambrant_1_1sudoku_1_1_i_option.html#a14b4ba7293c0c3af6af0688c8bc5114b',1,'com::rambrant::sudoku::IOption::isSet()'],['../classcom_1_1rambrant_1_1sudoku_1_1_option.html#a25dd3d9603ed902b12e5bf134c252091',1,'com::rambrant::sudoku::Option::isSet()']]],
+  ['isudokureader_2',['ISudokuReader',['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html#a95afb21544621da58e3592c93cf6e3f5',1,'com::rambrant::sudoku::ISudokuReader']]],
+  ['isudokusolver_3',['ISudokuSolver',['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html#ad7eace357e27fdbcc84657a08ce323b4',1,'com::rambrant::sudoku::ISudokuSolver']]],
+  ['isudokuwriter_4',['ISudokuWriter',['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html#aedaf6092a1341ae516b0bf1d51ec69cf',1,'com::rambrant::sudoku::ISudokuWriter']]]
 ];

@@ -12,54 +12,77 @@
 
 namespace com::rambrant::sudoku
 {
-    // Parser class
+    /**
+     * @brief A command-line parser that parses a list of options from the arguments given to the program.
+     */
     class CommandLineParser
     {
         public:
 
+            /**
+             * @brief Constructs a command-line parser with a list of options.
+             *
+             * @tparam Opts One or more @ref Option objects to be registered with the parser.
+             * @param opts References to the options. Each must be a subclass of @ref IOption.
+             */
             template< typename... Opts>
             explicit CommandLineParser( Opts&... opts);
 
-            void parse( int argc, char* argv[]) const;
+            /**
+             * @brief   Parses the command-line arguments given in the main function.
+             * @param argc The number of arguments given to the program.
+             * @param argv The arguments given to the program.
+             */
+            auto parse( int argc, char *argv[] ) const -> void;
 
-            template< typename T>
-            auto get( const Option<T> & opt ) const -> T;
+            /**
+             * @brief Asserts that there is just one of the options is given
+             * @tparam A The left-hand type
+             * @tparam B The right-hand type
+             * @param lhs The left-hand @ref Option
+             * @param rhs The right-hand @ref Option
+             */
+            template< typename A, typename B>
+            static auto assertNotBoth( const Option<A>& lhs, const Option<B>& rhs ) -> void;
 
-            template< typename T>
-            auto assertNotBoth( const Option<T> & lhs, const Option<T> & rhs ) const -> void;
-
+            /**
+             * @brief Asserts that if the left hand @ref Option is set, then the right-hand @ref Option must also be set
+             * @tparam A The left-hand type
+             * @tparam B The right-hand type
+             * @param lhs The left-hand @ref Option
+             * @param rhs The right-hand @ref Option
+             */
             template<typename A, typename B>
-            auto assertRequires( const Option<A> & requiredIfSet, const Option<B> & mustAlsoBeSet ) const -> void;
+            static auto assertRequires( const Option<A>& lhs, const Option<B>& rhs ) -> void;
 
+            /**
+             * @brief Asserts that the value in the @ref Option matches the given strings
+             * @tparam T The type of the @ref Option
+             * @param opt The @ref Option object to check
+             * @param allowed A brace-initialized list of string values to check against
+             */
             template< typename T>
-            auto assertValueIn( const Option<T> & opt, const std::set<T> & allowed ) const -> void;
+            static auto assertValueIn( const Option<T>& opt, const std::set<std::string>& allowed) -> void;
 
         private:
 
         std::vector< IOption*> options;
     };
 
-
     /// \cond DOXYGEN_SUPPRESS
 
     template< typename ... Opts>
-    CommandLineParser::CommandLineParser( Opts &... opts )
+    CommandLineParser::CommandLineParser( Opts&... opts)
     {
         (options.push_back( &opts), ...);
     }
 
-    template< typename T>
-    auto CommandLineParser::get( const Option<T> & opt ) const -> T
-    {
-        return opt.get();
-    }
-
-    template< typename T>
+    template< typename A, typename B>
     auto CommandLineParser::assertNotBoth(
-        const Option<T> & lhs,
-        const Option<T> & rhs ) const -> void
+        const Option<A>& lhs,
+        const Option<B>& rhs ) -> void
     {
-        if( lhs.get() && rhs.get())
+        if( lhs.isSet() && rhs.isSet())
         {
             throw std::runtime_error( "Cannot combine " + lhs.getLongFlag() + " and " + rhs.getLongFlag() + "!");
         }
@@ -67,19 +90,19 @@ namespace com::rambrant::sudoku
 
     template< typename A, typename B>
     auto CommandLineParser::assertRequires(
-        const Option<A> & requiredIfSet,
-        const Option<B> & mustAlsoBeSet ) const -> void
+        const Option<A>& lhs,
+        const Option<B>& rhs ) -> void
     {
-        if( requiredIfSet.isSet() && !mustAlsoBeSet.isSet())
+        if( lhs.isSet() && ! rhs.isSet())
         {
-            throw std::runtime_error( requiredIfSet.getLongFlag() + " requires " + mustAlsoBeSet.getLongFlag() + " to be set.");
+            throw std::runtime_error( lhs.getLongFlag() + " requires " + rhs.getLongFlag() + " to be set.");
         }
     }
 
     template<typename T>
     auto CommandLineParser::assertValueIn(
-        const Option<T> &   opt,
-        const std::set<T> & allowed ) const -> void
+        const Option<T> &            opt,
+        const std::set<std::string>& allowed ) -> void
     {
         if( opt.isSet() && allowed.find( opt.get()) == allowed.end())
         {

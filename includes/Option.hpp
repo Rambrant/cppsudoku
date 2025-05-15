@@ -8,7 +8,80 @@
 
 namespace com::rambrant::sudoku
 {
+    /**
+     * @brief A template class that implements the interface @ref IOption and is used by the @ref CommandLineParser
+     */
+    template< typename T>
+    class Option : public IOption
+    {
+        public:
+
+            /**
+             * @brief Construct the actual option with the actual underlying type
+             * @param longFlag  The long option name, usually prepended with --
+             * @param shortFlag The short version of the longFlag, usually just one letter prepended with a single -
+             * @param defaultValue
+             */
+            Option( std::string longFlag, std::string shortFlag, std::optional<T> defaultValue = std::nullopt) :
+                mLongFlag( std::move( longFlag)),
+                mShortFlag( std::move( shortFlag)),
+                mDefaultValue( std::move( defaultValue))
+            {}
+
+            /**
+             * @brief Check to see if the option matches any command line argument
+             * @param arg The argument to match
+             * @return true if the arguments match the options short or long names.
+             */
+            [[nodiscard]]
+            bool isMatched( const std::string& arg) const override;
+
+            /**
+             * @brief Takes an argument string and converts it into the template type
+             * @param arg The command line argument to convert
+             */
+            void convertValue( const std::string& arg) override;
+
+            /**
+             * @brief Does the Option expect a value?
+             * @return true if the option expects a value. False if it is a flag.
+             */
+            [[nodiscard]]
+            bool expectsValue() const override;
+
+            /**
+              * @brief Gets the value or default. If none exists, an exception is thrown
+              * @return The value  if set and the default value otherwise
+              */
+            T get() const;
+
+            /**
+              * @brief Returns the long option name
+              * @return The long option name. Usually the name of the option prefixed with '--'
+              */
+            [[nodiscard]]
+            std::string getLongFlag() const override;
+
+            /**
+             * @brief Checks to see if a value has been set
+             * @return true if the value has been set
+             */
+            [[nodiscard]]
+            bool isSet() const override;
+
+        private:
+
+            std::string         mLongFlag;
+            std::string         mShortFlag;
+            std::optional<T>    mValue;
+            std::optional<T>    mDefaultValue;
+};
+
+    /// \cond DOXYGEN_SUPPRESS
+
+    //
     // Type conversion from string to T
+    //
     template< typename T>
     T convert( const std::string& s);
 
@@ -24,48 +97,17 @@ namespace com::rambrant::sudoku
         return s;
     }
 
-    template< typename T>
-    class Option : public IOption
-    {
-        public:
-            std::string         mLongFlag;
-            std::string         mShortFlag;
-            std::optional<T>    mValue;
-            std::optional<T>    mDefaultValue;
-
-            Option( std::string longFlag, std::string shortFlag, std::optional<T> defaultValue = std::nullopt) :
-                mLongFlag( std::move( longFlag)),
-                mShortFlag( std::move( shortFlag)),
-                mDefaultValue( std::move( defaultValue))
-            {}
-
-            [[nodiscard]]
-            bool is( const std::string& arg) const override;
-
-            void parseValue( const std::string& arg) override;
-
-            [[nodiscard]]
-            bool expectsValue() const override;
-
-            T get() const;
-
-            [[nodiscard]]
-            std::string getLongFlag() const override;
-
-            [[nodiscard]]
-            bool isSet() const override;
-    };
-
-    /// \cond DOXYGEN_SUPPRESS
-
+    //
+    // Member functions
+    //
     template<typename T>
-    auto Option<T>::is( const std::string & arg ) const -> bool
+    auto Option<T>::isMatched( const std::string & arg ) const -> bool
     {
         return arg == mLongFlag || arg == mShortFlag;
     }
 
     template<typename T>
-    auto Option<T>::parseValue( const std::string & arg ) -> void
+    auto Option<T>::convertValue( const std::string & arg ) -> void
     {
         if constexpr( std::is_same_v<T, bool>)
         {
