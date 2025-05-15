@@ -38,12 +38,12 @@ namespace com::rambrant::sudoku
 
         int count{1};
 
-        for( auto solver : mSolvers)
+        for( const auto& solver : mSolvers)
         {
             mLogger << Logger::verbose << "...Trying solver " << count++ << " --> ";
 
             Traits::Board       board{ mBoard};
-            auto [ result, recursions] = solver.get().solve( board);
+            auto [ result, recursions] = solver->solve( board);
 
             mLogger << Logger::verbose << "result: " << std::boolalpha << result << ", recursions: " << recursions << std::endl;
 

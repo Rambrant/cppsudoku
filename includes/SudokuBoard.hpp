@@ -27,7 +27,7 @@ namespace com::rambrant::sudoku
             using Traits = SudokuTraits;
 
             /// @brief A list of references to @ref ISudokuSolver references
-            using SolverList = std::vector<std::reference_wrapper<ISudokuSolver>>;
+            using SolverList = std::vector<std::unique_ptr<ISudokuSolver>>;
 
             /**
              * @brief Constructs the board and initializes the reader.

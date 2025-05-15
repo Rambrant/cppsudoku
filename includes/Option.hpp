@@ -3,6 +3,7 @@
 //
 #pragma once
 #include <string>
+#include <vector>
 
 #include "IOption.hpp"
 
@@ -17,16 +18,29 @@ namespace com::rambrant::sudoku
         public:
 
             /**
-             * @brief Construct the actual option with the actual underlying type
+             * @brief Construct the option with the given value
              * @param longFlag  The long option name, usually prepended with --
              * @param shortFlag The short version of the longFlag, usually just one letter prepended with a single -
-             * @param defaultValue
+             * @param defaultValue The default value if no value is set
              */
             Option( std::string longFlag, std::string shortFlag, std::optional<T> defaultValue = std::nullopt) :
                 mLongFlag( std::move( longFlag)),
                 mShortFlag( std::move( shortFlag)),
                 mDefaultValue( std::move( defaultValue))
             {}
+
+            /**
+             * @brief Construct the option with the given value. This is an alternative version that supports a list of values
+             * @param longFlag  The long option name, usually prepended with '--'
+             * @param shortFlag The short version of the longFlag, usually just one letter prepended with a single '-'
+             * @param defaultValue The default value if no value is set in the form of a bace-initializer or a vector of strings.
+             */
+            //
+            // Using a constraint to ensure that this constructor is only used for List types of options
+            //
+            template< typename U = T, typename = std::enable_if_t< std::is_same_v<U, std::vector<std::string>> >>
+            Option( std::string longFlag, std::string shortFlag, std::vector<std::string> defaultValue = {} ) :
+                Option( std::move( longFlag), std::move( shortFlag), std::optional{ std::move( defaultValue)}) {}
 
             /**
              * @brief Check to see if the option matches any command line argument
@@ -77,24 +91,67 @@ namespace com::rambrant::sudoku
             std::optional<T>    mDefaultValue;
 };
 
+    /**
+     * @brief Convenience class introducing a short notion for Option<bool>
+     */
+    class BoolOption final : public Option<bool>
+    {
+        public:
+            using Option::Option;
+    };
+
+    /**
+     * @brief Convenience class introducing a short notion for Option<std::string>
+     */
+    class StringOption final : public Option<std::string>
+    {
+        public:
+            using Option::Option;
+    };
+
+    /**
+    * @brief Convenience class introducing a short notion for Option<std::vector<std::string>>
+    */
+    class ListOption final : public Option<std::vector<std::string>>
+    {
+        public:
+            using Option::Option;
+    };
+
+
     /// \cond DOXYGEN_SUPPRESS
 
     //
     // Type conversion from string to T
     //
     template< typename T>
-    T convert( const std::string& s);
+    auto convert( const std::string & arg) -> T;
 
     template<>
-    inline bool convert<bool>( const std::string& s)
+    inline auto convert<bool>( const std::string & arg) -> bool
     {
-        return s == "1" || s == "true" || s == "yes";
+        return arg == "1" || arg == "true" || arg == "yes";
     }
 
     template<>
-    inline std::string convert<std::string>( const std::string& s)
+    inline auto convert<std::string>( const std::string & arg) -> std::string
     {
-        return s;
+        return arg;
+    }
+
+    template<>
+    inline auto convert<std::vector<std::string>>( const std::string & arg) -> std::vector<std::string>
+    {
+        std::vector<std::string> result;
+        std::stringstream        stream( arg);
+        std::string              token;
+
+        while( std::getline( stream, token, ','))
+        {
+            result.push_back( token);
+        }
+
+        return result;
     }
 
     //

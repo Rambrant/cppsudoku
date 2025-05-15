@@ -59,6 +59,13 @@ namespace com::rambrant::sudoku
             explicit Logger( LogLevel defaultLevel = LogLevel::Normal);
 
             /**
+             * @brief Chack if the Logger is in a verbose state or not
+             * @return true if the level i set to Verbose
+             */
+            [[nodiscard]]
+            auto isVerbose() const -> bool;
+
+            /**
              * @brief Stream output operator that takes one of the internal manipulators to set the level of the following message
              * @param manip the manipulator Logger::normal, Logger::verbose
              * @return The Logger to allow chaining of calls

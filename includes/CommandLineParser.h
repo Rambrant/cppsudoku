@@ -99,24 +99,49 @@ namespace com::rambrant::sudoku
         }
     }
 
+    inline void generateError( const std::string& flag, const std::string& value, const std::set<std::string>& allowed)
+    {
+        std::ostringstream oss;
+
+        oss << "Invalid value for " << flag << ": '" << value << "'. Allowed values are: ";
+
+        int count = 0;
+        for( const auto& val : allowed)
+        {
+            oss << (count++ != 0 ? "," : "") << "'" << val << "'";
+        }
+
+        throw std::runtime_error( oss.str());
+    }
+
+
     template<typename T>
     auto CommandLineParser::assertValueIn(
         const Option<T> &            opt,
-        const std::set<std::string>& allowed ) -> void
+        const std::set<std::string>& allowed) -> void
     {
-        if( opt.isSet() && allowed.find( opt.get()) == allowed.end())
+        if( ! opt.isSet())
+            return;
+
+        const auto& value = opt.get();
+
+        if constexpr (std::is_same_v<T, std::vector<std::string>>)
         {
-            std::ostringstream oss;
-
-            oss << "Invalid value for " << opt.getLongFlag() << ": '" << opt.get() << "'. Allowed values are: ";
-
-            int count = 0;
-            for( const auto& val : allowed)
-            {
-                oss << (count++ != 0 ? "," : "") << "'" << val << "'";
+            // T is a container: check that all values are in the allowed set
+            for( const auto& item : value)
+                {
+                if (std::find( allowed.begin(), allowed.end(), item) == allowed.end())
+                {
+                    generateError( opt.getLongFlag(), item, allowed);
+                }
             }
-
-            throw std::runtime_error( oss.str());
+        }
+        else
+        {
+            if( opt.isSet() && allowed.find( opt.get()) == allowed.end())
+            {
+                generateError( opt.getLongFlag(), opt.get(), allowed);
+            }
         }
     }
 

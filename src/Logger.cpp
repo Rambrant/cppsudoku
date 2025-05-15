@@ -11,6 +11,11 @@ namespace com::rambrant::sudoku
         mOut( std::cout)
     {}
 
+    auto Logger::isVerbose() const -> bool
+    {
+        return mCurrentLevel == LogLevel::Verbose;
+    }
+
     auto Logger::operator<<( const LevelManipulator & manip ) const -> const Logger&
     {
         mCurrentLevel = manip.mLevel;

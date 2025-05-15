@@ -4,17 +4,17 @@
 //  Created by Thomas Rambrant on 2025-04-07.
 //
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
-#include "SudokuBoard.hpp"
-#include "Logger.hpp"
 #include "BackTrackingSolver.hpp"
 #include "CommandLineParser.h"
 #include "ConstraintPropagationSolver.hpp"
 #include "FileStream.hpp"
+#include "Logger.hpp"
 #include "SudokuAsciiReader.hpp"
 #include "SudokuBlockWriter.hpp"
+#include "SudokuBoard.hpp"
 #include "SudokuLineWriter.hpp"
 #include "SudokuPrettyWriter.hpp"
 #include "SudokuUtil.hpp"
@@ -25,25 +25,26 @@ int main( int argc, char* argv[])
 
     try
     {
-        using Traits =SudokuTraits;
+        using Traits = SudokuTraits;
 
         //
         // Parse the command line
         //
-        Option<bool>        verboseOpt{   "--verbose", "-v", false};
-        Option<bool>        quietOpt{     "--quiet", "-q", false};
-        Option<std::string> inputOpt{     "--input", "-i"};
-        Option<std::string> outputOpt{    "--output", "-o"};
-        Option<std::string> outFormatOpt{ "--output-format", "-O", "block"};
-        Option<std::string> inFormatOpt{  "--input-format", "-I", "text"};
+        BoolOption   verboseOpt{   "--verbose", "-v", false};
+        BoolOption   quietOpt{     "--quiet", "-q", false};
+        StringOption inputOpt{     "--input", "-i"};
+        StringOption outputOpt{    "--output", "-o"};
+        StringOption outFormatOpt{ "--output-format", "-O", "block"};
+        StringOption inFormatOpt{  "--input-format", "-I", "text"};
+        ListOption   solversOpt{   "--solvers", "-s", std::vector<std::string>{ "backtracking", "constraint"}};
 
-        CommandLineParser parser( verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt);
+        CommandLineParser parser( verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);
         parser.parse( argc, argv);
 
         //
         //  Set the log level
         //
-        parser.assertNotBoth( verboseOpt, quietOpt);
+        CommandLineParser::assertNotBoth( verboseOpt, quietOpt);
 
         auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
         auto logger = Logger{ logLevel };
@@ -53,7 +54,7 @@ int main( int argc, char* argv[])
         //
         // Initialize the board reader
         //
-        parser.assertValueIn( inFormatOpt, { "text"});
+        CommandLineParser::assertValueIn( inFormatOpt, { "text"});
 
         std::unique_ptr<ISudokuReader>  reader;
         std::unique_ptr<FileStream>     inputStream;
@@ -81,7 +82,7 @@ int main( int argc, char* argv[])
         //
         // Initialize the board writer
         //
-        parser.assertValueIn( outFormatOpt, { "pretty", "block", "line"});
+        CommandLineParser::assertValueIn( outFormatOpt, { "pretty", "block", "line"});
 
         std::unique_ptr<ISudokuWriter>  writer;
         std::unique_ptr<FileStream>     outputStream;
@@ -119,20 +120,47 @@ int main( int argc, char* argv[])
         }
 
         //
+        // Initialize the solvers
+        //
+        CommandLineParser::assertValueIn( solversOpt, { "backtracking", "constraint"});
+
+        std::size_t             count{};
+        SudokuBoard::SolverList solvers;
+
+        for( const auto& solverArg : solversOpt.get())
+        {
+            ++count;
+
+            if( solverArg == "backtracking")
+            {
+                solvers.push_back( std::move( std::make_unique<BackTrackingSolver>( logger)));
+
+                logger << Logger::verbose << "...Adding solver " << count << " [backtracking]" << std::endl;
+            }
+            else
+            {
+                solvers.push_back( std::move( std::make_unique<ConstraintPropagationSolver>( logger)));
+
+                logger << Logger::verbose << "...Adding solver " << count << " [constraint propagation]" << std::endl;
+            }
+        }
+
+        //
         // Setting up and solving the board
         //
-        auto backtrackSolver  = BackTrackingSolver{ logger};
-        auto constraintSolver = ConstraintPropagationSolver{ logger};
-
-        SudokuBoard  board{ *reader, *writer, { backtrackSolver, constraintSolver}, logger};
+        SudokuBoard  board{ *reader, *writer, std::move(solvers), logger};
 
         logger << Logger::verbose << "Reading [" << Traits::BOARD_SIZE << "x" << Traits::BOARD_SIZE <<"] board" << std::endl;
 
         board.read();
 
-        //
-        // Solve the board
-        //
+        if( logger.isVerbose())
+        {
+            std::cout << std::endl;
+            board.write();
+            std::cout << std::endl;
+        }
+
         auto  [result, duration] = timedCall([&] { return board.solve(); });
 
         //
