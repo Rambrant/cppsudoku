@@ -127,8 +127,12 @@ Inheritance diagram for com::rambrant::sudoku::Option&lt; T &gt;:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aaea9627e2cfb730e5eee3c42db94f555" id="r_aaea9627e2cfb730e5eee3c42db94f555"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaea9627e2cfb730e5eee3c42db94f555">Option</a> (std::string longFlag, std::string shortFlag, std::optional&lt; T &gt; defaultValue=std::nullopt)</td></tr>
-<tr class="memdesc:aaea9627e2cfb730e5eee3c42db94f555"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the actual option with the actual underlying type.  <br /></td></tr>
+<tr class="memdesc:aaea9627e2cfb730e5eee3c42db94f555"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the option with the given value.  <br /></td></tr>
 <tr class="separator:aaea9627e2cfb730e5eee3c42db94f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a842f1b81916dc31ea25c5917f8c43306" id="r_a842f1b81916dc31ea25c5917f8c43306"><td class="memTemplParams" colspan="2">template&lt;typename U = T, typename = std::enable_if_t&lt; std::is_same_v&lt;U, std::vector&lt;std::string&gt;&gt; &gt;&gt; </td></tr>
+<tr class="memitem:a842f1b81916dc31ea25c5917f8c43306"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a842f1b81916dc31ea25c5917f8c43306">Option</a> (std::string longFlag, std::string shortFlag, std::vector&lt; std::string &gt; defaultValue={})</td></tr>
+<tr class="memdesc:a842f1b81916dc31ea25c5917f8c43306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the option with the given value. This is an alternative version that supports a list of values.  <br /></td></tr>
+<tr class="separator:a842f1b81916dc31ea25c5917f8c43306"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf9b1a7de9d1167a215755edea3c4775" id="r_acf9b1a7de9d1167a215755edea3c4775"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf9b1a7de9d1167a215755edea3c4775">isMatched</a> (const std::string &amp;arg) const override</td></tr>
 <tr class="memdesc:acf9b1a7de9d1167a215755edea3c4775"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check to see if the option matches any command line argument.  <br /></td></tr>
 <tr class="separator:acf9b1a7de9d1167a215755edea3c4775"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,7 +157,7 @@ Public Member Functions</h2></td></tr>
 class com::rambrant::sudoku::Option&lt; T &gt;</div><p>A template class that implements the interface <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_option.html">IOption</a> and is used by the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_line_parser.html">CommandLineParser</a>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaea9627e2cfb730e5eee3c42db94f555" name="aaea9627e2cfb730e5eee3c42db94f555"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaea9627e2cfb730e5eee3c42db94f555">&#9670;&#160;</a></span>Option()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaea9627e2cfb730e5eee3c42db94f555">&#9670;&#160;</a></span>Option() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,12 +190,60 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Construct the actual option with the actual underlying type. </p>
+<p>Construct the option with the given value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">longFlag</td><td>The long option name, usually prepended with &ndash; </td></tr>
     <tr><td class="paramname">shortFlag</td><td>The short version of the longFlag, usually just one letter prepended with a single - </td></tr>
-    <tr><td class="paramname">defaultValue</td><td></td></tr>
+    <tr><td class="paramname">defaultValue</td><td>The default value if no value is set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a842f1b81916dc31ea25c5917f8c43306" name="a842f1b81916dc31ea25c5917f8c43306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a842f1b81916dc31ea25c5917f8c43306">&#9670;&#160;</a></span>Option() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<div class="memtemplate">
+template&lt;typename U = T, typename = std::enable_if_t&lt; std::is_same_v&lt;U, std::vector&lt;std::string&gt;&gt; &gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">com::rambrant::sudoku::Option</a>&lt; T &gt;::Option </td>
+          <td>(</td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>longFlag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>shortFlag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>defaultValue</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct the option with the given value. This is an alternative version that supports a list of values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">longFlag</td><td>The long option name, usually prepended with '&ndash;' </td></tr>
+    <tr><td class="paramname">shortFlag</td><td>The short version of the longFlag, usually just one letter prepended with a single '-' </td></tr>
+    <tr><td class="paramname">defaultValue</td><td>The default value if no value is set in the form of a bace-initializer or a vector of strings. </td></tr>
   </table>
   </dd>
 </dl>

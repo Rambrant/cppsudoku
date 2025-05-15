@@ -122,14 +122,14 @@ Public Types</h2></td></tr>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html">SudokuTraits</a></td></tr>
 <tr class="memdesc:a79c4e8d0680b0659ef9640463a03d5cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias to shorten access to <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html">SudokuTraits</a>. <br /></td></tr>
 <tr class="separator:a79c4e8d0680b0659ef9640463a03d5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0402b12d6d73b9db32a59178d51a85d" id="r_ac0402b12d6d73b9db32a59178d51a85d"><td class="memItemLeft" align="right" valign="top"><a id="ac0402b12d6d73b9db32a59178d51a85d" name="ac0402b12d6d73b9db32a59178d51a85d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SolverList</b> = std::vector&lt;std::reference_wrapper&lt;<a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html">ISudokuSolver</a>&gt;&gt;</td></tr>
-<tr class="memdesc:ac0402b12d6d73b9db32a59178d51a85d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of references to <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html">ISudokuSolver</a> references. <br /></td></tr>
-<tr class="separator:ac0402b12d6d73b9db32a59178d51a85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79b534925d986b08ef4e1504ec6baf77" id="r_a79b534925d986b08ef4e1504ec6baf77"><td class="memItemLeft" align="right" valign="top"><a id="a79b534925d986b08ef4e1504ec6baf77" name="a79b534925d986b08ef4e1504ec6baf77"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SolverList</b> = std::vector&lt;std::unique_ptr&lt;<a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html">ISudokuSolver</a>&gt;&gt;</td></tr>
+<tr class="memdesc:a79b534925d986b08ef4e1504ec6baf77"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of references to <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html">ISudokuSolver</a> references. <br /></td></tr>
+<tr class="separator:a79b534925d986b08ef4e1504ec6baf77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af29cfaa111d5d6066bbc138a99f4b25d" id="r_af29cfaa111d5d6066bbc138a99f4b25d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af29cfaa111d5d6066bbc138a99f4b25d">SudokuBoard</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html">ISudokuReader</a> &amp;reader, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html">ISudokuWriter</a> &amp;writer, <a class="el" href="#ac0402b12d6d73b9db32a59178d51a85d">SolverList</a> solvers, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;logger)</td></tr>
+<tr class="memitem:af29cfaa111d5d6066bbc138a99f4b25d" id="r_af29cfaa111d5d6066bbc138a99f4b25d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af29cfaa111d5d6066bbc138a99f4b25d">SudokuBoard</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html">ISudokuReader</a> &amp;reader, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html">ISudokuWriter</a> &amp;writer, <a class="el" href="#a79b534925d986b08ef4e1504ec6baf77">SolverList</a> solvers, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;logger)</td></tr>
 <tr class="memdesc:af29cfaa111d5d6066bbc138a99f4b25d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the board and initializes the reader.  <br /></td></tr>
 <tr class="separator:af29cfaa111d5d6066bbc138a99f4b25d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6993f1ffd4ef1f139aaadf526ea10948" id="r_a6993f1ffd4ef1f139aaadf526ea10948"><td class="memItemLeft" align="right" valign="top"><a id="a6993f1ffd4ef1f139aaadf526ea10948" name="a6993f1ffd4ef1f139aaadf526ea10948"></a>
@@ -167,7 +167,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#ac0402b12d6d73b9db32a59178d51a85d">SolverList</a></td>          <td class="paramname"><span class="paramname"><em>solvers</em></span>, </td>
+          <td class="paramtype"><a class="el" href="#a79b534925d986b08ef4e1504ec6baf77">SolverList</a></td>          <td class="paramname"><span class="paramname"><em>solvers</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

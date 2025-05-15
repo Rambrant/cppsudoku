@@ -138,6 +138,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7360ccfb56099800f87c970edcefeb45" id="r_a7360ccfb56099800f87c970edcefeb45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7360ccfb56099800f87c970edcefeb45">Logger</a> (<a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0">LogLevel</a> defaultLevel=<a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0a960b44c579bc2f6818d2daaf9e4c16f0">LogLevel::Normal</a>)</td></tr>
 <tr class="memdesc:a7360ccfb56099800f87c970edcefeb45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a logger with a specific level.  <br /></td></tr>
 <tr class="separator:a7360ccfb56099800f87c970edcefeb45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46f9819830f90d065e3882e7c0066227" id="r_a46f9819830f90d065e3882e7c0066227"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46f9819830f90d065e3882e7c0066227">isVerbose</a> () const -&gt; bool</td></tr>
+<tr class="memdesc:a46f9819830f90d065e3882e7c0066227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chack if the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html" title="A std::cout compatible logger that supports different levels of logging.">Logger</a> is in a verbose state or not.  <br /></td></tr>
+<tr class="separator:a46f9819830f90d065e3882e7c0066227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa94148cfcdc1d9a0a340179a65460d8f" id="r_aa94148cfcdc1d9a0a340179a65460d8f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa94148cfcdc1d9a0a340179a65460d8f">operator&lt;&lt;</a> (const <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html">LevelManipulator</a> &amp;manip) const -&gt; const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;</td></tr>
 <tr class="memdesc:aa94148cfcdc1d9a0a340179a65460d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream output operator that takes one of the internal manipulators to set the level of the following message.  <br /></td></tr>
 <tr class="separator:aa94148cfcdc1d9a0a340179a65460d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,6 +233,34 @@ static constexpr <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a46f9819830f90d065e3882e7c0066227" name="a46f9819830f90d065e3882e7c0066227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46f9819830f90d065e3882e7c0066227">&#9670;&#160;</a></span>isVerbose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto com::rambrant::sudoku::Logger::isVerbose </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const -&gt; bool</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Chack if the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html" title="A std::cout compatible logger that supports different levels of logging.">Logger</a> is in a verbose state or not. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the level i set to Verbose </dd></dl>
+
+</div>
+</div>
 <a id="aa94148cfcdc1d9a0a340179a65460d8f" name="aa94148cfcdc1d9a0a340179a65460d8f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa94148cfcdc1d9a0a340179a65460d8f">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/3]</span></h2>
 
