@@ -115,8 +115,6 @@ namespace com::rambrant::sudoku
     // Usage:
     // static constexpr auto VALUE_RANGE = RangeArray<4>(3, 2); // Create the range { 3, 5, 7, 9 }
     //
-
-
     /**
      * @cond INTERNAL
      * @brief Internal implementation of `RangeArray` using index sequence expansion.
@@ -125,17 +123,11 @@ namespace com::rambrant::sudoku
      * This function should not be called directly. Used by `RangeArray`.
      */
     template<std::size_t N, typename T = int, std::size_t... Is>
-    constexpr std::array<T, N> RangeArrayImpl(T start, T step, std::index_sequence<Is...>)
+    constexpr std::array<T, N> RangeArrayImpl( T start, T step, std::index_sequence<Is...>)
     {
-        std::array<T, N> arr{};
-
-        //
-        // Use initializer list expansion to assign each element
-        //
-        (( arr[Is] = start + static_cast<T>(Is) * step), ...);
-
-        return arr;
+        return { { static_cast<T>(start + Is * step)... } };
     }
+
     /// @endcond
 
     /**
@@ -157,7 +149,7 @@ namespace com::rambrant::sudoku
     template<std::size_t N, typename T = int>
     constexpr std::array<T, N> RangeArray(T start = 0, T step = 1)
     {
-        return RangeArrayImpl<N, T>( start, step, std::make_index_sequence<N>{});
+        return RangeArrayImpl<N, T>(start, step, std::make_index_sequence<N>{});
     }
 
     /**
@@ -172,7 +164,7 @@ namespace com::rambrant::sudoku
      * @endcode
      */
     template <typename Func, typename... Args>
-    auto timedCall(Func&& func, Args&&... args)
+    auto timedCall( Func&& func, Args&&... args)
     {
         auto start = std::chrono::high_resolution_clock::now();
 
@@ -185,7 +177,7 @@ namespace com::rambrant::sudoku
     }
 
     /**
-     * @brief A converter from character to the corresponding integer. Integers over nine is treated as if hexadecimal
+     * @brief A converter from a character to the corresponding integer. Integers over nine are treated as if hexadecimal
      * @tparam size The size of the board, @ref SudokuTraits::BOARD_SIZE.
      * @param ch The character to convert to the corresponding int.
      * @return The integer or -1 if the character could not be converted.
@@ -216,7 +208,7 @@ namespace com::rambrant::sudoku
     }
 
     /**
-     * @brief A converter from integer to the corresponding character. Integers over nine is treated as if hexadecimal
+     * @brief A converter from an integer to the corresponding character. Integers over nine are treated as if hexadecimal
      * @tparam size The size of the board, @ref SudokuTraits::BOARD_SIZE.
      * @param val The character to convert to the corresponding int.
      * @return The character or '?' if the integer falls outside the allowed value range
