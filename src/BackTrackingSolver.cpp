@@ -92,6 +92,33 @@ namespace com::rambrant::sudoku
 
             return result;
         }
+
+        auto search( Traits::Board & board, int& recursions) -> bool // NOLINT(misc-no-recursion)
+{
+            ++recursions;
+
+            for( int rowIdx : Traits::INDEX_RANGE)
+            {
+                for( int colIdx : Traits::INDEX_RANGE)
+                {
+                    if( board[rowIdx][colIdx] == Traits::NO_VALUE)
+                    {
+                        for( int value : Traits::VALUE_RANGE)
+                        {
+                            if( isValid( board, value, rowIdx, colIdx) &&
+                                search( board, recursions))
+                            {
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
     }
 
     //
@@ -103,35 +130,10 @@ namespace com::rambrant::sudoku
 
     auto BackTrackingSolver::solve( Traits::Board &board) const -> Traits::BoardResult
     {
-        bool result = solver( board);
+        int  recursions{ 0};
 
-        return std::make_tuple( result, mRecursions);
-    }
+        bool result = search( board, recursions);
 
-    bool BackTrackingSolver::solver( Traits::Board &board) const // NOLINT(misc-no-recursion)
-    {
-        ++mRecursions;
-
-        for( int rowIdx : Traits::INDEX_RANGE)
-        {
-            for( int colIdx : Traits::INDEX_RANGE)
-            {
-                if( board[rowIdx][colIdx] == Traits::NO_VALUE)
-                {
-                    for( int value : Traits::VALUE_RANGE)
-                    {
-                        if( isValid( board, value, rowIdx, colIdx) &&
-                            solver( board))
-                        {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return std::make_tuple( result, recursions);
     }
 }

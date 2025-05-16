@@ -31,11 +31,5 @@ namespace com::rambrant::sudoku
              */
             [[nodiscard]]
             auto solve( Traits::Board& board) const -> Traits::BoardResult override;
-
-        private:
-
-            mutable std::size_t mRecursions{ 0};
-
-            bool solver( Traits::Board& board) const;
     };
 }
