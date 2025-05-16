@@ -5,12 +5,12 @@
 //
 #pragma once
 
-#include <iostream>
-
 #include "ISudokuSolver.hpp"
 
 namespace com::rambrant::sudoku
 {
+    using Traits = SudokuTraits;
+
     /**
      * @brief A Sudoku solver that uses a simple brute force backtracking algorithm
      */
@@ -37,13 +37,5 @@ namespace com::rambrant::sudoku
             mutable std::size_t mRecursions{ 0};
 
             bool solver( Traits::Board& board) const;
-
-            static auto isValid( Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
-
-            static auto rowConstraint( const Traits::Board & board, int value, int rowPos ) -> bool;
-            static auto columnConstraint( const Traits::Board & board, int value, int columnPos ) -> bool;
-            static auto boxConstraint( const Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
-
-            static auto check( int value, const Traits::BoardArray & unitValues ) -> bool;
     };
 }
