@@ -7,6 +7,7 @@
 #include <tuple>
 
 #include "SudokuUtil.hpp"
+#include "RangeArray.hpp"
 
 namespace com::rambrant::sudoku
 {

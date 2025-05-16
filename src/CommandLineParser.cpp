@@ -1,7 +1,7 @@
 //
 // Created by Thomas Rambrant on 2025-05-14.
 //
-#include "CommandLineParser.h"
+#include "CommandLineParser.hpp"
 
 #include <iostream>
 

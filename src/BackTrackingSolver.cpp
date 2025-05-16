@@ -6,6 +6,8 @@
 
 #include <tuple>
 
+#include "RangeView.hpp"
+
 namespace com::rambrant::sudoku
 {
     namespace
@@ -66,9 +68,9 @@ namespace com::rambrant::sudoku
 
             auto boxIter = boxValues.begin();
 
-            for( const auto& row : subrangeView( board, startRow, endRow))
+            for( const auto& row : RangeView( board, startRow, endRow))
             {
-                for( int cell : subrangeView( row, startCol, endCol))
+                for( int cell : RangeView( row, startCol, endCol))
                 {
                     *boxIter = cell;
 
