@@ -4,7 +4,6 @@
 #include "ConstraintPropagationSolver.hpp"
 
 #include <map>
-#include <numeric>
 #include <set>
 #include <vector>
 
@@ -100,6 +99,9 @@ namespace com::rambrant::sudoku
         auto search( SquareValues allValues, int& recursions) -> SquareValues;
         auto parseGrid( const Traits::Board & board) -> SquareValues;
 
+        //
+        // Helper function implementations
+        //
         auto eliminate( SquareValues& allValues, const Square& square, int value) -> bool // NOLINT(misc-no-recursion)
         {
             auto& squareValues = allValues[square];     // The possible values for the given key

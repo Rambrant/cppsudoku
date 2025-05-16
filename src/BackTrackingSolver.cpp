@@ -13,6 +13,16 @@ namespace com::rambrant::sudoku
         //
         // Helper functions
         //
+        auto check( int value, const Traits::BoardArray & unitValues ) -> bool;
+        auto rowConstraint( const Traits::Board & board, int value, int rowPos ) -> bool;
+        auto columnConstraint( const Traits::Board & board, int value, int columnPos ) -> bool;
+        auto boxConstraint( const Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
+        auto isValid( Traits::Board& board, int value, int rowPos, int columnPos ) -> bool;
+        auto search( Traits::Board & board, int& recursions) -> bool;
+
+        //
+        // Helper function implementations
+        //
         auto check( int value, const Traits::BoardArray & unitValues ) -> bool
         {
             //
