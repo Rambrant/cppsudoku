@@ -42,8 +42,6 @@ namespace com::rambrant::sudoku
             using Units        = std::map< Square, std::vector<Squares>>;   // Map from each square to its associated units (row, column, box).
             using Peers        = std::map< Square, Squares>;                // Map from each square to its peers (other squares in its units, excluding itself).
 
-            mutable std::size_t mRecursions{};
-
             Squares mSquares{};  // All squares on the board
             Units   mUnits{};    // Units (row, column, section) each square belongs to.
             Peers   mPeers{};    // Peers of each square (flattened units minus the square).
@@ -51,6 +49,6 @@ namespace com::rambrant::sudoku
             auto parseGrid( const Traits::Board& board) const -> SquareValues;
             auto assign( SquareValues& allValues, const Square& square, int value) const -> bool;
             auto eliminate( SquareValues& allValues, const Square& square, int value) const -> bool;
-            auto search( SquareValues allValues) const -> SquareValues;
+            auto search( SquareValues allValues, int & recursions ) const -> SquareValues;
     };
 }

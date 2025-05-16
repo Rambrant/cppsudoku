@@ -70,8 +70,10 @@ namespace com::rambrant::sudoku
 
     auto ConstraintPropagationSolver::solve( Traits::Board &board) const -> Traits::BoardResult
     {
+        int  recursions{ 0};
+
         SquareValues originalValues{ parseGrid( board)};
-        SquareValues resultingValues{ search( originalValues)};
+        SquareValues resultingValues{ search( originalValues, recursions)};
 
         bool result = ! resultingValues.empty();
 
@@ -83,20 +85,21 @@ namespace com::rambrant::sudoku
             board[key.first][key.second] = values[0];   // The values for the square are guarantied to be just one...
         }
 
-        return std::make_tuple( result, mRecursions);
+        return std::make_tuple( result, recursions);
     }
 
 
-    auto ConstraintPropagationSolver::search( SquareValues allValues) const -> SquareValues
+    auto ConstraintPropagationSolver::search( SquareValues allValues, int& recursions ) const -> SquareValues // NOLINT(misc-no-recursion)
     {
         if( allValues.empty()) return {};
 
-        mRecursions++;
+        recursions++;
 
         //
         // Check if we have a solution. The board is solved if all calls have only one value
         //
-        bool solved = std::all_of( mSquares.begin(), mSquares.end(), [&](Square key) {
+        bool solved = std::all_of( mSquares.begin(), mSquares.end(), [&](Square key)
+        {
             return allValues[key].size() == 1;
         });
 
@@ -106,7 +109,8 @@ namespace com::rambrant::sudoku
         //
         // Find the cell with the least number of possible values (not taking the already solved ones into account)
         //
-        auto const key = *min_element( mSquares.begin(), mSquares.end(), [&]( const Square& lSquare, const Square& rSquare) {
+        auto const key = *min_element( mSquares.begin(), mSquares.end(), [&]( const Square& lSquare, const Square& rSquare)
+        {
             auto lSize = allValues[lSquare].size();
             auto rSize = allValues[rSquare].size();
 
@@ -117,7 +121,7 @@ namespace com::rambrant::sudoku
         });
 
         //
-        // Try all possible values for the cell, and keep going recursively
+        // Try all possible values for the cell and keep going recursively
         //
         for( const int value : allValues[key])
         {
@@ -125,7 +129,7 @@ namespace com::rambrant::sudoku
 
             if( assign( valueClone, key, value))
             {
-                auto result = search( valueClone);
+                auto result = search( valueClone, recursions);
 
                 if( ! result.empty())
                     return result;
@@ -168,7 +172,7 @@ namespace com::rambrant::sudoku
         return values;
     }
 
-    auto ConstraintPropagationSolver::assign( SquareValues& allValues, const Square& square, const int value) const -> bool
+    auto ConstraintPropagationSolver::assign( SquareValues& allValues, const Square& square, const int value) const -> bool // NOLINT(misc-no-recursion)
     {
         //
         // Collect other values to eliminate
@@ -192,7 +196,7 @@ namespace com::rambrant::sudoku
         return true;
     }
 
-    auto ConstraintPropagationSolver::eliminate( SquareValues& allValues, const Square& square, const int value) const -> bool
+    auto ConstraintPropagationSolver::eliminate( SquareValues& allValues, const Square& square, const int value) const -> bool // NOLINT(misc-no-recursion)
     {
         auto& squareValues = allValues[square];     // The possible values for the given key
 
