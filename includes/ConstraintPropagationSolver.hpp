@@ -3,11 +3,6 @@
 //
 #pragma once
 
-#include <map>
-#include <set>
-#include <vector>
-#include <utility>
-
 #include "ISudokuSolver.hpp"
 
 namespace com::rambrant::sudoku

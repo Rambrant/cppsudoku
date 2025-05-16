@@ -3,7 +3,10 @@
 //
 #include "ConstraintPropagationSolver.hpp"
 
+#include <map>
 #include <numeric>
+#include <set>
+#include <vector>
 
 namespace com::rambrant::sudoku
 {
@@ -14,15 +17,15 @@ namespace com::rambrant::sudoku
         //
         using Square        = std::pair<int, int>;                      // Row and column index
         using Squares       = std::set<Square>;                         // All squares on the board
-        using SquareValues  = std::map< Square, std::vector<int>>;      // Map from each square to its current list of possible values.
+        using SquareValues  = std::map<Square, std::vector<int>>;       // Map from each square to its current list of possible values.
         using Units         = std::map<Square, std::vector<Squares>>;   // Map from each square to its units, row, column and box.
         using Peers         = std::map<Square, Squares>;                // Map from each square to its peers.
 
         struct BoardStructure
         {
-            Squares mSquares;
-            Units   mUnits;
-            Peers   mPeers;
+            Squares mSquares{};
+            Units   mUnits{};
+            Peers   mPeers{};
 
             BoardStructure();
         };
