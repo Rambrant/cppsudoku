@@ -118,17 +118,25 @@ $(function(){initNavTree('structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a81f48bbee61fca75e7c530b4c71d6f3b" id="r_a81f48bbee61fca75e7c530b4c71d6f3b"><td class="memItemLeft" align="right" valign="top"><a id="a81f48bbee61fca75e7c530b4c71d6f3b" name="a81f48bbee61fca75e7c530b4c71d6f3b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Digit</b> = char</td></tr>
+<tr class="memdesc:a81f48bbee61fca75e7c530b4c71d6f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The board single digit '0' up to the <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a> in hexadecimal if needed. <br /></td></tr>
+<tr class="separator:a81f48bbee61fca75e7c530b4c71d6f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab30600a467d5a6838973c118a1307ed9" id="r_ab30600a467d5a6838973c118a1307ed9"><td class="memItemLeft" align="right" valign="top"><a id="ab30600a467d5a6838973c118a1307ed9" name="ab30600a467d5a6838973c118a1307ed9"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Value</b> = int</td></tr>
+<tr class="memdesc:ab30600a467d5a6838973c118a1307ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The internal value for each board cell. <br /></td></tr>
+<tr class="separator:ab30600a467d5a6838973c118a1307ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0811f73cbe20cebc99fe473b74e8c1bd" id="r_a0811f73cbe20cebc99fe473b74e8c1bd"><td class="memItemLeft" align="right" valign="top"><a id="a0811f73cbe20cebc99fe473b74e8c1bd" name="a0811f73cbe20cebc99fe473b74e8c1bd"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>BoardResult</b> = std::tuple&lt; bool, std::size_t&gt;</td></tr>
 <tr class="memdesc:a0811f73cbe20cebc99fe473b74e8c1bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result from a solver. Success or not and the number of recursions. <br /></td></tr>
 <tr class="separator:a0811f73cbe20cebc99fe473b74e8c1bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a565c58dcb010a662e0bba540d4e0e0bb" id="r_a565c58dcb010a662e0bba540d4e0e0bb"><td class="memItemLeft" align="right" valign="top"><a id="a565c58dcb010a662e0bba540d4e0e0bb" name="a565c58dcb010a662e0bba540d4e0e0bb"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>BoardArray</b> = std::array&lt; int, <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>&gt;</td></tr>
-<tr class="memdesc:a565c58dcb010a662e0bba540d4e0e0bb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="#a7b22cc8693d63eda1221b8012cec5a9f" title="2D grid of BOARD_SIZE number of BoardArray&#39;s">Board</a> row of size <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>. <br /></td></tr>
-<tr class="separator:a565c58dcb010a662e0bba540d4e0e0bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2be231ae2da1a70d88562fadab3db32" id="r_af2be231ae2da1a70d88562fadab3db32"><td class="memItemLeft" align="right" valign="top"><a id="af2be231ae2da1a70d88562fadab3db32" name="af2be231ae2da1a70d88562fadab3db32"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>BoardArray</b> = std::array&lt; <a class="el" href="#ab30600a467d5a6838973c118a1307ed9">Value</a>, <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>&gt;</td></tr>
+<tr class="memdesc:af2be231ae2da1a70d88562fadab3db32"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="#a7b22cc8693d63eda1221b8012cec5a9f" title="2D grid of BOARD_SIZE number of BoardArray&#39;s">Board</a> row of size <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>. <br /></td></tr>
+<tr class="separator:af2be231ae2da1a70d88562fadab3db32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b22cc8693d63eda1221b8012cec5a9f" id="r_a7b22cc8693d63eda1221b8012cec5a9f"><td class="memItemLeft" align="right" valign="top"><a id="a7b22cc8693d63eda1221b8012cec5a9f" name="a7b22cc8693d63eda1221b8012cec5a9f"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Board</b> = std::array&lt; <a class="el" href="#a565c58dcb010a662e0bba540d4e0e0bb">BoardArray</a>, <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>&gt;</td></tr>
-<tr class="memdesc:a7b22cc8693d63eda1221b8012cec5a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D grid of <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a> number of <a class="el" href="#a565c58dcb010a662e0bba540d4e0e0bb">BoardArray</a>'s <br /></td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Board</b> = std::array&lt; <a class="el" href="#af2be231ae2da1a70d88562fadab3db32">BoardArray</a>, <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>&gt;</td></tr>
+<tr class="memdesc:a7b22cc8693d63eda1221b8012cec5a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D grid of <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a> number of <a class="el" href="#af2be231ae2da1a70d88562fadab3db32">BoardArray</a>'s <br /></td></tr>
 <tr class="separator:a7b22cc8693d63eda1221b8012cec5a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
@@ -150,11 +158,11 @@ static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>NO_VA
 <tr class="memdesc:a168f789099a6133426ed3f4242f1c593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Denotes the presence of no values at all. <br /></td></tr>
 <tr class="separator:a168f789099a6133426ed3f4242f1c593"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a664a318a898cf2b4e4d340eb34d05a01" id="r_a664a318a898cf2b4e4d340eb34d05a01"><td class="memItemLeft" align="right" valign="top"><a id="a664a318a898cf2b4e4d340eb34d05a01" name="a664a318a898cf2b4e4d340eb34d05a01"></a>
-static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>INDEX_RANGE</b> = <a class="el" href="group___helpers.html#ga4dcf46bcf153cf2ed6d57e4eebaf8aa7">RangeArray</a>&lt;<a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>&gt;(0, 1)</td></tr>
+static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>INDEX_RANGE</b> = RangeArray&lt;<a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>&gt;(0, 1)</td></tr>
 <tr class="memdesc:a664a318a898cf2b4e4d340eb34d05a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range from 0 to the <a class="el" href="#a037308686fa00e5717506cf8be0e3c47">BOARD_SIZE</a>. <br /></td></tr>
 <tr class="separator:a664a318a898cf2b4e4d340eb34d05a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40ce8af2678a4f0438d12df609fe7e3b" id="r_a40ce8af2678a4f0438d12df609fe7e3b"><td class="memItemLeft" align="right" valign="top"><a id="a40ce8af2678a4f0438d12df609fe7e3b" name="a40ce8af2678a4f0438d12df609fe7e3b"></a>
-static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>VALUE_RANGE</b> = <a class="el" href="group___helpers.html#ga4dcf46bcf153cf2ed6d57e4eebaf8aa7">RangeArray</a>&lt;<a class="el" href="#ab61e41c87eae48651cd22a9a753167f8">MAX_VALUE</a>&gt;(1, 1)</td></tr>
+static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>VALUE_RANGE</b> = RangeArray&lt;<a class="el" href="#ab61e41c87eae48651cd22a9a753167f8">MAX_VALUE</a>&gt;(1, 1)</td></tr>
 <tr class="memdesc:a40ce8af2678a4f0438d12df609fe7e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range of possible values in each board cell, 1 to the MAX_VALUE. <br /></td></tr>
 <tr class="separator:a40ce8af2678a4f0438d12df609fe7e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

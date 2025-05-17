@@ -114,34 +114,64 @@ $(function(){initNavTree('group___helpers.html',''); initResizable(true); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga51ce164f9ed2b8caf58d0c4728a3b355" id="r_ga51ce164f9ed2b8caf58d0c4728a3b355"><td class="memTemplParams" colspan="2">template&lt;typename Iterable, typename DelimT = std::string&gt; </td></tr>
-<tr class="memitem:ga51ce164f9ed2b8caf58d0c4728a3b355"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga51ce164f9ed2b8caf58d0c4728a3b355">com::rambrant::sudoku::join</a> (const Iterable &amp;iterable, const DelimT &amp;delimiter)</td></tr>
-<tr class="memdesc:ga51ce164f9ed2b8caf58d0c4728a3b355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joins the elements in an Iterable adding the given delimiter between them.  <br /></td></tr>
-<tr class="separator:ga51ce164f9ed2b8caf58d0c4728a3b355"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3ffb040d52c2f87062e834a291c7d94a" id="r_ga3ffb040d52c2f87062e834a291c7d94a"><td class="memTemplParams" colspan="2">template&lt;typename Container&gt; </td></tr>
-<tr class="memitem:ga3ffb040d52c2f87062e834a291c7d94a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga3ffb040d52c2f87062e834a291c7d94a">com::rambrant::sudoku::subrangeView</a> (Container &amp;container, std::size_t from, std::size_t to)</td></tr>
-<tr class="memdesc:ga3ffb040d52c2f87062e834a291c7d94a"><td class="mdescLeft">&#160;</td><td class="mdescRight">*&zwj;/  <br /></td></tr>
-<tr class="separator:ga3ffb040d52c2f87062e834a291c7d94a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cd9d2f55cea3029c597ca3bcc5ec4a0" id="r_ga9cd9d2f55cea3029c597ca3bcc5ec4a0"><td class="memTemplParams" colspan="2">template&lt;typename Func, typename... Args&gt; </td></tr>
+<tr class="memitem:ga9cd9d2f55cea3029c597ca3bcc5ec4a0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga9cd9d2f55cea3029c597ca3bcc5ec4a0">com::rambrant::sudoku::CallTime</a> (Func &amp;&amp;func, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:ga9cd9d2f55cea3029c597ca3bcc5ec4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A "decorator" that measures the execution time for the given function call.  <br /></td></tr>
+<tr class="separator:ga9cd9d2f55cea3029c597ca3bcc5ec4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4dcf46bcf153cf2ed6d57e4eebaf8aa7" id="r_ga4dcf46bcf153cf2ed6d57e4eebaf8aa7"><td class="memTemplParams" colspan="2">template&lt;std::size_t N, typename T = int&gt; </td></tr>
 <tr class="memitem:ga4dcf46bcf153cf2ed6d57e4eebaf8aa7"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::array&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga4dcf46bcf153cf2ed6d57e4eebaf8aa7">com::rambrant::sudoku::RangeArray</a> (T start=0, T step=1)</td></tr>
 <tr class="memdesc:ga4dcf46bcf153cf2ed6d57e4eebaf8aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a constexpr array of N elements using a start value and a step.  <br /></td></tr>
 <tr class="separator:ga4dcf46bcf153cf2ed6d57e4eebaf8aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaedc74caca10b8879107be23231796320" id="r_gaedc74caca10b8879107be23231796320"><td class="memTemplParams" colspan="2">template&lt;typename Func, typename... Args&gt; </td></tr>
-<tr class="memitem:gaedc74caca10b8879107be23231796320"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gaedc74caca10b8879107be23231796320">com::rambrant::sudoku::timedCall</a> (Func &amp;&amp;func, Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:gaedc74caca10b8879107be23231796320"><td class="mdescLeft">&#160;</td><td class="mdescRight">A "decorator" that measures the execution time for the given function call.  <br /></td></tr>
-<tr class="separator:gaedc74caca10b8879107be23231796320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf135721b55ad3e5e9f850d2a3721c327" id="r_gaf135721b55ad3e5e9f850d2a3721c327"><td class="memTemplParams" colspan="2">template&lt;typename Container&gt; </td></tr>
+<tr class="memitem:gaf135721b55ad3e5e9f850d2a3721c327"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gaf135721b55ad3e5e9f850d2a3721c327">com::rambrant::sudoku::RangeView</a> (Container &amp;container, std::size_t from, std::size_t to)</td></tr>
+<tr class="memdesc:gaf135721b55ad3e5e9f850d2a3721c327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a view (non-owning) into a subrange of a container.  <br /></td></tr>
+<tr class="separator:gaf135721b55ad3e5e9f850d2a3721c327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4e849ade46591f377c781720ac180920" id="r_ga4e849ade46591f377c781720ac180920"><td class="memTemplParams" colspan="2">template&lt;int size&gt; </td></tr>
 <tr class="memitem:ga4e849ade46591f377c781720ac180920"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga4e849ade46591f377c781720ac180920">com::rambrant::sudoku::charToValue</a> (char ch)</td></tr>
-<tr class="memdesc:ga4e849ade46591f377c781720ac180920"><td class="mdescLeft">&#160;</td><td class="mdescRight">A converter from character to the corresponding integer. Integers over nine is treated as if hexadecimal.  <br /></td></tr>
+<tr class="memdesc:ga4e849ade46591f377c781720ac180920"><td class="mdescLeft">&#160;</td><td class="mdescRight">A converter from a character to the corresponding integer. Integers over nine are treated as if hexadecimal.  <br /></td></tr>
 <tr class="separator:ga4e849ade46591f377c781720ac180920"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0108734c12d3e29825623e67270a7bd9" id="r_ga0108734c12d3e29825623e67270a7bd9"><td class="memTemplParams" colspan="2">template&lt;int size&gt; </td></tr>
 <tr class="memitem:ga0108734c12d3e29825623e67270a7bd9"><td class="memTemplItemLeft" align="right" valign="top">char&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ga0108734c12d3e29825623e67270a7bd9">com::rambrant::sudoku::valueToChar</a> (const int val)</td></tr>
-<tr class="memdesc:ga0108734c12d3e29825623e67270a7bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A converter from integer to the corresponding character. Integers over nine is treated as if hexadecimal.  <br /></td></tr>
+<tr class="memdesc:ga0108734c12d3e29825623e67270a7bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A converter from an integer to the corresponding character. Integers over nine are treated as if hexadecimal.  <br /></td></tr>
 <tr class="separator:ga0108734c12d3e29825623e67270a7bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>A collection of template helper functions and structs. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga9cd9d2f55cea3029c597ca3bcc5ec4a0" name="ga9cd9d2f55cea3029c597ca3bcc5ec4a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cd9d2f55cea3029c597ca3bcc5ec4a0">&#9670;&#160;</a></span>CallTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Func, typename... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto com::rambrant::sudoku::CallTime </td>
+          <td>(</td>
+          <td class="paramtype">Func &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>func</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A "decorator" that measures the execution time for the given function call. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">func</td><td>A callable object to be timed. </td></tr>
+    <tr><td class="paramname">args</td><td>Arguments to be passed to the callable object. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A tuple containing the result of the callable object and the execution time.</dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> [result, duration] = timedCall( [&amp;] {<span class="keywordflow">return</span> board.solve( solver); });</div>
+</div><!-- fragment --> 
+</div>
+</div>
 <a id="ga4e849ade46591f377c781720ac180920" name="ga4e849ade46591f377c781720ac180920"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4e849ade46591f377c781720ac180920">&#9670;&#160;</a></span>charToValue()</h2>
 
@@ -159,7 +189,7 @@ template&lt;int size&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>A converter from character to the corresponding integer. Integers over nine is treated as if hexadecimal. </p>
+<p>A converter from a character to the corresponding integer. Integers over nine are treated as if hexadecimal. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">size</td><td>The size of the board, <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html#a037308686fa00e5717506cf8be0e3c47">SudokuTraits::BOARD_SIZE</a>. </td></tr>
@@ -174,43 +204,7 @@ template&lt;int size&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The integer or -1 if the character could not be converted.</dd></dl>
 <div class="fragment"><div class="line"><span class="keywordtype">int</span> val = <a class="code hl_function" href="#ga4e849ade46591f377c781720ac180920">charToValue&lt;SudokuTraits::BOARD_SIZE&gt;</a>( <span class="charliteral">&#39;7&#39;</span>);  <span class="comment">// Will return 7</span></div>
-<div class="ttc" id="agroup___helpers_html_ga4e849ade46591f377c781720ac180920"><div class="ttname"><a href="#ga4e849ade46591f377c781720ac180920">com::rambrant::sudoku::charToValue</a></div><div class="ttdeci">int charToValue(char ch)</div><div class="ttdoc">A converter from character to the corresponding integer. Integers over nine is treated as if hexadeci...</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:199</div></div>
-</div><!-- fragment --> 
-</div>
-</div>
-<a id="ga51ce164f9ed2b8caf58d0c4728a3b355" name="ga51ce164f9ed2b8caf58d0c4728a3b355"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga51ce164f9ed2b8caf58d0c4728a3b355">&#9670;&#160;</a></span>join()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Iterable, typename DelimT = std::string&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string com::rambrant::sudoku::join </td>
-          <td>(</td>
-          <td class="paramtype">const Iterable &amp;</td>          <td class="paramname"><span class="paramname"><em>iterable</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const DelimT &amp;</td>          <td class="paramname"><span class="paramname"><em>delimiter</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Joins the elements in an Iterable adding the given delimiter between them. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">iterable</td><td>The container or other iterable object to be joined. eg. a vector, list, set, string etc. </td></tr>
-    <tr><td class="paramname">delimiter</td><td>The string to delimit the elements with. eg. " " for space, "," for comma, ";" for semicolon, etc. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The resulting string.</dd></dl>
-<div class="fragment"><div class="line">std::&lt;vector&lt;int&gt; { 1, 2, 3};</div>
-<div class="line">std::cout &lt;&lt; <a class="code hl_function" href="#ga51ce164f9ed2b8caf58d0c4728a3b355">join</a>( element, <span class="stringliteral">&#39;, &#39;</span>) &lt;&lt; std::endl; <span class="comment">// Prints &quot;1, 2, 3&quot;</span></div>
-<div class="ttc" id="agroup___helpers_html_ga51ce164f9ed2b8caf58d0c4728a3b355"><div class="ttname"><a href="#ga51ce164f9ed2b8caf58d0c4728a3b355">com::rambrant::sudoku::join</a></div><div class="ttdeci">std::string join(const Iterable &amp;iterable, const DelimT &amp;delimiter)</div><div class="ttdoc">Joins the elements in an Iterable adding the given delimiter between them.</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:33</div></div>
+<div class="ttc" id="agroup___helpers_html_ga4e849ade46591f377c781720ac180920"><div class="ttname"><a href="#ga4e849ade46591f377c781720ac180920">com::rambrant::sudoku::charToValue</a></div><div class="ttdeci">int charToValue(char ch)</div><div class="ttdoc">A converter from a character to the corresponding integer. Integers over nine are treated as if hexad...</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:32</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -263,12 +257,12 @@ template&lt;std::size_t N, typename T = int&gt; </div>
 <dl class="section see"><dt>See also</dt><dd>RangeArrayImpl (internal helper)</dd></dl>
 <div class="fragment"><div class="line"><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> odds = <a class="code hl_function" href="#ga4dcf46bcf153cf2ed6d57e4eebaf8aa7">RangeArray&lt;4&gt;</a>(3, 2);  <span class="comment">// =&gt; {3, 5, 7, 9}</span></div>
 <div class="line"><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> evens = <a class="code hl_function" href="#ga4dcf46bcf153cf2ed6d57e4eebaf8aa7">RangeArray&lt;5&gt;</a>(0, 2); <span class="comment">// =&gt; {0, 2, 4, 6, 8}</span></div>
-<div class="ttc" id="agroup___helpers_html_ga4dcf46bcf153cf2ed6d57e4eebaf8aa7"><div class="ttname"><a href="#ga4dcf46bcf153cf2ed6d57e4eebaf8aa7">com::rambrant::sudoku::RangeArray</a></div><div class="ttdeci">constexpr std::array&lt; T, N &gt; RangeArray(T start=0, T step=1)</div><div class="ttdoc">Generate a constexpr array of N elements using a start value and a step.</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:158</div></div>
+<div class="ttc" id="agroup___helpers_html_ga4dcf46bcf153cf2ed6d57e4eebaf8aa7"><div class="ttname"><a href="#ga4dcf46bcf153cf2ed6d57e4eebaf8aa7">com::rambrant::sudoku::RangeArray</a></div><div class="ttdeci">constexpr std::array&lt; T, N &gt; RangeArray(T start=0, T step=1)</div><div class="ttdoc">Generate a constexpr array of N elements using a start value and a step.</div><div class="ttdef"><b>Definition</b> RangeArray.hpp:36</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="ga3ffb040d52c2f87062e834a291c7d94a" name="ga3ffb040d52c2f87062e834a291c7d94a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3ffb040d52c2f87062e834a291c7d94a">&#9670;&#160;</a></span>subrangeView()</h2>
+<a id="gaf135721b55ad3e5e9f850d2a3721c327" name="gaf135721b55ad3e5e9f850d2a3721c327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf135721b55ad3e5e9f850d2a3721c327">&#9670;&#160;</a></span>RangeView()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +270,7 @@ template&lt;std::size_t N, typename T = int&gt; </div>
 template&lt;typename Container&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">auto com::rambrant::sudoku::subrangeView </td>
+          <td class="memname">auto com::rambrant::sudoku::RangeView </td>
           <td>(</td>
           <td class="paramtype">Container &amp;</td>          <td class="paramname"><span class="paramname"><em>container</em></span>, </td>
         </tr>
@@ -293,8 +287,7 @@ template&lt;typename Container&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>*&zwj;/ </p>
-<p>Creates a view (non-owning) into a subrange of a container.</p>
+<p>Creates a view (non-owning) into a subrange of a container. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Container</td><td>A standard container with random-access iterators. </td></tr>
@@ -311,46 +304,11 @@ template&lt;typename Container&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A lightweight range object that can be used in range-based for-loops.</dd></dl>
 <div class="fragment"><div class="line">std::vector&lt;int&gt; vec{ 1, 2, 3, 4, 5, 6};</div>
-<div class="line"><span class="keywordflow">for</span>( <span class="keyword">auto</span> val : <a class="code hl_function" href="#ga3ffb040d52c2f87062e834a291c7d94a">subrangeView</a>( vec, 2, 5))</div>
+<div class="line"><span class="keywordflow">for</span>( <span class="keyword">auto</span> val : <a class="code hl_function" href="#gaf135721b55ad3e5e9f850d2a3721c327">RangeView</a>( vec, 2, 5))</div>
 <div class="line">{</div>
 <div class="line">    std::cout &lt;&lt; val &lt;&lt; <span class="stringliteral">&quot; &quot;</span>; <span class="comment">// prints: 3 4 5</span></div>
 <div class="line">}</div>
-<div class="ttc" id="agroup___helpers_html_ga3ffb040d52c2f87062e834a291c7d94a"><div class="ttname"><a href="#ga3ffb040d52c2f87062e834a291c7d94a">com::rambrant::sudoku::subrangeView</a></div><div class="ttdeci">auto subrangeView(Container &amp;container, std::size_t from, std::size_t to)</div><div class="ttdoc">*‍/</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:103</div></div>
-</div><!-- fragment --> 
-</div>
-</div>
-<a id="gaedc74caca10b8879107be23231796320" name="gaedc74caca10b8879107be23231796320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaedc74caca10b8879107be23231796320">&#9670;&#160;</a></span>timedCall()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Func, typename... Args&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">auto com::rambrant::sudoku::timedCall </td>
-          <td>(</td>
-          <td class="paramtype">Func &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>func</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>A "decorator" that measures the execution time for the given function call. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">func</td><td>A callable object to be timed. </td></tr>
-    <tr><td class="paramname">args</td><td>Arguments to be passed to the callable object. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A tuple containing the result of the callable object and the execution time.</dd></dl>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> [result, duration] = <a class="code hl_function" href="#gaedc74caca10b8879107be23231796320">timedCall</a>( [&amp;] {<span class="keywordflow">return</span> board.solve( solver); });</div>
-<div class="ttc" id="agroup___helpers_html_gaedc74caca10b8879107be23231796320"><div class="ttname"><a href="#gaedc74caca10b8879107be23231796320">com::rambrant::sudoku::timedCall</a></div><div class="ttdeci">auto timedCall(Func &amp;&amp;func, Args &amp;&amp;... args)</div><div class="ttdoc">A &quot;decorator&quot; that measures the execution time for the given function call.</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:175</div></div>
+<div class="ttc" id="agroup___helpers_html_gaf135721b55ad3e5e9f850d2a3721c327"><div class="ttname"><a href="#gaf135721b55ad3e5e9f850d2a3721c327">com::rambrant::sudoku::RangeView</a></div><div class="ttdeci">auto RangeView(Container &amp;container, std::size_t from, std::size_t to)</div><div class="ttdoc">Creates a view (non-owning) into a subrange of a container.</div><div class="ttdef"><b>Definition</b> RangeView.hpp:47</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -371,7 +329,7 @@ template&lt;int size&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>A converter from integer to the corresponding character. Integers over nine is treated as if hexadecimal. </p>
+<p>A converter from an integer to the corresponding character. Integers over nine are treated as if hexadecimal. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">size</td><td>The size of the board, <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html#a037308686fa00e5717506cf8be0e3c47">SudokuTraits::BOARD_SIZE</a>. </td></tr>
@@ -386,7 +344,7 @@ template&lt;int size&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The character or '?' if the integer falls outside the allowed value range</dd></dl>
 <div class="fragment"><div class="line"><span class="keywordtype">char</span> ch = <a class="code hl_function" href="#ga0108734c12d3e29825623e67270a7bd9">valueToChar&lt;SudokuTraits::BOARD_SIZE&gt;</a>( 7);  <span class="comment">// Will return &#39;7&#39;</span></div>
-<div class="ttc" id="agroup___helpers_html_ga0108734c12d3e29825623e67270a7bd9"><div class="ttname"><a href="#ga0108734c12d3e29825623e67270a7bd9">com::rambrant::sudoku::valueToChar</a></div><div class="ttdeci">char valueToChar(const int val)</div><div class="ttdoc">A converter from integer to the corresponding character. Integers over nine is treated as if hexadeci...</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:230</div></div>
+<div class="ttc" id="agroup___helpers_html_ga0108734c12d3e29825623e67270a7bd9"><div class="ttname"><a href="#ga0108734c12d3e29825623e67270a7bd9">com::rambrant::sudoku::valueToChar</a></div><div class="ttdeci">char valueToChar(const int val)</div><div class="ttdoc">A converter from an integer to the corresponding character. Integers over nine are treated as if hexa...</div><div class="ttdef"><b>Definition</b> SudokuUtil.hpp:63</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

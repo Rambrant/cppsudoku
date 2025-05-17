@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['filestream_0',['FileStream',['../classcom_1_1rambrant_1_1sudoku_1_1_file_stream.html',1,'com::rambrant::sudoku::FileStream'],['../classcom_1_1rambrant_1_1sudoku_1_1_file_stream.html#a07420c9cb1466f55416b623d0be076a7',1,'com::rambrant::sudoku::FileStream::FileStream()']]]
+  ['expectsvalue_0',['expectsValue',['../classcom_1_1rambrant_1_1sudoku_1_1_i_option.html#a91994018b43b26b6c8c4567816e33851',1,'com::rambrant::sudoku::IOption::expectsValue()'],['../classcom_1_1rambrant_1_1sudoku_1_1_option.html#a53ce6094a413199d90eb54f2834ccb3f',1,'com::rambrant::sudoku::Option::expectsValue()']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['parse_0',['parse',['../classcom_1_1rambrant_1_1sudoku_1_1_command_line_parser.html#a75398a208ac64b4e751a9f5eab19a483',1,'com::rambrant::sudoku::CommandLineParser']]]
+  ['quiet_0',['Quiet',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ae26a91937e2e4554ec72f00b0eee03b0a098753f8980036f4b936e3d4b6997111',1,'com::rambrant::sudoku::Logger']]]
 ];

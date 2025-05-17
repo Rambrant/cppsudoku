@@ -1,8 +1,10 @@
 var dir_09e761304027c904456130627fd4dcf5 =
 [
     [ "BackTrackingSolver.hpp", "_back_tracking_solver_8hpp_source.html", null ],
-    [ "CommandLineParser.h", "_command_line_parser_8h_source.html", null ],
+    [ "CallTime.hpp", "_call_time_8hpp_source.html", null ],
+    [ "CommandLineParser.hpp", "_command_line_parser_8hpp_source.html", null ],
     [ "ConstraintPropagationSolver.hpp", "_constraint_propagation_solver_8hpp_source.html", null ],
+    [ "Digit.hpp", "_digit_8hpp_source.html", null ],
     [ "FileStream.hpp", "_file_stream_8hpp_source.html", null ],
     [ "IOption.hpp", "_i_option_8hpp_source.html", null ],
     [ "ISudokuReader.hpp", "_i_sudoku_reader_8hpp_source.html", null ],
@@ -10,11 +12,12 @@ var dir_09e761304027c904456130627fd4dcf5 =
     [ "ISudokuWriter.hpp", "_i_sudoku_writer_8hpp_source.html", null ],
     [ "Logger.hpp", "_logger_8hpp_source.html", null ],
     [ "Option.hpp", "_option_8hpp_source.html", null ],
+    [ "RangeArray.hpp", "_range_array_8hpp_source.html", null ],
+    [ "RangeView.hpp", "_range_view_8hpp_source.html", null ],
     [ "SudokuAsciiReader.hpp", "_sudoku_ascii_reader_8hpp_source.html", null ],
     [ "SudokuBlockWriter.hpp", "_sudoku_block_writer_8hpp_source.html", null ],
     [ "SudokuBoard.hpp", "_sudoku_board_8hpp_source.html", null ],
     [ "SudokuLineWriter.hpp", "_sudoku_line_writer_8hpp_source.html", null ],
     [ "SudokuPrettyWriter.hpp", "_sudoku_pretty_writer_8hpp_source.html", null ],
-    [ "SudokuTraits.hpp", "_sudoku_traits_8hpp_source.html", null ],
-    [ "SudokuUtil.hpp", "_sudoku_util_8hpp_source.html", null ]
+    [ "SudokuTraits.hpp", "_sudoku_traits_8hpp_source.html", null ]
 ];

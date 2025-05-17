@@ -7,5 +7,5 @@ var searchData=
   ['sudokustaticreader_2ecpp_4',['SudokuStaticReader.cpp',['../_sudoku_static_reader_8cpp.html',1,'']]],
   ['sudokustaticreader_2ehpp_5',['SudokuStaticReader.hpp',['../_sudoku_static_reader_8hpp.html',1,'']]],
   ['sudokutraits_2ehpp_6',['SudokuTraits.hpp',['../_sudoku_traits_8hpp.html',1,'']]],
-  ['sudokuutil_2ehpp_7',['SudokuUtil.hpp',['../_sudoku_util_8hpp.html',1,'']]]
+  ['sudokuutil_2ehpp_7',['Digit.hpp',['../_sudoku_util_8hpp.html',1,'']]]
 ];
