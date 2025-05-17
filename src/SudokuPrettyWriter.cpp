@@ -4,6 +4,8 @@
 #include <ostream>
 
 #include "SudokuPrettyWriter.hpp"
+
+#include "Digit.hpp"
 #include "Logger.hpp"
 
 namespace com::rambrant::sudoku
@@ -29,9 +31,9 @@ namespace com::rambrant::sudoku
                     mStream << " | "; // extra spacing between box columns
                 }
 
-                char ch = valueToChar<Traits::BOARD_SIZE>( board[rowIdx][colIdx]);
+                const Traits::Digit digit = valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]);
 
-                mStream << (ch == '0' ? '.' : ch) << " ";
+                mStream << (digit == '0' ? '.' : digit) << " ";
             }
 
             mStream << std::endl;

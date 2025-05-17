@@ -4,7 +4,8 @@
 #include <ostream>
 
 #include "SudokuLineWriter.hpp"
-#include "Logger.hpp"
+
+#include "Digit.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -15,11 +16,11 @@ namespace com::rambrant::sudoku
 
     auto SudokuLineWriter::write( const Traits::Board & board ) const -> void
     {
-        for( auto rowIdx : Traits::INDEX_RANGE)
+        for( const auto rowIdx : Traits::INDEX_RANGE)
         {
-            for( auto colIdx : Traits::INDEX_RANGE)
+            for( const auto colIdx : Traits::INDEX_RANGE)
             {
-                mStream << valueToChar<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
+                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
             }
         }
     }

@@ -4,7 +4,8 @@
 #include <ostream>
 
 #include "SudokuBlockWriter.hpp"
-#include "Logger.hpp"
+
+#include "Digit.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -17,21 +18,21 @@ namespace com::rambrant::sudoku
 
     auto SudokuBlockWriter::write( const Traits::Board & board ) const -> void
     {
-        for( auto rowIdx : Traits::INDEX_RANGE)
+        for( const auto rowIdx : Traits::INDEX_RANGE)
         {
             if( rowIdx > 0 && rowIdx % Traits::BOX_SIZE == 0)
             {
                 mStream << std::endl; // extra newline between box rows
             }
 
-            for( auto colIdx : Traits::INDEX_RANGE)
+            for( const auto colIdx : Traits::INDEX_RANGE)
             {
                 if( colIdx > 0 && colIdx % Traits::BOX_SIZE == 0)
                 {
                     mStream << "  "; // extra spacing between box columns
                 }
 
-                mStream << valueToChar<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
+                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
             }
 
             mStream << std::endl;

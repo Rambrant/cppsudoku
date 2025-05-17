@@ -8,7 +8,8 @@
 #include <iostream>
 
 #include "BackTrackingSolver.hpp"
-#include "CommandLineParser.h"
+#include "CallTime.hpp"
+#include "CommandLineParser.hpp"
 #include "ConstraintPropagationSolver.hpp"
 #include "FileStream.hpp"
 #include "Logger.hpp"
@@ -17,7 +18,6 @@
 #include "SudokuBoard.hpp"
 #include "SudokuLineWriter.hpp"
 #include "SudokuPrettyWriter.hpp"
-#include "SudokuUtil.hpp"
 
 int main( int argc, char* argv[])
 {
@@ -161,7 +161,7 @@ int main( int argc, char* argv[])
             std::cout << std::endl;
         }
 
-        auto  [result, duration] = timedCall([&] { return board.solve(); });
+        auto  [result, duration] = CallTime([&] { return board.solve(); });
 
         //
         // Present the result
