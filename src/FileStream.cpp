@@ -7,9 +7,9 @@
 
 namespace com::rambrant::sudoku
 {
-    FileStream::FileStream( const std::string& fileName, Mode mode)
+    FileStream::FileStream( const std::string& fileName, const Mode& mode)
     {
-        std::ios_base::openmode openMode =
+        const openmode openMode =
                 (mode == Mode::Read)      ? std::ios::in :
                 (mode == Mode::Write)     ? std::ios::out | std::ios::trunc :
                 (mode == Mode::ReadWrite) ? std::ios::in | std::ios::out :

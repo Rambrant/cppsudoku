@@ -15,7 +15,7 @@ namespace com::rambrant::sudoku
      * @brief A converter from a @ref SudokuTraits::Digit to the internal @ref SudokuTraits::Value. Values over nine are treated as if hexadecimal
      * @tparam size The size of the board, @ref SudokuTraits::BOARD_SIZE.
      * @param digit The character to convert to the corresponding int.
-     * @return The integer or -1 if the character could not be converted.
+     * @return Value or -1 if the digit could not be converted.
      *
      * @code
      * int val = charToValue<SudokuTraits::BOARD_SIZE>('7');  // Will return 7

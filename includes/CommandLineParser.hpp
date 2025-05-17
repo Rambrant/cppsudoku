@@ -46,7 +46,7 @@ namespace com::rambrant::sudoku
             static auto assertNotBoth( const Option<A>& lhs, const Option<B>& rhs ) -> void;
 
             /**
-             * @brief Asserts that if the left hand @ref Option is set, then the right-hand @ref Option must also be set
+             * @brief Asserts that if the left-hand @ref Option is set, then the right-hand @ref Option must also be set
              * @tparam A The left-hand type
              * @tparam B The right-hand type
              * @param lhs The left-hand @ref Option
@@ -58,7 +58,7 @@ namespace com::rambrant::sudoku
             /**
              * @brief Asserts that the value in the @ref Option matches the given strings
              * @tparam T The type of the @ref Option
-             * @param opt The @ref Option object to check
+             * @param opt The @ref Option objects to check
              * @param allowed A brace-initialized list of string values to check against
              */
             template< typename T>

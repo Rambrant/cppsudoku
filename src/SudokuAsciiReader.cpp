@@ -23,16 +23,14 @@ namespace com::rambrant::sudoku
         Traits::Board board{};
 
         int  count = 0;
-        char ch;
+        char digit;
 
-        while( count < MAX_VALUES && mStream.get( ch))
+        while( count < MAX_VALUES && mStream.get( digit))
         {
-            if( ch == '.')
-                ch = '0';
+            if( digit == '.')
+                digit = '0';
 
-            int value = digitToValue<Traits::BOARD_SIZE>( ch);
-
-            if (value != -1)
+            if( const Traits::Value value = digitToValue<Traits::BOARD_SIZE>( digit); value != -1)
             {
                 board[count / Traits::BOARD_SIZE][count % Traits::BOARD_SIZE] = value;
                 ++count;

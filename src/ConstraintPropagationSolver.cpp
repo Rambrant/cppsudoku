@@ -14,11 +14,11 @@ namespace com::rambrant::sudoku
         //
         // The control structure defining the squares, units and peers for the Sudoku board
         //
-        using Square        = std::pair<int, int>;                      // Row and column index
-        using Squares       = std::set<Square>;                         // All squares on the board
-        using SquareValues  = std::map<Square, std::vector<int>>;       // Map from each square to its current list of possible values.
-        using Units         = std::map<Square, std::vector<Squares>>;   // Map from each square to its units, row, column and box.
-        using Peers         = std::map<Square, Squares>;                // Map from each square to its peers.
+        using Square        = std::pair<int, int>;                          // Row and column index
+        using Squares       = std::set<Square>;                             // All squares on the board
+        using SquareValues  = std::map<Square, std::vector<Traits::Value>>; // Map from each square to its current list of possible values.
+        using Units         = std::map<Square, std::vector<Squares>>;       // Map from each square to its units, row, column and box.
+        using Peers         = std::map<Square, Squares>;                    // Map from each square to its peers.
 
         struct BoardStructure
         {
@@ -36,9 +36,9 @@ namespace com::rambrant::sudoku
             //
             // Init all the square coordinates
             //
-            for( auto row : Traits::INDEX_RANGE)
+            for( const auto row : Traits::INDEX_RANGE)
             {
-                for( auto column : Traits::INDEX_RANGE)
+                for( const auto column : Traits::INDEX_RANGE)
                 {
                     mSquares.emplace( row, column);
                 }
@@ -94,15 +94,15 @@ namespace com::rambrant::sudoku
         //
         // Helper functions
         //
-        auto eliminate( SquareValues& allValues, const Square& square, int value) -> bool;
-        auto assign( SquareValues& allValues, const Square& square, int value) -> bool;
+        auto eliminate( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
+        auto assign( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
         auto search( SquareValues allValues, int& recursions) -> SquareValues;
         auto parseGrid( const Traits::Board & board) -> SquareValues;
 
         //
         // Helper function implementations
         //
-        auto eliminate( SquareValues& allValues, const Square& square, int value) -> bool // NOLINT(misc-no-recursion)
+        auto eliminate( SquareValues& allValues, const Square& square, const Traits::Value value ) -> bool // NOLINT(misc-no-recursion)
         {
             auto& squareValues = allValues[square];     // The possible values for the given key
 
@@ -125,7 +125,7 @@ namespace com::rambrant::sudoku
             //
             if( squareValues.size() == 1)
             {
-                int lastValue = squareValues[0];
+                const Traits::Value lastValue = squareValues[0];
 
                 for( const auto& peer : gBoardsStructure.mPeers.at(square))
                 {
@@ -166,14 +166,14 @@ namespace com::rambrant::sudoku
             return true;
         }
 
-        auto assign( SquareValues& allValues, const Square& square, const int value) -> bool // NOLINT(misc-no-recursion)
+        auto assign( SquareValues& allValues, const Square& square, const Traits::Value value ) -> bool // NOLINT(misc-no-recursion)
         {
             //
             // Collect other values to eliminate
             //
             auto& squareValues = allValues[square];
 
-            std::vector<int> otherValues;
+            std::vector<Traits::Value> otherValues;
             std::copy_if( squareValues.begin(), squareValues.end(), std::back_inserter( otherValues), [&](int v) { return v != value; });
 
             //
@@ -224,11 +224,9 @@ namespace com::rambrant::sudoku
             //
             // Try all possible values for the cell and keep going recursively
             //
-            for( const int value : allValues[key])
+            for( const Traits::Value value : allValues[key])
             {
-                SquareValues valueClone = allValues;
-
-                if( assign( valueClone, key, value))
+                if( SquareValues valueClone = allValues; assign( valueClone, key, value))
                 {
                     if( auto result = search( valueClone, recursions); ! result.empty())
                         return result;
@@ -245,23 +243,23 @@ namespace com::rambrant::sudoku
             //
             // Initialize all cells with all possible values
             //
-            for( auto key : gBoardsStructure.mSquares)
+            for( auto square : gBoardsStructure.mSquares)
             {
-                auto& vec = values[key];
-                vec.insert( vec.end(), Traits::VALUE_RANGE.begin(), Traits::VALUE_RANGE.end());
+                auto& squareValues = values[square];
+                squareValues.insert( squareValues.end(), Traits::VALUE_RANGE.begin(), Traits::VALUE_RANGE.end());
             }
 
             //
-            // For every cell that has an initial value, assign it
+            // For every square that has an initial value, assign it
             //
             for( auto [ rowIdx, colIdx ] : gBoardsStructure.mSquares)
             {
-                if( auto value = board[ rowIdx][ colIdx]; value != Traits::NO_VALUE)
+                if( const auto value = board[ rowIdx][ colIdx]; value != Traits::NO_VALUE)
                 {
                     if( ! assign( values, { rowIdx, colIdx }, value))
                     {
-                        std::string key = "[" + std::to_string( rowIdx) + "," + std::to_string( colIdx) + "]";
-                        throw std::runtime_error("Illegal board: contradiction at [" + key + "] for digit " + std::to_string(value));
+                        const std::string square = "[" + std::to_string( rowIdx) + "," + std::to_string( colIdx) + "]";
+                        throw std::runtime_error("Illegal board: contradiction at [" + square + "] for digit " + std::to_string(value));
                     }
                 }
             }
@@ -289,9 +287,9 @@ namespace com::rambrant::sudoku
         //
         // Set the found values back into the board
         //
-        for( const auto& [key, values] : resultingValues)
+        for( const auto& [square, values] : resultingValues)
         {
-            board[key.first][key.second] = values[0];   // The values for the square are guarantied to be just one...
+            board[square.first][square.second] = values[0];   // The values for the square are guarantied to be just one...
         }
 
         return std::make_tuple( result, recursions);

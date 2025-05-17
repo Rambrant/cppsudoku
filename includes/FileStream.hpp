@@ -37,6 +37,6 @@ namespace com::rambrant::sudoku
              * @param fileName The name of the file
              * @param mode The mode the file should open in. Defaults to @ref Mode::Read
              */
-            explicit FileStream( const std::string& fileName, Mode mode = Mode::Read);
+            explicit FileStream( const std::string& fileName, const Mode& mode = Mode::Read);
     };
 }

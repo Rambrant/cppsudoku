@@ -15,32 +15,32 @@ namespace com::rambrant::sudoku
         //
         // Helper functions
         //
-        auto check( int value, const Traits::BoardArray & unitValues ) -> bool;
-        auto rowConstraint( const Traits::Board & board, int value, int rowPos ) -> bool;
-        auto columnConstraint( const Traits::Board & board, int value, int columnPos ) -> bool;
-        auto boxConstraint( const Traits::Board & board, int value, int rowPos, int columnPos ) -> bool;
-        auto isValid( Traits::Board& board, int value, int rowPos, int columnPos ) -> bool;
+        auto check( Traits::Value value, const Traits::BoardArray & unitValues) -> bool;
+        auto rowConstraint( const Traits::Board & board, Traits::Value value, int rowPos) -> bool;
+        auto columnConstraint( const Traits::Board & board, Traits::Value value, int columnPos) -> bool;
+        auto boxConstraint( const Traits::Board & board, Traits::Value value, int rowPos, int columnPos) -> bool;
+        auto isValid( Traits::Board& board, Traits::Value value, int rowPos, int columnPos) -> bool;
         auto search( Traits::Board & board, int& recursions) -> bool;
 
         //
         // Helper function implementations
         //
-        auto check( int value, const Traits::BoardArray & unitValues ) -> bool
+        auto check( Traits::Value value, const Traits::BoardArray & unitValues ) -> bool
         {
             //
             // Returns true if none of the elements in the array matches the given value
             //
             return std::all_of( unitValues.begin(), unitValues.end(),
-                [value](int element) { return element != value; }
+                [value]( const int element) { return element != value; }
             );
         }
 
-        auto rowConstraint( const Traits::Board & board, int value, int rowPos ) -> bool
+        auto rowConstraint( const Traits::Board & board, const Traits::Value value, const int rowPos ) -> bool
         {
             return check( value, board[ rowPos]);
         }
 
-        auto columnConstraint( const Traits::Board & board, int value, int columnPos ) -> bool
+        auto columnConstraint( const Traits::Board & board, const Traits::Value value, const int columnPos ) -> bool
         {
             Traits::BoardArray columnValues;
 
@@ -50,7 +50,7 @@ namespace com::rambrant::sudoku
             return check( value, columnValues);
         }
 
-        auto boxConstraint( const Traits::Board & board, int value, int rowPos, int columnPos ) -> bool
+        auto boxConstraint( const Traits::Board & board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool
         {
             //
             // Calculate the board coordinates for the top left corner of the box
@@ -70,9 +70,9 @@ namespace com::rambrant::sudoku
 
             for( const auto& row : RangeView( board, startRow, endRow))
             {
-                for( int cell : RangeView( row, startCol, endCol))
+                for( const int  squareValue : RangeView( row, startCol, endCol))
                 {
-                    *boxIter = cell;
+                    *boxIter =  squareValue;
 
                     boxIter++;
                 }
@@ -81,7 +81,7 @@ namespace com::rambrant::sudoku
             return check( value, boxValues);
         }
 
-        auto isValid( Traits::Board& board, int value, int rowPos, int columnPos ) -> bool
+        auto isValid( Traits::Board& board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool
         {
             bool result = rowConstraint( board, value, rowPos)                  &&
                           columnConstraint( board, value, columnPos)            &&
@@ -109,13 +109,13 @@ namespace com::rambrant::sudoku
 {
             ++recursions;
 
-            for( int rowIdx : Traits::INDEX_RANGE)
+            for( const int rowIdx : Traits::INDEX_RANGE)
             {
-                for( int colIdx : Traits::INDEX_RANGE)
+                for( const int colIdx : Traits::INDEX_RANGE)
                 {
                     if( board[rowIdx][colIdx] == Traits::NO_VALUE)
                     {
-                        for( int value : Traits::VALUE_RANGE)
+                        for( const int value : Traits::VALUE_RANGE)
                         {
                             if( isValid( board, value, rowIdx, colIdx) &&
                                 search( board, recursions))
