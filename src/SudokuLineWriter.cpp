@@ -4,7 +4,8 @@
 #include <ostream>
 
 #include "SudokuLineWriter.hpp"
-#include "Logger.hpp"
+
+#include "Digit.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -19,7 +20,7 @@ namespace com::rambrant::sudoku
         {
             for( auto colIdx : Traits::INDEX_RANGE)
             {
-                mStream << valueToChar<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
+                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
             }
         }
     }

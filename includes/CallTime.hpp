@@ -12,7 +12,6 @@ namespace com::rambrant::sudoku
      * @param func A callable object to be timed.
      * @param args Arguments to be passed to the callable object.
      * @return A tuple containing the result of the callable object and the execution time.
-     * @ingroup Helpers
      *
      * @code
      * auto [result, duration] = timedCall( [&] {return board.solve( solver); });

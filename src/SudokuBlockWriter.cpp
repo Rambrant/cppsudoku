@@ -4,7 +4,8 @@
 #include <ostream>
 
 #include "SudokuBlockWriter.hpp"
-#include "Logger.hpp"
+
+#include "Digit.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -31,7 +32,7 @@ namespace com::rambrant::sudoku
                     mStream << "  "; // extra spacing between box columns
                 }
 
-                mStream << valueToChar<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
+                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
             }
 
             mStream << std::endl;

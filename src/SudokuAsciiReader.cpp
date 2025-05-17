@@ -4,6 +4,8 @@
 #include <fstream>
 
 #include "SudokuAsciiReader.hpp"
+
+#include "Digit.hpp"
 #include "Logger.hpp"
 
 namespace com::rambrant::sudoku
@@ -28,7 +30,7 @@ namespace com::rambrant::sudoku
             if( ch == '.')
                 ch = '0';
 
-            int value = charToValue<Traits::BOARD_SIZE>( ch);
+            int value = digitToValue<Traits::BOARD_SIZE>( ch);
 
             if (value != -1)
             {

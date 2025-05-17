@@ -16,7 +16,6 @@ namespace com::rambrant::sudoku
         }
     }
 
-
     /**
      * @brief Generate a constexpr array of N elements using a start value and a step.
      * @tparam N Number of elements in the array.
@@ -26,7 +25,6 @@ namespace com::rambrant::sudoku
      * @return A `std::array<T, N>` containing the generated range.
      * @note This function is evaluated at compile-time and is suitable for `constexpr` initialization.
      * @see RangeArrayImpl (internal helper)
-     * @ingroup Helpers
      *
      * @code
      * static constexpr auto odds = RangeArray<4>(3, 2);  // => {3, 5, 7, 9}
