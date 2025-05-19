@@ -8,7 +8,7 @@
 #include <vector>
 #include <stdexcept>
 
-#include "Option.hpp"
+#include "CommandOption.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -43,7 +43,7 @@ namespace com::rambrant::sudoku
              * @param rhs The right-hand @ref Option
              */
             template< typename A, typename B>
-            static auto assertNotBoth( const Option<A>& lhs, const Option<B>& rhs ) -> void;
+            static auto assertNotBoth( const CommandOption<A>& lhs, const CommandOption<B>& rhs ) -> void;
 
             /**
              * @brief Asserts that if the left-hand @ref Option is set, then the right-hand @ref Option must also be set
@@ -53,7 +53,7 @@ namespace com::rambrant::sudoku
              * @param rhs The right-hand @ref Option
              */
             template<typename A, typename B>
-            static auto assertRequires( const Option<A>& lhs, const Option<B>& rhs ) -> void;
+            static auto assertRequires( const CommandOption<A>& lhs, const CommandOption<B>& rhs ) -> void;
 
             /**
              * @brief Asserts that the value in the @ref Option matches the given strings
@@ -62,11 +62,11 @@ namespace com::rambrant::sudoku
              * @param allowed A brace-initialized list of string values to check against
              */
             template< typename T>
-            static auto assertValueIn( const Option<T>& opt, const std::set<std::string>& allowed) -> void;
+            static auto assertValueIn( const CommandOption<T>& opt, const std::set<std::string>& allowed) -> void;
 
         private:
 
-        std::vector< IOption*> options;
+        std::vector< ICommandOption*> mOptions;
     };
 
     /// \cond DOXYGEN_SUPPRESS
@@ -74,13 +74,13 @@ namespace com::rambrant::sudoku
     template< typename ... Opts>
     CommandLineParser::CommandLineParser( Opts&... opts)
     {
-        (options.push_back( &opts), ...);
+        (mOptions.push_back( &opts), ...);
     }
 
     template< typename A, typename B>
     auto CommandLineParser::assertNotBoth(
-        const Option<A>& lhs,
-        const Option<B>& rhs ) -> void
+        const CommandOption<A>& lhs,
+        const CommandOption<B>& rhs ) -> void
     {
         if( lhs.isSet() && rhs.isSet())
         {
@@ -90,8 +90,8 @@ namespace com::rambrant::sudoku
 
     template< typename A, typename B>
     auto CommandLineParser::assertRequires(
-        const Option<A>& lhs,
-        const Option<B>& rhs ) -> void
+        const CommandOption<A>& lhs,
+        const CommandOption<B>& rhs ) -> void
     {
         if( lhs.isSet() && ! rhs.isSet())
         {
@@ -117,7 +117,7 @@ namespace com::rambrant::sudoku
 
     template<typename T>
     auto CommandLineParser::assertValueIn(
-        const Option<T> &            opt,
+        const CommandOption<T> &            opt,
         const std::set<std::string>& allowed) -> void
     {
         if( ! opt.isSet())

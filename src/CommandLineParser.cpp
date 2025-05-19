@@ -11,10 +11,10 @@ namespace com::rambrant::sudoku
     {
         for( int i = 1; i < argc; ++i)
         {
-            std::string arg     = argv[ i];
-            IOption*    matched = nullptr;
+            std::string     arg     = argv[ i];
+            ICommandOption* matched = nullptr;
 
-            for( auto* opt : options)
+            for( auto* opt : mOptions)
             {
                 if( opt->isMatched( arg))
                 {

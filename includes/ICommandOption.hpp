@@ -10,9 +10,11 @@ namespace com::rambrant::sudoku
     /**
      * @brief An interface for the template class @ref Option used by the @ref CommandLineParser
      */
-    class IOption
+    class ICommandOption
     {
         public:
+
+            using Validator = std::function<bool( const ICommandOption&)>;
 
             /**
              * @brief Checks to see if a value has been set
@@ -37,7 +39,7 @@ namespace com::rambrant::sudoku
 
             /**
              * @brief Does the @ref Option expect a value?
-             * @return true if the option expects a value. False if it is a flag.
+             * @return True if the option expects a value. False if it is a flag.
              */
             [[nodiscard]]
             virtual bool expectsValue() const = 0;
@@ -49,6 +51,10 @@ namespace com::rambrant::sudoku
             [[nodiscard]]
             virtual std::string getLongFlag() const = 0;
 
-            virtual ~IOption() = default;
+            virtual ~ICommandOption() = default;
+
+        private:
+
+            Validator mValidator{};
     };
 }

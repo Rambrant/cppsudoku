@@ -2,10 +2,11 @@
 // Created by Thomas Rambrant on 2025-05-13.
 //
 #pragma once
+#include <functional>
 #include <string>
 #include <vector>
 
-#include "IOption.hpp"
+#include "ICommandOption.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -13,7 +14,7 @@ namespace com::rambrant::sudoku
      * @brief A template class that implements the interface @ref IOption and is used by the @ref CommandLineParser
      */
     template< typename T>
-    class Option : public IOption
+    class CommandOption : public ICommandOption
     {
         public:
 
@@ -23,7 +24,7 @@ namespace com::rambrant::sudoku
              * @param shortFlag The short version of the longFlag, usually just one letter prepended with a single -
              * @param defaultValue The default value if no value is set
              */
-            Option( std::string longFlag, std::string shortFlag, std::optional<T> defaultValue = std::nullopt) :
+            CommandOption( std::string longFlag, std::string shortFlag, std::optional<T> defaultValue = std::nullopt) :
                 mLongFlag( std::move( longFlag)),
                 mShortFlag( std::move( shortFlag)),
                 mDefaultValue( std::move( defaultValue))
@@ -39,8 +40,8 @@ namespace com::rambrant::sudoku
             // Using a constraint to ensure that this constructor is only used for List types of options
             //
             template< typename U = T, typename = std::enable_if_t< std::is_same_v<U, std::vector<std::string>> >>
-            Option( std::string longFlag, std::string shortFlag, std::vector<std::string> defaultValue = {} ) :
-                Option( std::move( longFlag), std::move( shortFlag), std::optional{ std::move( defaultValue)}) {}
+            CommandOption( std::string longFlag, std::string shortFlag, std::vector<std::string> defaultValue = {} ) :
+                CommandOption( std::move( longFlag), std::move( shortFlag), std::optional{ std::move( defaultValue)}) {}
 
             /**
              * @brief Check to see if the option matches any command line argument
@@ -58,7 +59,7 @@ namespace com::rambrant::sudoku
 
             /**
              * @brief Does the Option expect a value?
-             * @return true if the option expects a value. False if it is a flag.
+             * @return True if the option expects a value. False if it is a flag.
              */
             [[nodiscard]]
             bool expectsValue() const override;
@@ -85,37 +86,37 @@ namespace com::rambrant::sudoku
 
         private:
 
-            std::string         mLongFlag;
-            std::string         mShortFlag;
-            std::optional<T>    mValue;
-            std::optional<T>    mDefaultValue;
+            std::string        mLongFlag;
+            std::string        mShortFlag;
+            std::optional<T>   mValue;
+            std::optional<T>   mDefaultValue;
 };
 
     /**
      * @brief Convenience class introducing a short notion for Option<bool>
      */
-    class BoolOption final : public Option<bool>
+    class BoolOption final : public CommandOption<bool>
     {
         public:
-            using Option::Option;
+            using CommandOption::CommandOption;
     };
 
     /**
      * @brief Convenience class introducing a short notion for Option<std::string>
      */
-    class StringOption final : public Option<std::string>
+    class StringOption final : public CommandOption<std::string>
     {
         public:
-            using Option::Option;
+            using CommandOption::CommandOption;
     };
 
     /**
     * @brief Convenience class introducing a short notion for Option<std::vector<std::string>>
     */
-    class ListOption final : public Option<std::vector<std::string>>
+    class ListOption final : public CommandOption<std::vector<std::string>>
     {
         public:
-            using Option::Option;
+            using CommandOption::CommandOption;
     };
 
 
@@ -158,13 +159,13 @@ namespace com::rambrant::sudoku
     // Member functions
     //
     template<typename T>
-    auto Option<T>::isMatched( const std::string & arg ) const -> bool
+    auto CommandOption<T>::isMatched( const std::string & arg ) const -> bool
     {
         return arg == mLongFlag || arg == mShortFlag;
     }
 
     template<typename T>
-    auto Option<T>::convertValue( const std::string & arg ) -> void
+    auto CommandOption<T>::convertValue( const std::string & arg ) -> void
     {
         if constexpr( std::is_same_v<T, bool>)
         {
@@ -177,13 +178,13 @@ namespace com::rambrant::sudoku
     }
 
     template<typename T>
-    auto Option<T>::expectsValue() const -> bool
+    auto CommandOption<T>::expectsValue() const -> bool
     {
         return ! std::is_same_v<T, bool>;
     }
 
     template<typename T>
-    auto Option<T>::get() const -> T
+    auto CommandOption<T>::get() const -> T
     {
         if( mValue)
             return *mValue;
@@ -195,13 +196,13 @@ namespace com::rambrant::sudoku
     }
 
     template<typename T>
-    auto Option<T>::getLongFlag() const -> std::string
+    auto CommandOption<T>::getLongFlag() const -> std::string
     {
         return mLongFlag;
     }
 
     template<typename T>
-    auto Option<T>::isSet() const -> bool
+    auto CommandOption<T>::isSet() const -> bool
     {
         return mValue.has_value();
     }
