@@ -33,7 +33,7 @@ namespace com::rambrant::sudoku
              * @param argc The number of arguments given to the program.
              * @param argv The arguments given to the program.
              */
-            auto parse( int argc, char *argv[] ) const -> void;
+            auto parse( int argc, char *argv[] ) const -> bool;
 
             /**
              * @brief Asserts that there is just one of the options is given

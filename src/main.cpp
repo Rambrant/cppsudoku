@@ -39,8 +39,10 @@ int main( int argc, char* argv[])
         ListOption   solversOpt{   "--solvers", "-s", std::vector<std::string>{ "backtracking", "constraint"}};
 
         CommandLineParser parser( verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);
-        parser.parse( argc, argv);
 
+        if( ! parser.parse( argc, argv))
+            return 1;
+        
         //
         //  Set the log level
         //

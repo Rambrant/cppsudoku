@@ -21,7 +21,7 @@ namespace com::rambrant::sudoku
              * @return true if the value has been set
              */
             [[nodiscard]]
-            virtual bool isSet() const = 0;
+            virtual auto isSet() const -> bool = 0;
 
             /**
              * @brief Check to see if the option matches any command line argument
@@ -29,7 +29,10 @@ namespace com::rambrant::sudoku
              * @return true if the arguments match the options short or long names.
              */
             [[nodiscard]]
-            virtual bool isMatched( const std::string& arg) const = 0;
+            virtual auto isMatched( const std::string & arg ) const -> bool = 0;
+
+            [[nodiscard]]
+            virtual auto isValid() const -> bool = 0;
 
             /**
              * @brief Takes an argument string and converts it into the @ref Option type
