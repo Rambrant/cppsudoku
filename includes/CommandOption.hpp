@@ -4,6 +4,7 @@
 #pragma once
 #include <functional>
 #include <string>
+#include <sstream>
 #include <vector>
 
 #include "ICommandOption.hpp"
@@ -186,7 +187,7 @@ namespace com::rambrant::sudoku
     template<typename T>
     auto CommandOption<T>::isValid() const -> bool
     {
-        if( ! mValidator || ! isSet())
+        if( ! mValidator)
             return true;
 
         return mValidator( *this);

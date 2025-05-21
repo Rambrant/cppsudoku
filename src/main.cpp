@@ -10,6 +10,7 @@
 #include "BackTrackingSolver.hpp"
 #include "CallTime.hpp"
 #include "CommandLineParser.hpp"
+#include "CommandValidators.hpp"
 #include "ConstraintPropagationSolver.hpp"
 #include "FileStream.hpp"
 #include "Logger.hpp"
@@ -38,11 +39,15 @@ int main( int argc, char* argv[])
         StringOption inFormatOpt{  "--input-format", "-I", "text"};
         ListOption   solversOpt{   "--solvers", "-s", std::vector<std::string>{ "backtracking", "constraint"}};
 
+        outFormatOpt.setValidator( ValuesIn( { "pretty", "block", "line"}));
+        inFormatOpt.setValidator( ValuesIn( { "text"}));
+        solversOpt.setValidator( ValuesIn( { "backtracking", "constraint"}));
+
         CommandLineParser parser( verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);
 
         if( ! parser.parse( argc, argv))
             return 1;
-        
+
         //
         //  Set the log level
         //
@@ -56,8 +61,6 @@ int main( int argc, char* argv[])
         //
         // Initialize the board reader
         //
-        CommandLineParser::assertValueIn( inFormatOpt, { "text"});
-
         std::unique_ptr<ISudokuReader>  reader;
         std::unique_ptr<FileStream>     inputStream;
         std::istream*                   input = &std::cin;
@@ -84,8 +87,6 @@ int main( int argc, char* argv[])
         //
         // Initialize the board writer
         //
-        CommandLineParser::assertValueIn( outFormatOpt, { "pretty", "block", "line"});
-
         std::unique_ptr<ISudokuWriter>  writer;
         std::unique_ptr<FileStream>     outputStream;
         std::ostream*                   output = &std::cout;
@@ -124,8 +125,6 @@ int main( int argc, char* argv[])
         //
         // Initialize the solvers
         //
-        CommandLineParser::assertValueIn( solversOpt, { "backtracking", "constraint"});
-
         std::size_t             count{};
         SudokuBoard::SolverList solvers;
 
