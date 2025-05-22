@@ -32,6 +32,44 @@ auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Lo
     return logger;
 }
 
+struct StreamDeleter
+{
+    bool ownsStream = false;
+
+    void operator()( const std::istream* stream) const
+    {
+        if( ownsStream)
+        {
+            delete stream;
+        }
+        // Do nothing if we don't own the stream (e.g., std::cin)
+    }
+};
+
+auto getInputStream( const StringOption& inputOpt, const Logger& logger) -> std::unique_ptr<std::istream, StreamDeleter>
+{
+    if( inputOpt.isSet())
+    {
+        const auto& path = inputOpt.get();
+
+        logger << Logger::verbose << "...Reading from file '" << inputOpt.get() << "'";
+        return std::unique_ptr<std::istream, StreamDeleter>( new FileStream(path) , StreamDeleter{ true});
+    }
+
+    logger << Logger::verbose << "...Reading from stdin";
+    return std::unique_ptr<std::istream, StreamDeleter>( &std::cin, StreamDeleter{ false}); // no-op deleter
+}
+
+auto getReader( const StringOption& inFormatOpt, std::istream& stream, const Logger& logger) -> std::unique_ptr<ISudokuReader>
+{
+    if (inFormatOpt.get() == "text")
+    {
+        logger << Logger::verbose << " [text format]" << std::endl;
+        return std::make_unique<SudokuAsciiReader>( stream, logger);
+    }
+
+    throw std::invalid_argument( "Unsupported input format: " + inFormatOpt.get());
+}
 
 int main( int argc, char* argv[])
 {
@@ -67,31 +105,9 @@ int main( int argc, char* argv[])
         //
         Logger logger = getLogger( verboseOpt, quietOpt);
 
-        //
-        // Initialize the board reader
-        //
-        std::unique_ptr<ISudokuReader>  reader;
-        std::unique_ptr<FileStream>     inputStream;
-        std::istream*                   input = &std::cin;
+        auto stream = getInputStream( inputOpt, logger);
+        auto reader = getReader( inFormatOpt, *stream, logger);
 
-        if( inputOpt.isSet())
-        {
-            inputStream = std::make_unique<FileStream>( inputOpt.get());
-            input       = inputStream.get();
-
-            logger << Logger::verbose << "...Reading from file '" << inputOpt.get() << "'";
-        }
-        else
-        {
-            logger << Logger::verbose << "...Reading from stdin";
-        }
-
-        if( inFormatOpt.get() == "text")
-        {
-            reader = std::make_unique<SudokuAsciiReader>( *input, logger);
-
-            logger << Logger::verbose << " [text format]" << std::endl;
-        }
 
         //
         // Initialize the board writer
