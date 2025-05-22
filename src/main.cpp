@@ -20,9 +20,21 @@
 #include "SudokuLineWriter.hpp"
 #include "SudokuPrettyWriter.hpp"
 
+using namespace com::rambrant::sudoku;
+
+auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Logger
+{
+    auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
+    auto logger = Logger{ logLevel};
+
+    logger << Logger::verbose << "Initializing" << std::endl << "...Logger" << std::endl;
+
+    return logger;
+}
+
+
 int main( int argc, char* argv[])
 {
-    using namespace com::rambrant::sudoku;
 
     try
     {
@@ -51,12 +63,9 @@ int main( int argc, char* argv[])
             return 1;
 
         //
-        //  Set the log level
+        // Set things up
         //
-        auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
-        auto logger = Logger{ logLevel };
-
-        logger << Logger::verbose << "Initializing" << std::endl;
+        Logger logger = getLogger( verboseOpt, quietOpt);
 
         //
         // Initialize the board reader
