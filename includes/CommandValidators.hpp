@@ -6,84 +6,121 @@
 #include <iostream>
 #include <vector>
 
-#include "CommandOption.hpp"
+class CommandOption;
 
 namespace com::rambrant::sudoku
 {
-    template<typename T>
-    class ValuesInImpl
+    //
+    // Private implementation details
+    //
+    namespace detail
     {
-        public:
-            ValuesInImpl( std::initializer_list<T> allowed);
-            explicit ValuesInImpl( std::vector<T> allowed);
-
-            bool operator()(const CommandOption<T>& option) const;
-            bool operator()(const CommandOption<std::vector<T>>& option) const;
-
-        private:
-
-            std::vector<T> mAllowed; // Typical small set of values so vector should be faster
-    };
-
-    template<typename T>
-    ValuesInImpl<T>::ValuesInImpl( std::initializer_list<T> allowed ) :
-        mAllowed( allowed.begin(), allowed.end())
-    {}
-
-    template<typename T>
-    ValuesInImpl<T>::ValuesInImpl( std::vector<T> allowed ) :
-        mAllowed( std::move(allowed))
-    {}
-
-    template<typename T>
-    bool ValuesInImpl<T>::operator()( const CommandOption<T> & option) const
-    {
-        if( ! option.isSet())
-            return true;
-
-        const auto& value = option.get();
-
-        if( std::find( mAllowed.begin(), mAllowed.end(), value) == mAllowed.end())
+        template<typename T>
+        class ValuesInImpl
         {
-            std::cerr << "Invalid value '" << value << "' for option " << option.getLongFlag() << ". Allowed values: ";
+            public:
+                ValuesInImpl( std::initializer_list<T> allowed);
+                explicit ValuesInImpl( std::vector<T> allowed);
 
-            for( const auto& val : mAllowed)
-                std::cerr << val << " ";
+                bool operator()(const CommandOption<T>& self) const;
+                bool operator()(const CommandOption<std::vector<T>>& self) const;
 
-            return false;
-        }
+            private:
 
-        return true;
-    }
+                std::vector<T> mAllowed; // Typical small set of values so vector should be faster
+        };
 
-    template<typename T>
-    bool ValuesInImpl<T>::operator()( const CommandOption<std::vector<T>> & option ) const
-    {
-        if( ! option.isSet())
-            return true;
+        template<typename T>
+        class NotWithImpl {
+            public:
+                explicit NotWithImpl( const CommandOption<T>& other);
 
-        const auto& value = option.get();
+                auto operator()( const CommandOption<T>& self) const -> bool;
 
-        for( const auto& item : value)
+            private:
+                const CommandOption<T>& mOther;
+        };
+
+        template<typename T>
+        ValuesInImpl<T>::ValuesInImpl( std::initializer_list<T> allowed ) :
+            mAllowed( allowed.begin(), allowed.end())
+        {}
+
+        template<typename T>
+        ValuesInImpl<T>::ValuesInImpl( std::vector<T> allowed ) :
+            mAllowed( std::move(allowed))
+        {}
+
+        template<typename T>
+        bool ValuesInImpl<T>::operator()( const CommandOption<T> & self) const
         {
-            if( std::find( mAllowed.begin(), mAllowed.end(), item) == mAllowed.end())
+            if( ! self.isSet())
+                return true;
+
+            const auto& value = self.get();
+
+            if( std::find( mAllowed.begin(), mAllowed.end(), value) == mAllowed.end())
             {
-                std::cerr << "Invalid value '" << item << "' for option " << option.getLongFlag() << ". Allowed values: ";
+                std::cerr << "Invalid value '" << value << "' for option " << self.getLongFlag() << ". Allowed values: ";
 
                 for( const auto& val : mAllowed)
                     std::cerr << val << " ";
 
                 return false;
             }
+
+            return true;
         }
 
-        return true;
+        template<typename T>
+        bool ValuesInImpl<T>::operator()( const CommandOption<std::vector<T>> & self ) const
+        {
+            if( ! self.isSet())
+                return true;
+
+            const auto& value = self.get();
+
+            for( const auto& item : value)
+            {
+                if( std::find( mAllowed.begin(), mAllowed.end(), item) == mAllowed.end())
+                {
+                    std::cerr << "Invalid value '" << item << "' for option " << self.getLongFlag() << ". Allowed values: ";
+
+                    for( const auto& val : mAllowed)
+                        std::cerr << val << " ";
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        template<typename T>
+        NotWithImpl<T>::NotWithImpl( const CommandOption<T> & other ) :
+            mOther( other)
+        {}
+
+        template<typename T>
+        auto NotWithImpl<T>::operator()( const CommandOption<T>& self) const -> bool
+        {
+            if( self.isSet() && mOther.isSet())
+            {
+                std::cerr << "Option " << self.getLongFlag() << " may not be used together with " << mOther.getLongFlag() << std::endl;
+                return false;
+            }
+
+            return true;
+        }
     }
 
-    template<typename T>
-    auto ValuesIn(std::initializer_list<T> allowed)
+    //
+    // Publicly available functions
+    //
+    template< typename T>
+    auto ValuesIn( std::initializer_list<T> allowed)
     {
-        return ValuesInImpl<T>(std::vector<T>(allowed.begin(), allowed.end()));
+        return detail::ValuesInImpl<T>(std::vector<T>(allowed.begin(), allowed.end()));
     }
 
     inline auto ValuesIn( const std::initializer_list<const char*> allowed)
@@ -94,6 +131,12 @@ namespace com::rambrant::sudoku
         for( auto s : allowed)
             values.emplace_back(s);
 
-        return ValuesInImpl(std::move(values));
+        return detail::ValuesInImpl( std::move(values));
+    }
+
+    template< typename T>
+    auto NotWith( const CommandOption<T>& other)
+    {
+        return detail::NotWithImpl<T>( other);
     }
 }

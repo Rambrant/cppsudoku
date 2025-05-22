@@ -39,6 +39,8 @@ int main( int argc, char* argv[])
         StringOption inFormatOpt{  "--input-format", "-I", "text"};
         ListOption   solversOpt{   "--solvers", "-s", std::vector<std::string>{ "backtracking", "constraint"}};
 
+        verboseOpt.setValidator( NotWith( quietOpt));
+        quietOpt.setValidator( NotWith( verboseOpt));
         outFormatOpt.setValidator( ValuesIn( { "pretty", "block", "line"}));
         inFormatOpt.setValidator( ValuesIn( { "text"}));
         solversOpt.setValidator( ValuesIn( { "backtracking", "constraint"}));
@@ -51,8 +53,6 @@ int main( int argc, char* argv[])
         //
         //  Set the log level
         //
-        CommandLineParser::assertNotBoth( verboseOpt, quietOpt);
-
         auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
         auto logger = Logger{ logLevel };
 
