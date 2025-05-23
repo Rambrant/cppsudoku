@@ -104,6 +104,30 @@ auto getWriter( const StringOption& opt, std::ostream& stream, const Logger& log
     return std::make_unique<SudokuBlockWriter>( stream, logger);
 }
 
+auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::SolverList
+{
+    std::size_t             count{};
+    SudokuBoard::SolverList solvers;
+
+    for( const auto& solverArg : opt.get())
+    {
+        ++count;
+
+        if( solverArg == "backtracking")
+        {
+            logger << Logger::verbose << "...Adding solver " << count << " [backtracking]" << std::endl;
+            solvers.push_back( std::move( std::make_unique<BackTrackingSolver>( logger)));
+        }
+        else
+        {
+            logger << Logger::verbose << "...Adding solver " << count << " [constraint propagation]" << std::endl;
+            solvers.push_back( std::move( std::make_unique<ConstraintPropagationSolver>( logger)));
+        }
+    }
+
+    return solvers;
+}
+
 
 int main( int argc, char* argv[])
 {
@@ -137,38 +161,15 @@ int main( int argc, char* argv[])
         //
         // Set things up
         //
-        Logger logger = getLogger( verboseOpt, quietOpt);
+        Logger logger     = getLogger( verboseOpt, quietOpt);
 
-        auto inputStream = getInputStream( inputOpt, logger);
-        auto reader = getReader( inFormatOpt, *inputStream, logger);
+        auto inputStream  = getInputStream( inputOpt, logger);
+        auto reader       = getReader( inFormatOpt, *inputStream, logger);
 
         auto outputStream = getOutputStream( outputOpt, logger);
-        auto writer = getWriter( outFormatOpt, *outputStream, logger);
+        auto writer       = getWriter( outFormatOpt, *outputStream, logger);
 
-
-        //
-        // Initialize the solvers
-        //
-        std::size_t             count{};
-        SudokuBoard::SolverList solvers;
-
-        for( const auto& solverArg : solversOpt.get())
-        {
-            ++count;
-
-            if( solverArg == "backtracking")
-            {
-                solvers.push_back( std::move( std::make_unique<BackTrackingSolver>( logger)));
-
-                logger << Logger::verbose << "...Adding solver " << count << " [backtracking]" << std::endl;
-            }
-            else
-            {
-                solvers.push_back( std::move( std::make_unique<ConstraintPropagationSolver>( logger)));
-
-                logger << Logger::verbose << "...Adding solver " << count << " [constraint propagation]" << std::endl;
-            }
-        }
+        auto solvers      = getSolvers( solversOpt, logger);
 
         //
         // Setting up and solving the board
