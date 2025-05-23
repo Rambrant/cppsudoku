@@ -32,11 +32,12 @@ auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Lo
     return logger;
 }
 
+template<typename Stream>
 struct StreamDeleter
 {
     bool ownsStream = false;
 
-    void operator()( const std::istream* stream) const
+    void operator()( const Stream* stream) const
     {
         if( ownsStream)
         {
@@ -46,30 +47,63 @@ struct StreamDeleter
     }
 };
 
-auto getInputStream( const StringOption& inputOpt, const Logger& logger) -> std::unique_ptr<std::istream, StreamDeleter>
+auto getInputStream( const StringOption& opt, const Logger& logger)
 {
-    if( inputOpt.isSet())
+    if( opt.isSet())
     {
-        const auto& path = inputOpt.get();
+        const auto& path = opt.get();
 
-        logger << Logger::verbose << "...Reading from file '" << inputOpt.get() << "'";
-        return std::unique_ptr<std::istream, StreamDeleter>( new FileStream(path) , StreamDeleter{ true});
+        logger << Logger::verbose << "...Reading from file '" << opt.get() << "'";
+        return std::unique_ptr<std::istream, StreamDeleter<std::istream>>( new FileStream(path) , StreamDeleter<std::istream>{ true});
     }
 
     logger << Logger::verbose << "...Reading from stdin";
-    return std::unique_ptr<std::istream, StreamDeleter>( &std::cin, StreamDeleter{ false}); // no-op deleter
+    return std::unique_ptr<std::istream, StreamDeleter<std::istream>>( &std::cin, StreamDeleter<std::istream>{ false}); // no-op deleter
 }
 
-auto getReader( const StringOption& inFormatOpt, std::istream& stream, const Logger& logger) -> std::unique_ptr<ISudokuReader>
+auto getReader( const StringOption& opt, std::istream& stream, const Logger& logger) -> std::unique_ptr<ISudokuReader>
 {
-    if (inFormatOpt.get() == "text")
+    if( opt.get() == "text")
     {
         logger << Logger::verbose << " [text format]" << std::endl;
         return std::make_unique<SudokuAsciiReader>( stream, logger);
     }
 
-    throw std::invalid_argument( "Unsupported input format: " + inFormatOpt.get());
+    throw std::invalid_argument( "Unsupported input format: " + opt.get());
 }
+
+auto getOutputStream( const StringOption& opt, const Logger& logger)
+{
+    if( opt.isSet())
+    {
+        const auto& path = opt.get();
+
+        logger << Logger::verbose << "...Writing to file '" << opt.get() << "'";
+        return std::unique_ptr<std::ostream, StreamDeleter<std::ostream>>( new FileStream(path, FileStream::Mode::Write) , StreamDeleter<std::ostream>{ true});
+    }
+
+    logger << Logger::verbose << "...Writing to stdout";
+    return std::unique_ptr<std::ostream, StreamDeleter<std::ostream>>( &std::cout, StreamDeleter<std::ostream>{ false}); // no-op deleter
+}
+
+auto getWriter( const StringOption& opt, std::ostream& stream, const Logger& logger) -> std::unique_ptr<ISudokuWriter>
+{
+    if( opt.get() == "pretty")
+    {
+        logger << Logger::verbose << " [pretty format]" << std::endl;
+        return std::make_unique<SudokuPrettyWriter>( stream, logger);
+    }
+
+    if( opt.get() == "line")
+    {
+        logger << Logger::verbose << " [line format]" << std::endl;
+        return std::make_unique<SudokuLineWriter>( stream, logger);
+    }
+
+    logger << Logger::verbose << " [block format]" << std::endl;
+    return std::make_unique<SudokuBlockWriter>( stream, logger);
+}
+
 
 int main( int argc, char* argv[])
 {
@@ -105,47 +139,12 @@ int main( int argc, char* argv[])
         //
         Logger logger = getLogger( verboseOpt, quietOpt);
 
-        auto stream = getInputStream( inputOpt, logger);
-        auto reader = getReader( inFormatOpt, *stream, logger);
+        auto inputStream = getInputStream( inputOpt, logger);
+        auto reader = getReader( inFormatOpt, *inputStream, logger);
 
+        auto outputStream = getOutputStream( outputOpt, logger);
+        auto writer = getWriter( outFormatOpt, *outputStream, logger);
 
-        //
-        // Initialize the board writer
-        //
-        std::unique_ptr<ISudokuWriter>  writer;
-        std::unique_ptr<FileStream>     outputStream;
-        std::ostream*                   output = &std::cout;
-
-        if( outputOpt.isSet())
-        {
-            outputStream = std::make_unique<FileStream>( outputOpt.get(), FileStream::Mode::Write);
-            output       = outputStream.get();
-
-            logger << Logger::verbose << "...Writing to file '" << outputOpt.get() << "'";
-        }
-        else
-        {
-            logger << Logger::verbose << "...Writing to stdout" ;
-        }
-
-        writer = std::make_unique<SudokuBlockWriter>( *output, logger);
-
-        if( outFormatOpt.get() == "pretty")
-        {
-            writer = std::make_unique<SudokuPrettyWriter>( *output, logger);
-
-            logger << Logger::verbose << " [pretty format]" << std::endl;
-        }
-        else if( outFormatOpt.get() == "line")
-        {
-            writer = std::make_unique<SudokuLineWriter>( *output, logger);
-
-            logger << Logger::verbose << " [line format]" << std::endl;
-        }
-        else
-        {
-            logger << Logger::verbose << " [block format]" << std::endl;
-        }
 
         //
         // Initialize the solvers
