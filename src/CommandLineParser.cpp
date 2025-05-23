@@ -7,8 +7,10 @@
 
 namespace com::rambrant::sudoku
 {
-    void CommandLineParser::parse( const int argc, char *argv[] ) const
+    bool CommandLineParser::parse( const int argc, char *argv[] ) const
     {
+        bool result = true;     // Are all options valid after parse?
+
         for( int i = 1; i < argc; ++i)
         {
             std::string     arg     = argv[ i];
@@ -40,6 +42,13 @@ namespace com::rambrant::sudoku
             {
                 matched->convertValue( "");
             }
+
+            if( ! matched->isValid())
+            {
+                result = false;
+            }
         }
+
+        return result;
     }
 }

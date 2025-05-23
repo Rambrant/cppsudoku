@@ -10,6 +10,7 @@
 #include "BackTrackingSolver.hpp"
 #include "CallTime.hpp"
 #include "CommandLineParser.hpp"
+#include "CommandValidators.hpp"
 #include "ConstraintPropagationSolver.hpp"
 #include "FileStream.hpp"
 #include "Logger.hpp"
@@ -19,9 +20,124 @@
 #include "SudokuLineWriter.hpp"
 #include "SudokuPrettyWriter.hpp"
 
+using namespace com::rambrant::sudoku;
+
+//
+// Helper functions
+//
+/// \cond INTERNAL
+auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Logger
+{
+    auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
+    auto logger = Logger{ logLevel};
+
+    logger << Logger::verbose << "Initializing" << std::endl << "...Logger" << std::endl;
+
+    return logger;
+}
+
+template<typename Stream>
+struct StreamDeleter
+{
+    bool ownsStream = false;
+
+    void operator()( const Stream* stream) const
+    {
+        if( ownsStream)
+        {
+            delete stream;
+        }
+        // Do nothing if we don't own the stream (e.g., std::cin)
+    }
+};
+
+auto getInputStream( const StringOption& opt, const Logger& logger)
+{
+    if( opt.isSet())
+    {
+        const auto& path = opt.get();
+
+        logger << Logger::verbose << "...Reading from file '" << opt.get() << "'";
+        return std::unique_ptr<std::istream, StreamDeleter<std::istream>>( new FileStream(path) , StreamDeleter<std::istream>{ true});
+    }
+
+    logger << Logger::verbose << "...Reading from stdin";
+    return std::unique_ptr<std::istream, StreamDeleter<std::istream>>( &std::cin, StreamDeleter<std::istream>{ false}); // no-op deleter
+}
+
+auto getReader( const StringOption& opt, std::istream& stream, const Logger& logger) -> std::unique_ptr<ISudokuReader>
+{
+    if( opt.get() == "text")
+    {
+        logger << Logger::verbose << " [text format]" << std::endl;
+        return std::make_unique<SudokuAsciiReader>( stream, logger);
+    }
+
+    throw std::invalid_argument( "Unsupported input format: " + opt.get());
+}
+
+auto getOutputStream( const StringOption& opt, const Logger& logger)
+{
+    if( opt.isSet())
+    {
+        const auto& path = opt.get();
+
+        logger << Logger::verbose << "...Writing to file '" << opt.get() << "'";
+        return std::unique_ptr<std::ostream, StreamDeleter<std::ostream>>( new FileStream(path, FileStream::Mode::Write) , StreamDeleter<std::ostream>{ true});
+    }
+
+    logger << Logger::verbose << "...Writing to stdout";
+    return std::unique_ptr<std::ostream, StreamDeleter<std::ostream>>( &std::cout, StreamDeleter<std::ostream>{ false}); // no-op deleter
+}
+
+auto getWriter( const StringOption& opt, std::ostream& stream, const Logger& logger) -> std::unique_ptr<ISudokuWriter>
+{
+    if( opt.get() == "pretty")
+    {
+        logger << Logger::verbose << " [pretty format]" << std::endl;
+        return std::make_unique<SudokuPrettyWriter>( stream, logger);
+    }
+
+    if( opt.get() == "line")
+    {
+        logger << Logger::verbose << " [line format]" << std::endl;
+        return std::make_unique<SudokuLineWriter>( stream, logger);
+    }
+
+    logger << Logger::verbose << " [block format]" << std::endl;
+    return std::make_unique<SudokuBlockWriter>( stream, logger);
+}
+
+auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::SolverList
+{
+    std::size_t             count{};
+    SudokuBoard::SolverList solvers;
+
+    for( const auto& solverArg : opt.get())
+    {
+        ++count;
+
+        if( solverArg == "backtracking")
+        {
+            logger << Logger::verbose << "...Adding solver " << count << " [backtracking]" << std::endl;
+            solvers.push_back( std::move( std::make_unique<BackTrackingSolver>( logger)));
+        }
+        else
+        {
+            logger << Logger::verbose << "...Adding solver " << count << " [constraint propagation]" << std::endl;
+            solvers.push_back( std::move( std::make_unique<ConstraintPropagationSolver>( logger)));
+        }
+    }
+
+    return solvers;
+}
+/// \endcond
+
+//
+// Main function
+//
 int main( int argc, char* argv[])
 {
-    using namespace com::rambrant::sudoku;
 
     try
     {
@@ -38,112 +154,29 @@ int main( int argc, char* argv[])
         StringOption inFormatOpt{  "--input-format", "-I", "text"};
         ListOption   solversOpt{   "--solvers", "-s", std::vector<std::string>{ "backtracking", "constraint"}};
 
+        verboseOpt.setValidator( NotWith( quietOpt));
+        quietOpt.setValidator( NotWith( verboseOpt));
+        outFormatOpt.setValidator( ValuesIn( { "pretty", "block", "line"}));
+        inFormatOpt.setValidator( ValuesIn( { "text"}));
+        solversOpt.setValidator( ValuesIn( { "backtracking", "constraint"}));
+
         CommandLineParser parser( verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);
-        parser.parse( argc, argv);
+
+        if( ! parser.parse( argc, argv))
+            return 1;
 
         //
-        //  Set the log level
+        // Set things up
         //
-        CommandLineParser::assertNotBoth( verboseOpt, quietOpt);
+        Logger logger     = getLogger( verboseOpt, quietOpt);
 
-        auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
-        auto logger = Logger{ logLevel };
+        auto inputStream  = getInputStream( inputOpt, logger);
+        auto reader       = getReader( inFormatOpt, *inputStream, logger);
 
-        logger << Logger::verbose << "Initializing" << std::endl;
+        auto outputStream = getOutputStream( outputOpt, logger);
+        auto writer       = getWriter( outFormatOpt, *outputStream, logger);
 
-        //
-        // Initialize the board reader
-        //
-        CommandLineParser::assertValueIn( inFormatOpt, { "text"});
-
-        std::unique_ptr<ISudokuReader>  reader;
-        std::unique_ptr<FileStream>     inputStream;
-        std::istream*                   input = &std::cin;
-
-        if( inputOpt.isSet())
-        {
-            inputStream = std::make_unique<FileStream>( inputOpt.get());
-            input       = inputStream.get();
-
-            logger << Logger::verbose << "...Reading from file '" << inputOpt.get() << "'";
-        }
-        else
-        {
-            logger << Logger::verbose << "...Reading from stdin";
-        }
-
-        if( inFormatOpt.get() == "text")
-        {
-            reader = std::make_unique<SudokuAsciiReader>( *input, logger);
-
-            logger << Logger::verbose << " [text format]" << std::endl;
-        }
-
-        //
-        // Initialize the board writer
-        //
-        CommandLineParser::assertValueIn( outFormatOpt, { "pretty", "block", "line"});
-
-        std::unique_ptr<ISudokuWriter>  writer;
-        std::unique_ptr<FileStream>     outputStream;
-        std::ostream*                   output = &std::cout;
-
-        if( outputOpt.isSet())
-        {
-            outputStream = std::make_unique<FileStream>( outputOpt.get(), FileStream::Mode::Write);
-            output       = outputStream.get();
-
-            logger << Logger::verbose << "...Writing to file '" << outputOpt.get() << "'";
-        }
-        else
-        {
-            logger << Logger::verbose << "...Writing to stdout" ;
-        }
-
-        writer = std::make_unique<SudokuBlockWriter>( *output, logger);
-
-        if( outFormatOpt.get() == "pretty")
-        {
-            writer = std::make_unique<SudokuPrettyWriter>( *output, logger);
-
-            logger << Logger::verbose << " [pretty format]" << std::endl;
-        }
-        else if( outFormatOpt.get() == "line")
-        {
-            writer = std::make_unique<SudokuLineWriter>( *output, logger);
-
-            logger << Logger::verbose << " [line format]" << std::endl;
-        }
-        else
-        {
-            logger << Logger::verbose << " [block format]" << std::endl;
-        }
-
-        //
-        // Initialize the solvers
-        //
-        CommandLineParser::assertValueIn( solversOpt, { "backtracking", "constraint"});
-
-        std::size_t             count{};
-        SudokuBoard::SolverList solvers;
-
-        for( const auto& solverArg : solversOpt.get())
-        {
-            ++count;
-
-            if( solverArg == "backtracking")
-            {
-                solvers.push_back( std::move( std::make_unique<BackTrackingSolver>( logger)));
-
-                logger << Logger::verbose << "...Adding solver " << count << " [backtracking]" << std::endl;
-            }
-            else
-            {
-                solvers.push_back( std::move( std::make_unique<ConstraintPropagationSolver>( logger)));
-
-                logger << Logger::verbose << "...Adding solver " << count << " [constraint propagation]" << std::endl;
-            }
-        }
+        auto solvers      = getSolvers( solversOpt, logger);
 
         //
         // Setting up and solving the board

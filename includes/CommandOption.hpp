@@ -4,6 +4,7 @@
 #pragma once
 #include <functional>
 #include <string>
+#include <sstream>
 #include <vector>
 
 #include "ICommandOption.hpp"
@@ -11,12 +12,17 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief A template class that implements the interface @ref IOption and is used by the @ref CommandLineParser
+     * @brief A template class that implements the interface @ref ICommandOption and is used by the @ref CommandLineParser
      */
     template< typename T>
     class CommandOption : public ICommandOption
     {
         public:
+
+            /**
+             * @brief A type for a callable validator that can be added to an option. See @ref CommandValidators.hpp
+             */
+            using ValidatorFunc = std::function<bool( const CommandOption<T>&)>;
 
             /**
              * @brief Construct the option with the given value
@@ -43,46 +49,60 @@ namespace com::rambrant::sudoku
             CommandOption( std::string longFlag, std::string shortFlag, std::vector<std::string> defaultValue = {} ) :
                 CommandOption( std::move( longFlag), std::move( shortFlag), std::optional{ std::move( defaultValue)}) {}
 
+
+            /**
+             * @brief Sets the validator function. The validator function is called with the option as an argument.
+             */
+            void setValidator( ValidatorFunc validator);
+
             /**
              * @brief Check to see if the option matches any command line argument
              * @param arg The argument to match
              * @return true if the arguments match the options short or long names.
              */
             [[nodiscard]]
-            bool isMatched( const std::string& arg) const override;
+            auto isMatched( const std::string & arg ) const -> bool override;
+
+            /**
+             * @brief Check to see if the option is valid according to the validator function.
+             * @return true if the option is valid or if there is no validator added, false if not.
+             */
+            [[nodiscard]]
+            auto isValid() const -> bool override;
 
             /**
              * @brief Takes an argument string and converts it into the template type
              * @param arg The command line argument to convert
              */
-            void convertValue( const std::string& arg) override;
+            auto convertValue( const std::string & arg ) -> void override;
 
             /**
              * @brief Does the Option expect a value?
              * @return True if the option expects a value. False if it is a flag.
              */
             [[nodiscard]]
-            bool expectsValue() const override;
+            auto expectsValue() const -> bool override;
 
             /**
               * @brief Gets the value or default. If none exists, an exception is thrown
               * @return The value  if set and the default value otherwise
               */
-            T get() const;
+            [[nodiscard]]
+            auto get() const -> T;
 
             /**
               * @brief Returns the long option name
               * @return The long option name. Usually the name of the option prefixed with '--'
               */
             [[nodiscard]]
-            std::string getLongFlag() const override;
+            auto getLongFlag() const -> std::string override;
 
             /**
              * @brief Checks to see if a value has been set
              * @return true if the value has been set
              */
             [[nodiscard]]
-            bool isSet() const override;
+            auto isSet() const -> bool override;
 
         private:
 
@@ -90,6 +110,7 @@ namespace com::rambrant::sudoku
             std::string        mShortFlag;
             std::optional<T>   mValue;
             std::optional<T>   mDefaultValue;
+            ValidatorFunc      mValidator;
 };
 
     /**
@@ -155,6 +176,12 @@ namespace com::rambrant::sudoku
         return result;
     }
 
+    template<typename T>
+    auto CommandOption<T>::setValidator( ValidatorFunc validator ) -> void
+    {
+        mValidator = std::move( validator);
+    }
+
     //
     // Member functions
     //
@@ -162,6 +189,15 @@ namespace com::rambrant::sudoku
     auto CommandOption<T>::isMatched( const std::string & arg ) const -> bool
     {
         return arg == mLongFlag || arg == mShortFlag;
+    }
+
+    template<typename T>
+    auto CommandOption<T>::isValid() const -> bool
+    {
+        if( ! mValidator)
+            return true;
+
+        return mValidator( *this);
     }
 
     template<typename T>

@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['option_0',['Option',['../classcom_1_1rambrant_1_1sudoku_1_1_option.html',1,'com::rambrant::sudoku']]],
-  ['option_3c_20bool_20_3e_1',['Option&lt; bool &gt;',['../classcom_1_1rambrant_1_1sudoku_1_1_option.html',1,'com::rambrant::sudoku']]],
-  ['option_3c_20std_3a_3astring_20_3e_2',['Option&lt; std::string &gt;',['../classcom_1_1rambrant_1_1sudoku_1_1_option.html',1,'com::rambrant::sudoku']]],
-  ['option_3c_20std_3a_3avector_3c_20std_3a_3astring_20_3e_20_3e_3',['Option&lt; std::vector&lt; std::string &gt; &gt;',['../classcom_1_1rambrant_1_1sudoku_1_1_option.html',1,'com::rambrant::sudoku']]]
+  ['stringoption_0',['StringOption',['../classcom_1_1rambrant_1_1sudoku_1_1_string_option.html',1,'com::rambrant::sudoku']]],
+  ['sudokuasciireader_1',['SudokuAsciiReader',['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_ascii_reader.html',1,'com::rambrant::sudoku']]],
+  ['sudokublockwriter_2',['SudokuBlockWriter',['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_block_writer.html',1,'com::rambrant::sudoku']]],
+  ['sudokuboard_3',['SudokuBoard',['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html',1,'com::rambrant::sudoku']]],
+  ['sudokulinewriter_4',['SudokuLineWriter',['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html',1,'com::rambrant::sudoku']]],
+  ['sudokuprettywriter_5',['SudokuPrettyWriter',['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_pretty_writer.html',1,'com::rambrant::sudoku']]],
+  ['sudokutraits_6',['SudokuTraits',['../structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html',1,'com::rambrant::sudoku']]]
 ];
