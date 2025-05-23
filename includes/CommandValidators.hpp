@@ -13,6 +13,7 @@ namespace com::rambrant::sudoku
     //
     // Private implementation details
     //
+    /// \cond INTERNAL
     namespace detail
     {
         template<typename T>
@@ -31,7 +32,8 @@ namespace com::rambrant::sudoku
         };
 
         template<typename T>
-        class NotWithImpl {
+        class NotWithImpl
+        {
             public:
                 explicit NotWithImpl( const CommandOption<T>& other);
 
@@ -114,15 +116,31 @@ namespace com::rambrant::sudoku
         }
     }
 
+    /// \endcond
+
     //
     // Publicly available functions
     //
+    /**
+     * @brief Validates a @ref CommandOption to ensure that it has a value in a predefined set of values
+     *
+     * @tparam T The type of the option
+     * @param allowed The set of allowed values
+     * @return A validator function that can be used with @ref CommandOption::addValidator
+     */
     template< typename T>
     auto ValuesIn( std::initializer_list<T> allowed)
     {
         return detail::ValuesInImpl<T>(std::vector<T>(allowed.begin(), allowed.end()));
     }
 
+    /**
+     * @brief Validates a @ref CommandOption to ensure that it has a value in a predefined set of values
+     *
+     * @tparam T The type of the option
+     * @param allowed The set of allowed values
+     * @return A validator function that can be used with @ref CommandOption::addValidator
+     */
     inline auto ValuesIn( const std::initializer_list<const char*> allowed)
     {
         std::vector<std::string> values;
@@ -134,6 +152,13 @@ namespace com::rambrant::sudoku
         return detail::ValuesInImpl( std::move(values));
     }
 
+    /**
+     * @brief Validates a @ref CommandOption to ensure that it isn't given togehter with another option
+     *
+     * @tparam T The type of the option
+     * @param other The option to check against
+     * @return true if the option isn't given together with other, false otherwise
+     */
     template< typename T>
     auto NotWith( const CommandOption<T>& other)
     {

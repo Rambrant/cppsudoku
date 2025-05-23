@@ -4,17 +4,17 @@ var hierarchy =
     [ "std::fstream", null, [
       [ "com::rambrant::sudoku::FileStream", "classcom_1_1rambrant_1_1sudoku_1_1_file_stream.html", null ]
     ] ],
-    [ "com::rambrant::sudoku::IOption", "classcom_1_1rambrant_1_1sudoku_1_1_i_option.html", [
-      [ "com::rambrant::sudoku::Option< bool >", "classcom_1_1rambrant_1_1sudoku_1_1_option.html", [
+    [ "com::rambrant::sudoku::ICommandOption", "classcom_1_1rambrant_1_1sudoku_1_1_i_command_option.html", [
+      [ "com::rambrant::sudoku::CommandOption< bool >", "classcom_1_1rambrant_1_1sudoku_1_1_command_option.html", [
         [ "com::rambrant::sudoku::BoolOption", "classcom_1_1rambrant_1_1sudoku_1_1_bool_option.html", null ]
       ] ],
-      [ "com::rambrant::sudoku::Option< std::vector< std::string > >", "classcom_1_1rambrant_1_1sudoku_1_1_option.html", [
+      [ "com::rambrant::sudoku::CommandOption< std::vector< std::string > >", "classcom_1_1rambrant_1_1sudoku_1_1_command_option.html", [
         [ "com::rambrant::sudoku::ListOption", "classcom_1_1rambrant_1_1sudoku_1_1_list_option.html", null ]
       ] ],
-      [ "com::rambrant::sudoku::Option< std::string >", "classcom_1_1rambrant_1_1sudoku_1_1_option.html", [
+      [ "com::rambrant::sudoku::CommandOption< std::string >", "classcom_1_1rambrant_1_1sudoku_1_1_command_option.html", [
         [ "com::rambrant::sudoku::StringOption", "classcom_1_1rambrant_1_1sudoku_1_1_string_option.html", null ]
       ] ],
-      [ "com::rambrant::sudoku::Option< T >", "classcom_1_1rambrant_1_1sudoku_1_1_option.html", null ]
+      [ "com::rambrant::sudoku::CommandOption< T >", "classcom_1_1rambrant_1_1sudoku_1_1_command_option.html", null ]
     ] ],
     [ "com::rambrant::sudoku::ISudokuReader", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html", [
       [ "com::rambrant::sudoku::SudokuAsciiReader", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_ascii_reader.html", null ]

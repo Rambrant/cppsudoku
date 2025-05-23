@@ -22,6 +22,10 @@
 
 using namespace com::rambrant::sudoku;
 
+//
+// Helper functions
+//
+/// \cond INTERNAL
 auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Logger
 {
     auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
@@ -127,8 +131,11 @@ auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::So
 
     return solvers;
 }
+/// \endcond
 
-
+//
+// Main function
+//
 int main( int argc, char* argv[])
 {
 

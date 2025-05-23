@@ -8,13 +8,11 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief An interface for the template class @ref Option used by the @ref CommandLineParser
+     * @brief An interface for the template class @ref CommandOption used by the @ref CommandLineParser
      */
     class ICommandOption
     {
         public:
-
-            using Validator = std::function<bool( const ICommandOption&)>;
 
             /**
              * @brief Checks to see if a value has been set
@@ -31,17 +29,21 @@ namespace com::rambrant::sudoku
             [[nodiscard]]
             virtual auto isMatched( const std::string & arg ) const -> bool = 0;
 
+            /**
+             * @brief Check to see if the option is valid according to the validator function.
+             * @return true if the option is valid or if there is no validator added, false if not.
+             */
             [[nodiscard]]
             virtual auto isValid() const -> bool = 0;
 
             /**
-             * @brief Takes an argument string and converts it into the @ref Option type
+             * @brief Takes an argument string and converts it into the @ref CommandOption type
              * @param arg The command line argument to convert
              */
             virtual void convertValue( const std::string& arg) = 0;
 
             /**
-             * @brief Does the @ref Option expect a value?
+             * @brief Does the @ref CommandOption expect a value?
              * @return True if the option expects a value. False if it is a flag.
              */
             [[nodiscard]]
@@ -49,15 +51,11 @@ namespace com::rambrant::sudoku
 
             /**
              * @brief Returns the long option name
-             * @return The long option name. Usually the name of the option prefixed with '--'
+             * @return The long option name. Usually the name of the option is prefixed with '--'
              */
             [[nodiscard]]
             virtual std::string getLongFlag() const = 0;
 
             virtual ~ICommandOption() = default;
-
-        private:
-
-            Validator mValidator{};
     };
 }

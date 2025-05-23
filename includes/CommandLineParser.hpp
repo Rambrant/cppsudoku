@@ -22,8 +22,8 @@ namespace com::rambrant::sudoku
             /**
              * @brief Constructs a command-line parser with a list of options.
              *
-             * @tparam Opts One or more @ref Option objects to be registered with the parser.
-             * @param opts References to the options. Each must be a subclass of @ref IOption.
+             * @tparam Opts One or more @ref CommandOption objects to be registered with the parser.
+             * @param opts References to the options. Each must be a subclass of @ref ICommandOption.
              */
             template< typename... Opts>
             explicit CommandLineParser( Opts&... opts);
@@ -39,18 +39,18 @@ namespace com::rambrant::sudoku
              * @brief Asserts that there is just one of the options is given
              * @tparam A The left-hand type
              * @tparam B The right-hand type
-             * @param lhs The left-hand @ref Option
-             * @param rhs The right-hand @ref Option
+             * @param lhs The left-hand @ref CommandOption
+             * @param rhs The right-hand @ref CommandOption
              */
             template< typename A, typename B>
             static auto assertNotBoth( const CommandOption<A>& lhs, const CommandOption<B>& rhs ) -> void;
 
             /**
-             * @brief Asserts that if the left-hand @ref Option is set, then the right-hand @ref Option must also be set
+             * @brief Asserts that if the left-hand @ref CommandOption is set, then the right-hand @ref CommandOption must also be set
              * @tparam A The left-hand type
              * @tparam B The right-hand type
-             * @param lhs The left-hand @ref Option
-             * @param rhs The right-hand @ref Option
+             * @param lhs The left-hand @ref CommandOption
+             * @param rhs The right-hand @ref CommandOption
              */
             template<typename A, typename B>
             static auto assertRequires( const CommandOption<A>& lhs, const CommandOption<B>& rhs ) -> void;

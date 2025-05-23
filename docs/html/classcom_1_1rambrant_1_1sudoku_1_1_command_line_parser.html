@@ -122,24 +122,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a00b94fb1afcec18a3184994aeaf6159e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a00b94fb1afcec18a3184994aeaf6159e">CommandLineParser</a> (Opts &amp;... opts)</td></tr>
 <tr class="memdesc:a00b94fb1afcec18a3184994aeaf6159e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a command-line parser with a list of options.  <br /></td></tr>
 <tr class="separator:a00b94fb1afcec18a3184994aeaf6159e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75398a208ac64b4e751a9f5eab19a483" id="r_a75398a208ac64b4e751a9f5eab19a483"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75398a208ac64b4e751a9f5eab19a483">parse</a> (int argc, char *argv[]) const -&gt; void</td></tr>
-<tr class="memdesc:a75398a208ac64b4e751a9f5eab19a483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the command-line arguments given in the main function.  <br /></td></tr>
-<tr class="separator:a75398a208ac64b4e751a9f5eab19a483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b9358bde07fde8338bf71c2a088b8e4" id="r_a5b9358bde07fde8338bf71c2a088b8e4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b9358bde07fde8338bf71c2a088b8e4">parse</a> (int argc, char *argv[]) const -&gt; bool</td></tr>
+<tr class="memdesc:a5b9358bde07fde8338bf71c2a088b8e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the command-line arguments given in the main function.  <br /></td></tr>
+<tr class="separator:a5b9358bde07fde8338bf71c2a088b8e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aa59a7b21e6022f4dd8f9fd162fc0ef2e" id="r_aa59a7b21e6022f4dd8f9fd162fc0ef2e"><td class="memTemplParams" colspan="2">template&lt;typename A, typename B&gt; </td></tr>
-<tr class="memitem:aa59a7b21e6022f4dd8f9fd162fc0ef2e"><td class="memTemplItemLeft" align="right" valign="top">static auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa59a7b21e6022f4dd8f9fd162fc0ef2e">assertNotBoth</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; A &gt; &amp;lhs, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; B &gt; &amp;rhs) -&gt; void</td></tr>
-<tr class="memdesc:aa59a7b21e6022f4dd8f9fd162fc0ef2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asserts that there is just one of the options is given.  <br /></td></tr>
-<tr class="separator:aa59a7b21e6022f4dd8f9fd162fc0ef2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a159f71bfec8a7cefad62dc078ad5d2a9" id="r_a159f71bfec8a7cefad62dc078ad5d2a9"><td class="memTemplParams" colspan="2">template&lt;typename A, typename B&gt; </td></tr>
-<tr class="memitem:a159f71bfec8a7cefad62dc078ad5d2a9"><td class="memTemplItemLeft" align="right" valign="top">static auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a159f71bfec8a7cefad62dc078ad5d2a9">assertRequires</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; A &gt; &amp;lhs, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; B &gt; &amp;rhs) -&gt; void</td></tr>
-<tr class="memdesc:a159f71bfec8a7cefad62dc078ad5d2a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asserts that if the left-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> is set, then the right-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> must also be set.  <br /></td></tr>
-<tr class="separator:a159f71bfec8a7cefad62dc078ad5d2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d383c7aa1bf6968fadb4d8960b38ea9" id="r_a5d383c7aa1bf6968fadb4d8960b38ea9"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:a5d383c7aa1bf6968fadb4d8960b38ea9"><td class="memTemplItemLeft" align="right" valign="top">static auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a5d383c7aa1bf6968fadb4d8960b38ea9">assertValueIn</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; T &gt; &amp;opt, const std::set&lt; std::string &gt; &amp;allowed) -&gt; void</td></tr>
-<tr class="memdesc:a5d383c7aa1bf6968fadb4d8960b38ea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asserts that the value in the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> matches the given strings.  <br /></td></tr>
-<tr class="separator:a5d383c7aa1bf6968fadb4d8960b38ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a186a2531f510a5f366203ee662b7aaa0" id="r_a186a2531f510a5f366203ee662b7aaa0"><td class="memTemplParams" colspan="2">template&lt;typename A, typename B&gt; </td></tr>
+<tr class="memitem:a186a2531f510a5f366203ee662b7aaa0"><td class="memTemplItemLeft" align="right" valign="top">static auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a186a2531f510a5f366203ee662b7aaa0">assertNotBoth</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a>&lt; A &gt; &amp;lhs, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a>&lt; B &gt; &amp;rhs) -&gt; void</td></tr>
+<tr class="memdesc:a186a2531f510a5f366203ee662b7aaa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asserts that there is just one of the options is given.  <br /></td></tr>
+<tr class="separator:a186a2531f510a5f366203ee662b7aaa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2320be11a2c007319204cd2961d801d9" id="r_a2320be11a2c007319204cd2961d801d9"><td class="memTemplParams" colspan="2">template&lt;typename A, typename B&gt; </td></tr>
+<tr class="memitem:a2320be11a2c007319204cd2961d801d9"><td class="memTemplItemLeft" align="right" valign="top">static auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2320be11a2c007319204cd2961d801d9">assertRequires</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a>&lt; A &gt; &amp;lhs, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a>&lt; B &gt; &amp;rhs) -&gt; void</td></tr>
+<tr class="memdesc:a2320be11a2c007319204cd2961d801d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asserts that if the left-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> is set, then the right-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> must also be set.  <br /></td></tr>
+<tr class="separator:a2320be11a2c007319204cd2961d801d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A command-line parser that parses a list of options from the arguments given to the program. </p>
@@ -172,13 +168,13 @@ template&lt;typename... Opts&gt; </div>
 <p>Constructs a command-line parser with a list of options. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Opts</td><td>One or more <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> objects to be registered with the parser. </td></tr>
+    <tr><td class="paramname">Opts</td><td>One or more <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> objects to be registered with the parser. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">opts</td><td>References to the options. Each must be a subclass of <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_option.html">IOption</a>. </td></tr>
+    <tr><td class="paramname">opts</td><td>References to the options. Each must be a subclass of <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_command_option.html">ICommandOption</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -186,8 +182,8 @@ template&lt;typename... Opts&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa59a7b21e6022f4dd8f9fd162fc0ef2e" name="aa59a7b21e6022f4dd8f9fd162fc0ef2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa59a7b21e6022f4dd8f9fd162fc0ef2e">&#9670;&#160;</a></span>assertNotBoth()</h2>
+<a id="a186a2531f510a5f366203ee662b7aaa0" name="a186a2531f510a5f366203ee662b7aaa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a186a2531f510a5f366203ee662b7aaa0">&#9670;&#160;</a></span>assertNotBoth()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,12 +196,12 @@ template&lt;typename A, typename B&gt; </div>
         <tr>
           <td class="memname">static auto com::rambrant::sudoku::CommandLineParser::assertNotBoth </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; A &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a>&lt; A &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; B &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;) -&gt;  void</td>
+          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a>&lt; B &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;) -&gt;  void</td>
         </tr>
       </table>
   </td>
@@ -225,16 +221,16 @@ template&lt;typename A, typename B&gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lhs</td><td>The left-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> </td></tr>
-    <tr><td class="paramname">rhs</td><td>The right-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> </td></tr>
+    <tr><td class="paramname">lhs</td><td>The left-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a159f71bfec8a7cefad62dc078ad5d2a9" name="a159f71bfec8a7cefad62dc078ad5d2a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a159f71bfec8a7cefad62dc078ad5d2a9">&#9670;&#160;</a></span>assertRequires()</h2>
+<a id="a2320be11a2c007319204cd2961d801d9" name="a2320be11a2c007319204cd2961d801d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2320be11a2c007319204cd2961d801d9">&#9670;&#160;</a></span>assertRequires()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -247,12 +243,12 @@ template&lt;typename A, typename B&gt; </div>
         <tr>
           <td class="memname">static auto com::rambrant::sudoku::CommandLineParser::assertRequires </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; A &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a>&lt; A &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; B &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;) -&gt;  void</td>
+          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a>&lt; B &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;) -&gt;  void</td>
         </tr>
       </table>
   </td>
@@ -262,7 +258,7 @@ template&lt;typename A, typename B&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Asserts that if the left-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> is set, then the right-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> must also be set. </p>
+<p>Asserts that if the left-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> is set, then the right-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> must also be set. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">A</td><td>The left-hand type </td></tr>
@@ -272,75 +268,29 @@ template&lt;typename A, typename B&gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lhs</td><td>The left-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> </td></tr>
-    <tr><td class="paramname">rhs</td><td>The right-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> </td></tr>
+    <tr><td class="paramname">lhs</td><td>The left-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> </td></tr>
+    <tr><td class="paramname">rhs</td><td>The right-hand <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_command_option.html">CommandOption</a> </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a5d383c7aa1bf6968fadb4d8960b38ea9" name="a5d383c7aa1bf6968fadb4d8960b38ea9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d383c7aa1bf6968fadb4d8960b38ea9">&#9670;&#160;</a></span>assertValueIn()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static auto com::rambrant::sudoku::CommandLineParser::assertValueIn </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>opt</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::set&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>allowed</em></span>&#160;) -&gt;  void</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Asserts that the value in the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> matches the given strings. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">opt</td><td>The <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_option.html">Option</a> objects to check </td></tr>
-    <tr><td class="paramname">allowed</td><td>A brace-initialized list of string values to check against </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a75398a208ac64b4e751a9f5eab19a483" name="a75398a208ac64b4e751a9f5eab19a483"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75398a208ac64b4e751a9f5eab19a483">&#9670;&#160;</a></span>parse()</h2>
+<a id="a5b9358bde07fde8338bf71c2a088b8e4" name="a5b9358bde07fde8338bf71c2a088b8e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b9358bde07fde8338bf71c2a088b8e4">&#9670;&#160;</a></span>parse()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void com::rambrant::sudoku::CommandLineParser::parse </td>
+          <td class="memname">bool com::rambrant::sudoku::CommandLineParser::parse </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>argc</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>argv</em></span>[]&#160;) const -&gt; void</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>argv</em></span>[]&#160;) const -&gt; bool</td>
         </tr>
       </table>
 </div><div class="memdoc">

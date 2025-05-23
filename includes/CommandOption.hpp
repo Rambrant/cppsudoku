@@ -12,13 +12,16 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief A template class that implements the interface @ref IOption and is used by the @ref CommandLineParser
+     * @brief A template class that implements the interface @ref ICommandOption and is used by the @ref CommandLineParser
      */
     template< typename T>
     class CommandOption : public ICommandOption
     {
         public:
 
+            /**
+             * @brief A type for a callable validator that can be added to an option. See @ref CommandValidators.hpp
+             */
             using ValidatorFunc = std::function<bool( const CommandOption<T>&)>;
 
             /**
@@ -60,6 +63,10 @@ namespace com::rambrant::sudoku
             [[nodiscard]]
             auto isMatched( const std::string & arg ) const -> bool override;
 
+            /**
+             * @brief Check to see if the option is valid according to the validator function.
+             * @return true if the option is valid or if there is no validator added, false if not.
+             */
             [[nodiscard]]
             auto isValid() const -> bool override;
 
