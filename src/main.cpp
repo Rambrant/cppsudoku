@@ -21,6 +21,7 @@
 #include "SudokuPrettyWriter.hpp"
 
 using namespace com::rambrant::sudoku;
+using namespace std::string_literals;
 
 //
 // Helper functions
@@ -28,8 +29,8 @@ using namespace com::rambrant::sudoku;
 /// \cond INTERNAL
 auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Logger
 {
-    auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
-    auto logger = Logger{ logLevel};
+    const auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
+    const auto logger = Logger{ logLevel};
 
     logger << Logger::verbose << "Initializing" << std::endl << "...Logger" << std::endl;
 
@@ -146,13 +147,25 @@ int main( int argc, char* argv[])
         //
         // Parse the command line
         //
+        auto helpText = "Usage: sudoku_solver [OPTIONS]\n"s
+                      + "Options:\n"s
+                      + "  -h, --help                 Show this help message and exit\n"s
+                      + "  -i, --input <file>         Read puzzle from file. (Default: stdin)\n"s
+                      + "  -I, --input-format <fmt>   Output format: text or json. (Default: text)\n"s
+                      + "  -o, --output <file>        Write solution to file. (Default: stdout\n"s
+                      + "  -O, --output-format <fmt>  Output format: pretty, block or line. (Default: block)\n"s
+                      + "  -s, --solvers <solver,...> Solvers to use: backtracking or constraint. (Default: backtracking and constraint)\n"s
+                      + "  -v, --verbose              Verbose output\n"s
+                      + "  -q, --quiet                Quiet output\n"s;
+
+        BoolOption   helpOpt{      "--help", "-h", false};
         BoolOption   verboseOpt{   "--verbose", "-v", false};
         BoolOption   quietOpt{     "--quiet", "-q", false};
         StringOption inputOpt{     "--input", "-i"};
         StringOption outputOpt{    "--output", "-o"};
         StringOption outFormatOpt{ "--output-format", "-O", "block"};
         StringOption inFormatOpt{  "--input-format", "-I", "text"};
-        ListOption   solversOpt{   "--solvers", "-s", std::vector<std::string>{ "backtracking", "constraint"}};
+        ListOption   solversOpt{   "--solvers", "-s", { "backtracking", "constraint"}};
 
         verboseOpt.setValidator( NotWith( quietOpt));
         quietOpt.setValidator( NotWith( verboseOpt));
@@ -160,11 +173,18 @@ int main( int argc, char* argv[])
         inFormatOpt.setValidator( ValuesIn( { "text"}));
         solversOpt.setValidator( ValuesIn( { "backtracking", "constraint"}));
 
-        CommandLineParser parser( verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);
+        CommandLineParser parser( helpOpt, verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);
 
         if( ! parser.parse( argc, argv))
             return 1;
 
+        if( helpOpt.isSet())
+        {
+            std::cout << helpText;
+
+            return 0;
+        }
+        
         //
         // Set things up
         //
