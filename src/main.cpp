@@ -16,6 +16,8 @@
 #include "Logger.hpp"
 #include "AsciiReader.hpp"
 #include "BlockWriter.hpp"
+#include "JsonReader.hpp"
+#include "JsonWriter.hpp"
 #include "SudokuBoard.hpp"
 #include "LineWriter.hpp"
 #include "PrettyWriter.hpp"
@@ -68,13 +70,14 @@ auto getInputStream( const StringOption& opt, const Logger& logger)
 
 auto getReader( const StringOption& opt, std::istream& stream, const Logger& logger) -> std::unique_ptr<IReader>
 {
-    if( opt.get() == "text")
+    if( opt.get() == "json")
     {
-        logger << Logger::verbose << " [text format]" << std::endl;
-        return std::make_unique<AsciiReader>( stream, logger);
+        logger << Logger::verbose << " [json format]" << std::endl;
+        return std::make_unique<JsonReader>( stream, logger);
     }
 
-    throw std::invalid_argument( "Unsupported input format: " + opt.get());
+    logger << Logger::verbose << " [text format]" << std::endl;
+    return std::make_unique<AsciiReader>( stream, logger);
 }
 
 auto getOutputStream( const StringOption& opt, const Logger& logger)
@@ -103,6 +106,12 @@ auto getWriter( const StringOption& opt, std::ostream& stream, const Logger& log
     {
         logger << Logger::verbose << " [line format]" << std::endl;
         return std::make_unique<LineWriter>( stream, logger);
+    }
+
+    if( opt.get() == "json")
+    {
+        logger << Logger::verbose << " [json format]" << std::endl;
+        return std::make_unique<JsonWriter>( stream, logger);
     }
 
     logger << Logger::verbose << " [block format]" << std::endl;
@@ -139,7 +148,6 @@ auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::So
 //
 int main( int argc, char* argv[])
 {
-
     try
     {
         using Traits = SudokuTraits;
@@ -153,7 +161,7 @@ int main( int argc, char* argv[])
                       + "  -i, --input <file>         Read puzzle from file. (Default: stdin)\n"s
                       + "  -I, --input-format <fmt>   Output format: text or json. (Default: text)\n"s
                       + "  -o, --output <file>        Write solution to file. (Default: stdout\n"s
-                      + "  -O, --output-format <fmt>  Output format: pretty, block or line. (Default: block)\n"s
+                      + "  -O, --output-format <fmt>  Output format: pretty, block, line or json. (Default: block)\n"s
                       + "  -s, --solvers <solver,...> Solvers to use: backtracking or constraint. (Default: backtracking and constraint)\n"s
                       + "  -v, --verbose              Verbose output\n"s
                       + "  -q, --quiet                Quiet output\n"s;
@@ -169,8 +177,8 @@ int main( int argc, char* argv[])
 
         verboseOpt.setValidator( NotWith( quietOpt));
         quietOpt.setValidator( NotWith( verboseOpt));
-        outFormatOpt.setValidator( ValuesIn( { "pretty", "block", "line"}));
-        inFormatOpt.setValidator( ValuesIn( { "text"}));
+        outFormatOpt.setValidator( ValuesIn( { "pretty", "block", "line", "json"}));
+        inFormatOpt.setValidator( ValuesIn( { "text", "json"}));
         solversOpt.setValidator( ValuesIn( { "backtracking", "constraint"}));
 
         CommandLineParser parser( helpOpt, verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);

@@ -10,7 +10,7 @@ namespace com::rambrant::sudoku
     /**
      * @brief A board writer that prints out a pretty formatted output to the stream
      */
-    class PrettyWriter : public IWriter
+    class PrettyWriter final : public IWriter
     {
         public:
 

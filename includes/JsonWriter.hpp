@@ -1,5 +1,3 @@
-
-
 //
 // Created by Thomas Rambrant on 2025-05-09.
 //
@@ -10,21 +8,19 @@
 
 namespace com::rambrant::sudoku
 {
-    class Logger;
-
     /**
-     * @brief A board writer that prints out the board as a single line with whitespace separated values
+     * @brief A board writer that prints out a pretty formatted output to the stream
      */
-    class LineWriter final : public IWriter
+    class JsonWriter final : public IWriter
     {
         public:
 
             /**
-             * @brief Constructs the class that writes the board in a single line
+             * @brief Constructs the class that writes the board in JSON format.
              * @param os The existing outstream to write to.
              * @param logger The @ref Logger instance. Must be valid during the lifetime of the writer
              */
-            LineWriter( std::ostream& os, const Logger& logger);
+            JsonWriter( std::ostream& os, const Logger& logger);
 
             /**
              * @brief Writes the given board to the stream
