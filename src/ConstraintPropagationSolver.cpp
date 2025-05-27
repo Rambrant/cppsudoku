@@ -272,7 +272,7 @@ namespace com::rambrant::sudoku
     // Member functions
     //
     ConstraintPropagationSolver::ConstraintPropagationSolver( const Logger& logger) :
-        ISudokuSolver( logger)
+        ISolver( logger)
     {}
 
     auto ConstraintPropagationSolver::solve( Traits::Board& board) const -> Traits::BoardResult

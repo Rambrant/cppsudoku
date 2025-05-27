@@ -14,7 +14,7 @@ namespace com::rambrant::sudoku
     /**
      * @brief A solver interface for classes that can solve a Sudoku board using some sort of algorithm.
      */
-    class ISudokuSolver
+    class ISolver
     {
         public:
 
@@ -25,8 +25,8 @@ namespace com::rambrant::sudoku
               * @brief Base class constructor that initiates the logger member to be used by the subclasses
               * @param logger The logger instance. Must be valid during the lifetime of the readers
               */
-            explicit ISudokuSolver( const Logger& logger) : mLogger( logger) {};
-            virtual ~ISudokuSolver() = default;
+            explicit ISolver( const Logger& logger) : mLogger( logger) {};
+            virtual ~ISolver() = default;
 
             /**
              * @brief Solves the given Sudoku board

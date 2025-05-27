@@ -3,7 +3,7 @@
 //
 #include <ostream>
 
-#include "SudokuBlockWriter.hpp"
+#include "BlockWriter.hpp"
 
 #include "Digit.hpp"
 
@@ -11,12 +11,12 @@ namespace com::rambrant::sudoku
 {
     class Logger;
 
-    SudokuBlockWriter::SudokuBlockWriter( std::ostream& os, const Logger& logger) :
-        ISudokuWriter( logger),
+    BlockWriter::BlockWriter( std::ostream& os, const Logger& logger) :
+        IWriter( logger),
         mStream( os)
     { }
 
-    auto SudokuBlockWriter::write( const Traits::Board & board ) const -> void
+    auto BlockWriter::write( const Traits::Board & board ) const -> void
     {
         for( const auto rowIdx : Traits::INDEX_RANGE)
         {

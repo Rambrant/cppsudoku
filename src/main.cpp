@@ -14,11 +14,11 @@
 #include "ConstraintPropagationSolver.hpp"
 #include "FileStream.hpp"
 #include "Logger.hpp"
-#include "SudokuAsciiReader.hpp"
-#include "SudokuBlockWriter.hpp"
+#include "AsciiReader.hpp"
+#include "BlockWriter.hpp"
 #include "SudokuBoard.hpp"
-#include "SudokuLineWriter.hpp"
-#include "SudokuPrettyWriter.hpp"
+#include "LineWriter.hpp"
+#include "PrettyWriter.hpp"
 
 using namespace com::rambrant::sudoku;
 using namespace std::string_literals;
@@ -66,12 +66,12 @@ auto getInputStream( const StringOption& opt, const Logger& logger)
     return std::unique_ptr<std::istream, StreamDeleter<std::istream>>( &std::cin, StreamDeleter<std::istream>{ false}); // no-op deleter
 }
 
-auto getReader( const StringOption& opt, std::istream& stream, const Logger& logger) -> std::unique_ptr<ISudokuReader>
+auto getReader( const StringOption& opt, std::istream& stream, const Logger& logger) -> std::unique_ptr<IReader>
 {
     if( opt.get() == "text")
     {
         logger << Logger::verbose << " [text format]" << std::endl;
-        return std::make_unique<SudokuAsciiReader>( stream, logger);
+        return std::make_unique<AsciiReader>( stream, logger);
     }
 
     throw std::invalid_argument( "Unsupported input format: " + opt.get());
@@ -91,22 +91,22 @@ auto getOutputStream( const StringOption& opt, const Logger& logger)
     return std::unique_ptr<std::ostream, StreamDeleter<std::ostream>>( &std::cout, StreamDeleter<std::ostream>{ false}); // no-op deleter
 }
 
-auto getWriter( const StringOption& opt, std::ostream& stream, const Logger& logger) -> std::unique_ptr<ISudokuWriter>
+auto getWriter( const StringOption& opt, std::ostream& stream, const Logger& logger) -> std::unique_ptr<IWriter>
 {
     if( opt.get() == "pretty")
     {
         logger << Logger::verbose << " [pretty format]" << std::endl;
-        return std::make_unique<SudokuPrettyWriter>( stream, logger);
+        return std::make_unique<PrettyWriter>( stream, logger);
     }
 
     if( opt.get() == "line")
     {
         logger << Logger::verbose << " [line format]" << std::endl;
-        return std::make_unique<SudokuLineWriter>( stream, logger);
+        return std::make_unique<LineWriter>( stream, logger);
     }
 
     logger << Logger::verbose << " [block format]" << std::endl;
-    return std::make_unique<SudokuBlockWriter>( stream, logger);
+    return std::make_unique<BlockWriter>( stream, logger);
 }
 
 auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::SolverList

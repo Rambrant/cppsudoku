@@ -5,14 +5,14 @@
 
 #include <istream>
 
-#include "ISudokuReader.hpp"
+#include "IReader.hpp"
     
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief A reader that reads a board from an input stream. The reads all digits, '.' is zero' even hexadecimal if the board is more than 9x9.
+     * @brief A reader that reads a board from an input stream. Reads all digits, '.' interpreted as zero even hexadecimals if the board is more than 9x9.
      */
-    class SudokuAsciiReader final : public ISudokuReader
+    class AsciiReader final : public IReader
     {
         public:
 
@@ -21,7 +21,7 @@ namespace com::rambrant::sudoku
              * @param is The existing instream to read from
              * @param logger The @ref Logger instance. Must be valid during the lifetime of the readers
              */
-            SudokuAsciiReader( std::istream& is, const Logger& logger);
+            AsciiReader( std::istream& is, const Logger& logger);
 
             /**
              * @brief Reads the Sudoku board

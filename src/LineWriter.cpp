@@ -3,18 +3,18 @@
 //
 #include <ostream>
 
-#include "SudokuLineWriter.hpp"
+#include "LineWriter.hpp"
 
 #include "Digit.hpp"
 
 namespace com::rambrant::sudoku
 {
-    SudokuLineWriter::SudokuLineWriter( std::ostream& os, const Logger& logger) :
-        ISudokuWriter( logger),
+    LineWriter::LineWriter( std::ostream& os, const Logger& logger) :
+        IWriter( logger),
         mStream( os)
     { }
 
-    auto SudokuLineWriter::write( const Traits::Board & board ) const -> void
+    auto LineWriter::write( const Traits::Board & board ) const -> void
     {
         for( const auto rowIdx : Traits::INDEX_RANGE)
         {

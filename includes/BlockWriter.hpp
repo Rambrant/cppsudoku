@@ -4,14 +4,14 @@
 
 #pragma once
 
-#include "ISudokuWriter.hpp"
+#include "IWriter.hpp"
 
 namespace com::rambrant::sudoku
 {
     /**
      * @brief A board writer that prints out a pretty formatted output to the stream
      */
-    class SudokuBlockWriter : public ISudokuWriter
+    class BlockWriter : public IWriter
     {
         public:
 
@@ -20,7 +20,7 @@ namespace com::rambrant::sudoku
              * @param os The existing outstream to write to.
              * @param logger The @ref Logger instance. Must be valid during the lifetime of the writer
              */
-            SudokuBlockWriter( std::ostream& os, const Logger& logger);
+            BlockWriter( std::ostream& os, const Logger& logger);
 
             /**
              * @brief Writes the given board to the stream

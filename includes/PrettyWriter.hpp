@@ -1,30 +1,25 @@
-
-
 //
-// Created by Thomas Rambrant on 2025-05-09.
+// Created by Thomas Rambrant on 2025-05-08.
 //
-
 #pragma once
 
-#include "ISudokuWriter.hpp"
+#include "IWriter.hpp"
 
 namespace com::rambrant::sudoku
 {
-    class Logger;
-
     /**
-     * @brief A board writer that prints out the board as a single line with whitespace separated values
+     * @brief A board writer that prints out a pretty formatted output to the stream
      */
-    class SudokuLineWriter : public ISudokuWriter
+    class PrettyWriter : public IWriter
     {
         public:
 
             /**
-             * @brief Constructs the class that writes the board in a single line
+             * @brief Constructs the class that writes the board formatted in a "pretty" way
              * @param os The existing outstream to write to.
              * @param logger The @ref Logger instance. Must be valid during the lifetime of the writer
              */
-            SudokuLineWriter( std::ostream& os, const Logger& logger);
+            PrettyWriter( std::ostream& os, const Logger& logger);
 
             /**
              * @brief Writes the given board to the stream
