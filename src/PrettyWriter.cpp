@@ -3,19 +3,19 @@
 //
 #include <ostream>
 
-#include "SudokuPrettyWriter.hpp"
+#include "PrettyWriter.hpp"
 
 #include "Digit.hpp"
 #include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
-    SudokuPrettyWriter::SudokuPrettyWriter( std::ostream& os, const Logger& logger) :
-        ISudokuWriter( logger),
+    PrettyWriter::PrettyWriter( std::ostream& os, const Logger& logger) :
+        IWriter( logger),
         mStream( os)
     { }
 
-    auto SudokuPrettyWriter::write( const Traits::Board & board ) const -> void
+    auto PrettyWriter::write( const Traits::Board & board ) const -> void
     {
         for( auto rowIdx : Traits::INDEX_RANGE)
         {

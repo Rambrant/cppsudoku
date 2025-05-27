@@ -5,7 +5,7 @@
 //
 #pragma once
 
-#include "ISudokuSolver.hpp"
+#include "ISolver.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -14,7 +14,7 @@ namespace com::rambrant::sudoku
     /**
      * @brief A Sudoku solver that uses a simple brute force backtracking algorithm
      */
-    class BackTrackingSolver : public ISudokuSolver
+    class BackTrackingSolver : public ISolver
     {
         public:
 

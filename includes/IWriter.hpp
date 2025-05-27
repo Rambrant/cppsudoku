@@ -12,7 +12,7 @@ namespace com::rambrant::sudoku
     /**
      * @brief A reader interface for classes that can read a Sudoku board from some sort of source.
      */
-    class ISudokuWriter
+    class IWriter
     {
         public:
 
@@ -23,8 +23,8 @@ namespace com::rambrant::sudoku
              * @brief Base class constructor that initiates the logger member to be used by the subclasses
              * @param logger The logger instance. Must be valid during the lifetime of the writers
              */
-            explicit ISudokuWriter( const Logger& logger) : mLogger( logger) {};
-            virtual ~ISudokuWriter() = default;
+            explicit IWriter( const Logger& logger) : mLogger( logger) {};
+            virtual ~IWriter() = default;
 
             /**
              * @brief A method that writes a Sudoku board to destination.

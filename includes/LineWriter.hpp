@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "ISudokuWriter.hpp"
+#include "IWriter.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -15,7 +15,7 @@ namespace com::rambrant::sudoku
     /**
      * @brief A board writer that prints out the board as a single line with whitespace separated values
      */
-    class SudokuLineWriter : public ISudokuWriter
+    class LineWriter final : public IWriter
     {
         public:
 
@@ -24,7 +24,7 @@ namespace com::rambrant::sudoku
              * @param os The existing outstream to write to.
              * @param logger The @ref Logger instance. Must be valid during the lifetime of the writer
              */
-            SudokuLineWriter( std::ostream& os, const Logger& logger);
+            LineWriter( std::ostream& os, const Logger& logger);
 
             /**
              * @brief Writes the given board to the stream

@@ -137,7 +137,7 @@ namespace com::rambrant::sudoku
     // Member functions
     //
     BackTrackingSolver::BackTrackingSolver( const Logger & logger) :
-        ISudokuSolver( logger)
+        ISolver( logger)
     {}
 
     auto BackTrackingSolver::solve( Traits::Board &board) const -> Traits::BoardResult

@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "ISudokuSolver.hpp"
+#include "ISolver.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -12,7 +12,7 @@ namespace com::rambrant::sudoku
     /**
      * @brief A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvig, @see https://norvig.com/sudoku.html
      */
-    class ConstraintPropagationSolver : public ISudokuSolver
+    class ConstraintPropagationSolver : public ISolver
     {
         public:
 

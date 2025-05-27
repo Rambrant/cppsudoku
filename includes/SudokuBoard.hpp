@@ -12,9 +12,9 @@
 namespace com::rambrant::sudoku
 {
     class Logger;
-    class ISudokuReader;
-    class ISudokuWriter;
-    class ISudokuSolver;
+    class IReader;
+    class IWriter;
+    class ISolver;
 
     /**
      * @brief A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvig, @see https://norvig.com/sudoku.html
@@ -27,7 +27,7 @@ namespace com::rambrant::sudoku
             using Traits = SudokuTraits;
 
             /// @brief A list of references to @ref ISudokuSolver references
-            using SolverList = std::vector<std::unique_ptr<ISudokuSolver>>;
+            using SolverList = std::vector<std::unique_ptr<ISolver>>;
 
             /**
              * @brief Constructs the board and initializes the reader.
@@ -36,7 +36,7 @@ namespace com::rambrant::sudoku
              * @param solvers A list of @ref ISudokuSolver. The solvers must exist during the lifetime of the SudokuBoard
              * @param logger A @ref Logger. The logger must exist during the lifetime of the board
              */
-            SudokuBoard( const ISudokuReader& reader, const ISudokuWriter& writer, SolverList solvers, const Logger& logger);
+            SudokuBoard( const IReader& reader, const IWriter& writer, SolverList solvers, const Logger& logger);
 
             /**
              * @brief Reads the board from the @ref ISudokuReader given in the constructor
@@ -58,8 +58,8 @@ namespace com::rambrant::sudoku
 
             mutable Traits::Board  mBoard;
             const   Logger&        mLogger;
-            const   ISudokuReader& mReader;
-            const   ISudokuWriter& mWriter;
+            const   IReader& mReader;
+            const   IWriter& mWriter;
             const   SolverList     mSolvers;
     };
 }

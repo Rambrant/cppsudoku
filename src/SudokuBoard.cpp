@@ -7,14 +7,14 @@
 #include <utility>
 
 #include "SudokuBoard.hpp"
-#include "ISudokuReader.hpp"
-#include "ISudokuWriter.hpp"
-#include "ISudokuSolver.hpp"
+#include "IReader.hpp"
+#include "IWriter.hpp"
+#include "ISolver.hpp"
 #include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
-    SudokuBoard::SudokuBoard( const ISudokuReader& reader, const ISudokuWriter& writer, SolverList solvers, const Logger& logger) :
+    SudokuBoard::SudokuBoard( const IReader& reader, const IWriter& writer, SolverList solvers, const Logger& logger) :
         mBoard{},
         mLogger{ logger},
         mReader{ reader},

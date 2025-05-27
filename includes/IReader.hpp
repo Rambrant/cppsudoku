@@ -14,7 +14,7 @@ namespace com::rambrant::sudoku
     /**
      * @brief A reader interface for classes that can read a Sudoku board from some sort of source.
      */
-    class ISudokuReader
+    class IReader
     {
         public:
 
@@ -22,8 +22,8 @@ namespace com::rambrant::sudoku
              * @brief Base class constructor that initiates the logger member to be used by the subclasses
              * @param logger The logger instance. Must be valid during the lifetime of the readers
              */
-            explicit ISudokuReader( const Logger& logger) : mLogger( logger) {};
-            virtual  ~ISudokuReader() = default;
+            explicit IReader( const Logger& logger) : mLogger( logger) {};
+            virtual  ~IReader() = default;
 
             /// @brief Alias to shorten access to @ref SudokuTraits.
             using Traits = SudokuTraits;

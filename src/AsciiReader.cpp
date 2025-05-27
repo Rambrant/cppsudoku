@@ -3,20 +3,20 @@
 //
 #include <fstream>
 
-#include "SudokuAsciiReader.hpp"
+#include "AsciiReader.hpp"
 
 #include "Digit.hpp"
 #include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
-    SudokuAsciiReader::SudokuAsciiReader( std::istream& is, const Logger& logger) :
-        ISudokuReader( logger),
+    AsciiReader::AsciiReader( std::istream& is, const Logger& logger) :
+        IReader( logger),
         mStream( is)
     {
     }
 
-    auto SudokuAsciiReader::read() const -> Traits::Board
+    auto AsciiReader::read() const -> Traits::Board
     {
         constexpr int MAX_VALUES = Traits::BOARD_SIZE * Traits::BOARD_SIZE;
 
