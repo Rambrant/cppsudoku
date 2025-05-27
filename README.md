@@ -1,7 +1,9 @@
 # C++ Sudoku Solver
 
 A modern C++ Sudoku solver designed with compile-time optimizations, leveraging template metaprogramming and traits-based design. 
-I created this solver as a private project to learn hwo to code in modern C++. This solver can be for educational purposes.
+I created this solver as a private project to learn how to code in modern C++. This solver can be used for educational purposes.
+
+>I have done this on MacOS Seqouia (15.0) running on Apple Silicon (arm64). Other target environments has not been tested
 
 ## Features
 
@@ -17,6 +19,38 @@ I created this solver as a private project to learn hwo to code in modern C++. T
 - A C++17 (or later) compatible compiler (e.g., GCC 10+, Clang 10+, MSVC 2019+)
 - CMake (version 3.15 or later)
 - [Doxygen](https://www.doxygen.nl/) (optional, for building documentation)
+- [vcpkg](https://github.com/microsoft/vcpkg) from Microsoft for installation of external packages
+
+#### Install Doxygen
+```bash
+brew install doxygen
+```
+
+#### Install vcpkg
+
+Run this in the ~/Developer directory
+```
+cd ~
+git clone https://github.com/microsoft/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.sh
+```
+
+Install needed dependencies
+```bash
+brew install pkg-config
+```
+
+Add this line to your ~/.zshrc file
+```
+export PATH="$HOME/vcpkg:$PATH"
+```
+
+#### Configure CLion
+Set the following CMake option in Settings—Build,Execution,Deployment—CMake
+ ```
+ -DCMAKE_TOOLCHAIN_FILE=<path to vcpkg>/vcpkg/scripts/buildsystems/vcpkg.cmake
+ ```
 
 ### Build Instructions
 
@@ -44,6 +78,7 @@ Documentation will be generated in the `docs/` directory.
 includes/       # Header files
 src/            # Source files
 docs/           # Doxygen output
+externals/      # External dependencies
 CMakeLists.txt  # Build configuration
 Doxyfile        # Doxygen configuration
 ```

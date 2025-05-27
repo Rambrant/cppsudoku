@@ -1,4 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
+
+# Tell CMake to use vcpkg for dependencies
+set(CMAKE_TOOLCHAIN_FILE "$ENV{HOME}/Developer/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        CACHE STRING "Vcpkg toolchain file")
+
+# ✅ Explicitly declare macOS architecture
+set(CMAKE_OSX_ARCHITECTURES arm64 CACHE STRING "" FORCE)  # or "x86_64" if on Intel
+
 project(SudokuSolver VERSION 1.0 LANGUAGES CXX)
 
 # Use C++17
@@ -17,11 +25,16 @@ include_directories(${PROJECT_SOURCE_DIR}/includes)
 
 # Gather all source files
 file(GLOB_RECURSE SOURCES
-    ${PROJECT_SOURCE_DIR}/src/*.cpp
+        ${PROJECT_SOURCE_DIR}/src/*.cpp
 )
+
+# Find nlohmann_json provided via vcpkg
+find_package(nlohmann_json CONFIG REQUIRED)
 
 # Create the executable
 add_executable(sudoku_solver ${SOURCES} )
+
+target_link_libraries(sudoku_solver PRIVATE nlohmann_json::nlohmann_json)
 
 # Optionally: Organize source files in IDEs like Xcode/VS
 source_group(TREE ${PROJECT_SOURCE_DIR} FILES ${SOURCES})

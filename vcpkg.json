@@ -1,0 +1,7 @@
+{
+  "name": "sudoku-solver",
+  "version": "1.0",
+  "dependencies": [
+    "nlohmann-json"
+  ]
+}
