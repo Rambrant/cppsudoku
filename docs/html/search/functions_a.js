@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['read_0',['read',['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html#a9d53cdf38379871810c717e0b49a894d',1,'com::rambrant::sudoku::ISudokuReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_ascii_reader.html#a332372412b99617f7a9ead36532beb93',1,'com::rambrant::sudoku::SudokuAsciiReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html#a6993f1ffd4ef1f139aaadf526ea10948',1,'com::rambrant::sudoku::SudokuBoard::read()']]]
+  ['parse_0',['parse',['../classcom_1_1rambrant_1_1sudoku_1_1_command_line_parser.html#a5b9358bde07fde8338bf71c2a088b8e4',1,'com::rambrant::sudoku::CommandLineParser']]],
+  ['prettywriter_1',['PrettyWriter',['../classcom_1_1rambrant_1_1sudoku_1_1_pretty_writer.html#a7ce08a969eee45aaaa1ce145fa2d517f',1,'com::rambrant::sudoku::PrettyWriter']]]
 ];

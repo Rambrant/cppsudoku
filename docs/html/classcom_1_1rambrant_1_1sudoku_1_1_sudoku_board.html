@@ -122,23 +122,23 @@ Public Types</h2></td></tr>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Traits</b> = <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html">SudokuTraits</a></td></tr>
 <tr class="memdesc:a79c4e8d0680b0659ef9640463a03d5cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias to shorten access to <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html">SudokuTraits</a>. <br /></td></tr>
 <tr class="separator:a79c4e8d0680b0659ef9640463a03d5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79b534925d986b08ef4e1504ec6baf77" id="r_a79b534925d986b08ef4e1504ec6baf77"><td class="memItemLeft" align="right" valign="top"><a id="a79b534925d986b08ef4e1504ec6baf77" name="a79b534925d986b08ef4e1504ec6baf77"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>SolverList</b> = std::vector&lt;std::unique_ptr&lt;<a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html">ISudokuSolver</a>&gt;&gt;</td></tr>
-<tr class="memdesc:a79b534925d986b08ef4e1504ec6baf77"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of references to <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html">ISudokuSolver</a> references. <br /></td></tr>
-<tr class="separator:a79b534925d986b08ef4e1504ec6baf77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81a47ed6514354d0858e3f1a7aecebaa" id="r_a81a47ed6514354d0858e3f1a7aecebaa"><td class="memItemLeft" align="right" valign="top"><a id="a81a47ed6514354d0858e3f1a7aecebaa" name="a81a47ed6514354d0858e3f1a7aecebaa"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SolverList</b> = std::vector&lt;std::unique_ptr&lt;<a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_solver.html">ISolver</a>&gt;&gt;</td></tr>
+<tr class="memdesc:a81a47ed6514354d0858e3f1a7aecebaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of references to <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_solver.html">ISolver</a> references. <br /></td></tr>
+<tr class="separator:a81a47ed6514354d0858e3f1a7aecebaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af29cfaa111d5d6066bbc138a99f4b25d" id="r_af29cfaa111d5d6066bbc138a99f4b25d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af29cfaa111d5d6066bbc138a99f4b25d">SudokuBoard</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html">ISudokuReader</a> &amp;reader, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html">ISudokuWriter</a> &amp;writer, <a class="el" href="#a79b534925d986b08ef4e1504ec6baf77">SolverList</a> solvers, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;logger)</td></tr>
-<tr class="memdesc:af29cfaa111d5d6066bbc138a99f4b25d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the board and initializes the reader.  <br /></td></tr>
-<tr class="separator:af29cfaa111d5d6066bbc138a99f4b25d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81286277838bd82cf53c1e877188523c" id="r_a81286277838bd82cf53c1e877188523c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81286277838bd82cf53c1e877188523c">SudokuBoard</a> (const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_reader.html">IReader</a> &amp;reader, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_writer.html">IWriter</a> &amp;writer, <a class="el" href="#a81a47ed6514354d0858e3f1a7aecebaa">SolverList</a> solvers, const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a> &amp;logger)</td></tr>
+<tr class="memdesc:a81286277838bd82cf53c1e877188523c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the board and initializes the reader.  <br /></td></tr>
+<tr class="separator:a81286277838bd82cf53c1e877188523c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6993f1ffd4ef1f139aaadf526ea10948" id="r_a6993f1ffd4ef1f139aaadf526ea10948"><td class="memItemLeft" align="right" valign="top"><a id="a6993f1ffd4ef1f139aaadf526ea10948" name="a6993f1ffd4ef1f139aaadf526ea10948"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>read</b> () const -&gt; void</td></tr>
-<tr class="memdesc:a6993f1ffd4ef1f139aaadf526ea10948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the board from the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html">ISudokuReader</a> given in the constructor. <br /></td></tr>
+<tr class="memdesc:a6993f1ffd4ef1f139aaadf526ea10948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the board from the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_reader.html">IReader</a> given in the constructor. <br /></td></tr>
 <tr class="separator:a6993f1ffd4ef1f139aaadf526ea10948"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5964acfa0b865cc58dd785cff2d81069" id="r_a5964acfa0b865cc58dd785cff2d81069"><td class="memItemLeft" align="right" valign="top"><a id="a5964acfa0b865cc58dd785cff2d81069" name="a5964acfa0b865cc58dd785cff2d81069"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&gt; void</td></tr>
-<tr class="memdesc:a5964acfa0b865cc58dd785cff2d81069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the board using the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html">ISudokuWriter</a> given in the constructor. <br /></td></tr>
+<tr class="memdesc:a5964acfa0b865cc58dd785cff2d81069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the board using the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_writer.html">IWriter</a> given in the constructor. <br /></td></tr>
 <tr class="separator:a5964acfa0b865cc58dd785cff2d81069"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5378e3996f4e9b4341a365bb042a9951" id="r_a5378e3996f4e9b4341a365bb042a9951"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5378e3996f4e9b4341a365bb042a9951">solve</a> () const -&gt; bool</td></tr>
 <tr class="memdesc:a5378e3996f4e9b4341a365bb042a9951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order.  <br /></td></tr>
@@ -148,8 +148,8 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&
 <div class="textblock"><p>A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvig,. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://norvig.com/sudoku.html">https://norvig.com/sudoku.html</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af29cfaa111d5d6066bbc138a99f4b25d" name="af29cfaa111d5d6066bbc138a99f4b25d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af29cfaa111d5d6066bbc138a99f4b25d">&#9670;&#160;</a></span>SudokuBoard()</h2>
+<a id="a81286277838bd82cf53c1e877188523c" name="a81286277838bd82cf53c1e877188523c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81286277838bd82cf53c1e877188523c">&#9670;&#160;</a></span>SudokuBoard()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,17 +157,17 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&
         <tr>
           <td class="memname">com::rambrant::sudoku::SudokuBoard::SudokuBoard </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html">ISudokuReader</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>reader</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_reader.html">IReader</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>reader</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html">ISudokuWriter</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>writer</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_writer.html">IWriter</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>writer</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a79b534925d986b08ef4e1504ec6baf77">SolverList</a></td>          <td class="paramname"><span class="paramname"><em>solvers</em></span>, </td>
+          <td class="paramtype"><a class="el" href="#a81a47ed6514354d0858e3f1a7aecebaa">SolverList</a></td>          <td class="paramname"><span class="paramname"><em>solvers</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -180,9 +180,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>write</b> () const -&
 <p>Constructs the board and initializes the reader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">reader</td><td>An <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html">ISudokuReader</a>. The reader must exist during the lifetime of the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
-    <tr><td class="paramname">writer</td><td>A <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html">ISudokuWriter</a>. The writer must exist during the lifetime of the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
-    <tr><td class="paramname">solvers</td><td>A list of <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html">ISudokuSolver</a>. The solvers must exist during the lifetime of the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
+    <tr><td class="paramname">reader</td><td>An <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_reader.html">IReader</a>. The reader must exist during the lifetime of the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
+    <tr><td class="paramname">writer</td><td>A <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_writer.html">IWriter</a>. The writer must exist during the lifetime of the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
+    <tr><td class="paramname">solvers</td><td>A list of <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_i_solver.html">ISolver</a>. The solvers must exist during the lifetime of the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi...">SudokuBoard</a> </td></tr>
     <tr><td class="paramname">logger</td><td>A <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html">Logger</a>. The logger must exist during the lifetime of the board </td></tr>
   </table>
   </dd>

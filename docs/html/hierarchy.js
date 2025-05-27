@@ -16,17 +16,19 @@ var hierarchy =
       ] ],
       [ "com::rambrant::sudoku::CommandOption< T >", "classcom_1_1rambrant_1_1sudoku_1_1_command_option.html", null ]
     ] ],
-    [ "com::rambrant::sudoku::ISudokuReader", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html", [
-      [ "com::rambrant::sudoku::SudokuAsciiReader", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_ascii_reader.html", null ]
+    [ "com::rambrant::sudoku::IReader", "classcom_1_1rambrant_1_1sudoku_1_1_i_reader.html", [
+      [ "com::rambrant::sudoku::AsciiReader", "classcom_1_1rambrant_1_1sudoku_1_1_ascii_reader.html", null ],
+      [ "com::rambrant::sudoku::JsonReader", "classcom_1_1rambrant_1_1sudoku_1_1_json_reader.html", null ]
     ] ],
-    [ "com::rambrant::sudoku::ISudokuSolver", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_solver.html", [
+    [ "com::rambrant::sudoku::ISolver", "classcom_1_1rambrant_1_1sudoku_1_1_i_solver.html", [
       [ "com::rambrant::sudoku::BackTrackingSolver", "classcom_1_1rambrant_1_1sudoku_1_1_back_tracking_solver.html", null ],
       [ "com::rambrant::sudoku::ConstraintPropagationSolver", "classcom_1_1rambrant_1_1sudoku_1_1_constraint_propagation_solver.html", null ]
     ] ],
-    [ "com::rambrant::sudoku::ISudokuWriter", "classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_writer.html", [
-      [ "com::rambrant::sudoku::SudokuBlockWriter", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_block_writer.html", null ],
-      [ "com::rambrant::sudoku::SudokuLineWriter", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_line_writer.html", null ],
-      [ "com::rambrant::sudoku::SudokuPrettyWriter", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_pretty_writer.html", null ]
+    [ "com::rambrant::sudoku::IWriter", "classcom_1_1rambrant_1_1sudoku_1_1_i_writer.html", [
+      [ "com::rambrant::sudoku::BlockWriter", "classcom_1_1rambrant_1_1sudoku_1_1_block_writer.html", null ],
+      [ "com::rambrant::sudoku::JsonWriter", "classcom_1_1rambrant_1_1sudoku_1_1_json_writer.html", null ],
+      [ "com::rambrant::sudoku::LineWriter", "classcom_1_1rambrant_1_1sudoku_1_1_line_writer.html", null ],
+      [ "com::rambrant::sudoku::PrettyWriter", "classcom_1_1rambrant_1_1sudoku_1_1_pretty_writer.html", null ]
     ] ],
     [ "com::rambrant::sudoku::Logger::LevelManipulator", "structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html", null ],
     [ "com::rambrant::sudoku::Logger", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html", null ],

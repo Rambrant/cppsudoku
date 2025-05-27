@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['levelmanipulator_0',['LevelManipulator',['../structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html',1,'com::rambrant::sudoku::Logger']]],
-  ['listoption_1',['ListOption',['../classcom_1_1rambrant_1_1sudoku_1_1_list_option.html',1,'com::rambrant::sudoku']]],
-  ['logger_2',['Logger',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html',1,'com::rambrant::sudoku']]]
+  ['icommandoption_0',['ICommandOption',['../classcom_1_1rambrant_1_1sudoku_1_1_i_command_option.html',1,'com::rambrant::sudoku']]],
+  ['ireader_1',['IReader',['../classcom_1_1rambrant_1_1sudoku_1_1_i_reader.html',1,'com::rambrant::sudoku']]],
+  ['isolver_2',['ISolver',['../classcom_1_1rambrant_1_1sudoku_1_1_i_solver.html',1,'com::rambrant::sudoku']]],
+  ['iwriter_3',['IWriter',['../classcom_1_1rambrant_1_1sudoku_1_1_i_writer.html',1,'com::rambrant::sudoku']]]
 ];

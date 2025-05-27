@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['read_0',['Read',['../classcom_1_1rambrant_1_1sudoku_1_1_file_stream.html#a1377b6f8fec24f86070b0058d5cc37fca7a1a5f3e79fdc91edf2f5ead9d66abb4',1,'com::rambrant::sudoku::FileStream']]],
-  ['read_1',['read',['../classcom_1_1rambrant_1_1sudoku_1_1_i_sudoku_reader.html#a9d53cdf38379871810c717e0b49a894d',1,'com::rambrant::sudoku::ISudokuReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_ascii_reader.html#a332372412b99617f7a9ead36532beb93',1,'com::rambrant::sudoku::SudokuAsciiReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html#a6993f1ffd4ef1f139aaadf526ea10948',1,'com::rambrant::sudoku::SudokuBoard::read()']]],
-  ['readwrite_2',['ReadWrite',['../classcom_1_1rambrant_1_1sudoku_1_1_file_stream.html#a1377b6f8fec24f86070b0058d5cc37fca70a2a84088d405a2e3f1e3accaa16723',1,'com::rambrant::sudoku::FileStream']]]
+  ['quiet_0',['Quiet',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ae26a91937e2e4554ec72f00b0eee03b0a098753f8980036f4b936e3d4b6997111',1,'com::rambrant::sudoku::Logger']]]
 ];

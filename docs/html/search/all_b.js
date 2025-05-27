@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['operator_3c_3c_0',['operator&lt;&lt;',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#aa94148cfcdc1d9a0a340179a65460d8f',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(const LevelManipulator &amp;manip) const -&gt; const Logger &amp;'],['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ab62976f71ffc1990aac84ab907d3d1dc',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(std::ostream &amp;(*manip)(std::ostream &amp;)) const -&gt; const Logger &amp;'],['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ab7e21b4159547df529d3723b07ae3bc2',1,'com::rambrant::sudoku::Logger::operator&lt;&lt;(const T &amp;value) const -&gt; const Logger &amp;']]]
+  ['no_5fvalue_0',['NO_VALUE',['../structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html#a168f789099a6133426ed3f4242f1c593',1,'com::rambrant::sudoku::SudokuTraits']]],
+  ['normal_1',['Normal',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#ae26a91937e2e4554ec72f00b0eee03b0a960b44c579bc2f6818d2daaf9e4c16f0',1,'com::rambrant::sudoku::Logger']]],
+  ['normal_2',['normal',['../classcom_1_1rambrant_1_1sudoku_1_1_logger.html#a116cbee7592665029d971ef4bb12d03a',1,'com::rambrant::sudoku::Logger']]]
 ];
