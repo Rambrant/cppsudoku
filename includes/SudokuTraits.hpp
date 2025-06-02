@@ -6,6 +6,7 @@
 #include <array>
 #include <tuple>
 
+#include "ConstSqrt.hpp"
 #include "RangeArray.hpp"
 
 namespace com::rambrant::sudoku
@@ -16,16 +17,18 @@ namespace com::rambrant::sudoku
     struct SudokuTraits
     {
         /// @brief Size of the Sudoku board. Usually a 9x9 grid
-        static constexpr int  BOARD_SIZE  = 9;
+        static constexpr int  BOARD_SIZE = 9;
+        static_assert( BOARD_SIZE >= 0, "BOARD_SIZE must be positive integer");
 
         /// @brief Size of a box on the board
-        static constexpr int  BOX_SIZE    = 3;
+        static constexpr int BOX_SIZE = ConstSqrt( BOARD_SIZE);
+        static_assert( BOX_SIZE * BOX_SIZE == BOARD_SIZE, "BOARD_SIZE must be a perfect square");
 
         /// @brief The maximum value for a square
-        static constexpr int  MAX_VALUE   = BOARD_SIZE;
+        static constexpr int  MAX_VALUE = BOARD_SIZE;
 
         /// @brief Denotes the presence of no values at all
-        static constexpr int  NO_VALUE    = 0;
+        static constexpr int  NO_VALUE = 0;
 
         /// @brief Range from 0 to the @ref BOARD_SIZE
         static constexpr auto INDEX_RANGE = RangeArray<BOARD_SIZE>(0, 1);
@@ -40,12 +43,12 @@ namespace com::rambrant::sudoku
         using Value = int;
 
         /// @brief Result from a solver. Success or not and the number of recursions
-        using BoardResult                 = std::tuple< bool, std::size_t>;
+        using BoardResult = std::tuple< bool, std::size_t>;
 
         /// @brief Board row of size @ref BOARD_SIZE
-        using BoardArray                  = std::array< Value, BOARD_SIZE>;
+        using BoardArray = std::array< Value, BOARD_SIZE>;
 
         /// @brief 2D grid of @ref BOARD_SIZE number of @ref BoardArray's
-        using Board                       = std::array< BoardArray, BOARD_SIZE>;
+        using Board = std::array< BoardArray, BOARD_SIZE>;
     };
 }
