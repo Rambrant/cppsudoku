@@ -30,6 +30,7 @@ file(GLOB_RECURSE SOURCES
 
 # Find nlohmann_json provided via vcpkg
 find_package(nlohmann_json CONFIG REQUIRED)
+set(nlohmann-json_IMPLICIT_CONVERSIONS OFF)
 
 # Create the executable
 add_executable(sudoku_solver ${SOURCES} )
