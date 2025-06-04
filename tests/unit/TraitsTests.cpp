@@ -2,7 +2,6 @@
 // Created by Thomas Rambrant on 2025-06-03.
 //
 #include <catch2/catch_test_macros.hpp>
-//#include <nlohmann/detail/input/parser.hpp>
 
 #include "SudokuTraits.hpp"
 
