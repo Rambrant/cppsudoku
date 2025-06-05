@@ -8,17 +8,38 @@
 #include "SudokuTraits.hpp"
 
 using namespace com::rambrant::sudoku;
-using Traits = SudokuTraits;
 
 #include "CliRunner.hpp"
 
-
-TEST_CASE( "CLI tool returns help", "[acceptance]")
+SCENARIO( "Sudoku help option [acceptance]")
 {
-    CliRunner runner(SUDOKU_CLI_PATH);
+    CliRunner runner( SUDOKU_CLI_COMMAND);
 
-    const int exitCode = runner.run({ "--help" });
+    GIVEN( "Help output with short flag")
+    {
+         WHEN( "The solver is run")
+        {
+            const auto exitCode = runner.run( { "-h"});
 
-    REQUIRE( exitCode == 0);
-    REQUIRE( runner.outputContains("Usage"));
+            THEN( "The output should be the help text")
+            {
+                CHECK( runner.outputContains( "Usage:"));
+                CHECK( exitCode == 0);
+            }
+        }
+    }
+
+    GIVEN( "Help output with long flag")
+    {
+        WHEN( "The solver is run")
+        {
+            const auto exitCode = runner.run( { "--help"});
+
+            THEN( "The output should be the help text")
+            {
+                CHECK( runner.outputContains( "Usage:"));
+                CHECK( exitCode == 0);
+            }
+        }
+    }
 }

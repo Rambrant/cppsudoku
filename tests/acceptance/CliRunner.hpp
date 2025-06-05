@@ -2,24 +2,24 @@
 // Created by Thomas Rambrant on 2025-06-04.
 //
 #pragma once
+
+#include <array>
+#include <filesystem>
+#include <memory>
+#include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <array>
-#include <cstdio>
-#include <memory>
-#include <stdexcept>
-#include <filesystem>
+#include <sys/wait.h>
 
 class CliRunner
 {
     public:
-        explicit CliRunner( std::string executablePath);
+        explicit CliRunner( std::string executablePath, std::string workingDir = {});
 
         auto run(
             const std::vector<std::string>& args       = {},
-            const std::string&              stdinInput = "",
-            const std::filesystem::path&    workingDir = {}) -> int;
+            const std::string&              stdinInput = "") -> int;
 
         auto output() const -> const std::string&;
         auto exitCode() const -> int;
@@ -27,14 +27,15 @@ class CliRunner
 
     private:
 
+        std::string mWorkingDir;
         std::string mExecutable;
         std::string mOutput;
         int         mExitCode;
 };
 
-namespace
+namespace details
 {
-    auto escapeShellArg( const std::string & arg ) -> std::string
+    inline auto escapeShellArg( const std::string & arg ) -> std::string
     {
         std::ostringstream oss;
         oss << "'";
@@ -46,7 +47,7 @@ namespace
         return oss.str();
     }
 
-    auto escapeQuotes( const std::string & input ) -> std::string
+    inline auto escapeQuotes( const std::string & input ) -> std::string
     {
         std::string result;
         for (char c : input) {
@@ -57,31 +58,33 @@ namespace
     }
 }
 
-inline CliRunner::CliRunner(std::string executablePath) :
+inline CliRunner::CliRunner( std::string executablePath, std::string workingDir) :
+    mWorkingDir( std::move(workingDir)),
     mExecutable( std::move( executablePath)),
     mExitCode( -1)
 {}
 
 inline auto CliRunner::run(
     const std::vector<std::string>& args,
-    const std::string&              stdinInput,
-    const std::filesystem::path&    workingDir) -> int
+    const std::string&              stdinInput) -> int
 {
     std::ostringstream cmd;
-    if (!workingDir.empty())
+
+    if( ! mWorkingDir.empty())
     {
-        cmd << "cd " << workingDir << " && ";
+        cmd << "cd " << mWorkingDir << " && ";
     }
 
     cmd << mExecutable;
-    for (const auto& arg : args)
+
+    for( const auto& arg : args)
     {
-        cmd << " " << escapeShellArg(arg);
+        cmd << " " << details::escapeShellArg( arg);
     }
 
-    if (!stdinInput.empty())
+    if( ! stdinInput.empty())
     {
-        cmd << " <<< \"" << escapeQuotes(stdinInput) << "\"";
+        cmd << " <<< \"" << details::escapeQuotes( stdinInput) << "\"";
     }
 
     cmd << " 2>&1"; // Redirect stderr to stdout
@@ -90,15 +93,20 @@ inline auto CliRunner::run(
     mOutput.clear();
 
     std::array<char, 256> buffer{};
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(commandStr.c_str(), "r"), pclose);
-    if (!pipe) throw std::runtime_error("Failed to execute: " + commandStr);
+    std::unique_ptr<FILE, decltype(&pclose)> pipe( popen( commandStr.c_str(), "r"), pclose);
 
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
+    if( ! pipe)
+        throw std::runtime_error( "Failed to execute: " + commandStr);
+
+    while( fgets( buffer.data(), buffer.size(), pipe.get()) != nullptr)
     {
         mOutput += buffer.data();
     }
 
-    mExitCode = pclose(pipe.get());
+    auto rawExitCode = pclose( pipe.get());
+
+    mExitCode = WIFEXITED( rawExitCode) ? WEXITSTATUS( rawExitCode): -1; // Extract the real exit code if abnormal exit
+
     return mExitCode;
 }
 
