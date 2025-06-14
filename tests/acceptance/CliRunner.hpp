@@ -24,6 +24,7 @@ class CliRunner
         auto output() const -> const std::string&;
         auto exitCode() const -> int;
         auto outputContains( const std::string & str) const -> bool;
+        auto countOutputMatches( const std::regex & pattern ) -> int;
 
     private:
 
@@ -123,4 +124,12 @@ inline auto CliRunner::exitCode() const -> int
 inline auto CliRunner::outputContains( const std::string & str ) const -> bool
 {
     return mOutput.find( str) != std::string::npos;
+}
+
+inline auto CliRunner::countOutputMatches( const std::regex & pattern ) -> int
+{
+    return static_cast<int>( std::distance(
+        std::sregex_iterator(mOutput.begin(), mOutput.end(), pattern),
+        std::sregex_iterator()
+    ));
 }
