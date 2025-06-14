@@ -24,28 +24,30 @@ inline auto readFileToString( const std::string& path ) -> std::string
     return buffer.str();
 }
 
-SCENARIO( "Reading Sudoku boards [acceptance]")
+SCENARIO( "Writing Sudoku boards [acceptance]")
 {
     struct TestCase
     {
         std::string flag;
-        std::string file;
         std::string format;
+        std::regex  regex;
     };
 
     CliRunner  runner( SUDOKU_CLI_COMMAND, SUDOKU_CLI_WORKING_DIR);
 
     auto testCase = GENERATE(
-        TestCase{ "-I", "board_simple.txt", "text"},
-        TestCase{ "--input_format", "board_json.txt", "json"});
+        TestCase{ "-O", "pretty"},
+        TestCase{ "-output_format", "block"},
+        TestCase{ "-O", "line"},
+        TestCase{ "--output_format", "json"});
 
-    GIVEN( "Standard input from " + testCase.file + " with format " + testCase.format)
+    GIVEN( "Standard output with format " + testCase.format)
     {
-        const std::string inputFile = readFileToString( std::string("") + SUDOKU_CLI_WORKING_DIR + "/tests/test-resources/" + testCase.file);
+        const std::string inputFile = "tests/test-resources/board_simple.txt";
 
         WHEN( "The solver is run")
         {
-            const auto exitCode = runner.run( { testCase.flag, testCase.format}, inputFile);
+            const auto exitCode = runner.run( { testCase.flag, testCase.format, "-i", inputFile});
 
             THEN( "The result should be success")
             {
@@ -54,16 +56,21 @@ SCENARIO( "Reading Sudoku boards [acceptance]")
         }
     }
 
-    GIVEN( "Input file " + testCase.file + " with format " + testCase.format)
+    GIVEN( "Standard output to file with format " + testCase.format)
     {
-        const std::string inputFile = "tests/test-resources/" + testCase.file;
+        const std::string inputFile    = "tests/test-resources/board_simple.txt";
+        const std::string outputFile   = "build/board_test.txt";
+        const std::string fullFilePath = std::string(SUDOKU_CLI_WORKING_DIR) + "/" + outputFile;
+
+        std::filesystem::remove( fullFilePath);
 
         WHEN( "The solver is run")
         {
-            const auto exitCode = runner.run( { "-i", inputFile, testCase.flag, testCase.format});
+            const auto exitCode = runner.run( { "-i", inputFile, "-o", outputFile, testCase.flag, testCase.format});
 
             THEN( "The result should be success")
             {
+                CHECK( std::filesystem::exists( fullFilePath));
                 CHECK( exitCode == 0);
             }
         }
