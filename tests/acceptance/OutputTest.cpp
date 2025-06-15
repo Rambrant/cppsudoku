@@ -45,12 +45,16 @@ SCENARIO( "Writing Sudoku boards [acceptance]")
     {
         const std::string inputFile = "tests/test-resources/board_simple.txt";
 
+        std::regex digitCountRegex( R"([0-9])");
+
+
         WHEN( "The solver is run")
         {
-            const auto exitCode = runner.run( { testCase.flag, testCase.format, "-i", inputFile});
+            const auto exitCode = runner.run( { "-q", testCase.flag, testCase.format, "-i", inputFile});
 
             THEN( "The result should be success")
             {
+                CHECK( runner.countOutputMatches( digitCountRegex) == Traits::BOARD_SIZE * Traits::BOARD_SIZE);
                 CHECK( exitCode == 0);
             }
         }
@@ -66,7 +70,7 @@ SCENARIO( "Writing Sudoku boards [acceptance]")
 
         WHEN( "The solver is run")
         {
-            const auto exitCode = runner.run( { "-i", inputFile, "-o", outputFile, testCase.flag, testCase.format});
+            const auto exitCode = runner.run( { "-q", "-i", inputFile, "-o", outputFile, testCase.flag, testCase.format});
 
             THEN( "The result should be success")
             {
