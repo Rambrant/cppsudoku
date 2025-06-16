@@ -1,6 +1,7 @@
 //
 // Created by Thomas Rambrant on 2025-06-03.
 //
+#include <list>
 #include <catch2/catch_test_macros.hpp>
 
 #include "SudokuTraits.hpp"
@@ -73,4 +74,11 @@ TEST_CASE( "Traits: Index and value ranges", "[unit]")
 
         REQUIRE( std::equal( expected.begin(), expected.end(), Traits::VALUE_RANGE.begin()));
     }
+}
+
+TEST_CASE( "Traits: Is Random Access Container trait", "[unit]")
+{
+    static_assert( is_random_access_container<std::vector<int>>);
+    static_assert( is_random_access_container<std::array<int, 9>>);
+    static_assert( ! is_random_access_container<std::list<int>>);
 }
