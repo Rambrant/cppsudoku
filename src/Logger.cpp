@@ -5,10 +5,10 @@
 
 namespace com::rambrant::sudoku
 {
-    Logger::Logger( const LogLevel defaultLevel) :
+    Logger::Logger( const LogLevel defaultLevel, std::ostream& stream) :
         mDefaultLevel( defaultLevel),
         mCurrentLevel( defaultLevel),
-        mOut( std::cout)
+        mOut( stream)
     {}
 
     auto Logger::isVerbose() const -> bool

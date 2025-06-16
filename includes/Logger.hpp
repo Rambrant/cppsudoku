@@ -34,7 +34,7 @@ namespace com::rambrant::sudoku
             };
 
             /**
-             * @brief An interan maniplulator to control the level of the messages printed onn the stream
+             * @brief An internal manipulator to control the level of the messages printed on the stream
              */
             struct LevelManipulator
             {
@@ -55,8 +55,9 @@ namespace com::rambrant::sudoku
             /**
              * @brief Construct a logger with a specific level
              * @param defaultLevel The max level to allow the printing of output messages
+             * @param stream The output stream to write to. Defaults to std::cout
              */
-            explicit Logger( LogLevel defaultLevel = LogLevel::Normal);
+            explicit Logger( LogLevel defaultLevel = LogLevel::Normal, std::ostream& stream = std::cout);
 
             /**
              * @brief Chack if the Logger is in a verbose state or not
