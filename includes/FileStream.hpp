@@ -33,7 +33,7 @@ namespace com::rambrant::sudoku
             };
 
             /**
-             * @brief Construct a file stream and chacks that the file could be opened
+             * @brief Construct a file stream and checks that the file could be opened
              * @param fileName The name of the file
              * @param mode The mode the file should open in. Defaults to @ref Mode::Read
              */
