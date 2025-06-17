@@ -2,7 +2,6 @@
 // Created by Thomas Rambrant on 2025-06-02.
 //
 #pragma once
-#include "SudokuTraits.hpp"
 
 namespace com::rambrant::sudoku
 {
