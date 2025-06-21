@@ -15,6 +15,11 @@ namespace com::rambrant::sudoku
                 (mode == Mode::ReadWrite) ? std::ios::in | std::ios::out :
                                             std::ios::in; // Fallback (shouldn't happen)
 
+        if( mode == Mode::ReadWrite && ! std::filesystem::exists( fileName))
+        {
+            std::ofstream tmp( fileName); // This fixes a C++ quirk that ios::in combined with ios::out doesn't create the file
+        }
+
         open( fileName, openMode);
 
         if( ! is_open( ))

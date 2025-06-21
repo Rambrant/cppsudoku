@@ -29,7 +29,7 @@ namespace com::rambrant::sudoku
             {
                 if( colIdx > 0 && colIdx % Traits::BOX_SIZE == 0)
                 {
-                    mStream << "  "; // extra spacing between box columns
+                    mStream << " "; // extra spacing between box columns
                 }
 
                 mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";

@@ -34,7 +34,7 @@ auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Lo
     const auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
     const auto logger = Logger{ logLevel};
 
-    logger << Logger::verbose << "Initializing" << std::endl << "...Logger" << std::endl;
+    logger <<  "Initializing" << std::endl << Logger::verbose << "...Logger" << std::endl;
 
     return logger;
 }

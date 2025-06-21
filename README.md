@@ -60,6 +60,7 @@ The code is delivered as is and must be compiled for the target platform. No bin
 - CMake (version 3.15 or later)
 - [Doxygen](https://www.doxygen.nl/) (optional, for building documentation)
 - [vcpkg](https://github.com/microsoft/vcpkg) from Microsoft for installation of external packages
+- [Catch2](https://github.com/catchorg/Catch2) a Unit and BDD test framework
 
 #### Install Doxygen
 ```

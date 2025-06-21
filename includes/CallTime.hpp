@@ -20,14 +20,29 @@ namespace com::rambrant::sudoku
     template <typename Func, typename... Args>
     auto CallTime( Func&& func, Args&&... args)
     {
+        using ResultType         = std::invoke_result_t< Func, Args...>;
+        using DurationResolution = std::chrono::microseconds;
+
         const auto start = std::chrono::high_resolution_clock::now();
 
-        const auto result = std::invoke( std::forward<Func>( func), std::forward<Args>( args)...);
+        if constexpr( std::is_void_v< ResultType>)
+        {
+            std::invoke( std::forward<Func>( func), std::forward<Args>( args)...);
 
-        const auto end      = std::chrono::high_resolution_clock::now();
-        const auto duration = std::chrono::duration_cast<std::chrono::microseconds>( end - start);
+            const auto end      = std::chrono::high_resolution_clock::now();
+            const auto duration = std::chrono::duration_cast< DurationResolution>(  end - start);
 
-        return std::make_tuple( std::move( result), duration);
+            return std::make_tuple( std::monostate{}, duration);
+        }
+        else
+        {
+            const auto result = std::invoke( std::forward<Func>( func), std::forward<Args>( args)...);
+
+            const auto end      = std::chrono::high_resolution_clock::now();
+            const auto duration = std::chrono::duration_cast< DurationResolution>(  end - start);
+
+            return std::make_tuple( result, duration);
+        }
     }
 }
 

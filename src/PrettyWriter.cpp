@@ -21,14 +21,14 @@ namespace com::rambrant::sudoku
         {
             if( rowIdx > 0 && rowIdx % Traits::BOX_SIZE == 0)
             {
-                mStream << "-------+--------+------" << std::endl; // extra newline between box rows
+                mStream << "------+-------+------" << std::endl; // extra newline between box rows
             }
 
             for( auto colIdx : Traits::INDEX_RANGE)
             {
                 if( colIdx > 0 && colIdx % Traits::BOX_SIZE == 0)
                 {
-                    mStream << " | "; // extra spacing between box columns
+                    mStream << "| "; // extra spacing between box columns
                 }
 
                 const Traits::Digit digit = valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]);

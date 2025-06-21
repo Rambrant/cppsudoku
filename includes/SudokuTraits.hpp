@@ -51,4 +51,11 @@ namespace com::rambrant::sudoku
         /// @brief 2D grid of @ref BOARD_SIZE number of @ref BoardArray's
         using Board = std::array< BoardArray, BOARD_SIZE>;
     };
-}
+
+    /**
+     * @brief A trait for checking iterators for random_access
+     * @tparam Container The container to test for random_access iterator type
+     */
+    template <typename Container>
+    constexpr bool is_random_access_container = std::is_base_of_v< std::random_access_iterator_tag,
+        typename std::iterator_traits< typename Container::iterator>::iterator_category>;}

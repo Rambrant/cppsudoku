@@ -3,29 +3,11 @@
 //
 #pragma once
 
+#include <iterator>
+#include "SudokuTraits.hpp"
+
 namespace com::rambrant::sudoku
 {
-    namespace helper
-    {
-        /// @cond INTERNAL
-        ///
-        template <typename Iterator>
-        struct IteratorRange
-        {
-            Iterator mBegin;
-            Iterator mEnd;
-
-            Iterator begin() const { return mBegin; }
-            Iterator end() const { return mEnd; }
-        };
-
-        // A deduction guide to help the compiler figure out the correct template arguments
-        template<typename Iterator>
-        IteratorRange( Iterator, Iterator) -> IteratorRange<Iterator>;
-
-        /// @endcond
-    }
-
     /** @brief Creates a view (non-owning) into a subrange of a container.
      *
      * @tparam Container A standard container with random-access iterators.
@@ -43,11 +25,40 @@ namespace com::rambrant::sudoku
      * @endcode
      */
     template <typename Container>
-    auto RangeView( Container& container, std::size_t from, std::size_t to)
+    class RangeView
     {
-        return helper::IteratorRange{
-            std::next( container.begin(), from),
-            std::next( container.begin(), to)
-        };
+        public:
+            using Iterator = std::conditional_t< std::is_const_v<Container>,
+                typename Container::const_iterator,
+                typename Container::iterator>;
+
+            constexpr RangeView( Container& container, std::size_t from, std::size_t to);
+
+            constexpr Iterator begin() const { return mBegin; }
+            constexpr Iterator end()   const { return mEnd;   }
+
+        private:
+
+            Iterator mBegin;
+            Iterator mEnd;
+    };
+
+    //
+    // Deduction guide for both const and non-const containers
+    //
+    template< typename Container>
+    RangeView( Container&, std::size_t, std::size_t) -> RangeView<Container>;
+
+    /// \cond DOXYGEN_SUPPRESS
+
+    template <typename Container>
+    constexpr RangeView< Container>::RangeView( Container& container, std::size_t from, std::size_t to)
+    {
+        static_assert( is_random_access_container<Container>, "RangeView requires random-access iterators");
+
+        mBegin = std::next(container.begin(), from);
+        mEnd   = std::next(container.begin(), to);
     }
+
+    /// \endcond
 }
