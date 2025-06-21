@@ -32,6 +32,7 @@ var hierarchy =
     ] ],
     [ "com::rambrant::sudoku::Logger::LevelManipulator", "structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html", null ],
     [ "com::rambrant::sudoku::Logger", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html", null ],
+    [ "com::rambrant::sudoku::RangeView< Container >", "classcom_1_1rambrant_1_1sudoku_1_1_range_view.html", null ],
     [ "com::rambrant::sudoku::SudokuBoard", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html", null ],
     [ "com::rambrant::sudoku::SudokuTraits", "structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html", null ]
 ];

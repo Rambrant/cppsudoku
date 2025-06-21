@@ -121,7 +121,7 @@ $(function(){initNavTree('classcom_1_1rambrant_1_1sudoku_1_1_logger.html',''); i
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html">LevelManipulator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An interan maniplulator to control the level of the messages printed onn the stream.  <a href="structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An internal manipulator to control the level of the messages printed on the stream.  <a href="structcom_1_1rambrant_1_1sudoku_1_1_logger_1_1_level_manipulator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -135,9 +135,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7360ccfb56099800f87c970edcefeb45" id="r_a7360ccfb56099800f87c970edcefeb45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7360ccfb56099800f87c970edcefeb45">Logger</a> (<a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0">LogLevel</a> defaultLevel=<a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0a960b44c579bc2f6818d2daaf9e4c16f0">LogLevel::Normal</a>)</td></tr>
-<tr class="memdesc:a7360ccfb56099800f87c970edcefeb45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a logger with a specific level.  <br /></td></tr>
-<tr class="separator:a7360ccfb56099800f87c970edcefeb45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeefbf488fc5b150699ebf902915e4415" id="r_aeefbf488fc5b150699ebf902915e4415"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeefbf488fc5b150699ebf902915e4415">Logger</a> (<a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0">LogLevel</a> defaultLevel=<a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0a960b44c579bc2f6818d2daaf9e4c16f0">LogLevel::Normal</a>, std::ostream &amp;stream=std::cout)</td></tr>
+<tr class="memdesc:aeefbf488fc5b150699ebf902915e4415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a logger with a specific level.  <br /></td></tr>
+<tr class="separator:aeefbf488fc5b150699ebf902915e4415"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46f9819830f90d065e3882e7c0066227" id="r_a46f9819830f90d065e3882e7c0066227"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46f9819830f90d065e3882e7c0066227">isVerbose</a> () const -&gt; bool</td></tr>
 <tr class="memdesc:a46f9819830f90d065e3882e7c0066227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chack if the <a class="el" href="classcom_1_1rambrant_1_1sudoku_1_1_logger.html" title="A std::cout compatible logger that supports different levels of logging.">Logger</a> is in a verbose state or not.  <br /></td></tr>
 <tr class="separator:a46f9819830f90d065e3882e7c0066227"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,8 +199,8 @@ static constexpr <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7360ccfb56099800f87c970edcefeb45" name="a7360ccfb56099800f87c970edcefeb45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7360ccfb56099800f87c970edcefeb45">&#9670;&#160;</a></span>Logger()</h2>
+<a id="aeefbf488fc5b150699ebf902915e4415" name="aeefbf488fc5b150699ebf902915e4415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeefbf488fc5b150699ebf902915e4415">&#9670;&#160;</a></span>Logger()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,8 +211,12 @@ static constexpr <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_
         <tr>
           <td class="memname">com::rambrant::sudoku::Logger::Logger </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0">LogLevel</a></td>          <td class="paramname"><span class="paramname"><em>defaultLevel</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0a960b44c579bc2f6818d2daaf9e4c16f0">LogLevel::Normal</a></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0">LogLevel</a></td>          <td class="paramname"><span class="paramname"><em>defaultLevel</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ae26a91937e2e4554ec72f00b0eee03b0a960b44c579bc2f6818d2daaf9e4c16f0">LogLevel::Normal</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::ostream &amp;</td>          <td class="paramname"><span class="paramname"><em>stream</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::cout</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -226,6 +230,7 @@ static constexpr <a class="el" href="structcom_1_1rambrant_1_1sudoku_1_1_logger_
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">defaultLevel</td><td>The max level to allow the printing of output messages </td></tr>
+    <tr><td class="paramname">stream</td><td>The output stream to write to. Defaults to std::cout </td></tr>
   </table>
   </dd>
 </dl>

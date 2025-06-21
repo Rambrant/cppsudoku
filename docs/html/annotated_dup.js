@@ -21,6 +21,7 @@ var annotated_dup =
           [ "ListOption", "classcom_1_1rambrant_1_1sudoku_1_1_list_option.html", "classcom_1_1rambrant_1_1sudoku_1_1_list_option" ],
           [ "Logger", "classcom_1_1rambrant_1_1sudoku_1_1_logger.html", "classcom_1_1rambrant_1_1sudoku_1_1_logger" ],
           [ "PrettyWriter", "classcom_1_1rambrant_1_1sudoku_1_1_pretty_writer.html", "classcom_1_1rambrant_1_1sudoku_1_1_pretty_writer" ],
+          [ "RangeView", "classcom_1_1rambrant_1_1sudoku_1_1_range_view.html", "classcom_1_1rambrant_1_1sudoku_1_1_range_view" ],
           [ "StringOption", "classcom_1_1rambrant_1_1sudoku_1_1_string_option.html", "classcom_1_1rambrant_1_1sudoku_1_1_string_option" ],
           [ "SudokuBoard", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board.html", "classcom_1_1rambrant_1_1sudoku_1_1_sudoku_board" ],
           [ "SudokuTraits", "structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits.html", "structcom_1_1rambrant_1_1sudoku_1_1_sudoku_traits" ]

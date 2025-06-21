@@ -9,32 +9,39 @@
 namespace com::rambrant::sudoku
 {
     /** @brief Creates a view (non-owning) into a subrange of a container.
-     *
-     * @tparam Container A standard container with random-access iterators.
-     * @param container The container to view a subrange of.
-     * @param from The starting index (inclusive).
-     * @param to The ending index (exclusive).
-     * @return A lightweight range object that can be used in range-based for-loops.
-     *
-     * @code
-     * std::vector<int> vec{ 1, 2, 3, 4, 5, 6};
-     * for( auto val : RangeView( vec, 2, 5))
-     * {
-     *     std::cout << val << " "; // prints: 3 4 5
-     * }
-     * @endcode
-     */
+      *
+      * @tparam Container A standard container with random-access iterators.
+      *
+      * @code
+      * std::vector<int> vec{ 1, 2, 3, 4, 5, 6};
+      * for( auto val : RangeView( vec, 2, 5))
+      * {
+      *     std::cout << val << " "; // prints: 3 4 5
+      * }
+      * @endcode
+      */
     template <typename Container>
     class RangeView
     {
         public:
+
+            /// @brief The iterator type from the viewed container
             using Iterator = std::conditional_t< std::is_const_v<Container>,
                 typename Container::const_iterator,
                 typename Container::iterator>;
 
+            /** @brief Creates a view (non-owning) into a subrange of a container.
+             *
+             * @param container The container to view a subrange of.
+             * @param from The starting index (inclusive).
+             * @param to The ending index (exclusive).
+             */
             constexpr RangeView( Container& container, std::size_t from, std::size_t to);
 
+            /// The iterator for the first viewed element
             constexpr Iterator begin() const { return mBegin; }
+
+            /// The iterator for the element one past the last viewed element
             constexpr Iterator end()   const { return mEnd;   }
 
         private:
