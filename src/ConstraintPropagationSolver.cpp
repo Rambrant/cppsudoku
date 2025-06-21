@@ -3,9 +3,11 @@
 //
 #include "ConstraintPropagationSolver.hpp"
 
+#include <iostream>
 #include <map>
 #include <set>
 #include <vector>
+#include <__ostream/basic_ostream.h>
 
 namespace com::rambrant::sudoku
 {
@@ -278,18 +280,28 @@ namespace com::rambrant::sudoku
     auto ConstraintPropagationSolver::solve( Traits::Board& board) const -> Traits::BoardResult
     {
         int  recursions{ 0};
+        bool result{ false};
 
-        const SquareValues originalValues{ parseGrid( board)};
-        const SquareValues resultingValues{ search( originalValues, recursions)};
-
-        bool result = ! resultingValues.empty();
-
-        //
-        // Set the found values back into the board
-        //
-        for( const auto& [square, values] : resultingValues)
+        try
         {
-            board[square.first][square.second] = values[0];   // The values for the square are guarantied to be just one...
+            const SquareValues originalValues{ parseGrid( board)};
+            const SquareValues resultingValues{ search( originalValues, recursions)};
+
+            result = ! resultingValues.empty();
+
+            //
+            // Set the found values back into the board
+            //
+            for( const auto& [square, values] : resultingValues)
+            {
+                board[square.first][square.second] = values[0];   // The values for the square are guarantied to be just one...
+            }
+        }
+        catch( const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+
+            result = false;
         }
 
         return std::make_tuple( result, recursions);

@@ -1,0 +1,205 @@
+//
+// Created by Thomas Rambrant on 2025-06-21.
+//
+#include <catch2/catch_all.hpp>
+#include "SudokuTraits.hpp"
+#include "Logger.hpp"
+#include "BackTrackingSolver.hpp"
+#include "ConstraintPropagationSolver.hpp"
+
+using namespace com::rambrant::sudoku;
+
+namespace
+{
+    using Board = SudokuTraits::Board;
+
+    //
+    // An unresolved board to solve
+    //
+    constexpr SudokuTraits::Board unsolvedBoard
+    {{
+        std::array{ 0, 0, 3, 0, 2, 0, 6, 0, 0},
+        std::array{ 9, 0, 0, 3, 0, 5, 0, 0, 1},
+        std::array{ 0, 0, 1, 8, 0, 6, 4, 0, 0},
+        std::array{ 0, 0, 8, 1, 0, 2, 9, 0, 0},
+        std::array{ 7, 0, 0, 0, 0, 0, 0, 0, 8},
+        std::array{ 0, 0, 6, 7, 0, 8, 2, 0, 0},
+        std::array{ 0, 0, 2, 6, 0, 9, 5, 0, 0},
+        std::array{ 8, 0, 0, 2, 0, 3, 0, 0, 9},
+        std::array{ 0, 0, 5, 0, 1, 0, 3, 0, 0}
+    }};
+
+    //
+    // The solved board
+    //
+    constexpr SudokuTraits::Board solvedBoard
+    {{
+        std::array{ 4, 8, 3, 9, 2, 1, 6, 5, 7},
+        std::array{ 9, 6, 7, 3, 4, 5, 8, 2, 1},
+        std::array{ 2, 5, 1, 8, 7, 6, 4, 9, 3 },
+        std::array{ 5, 4, 8, 1, 3, 2, 9, 7, 6 },
+        std::array{ 7, 2, 9, 5, 6, 4, 1, 3, 8 },
+        std::array{ 1, 3, 6, 7, 9, 8, 2, 4, 5 },
+        std::array{ 3, 7, 2, 6, 8, 9, 5, 1, 4 },
+        std::array{ 8, 1, 4, 2, 5, 3, 7, 6, 9 },
+        std::array{ 6, 9, 5, 4, 1, 7, 3, 8, 2 }
+    }};
+
+    //
+    // A hard board to solve (contains guesses)
+    //
+    const SudokuTraits::Board hardBoard
+    {{
+        std::array{ 5, 3, 0, 0, 7, 0, 0, 0, 0},
+        std::array{ 6, 0, 0, 1, 9, 5, 0, 0, 0},
+        std::array{ 0, 9, 8, 0, 0, 0, 0, 6, 0},
+        std::array{ 8, 0, 0, 0, 6, 0, 0, 0, 3},
+        std::array{ 4, 0, 0, 8, 0, 3, 0, 0, 1},
+        std::array{ 7, 0, 0, 0, 2, 0, 0, 0, 6},
+        std::array{ 0, 6, 0, 0, 0, 0, 2, 8, 0},
+        std::array{ 0, 0, 0, 4, 1, 9, 0, 0, 5},
+        std::array{ 0, 0, 0, 0, 8, 0, 0, 7, 9}
+    }};
+
+    //
+    // The solved hard board
+    //
+    constexpr SudokuTraits::Board solvedHardBoard
+    {{
+        std::array{ 5, 3, 4, 6, 7, 8, 9, 1, 2},
+        std::array{ 6, 7, 2, 1, 9, 5, 3, 4, 8},
+        std::array{ 1, 9, 8, 3, 4, 2, 5, 6, 7},
+        std::array{ 8, 5, 9, 7, 6, 1, 4, 2, 3},
+        std::array{ 4, 2, 6, 8, 5, 3, 7, 9, 1},
+        std::array{ 7, 1, 3, 9, 2, 4, 8, 5, 6},
+        std::array{ 9, 6, 1, 5, 3, 7, 2, 8, 4},
+        std::array{ 2, 8, 7, 4, 1, 9, 6, 3, 5},
+        std::array{ 3, 4, 5, 2, 8, 6, 1, 7, 9}
+    }};
+
+    //
+    // A board with a contradiction (duplicate 5's in top row)
+    //
+    constexpr Board invalidBoard
+    {{
+        std::array{ 5, 3, 5, 0, 7, 0, 0, 0, 0},
+        std::array{ 6, 0, 0, 1, 9, 5, 0, 0, 0},
+        std::array{ 0, 9, 8, 0, 0, 0, 0, 6, 0},
+        std::array{ 8, 0, 0, 0, 6, 0, 0, 0, 3},
+        std::array{ 4, 0, 0, 8, 0, 3, 0, 0, 1},
+        std::array{ 7, 0, 0, 0, 2, 0, 0, 0, 6},
+        std::array{ 0, 6, 0, 0, 0, 0, 2, 8, 0},
+        std::array{ 0, 0, 0, 4, 1, 9, 0, 0, 5},
+        std::array{ 0, 0, 0, 0, 8, 0, 0, 7, 9}
+    }};
+
+    //
+    // An empty board (all zeroes)
+    //
+    constexpr Board emptyBoard
+    {{
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    }};
+
+    //
+    // Template helper for testing both solvers
+    //
+    template< typename SolverType>
+    void testSolverImpl(
+        bool expectSolvesUnsolved,
+        bool expectSolvesHardBoard,
+        bool expectSolvesSolved,
+        bool expectSolverContradicted,
+        bool expectSolvesEmpty)
+    {
+        Logger     logger{};
+        SolverType solver{ logger};
+
+        SECTION( "Solves a board", "[unit]")
+        {
+            Board board      = unsolvedBoard;
+            auto [result, _] = solver.solve( board);
+
+            REQUIRE( result == expectSolvesUnsolved);
+
+            if( result) REQUIRE( board == solvedBoard);
+        }
+
+        SECTION( "Solves a hard board with guesses", "[unit]")
+        {
+            Board board      = hardBoard;
+            auto [result, _] = solver.solve( board);
+
+            REQUIRE( result == expectSolvesHardBoard);
+            if( result) REQUIRE( board == solvedHardBoard);
+        }
+
+        SECTION( "Solves an already solved board without modifying it")
+        {
+            Board board      = solvedBoard;
+            auto [result, _] = solver.solve( board);
+
+            REQUIRE( result == expectSolvesSolved);
+            if( result) REQUIRE( board == solvedBoard);
+        }
+
+        SECTION( "Gracefully fail to solve a board with contradiction")
+        {
+            Board board      = invalidBoard;
+            auto [result, _] = solver.solve(board);
+
+            REQUIRE( result == expectSolverContradicted);
+        }
+
+        SECTION( "Solves an empty board (brute force or by deduction)")
+        {
+            Board board      = emptyBoard;
+            auto [result, _] = solver.solve(board);
+
+            REQUIRE( result == expectSolvesEmpty);
+
+            // Optionally check a few cells are non-zero
+            size_t filled = 0;
+            for( const auto& row : board)
+            {
+                for( int val : row)
+                {
+                    if( val != 0)
+                    {
+                        filled++;
+                    }
+                }
+            }
+
+            REQUIRE( filled > 0);
+        }
+    }
+}
+
+TEST_CASE( "Solvers: BacktrackingSolver", "[unit]")
+{
+    testSolverImpl< BackTrackingSolver>(
+        true,
+        false,
+        true,
+        false,
+        true);
+}
+
+TEST_CASE( "Solvers: ConstraintPropagationSolver", "[unit]")
+{
+    testSolverImpl< ConstraintPropagationSolver>(
+        true,
+        true,
+        true,
+        false,
+        true);
+}
