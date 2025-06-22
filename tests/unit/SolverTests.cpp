@@ -113,12 +113,7 @@ namespace
     // Template helper for testing both solvers
     //
     template< typename SolverType>
-    void testSolverImpl(
-        bool expectSolvesUnsolved,
-        bool expectSolvesHardBoard,
-        bool expectSolvesSolved,
-        bool expectSolverContradicted,
-        bool expectSolvesEmpty)
+    void testSolverImpl( const std::map<std::string, bool>& args)
     {
         Logger     logger{};
         SolverType solver{ logger};
@@ -128,7 +123,7 @@ namespace
             Board board      = unsolvedBoard;
             auto [result, _] = solver.solve( board);
 
-            REQUIRE( result == expectSolvesUnsolved);
+            REQUIRE( result == args.at( "solvesUnsolved"));
 
             if( result) REQUIRE( board == solvedBoard);
         }
@@ -138,7 +133,7 @@ namespace
             Board board      = hardBoard;
             auto [result, _] = solver.solve( board);
 
-            REQUIRE( result == expectSolvesHardBoard);
+            REQUIRE( result == args.at( "solvesHardBoard"));
             if( result) REQUIRE( board == solvedHardBoard);
         }
 
@@ -147,7 +142,7 @@ namespace
             Board board      = solvedBoard;
             auto [result, _] = solver.solve( board);
 
-            REQUIRE( result == expectSolvesSolved);
+            REQUIRE( result == args.at( "solvesSolved"));
             if( result) REQUIRE( board == solvedBoard);
         }
 
@@ -156,7 +151,7 @@ namespace
             Board board      = invalidBoard;
             auto [result, _] = solver.solve(board);
 
-            REQUIRE( result == expectSolverContradicted);
+            REQUIRE( result == args.at( "solverContradicted"));
         }
 
         SECTION( "Solves an empty board (brute force or by deduction)")
@@ -164,7 +159,7 @@ namespace
             Board board      = emptyBoard;
             auto [result, _] = solver.solve(board);
 
-            REQUIRE( result == expectSolvesEmpty);
+            REQUIRE( result == args.at( "solvesEmpty"));
 
             // Optionally check a few cells are non-zero
             size_t filled = 0;
@@ -186,20 +181,22 @@ namespace
 
 TEST_CASE( "Solvers: BacktrackingSolver", "[unit]")
 {
-    testSolverImpl< BackTrackingSolver>(
-        true,
-        false,
-        true,
-        false,
-        true);
+    testSolverImpl< BackTrackingSolver>( {
+        { "solvesUnsolved",     true },
+        { "solvesHardBoard",    false},
+        { "solvesSolved",       true},
+        { "solverContradicted", false},
+        { "solvesEmpty",        true}}
+    );
 }
 
 TEST_CASE( "Solvers: ConstraintPropagationSolver", "[unit]")
 {
-    testSolverImpl< ConstraintPropagationSolver>(
-        true,
-        true,
-        true,
-        false,
-        true);
+    testSolverImpl< ConstraintPropagationSolver>({
+        { "solvesUnsolved",     true },
+        { "solvesHardBoard",    true},
+        { "solvesSolved",       true},
+        { "solverContradicted", false},
+        { "solvesEmpty",        true}}
+    );
 }
