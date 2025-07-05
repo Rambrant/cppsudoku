@@ -26,4 +26,5 @@ set_target_properties( sudoku_solver_lib PROPERTIES
 
 # CLI app
 add_executable( ${SUDOKU_CLI_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+
 target_link_libraries( ${SUDOKU_CLI_NAME} PRIVATE sudoku_solver_lib)

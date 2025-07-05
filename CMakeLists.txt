@@ -24,6 +24,12 @@ add_subdirectory( src)
 add_subdirectory( tests/unit)
 add_subdirectory( tests/acceptance)
 
+# Custom target that ensures CLI app + tests are built, then runs tests
+add_custom_target( build_solver_and_run_tests
+        DEPENDS ${SUDOKU_CLI_NAME} sudoku_unit_tests sudoku_acceptance_tests
+        COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
+        COMMENT "✅ Building and running solver + tests..."
+)
 add_custom_target( run_all_tests
         COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
         DEPENDS sudoku_unit_tests sudoku_acceptance_tests
