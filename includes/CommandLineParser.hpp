@@ -1,12 +1,11 @@
 //
-// Created by Thomas Rambrant on 2025-05-13.
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
 #pragma once
 
-#include <set>
 #include <sstream>
 #include <vector>
-#include <stdexcept>
 
 #include "CommandOption.hpp"
 

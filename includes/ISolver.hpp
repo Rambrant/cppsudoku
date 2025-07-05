@@ -1,7 +1,6 @@
 //
-//  ISudokuSolver.hpp
-//
-//  Created by Thomas Rambrant on 2025-04-07.
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
 #pragma once
 

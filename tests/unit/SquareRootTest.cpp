@@ -1,8 +1,9 @@
 //
-// Created by Thomas Rambrant on 2025-06-17.
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
-
 #include <catch2/catch_test_macros.hpp>
+
 #include "ConstSqrt.hpp"
 
 using namespace com::rambrant::sudoku;

@@ -1,5 +1,6 @@
 //
-// Created by Thomas Rambrant on 2025-06-20.
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
 #include <LineWriter.hpp>
 #include <Logger.hpp>
@@ -11,7 +12,7 @@
 #include "JsonWriter.hpp"
 #include "PrettyWriter.hpp"
 
-TEST_CASE("Writers: LineWriter writes valid 9x9 boards", "[unit]")
+TEST_CASE( "Writers: LineWriter writes valid 9x9 boards", "[unit]")
 {
     using namespace com::rambrant::sudoku;
 

@@ -1,26 +1,24 @@
 //
-//  main.cpp
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
-//  Created by Thomas Rambrant on 2025-04-07.
-//
-
 #include <fstream>
 #include <iostream>
 
+#include "AsciiReader.hpp"
 #include "BackTrackingSolver.hpp"
+#include "BlockWriter.hpp"
 #include "CallTime.hpp"
 #include "CommandLineParser.hpp"
 #include "CommandValidators.hpp"
 #include "ConstraintPropagationSolver.hpp"
 #include "FileStream.hpp"
-#include "Logger.hpp"
-#include "AsciiReader.hpp"
-#include "BlockWriter.hpp"
 #include "JsonReader.hpp"
 #include "JsonWriter.hpp"
-#include "SudokuBoard.hpp"
 #include "LineWriter.hpp"
+#include "Logger.hpp"
 #include "PrettyWriter.hpp"
+#include "SudokuBoard.hpp"
 
 using namespace com::rambrant::sudoku;
 using namespace std::string_literals;

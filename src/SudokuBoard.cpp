@@ -1,15 +1,16 @@
 //
-//  Created by Thomas Rambrant on 2025-04-07.
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
+#include "SudokuBoard.hpp"
 
 #include <regex>
 #include <tuple>
 #include <utility>
 
-#include "SudokuBoard.hpp"
 #include "IReader.hpp"
-#include "IWriter.hpp"
 #include "ISolver.hpp"
+#include "IWriter.hpp"
 #include "Logger.hpp"
 
 namespace com::rambrant::sudoku

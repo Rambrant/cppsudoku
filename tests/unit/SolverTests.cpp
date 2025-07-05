@@ -1,11 +1,13 @@
 //
-// Created by Thomas Rambrant on 2025-06-21.
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
 #include <catch2/catch_all.hpp>
-#include "SudokuTraits.hpp"
-#include "Logger.hpp"
+
 #include "BackTrackingSolver.hpp"
 #include "ConstraintPropagationSolver.hpp"
+#include "Logger.hpp"
+#include "SudokuTraits.hpp"
 
 using namespace com::rambrant::sudoku;
 

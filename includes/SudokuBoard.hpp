@@ -1,9 +1,9 @@
 //
-//  Created by Thomas Rambrant on 2025-04-07.
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
 #pragma once
 
-#include <functional>
 #include <vector>
 
 #include "SudokuTraits.hpp"
@@ -58,8 +58,8 @@ namespace com::rambrant::sudoku
 
             mutable Traits::Board  mBoard;
             const   Logger&        mLogger;
-            const   IReader& mReader;
-            const   IWriter& mWriter;
+            const   IReader&       mReader;
+            const   IWriter&       mWriter;
             const   SolverList     mSolvers;
     };
 }

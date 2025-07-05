@@ -1,5 +1,6 @@
 //
-// Created by Thomas Rambrant on 2025-04-29.
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
 //
 #include "ConstraintPropagationSolver.hpp"
 
@@ -7,7 +8,6 @@
 #include <map>
 #include <set>
 #include <vector>
-#include <__ostream/basic_ostream.h>
 
 namespace com::rambrant::sudoku
 {
