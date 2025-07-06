@@ -1,7 +1,8 @@
 {
   "name": "sudoku-solver",
-  "version": "1.0",
+  "version": "3.2",
   "dependencies": [
-    "nlohmann-json"
+    "nlohmann-json",
+    "catch2"
   ]
 }
