@@ -5,6 +5,7 @@
 #pragma once
 
 #include <functional>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -112,7 +113,7 @@ namespace com::rambrant::sudoku
             std::optional<T>   mValue;
             std::optional<T>   mDefaultValue;
             ValidatorFunc      mValidator;
-};
+    };
 
     /**
      * @brief Convenience class introducing a short notion for Option<bool>
