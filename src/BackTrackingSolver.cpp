@@ -4,6 +4,7 @@
 //
 #include "BackTrackingSolver.hpp"
 
+#include <algorithm>
 #include <tuple>
 
 #include "RangeView.hpp"

@@ -18,8 +18,6 @@ namespace com::rambrant::sudoku
 
     auto JsonReader::read() const -> Traits::Board
     {
-        constexpr int MAX_VALUES = Traits::BOARD_SIZE * Traits::BOARD_SIZE;
-
         Traits::Board board{};
 
         nlohmann::json json;

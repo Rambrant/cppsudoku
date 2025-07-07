@@ -128,12 +128,12 @@ auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::So
         if( solverArg == "backtracking")
         {
             logger << Logger::verbose << "...Adding solver " << count << " [backtracking]" << std::endl;
-            solvers.push_back( std::move( std::make_unique<BackTrackingSolver>( logger)));
+            solvers.push_back( std::make_unique<BackTrackingSolver>( logger));
         }
         else
         {
             logger << Logger::verbose << "...Adding solver " << count << " [constraint propagation]" << std::endl;
-            solvers.push_back( std::move( std::make_unique<ConstraintPropagationSolver>( logger)));
+            solvers.push_back( std::make_unique<ConstraintPropagationSolver>( logger));
         }
     }
 
