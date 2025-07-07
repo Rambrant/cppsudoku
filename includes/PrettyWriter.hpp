@@ -4,6 +4,8 @@
 //
 #pragma once
 
+#include <ostream>
+
 #include "IWriter.hpp"
 
 namespace com::rambrant::sudoku
