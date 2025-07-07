@@ -4,7 +4,9 @@
 //
 #include "ConstraintPropagationSolver.hpp"
 
+#include <algorithm>
 #include <iostream>
+#include <limits>
 #include <map>
 #include <set>
 #include <vector>
@@ -111,7 +113,7 @@ namespace com::rambrant::sudoku
             //
             // Is the value already eliminated? Then signal success and return early
             //
-            if( find( squareValues.begin(), squareValues.end(), value) == squareValues.end())
+            if( std::find( squareValues.begin(), squareValues.end(), value) == squareValues.end())
                 return true;
 
             //
