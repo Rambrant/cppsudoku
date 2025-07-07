@@ -5,5 +5,5 @@
     "nlohmann-json",
     "catch2"
   ],
-  "builtin-baseline": "ef7dbf94b9198bc58f45951adcf1f041fcbc5ea0"
+  "builtin-baseline": "53b9816594558d0b78529ecce2bf4a97d0a0729e"
 }
