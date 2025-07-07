@@ -30,7 +30,6 @@ SCENARIO( "Writing Sudoku boards [acceptance]")
     {
         std::string flag;
         std::string format;
-        std::regex  regex;
     };
 
     CliRunner  runner( SUDOKU_CLI_COMMAND, SUDOKU_CLI_WORKING_DIR);

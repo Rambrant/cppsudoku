@@ -1,10 +1,15 @@
+# Ignore vcpkg build folder used by GitHub Actions and local builds
+.vcpkg/
 
+# Ignore files from xcode
 Sudoku.xcodeproj/
-
 *.bak
 
+# ignore files from IntelliJ
 .idea/
 
+# Ignore files for VSCode
 .vscode/
 
+# Ignore the build folder
 build/

@@ -12,12 +12,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Cache vcpkg
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.vcpkg
+          key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-
+
       - name: Install dependencies via vcpkg
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgJsonGlob: 'vcpkg.json'
           vcpkgGitCommitId: 'ef7dbf94b9198bc58f45951adcf1f041fcbc5ea0'
           runVcpkgInstall: true
+          vcpkgDirectory: '${{ github.workspace }}/.vcpkg'
 
       - name: Install Doxygen
         run: sudo apt-get update && sudo apt-get install -y doxygen
