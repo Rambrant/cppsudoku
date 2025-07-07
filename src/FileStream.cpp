@@ -4,6 +4,7 @@
 //
 #include "FileStream.hpp"
 
+#include <filesystem>
 #include <stdexcept>
 
 namespace com::rambrant::sudoku
