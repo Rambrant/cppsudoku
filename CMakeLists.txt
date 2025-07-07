@@ -1,6 +1,8 @@
 cmake_minimum_required( VERSION 3.10)
 project( SudokuSolver VERSION 1.0 LANGUAGES CXX)
 
+enable_testing()
+
 set( CMAKE_TOOLCHAIN_FILE "$ENV{HOME}/Developer/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 set( CMAKE_OSX_ARCHITECTURES arm64 CACHE STRING "" FORCE)
 
