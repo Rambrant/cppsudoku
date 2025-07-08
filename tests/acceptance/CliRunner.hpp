@@ -94,7 +94,9 @@ inline auto CliRunner::run(
     mOutput.clear();
 
     std::array<char, 256> buffer{};
-    std::unique_ptr<FILE, decltype(&pclose)> pipe( popen( commandStr.c_str(), "r"), pclose);
+    
+    static auto pipeCloser = []( FILE* f) { if( f) pclose( f); };
+    std::unique_ptr<FILE, decltype( pipeCloser)> pipe( popen( commandStr.c_str(), "r"), pipeCloser);
 
     if( ! pipe)
         throw std::runtime_error( "Failed to execute: " + commandStr);
