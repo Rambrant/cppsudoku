@@ -85,30 +85,30 @@ inline auto CliRunner::run(
 
     if( ! stdinInput.empty())
     {
-        cmd << " <<< \"" << details::escapeQuotes( stdinInput) << "\"";
+        cmd << " < " << stdinInput;
     }
 
     cmd << " 2>&1"; // Redirect stderr to stdout
 
     std::string commandStr = cmd.str();
+
     mOutput.clear();
 
     std::array<char, 256> buffer{};
 
-    static auto pipeCloser = []( FILE* f) { if( f) pclose( f); };
-    std::unique_ptr<FILE, decltype( pipeCloser)> pipe( popen( commandStr.c_str(), "r"), pipeCloser);
+    FILE* pipe = popen( commandStr.c_str(), "r");
 
     if( ! pipe)
         throw std::runtime_error( "Failed to execute: " + commandStr);
 
-    while( fgets( buffer.data(), buffer.size(), pipe.get()) != nullptr)
+    while( fgets( buffer.data(), buffer.size(), pipe) != nullptr)
     {
         mOutput += buffer.data();
     }
 
-    auto rawExitCode = pclose( pipe.get());
+    int rawExitCode = pclose( pipe);
 
-    mExitCode = WIFEXITED( rawExitCode) ? WEXITSTATUS( rawExitCode): -1; // Extract the real exit code if abnormal exit
+    mExitCode = WIFEXITED( rawExitCode) ? WEXITSTATUS( rawExitCode) : -1;
 
     return mExitCode;
 }

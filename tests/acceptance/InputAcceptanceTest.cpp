@@ -41,7 +41,7 @@ SCENARIO( "Reading Sudoku boards [acceptance]")
 
     GIVEN( "Standard input from " + testCase.file + " with format " + testCase.format)
     {
-        const std::string inputFile = readFileToString( std::string("") + SUDOKU_CLI_WORKING_DIR + "/tests/test-resources/" + testCase.file);
+        const std::string inputFile = "tests/test-resources/" + testCase.file;
 
         WHEN( "The solver is run")
         {
