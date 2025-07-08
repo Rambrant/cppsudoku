@@ -5,6 +5,8 @@
 #pragma once
 
 #include <chrono>
+#include <functional>
+#include <variant>
 
 namespace com::rambrant::sudoku
 {
