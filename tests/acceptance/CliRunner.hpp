@@ -94,7 +94,7 @@ inline auto CliRunner::run(
     mOutput.clear();
 
     std::array<char, 256> buffer{};
-    
+
     static auto pipeCloser = []( FILE* f) { if( f) pclose( f); };
     std::unique_ptr<FILE, decltype( pipeCloser)> pipe( popen( commandStr.c_str(), "r"), pipeCloser);
 

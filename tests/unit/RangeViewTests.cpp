@@ -51,9 +51,9 @@ TEST_CASE( "RangeView: generates correct sequences", "[unit]")
         constexpr RangeView  view( arr, 0, 3);
         std::vector<int>     actual;
 
-        for( auto it = view.begin(); it != view.end(); ++it)
+        for (int it : view)
         {
-            actual.push_back(*it);
+            actual.push_back( it);
         }
 
         REQUIRE( actual == std::vector{ 100, 200, 300});

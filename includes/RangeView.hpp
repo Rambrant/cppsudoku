@@ -60,12 +60,11 @@ namespace com::rambrant::sudoku
     /// \cond DOXYGEN_SUPPRESS
 
     template <typename Container>
-    constexpr RangeView< Container>::RangeView( Container& container, std::size_t from, std::size_t to)
+    constexpr RangeView<Container>::RangeView( Container& container, std::size_t from, std::size_t to) :
+        mBegin( container.begin() + from),
+        mEnd( container.begin() + to)
     {
-        static_assert( is_random_access_container<Container>, "RangeView requires random-access iterators");
-
-        mBegin = std::next(container.begin(), from);
-        mEnd   = std::next(container.begin(), to);
+        static_assert(is_random_access_container<Container>, "RangeView requires random-access iterators");
     }
 
     /// \endcond
