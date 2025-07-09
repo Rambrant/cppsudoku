@@ -9,7 +9,7 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief A std::cout compatible logger that supports different levels of logging
+     * @brief A std::ostream compatible logger that supports different levels of logging
      */
     class Logger
     {
@@ -55,9 +55,9 @@ namespace com::rambrant::sudoku
             /**
              * @brief Construct a logger with a specific level
              * @param defaultLevel The max level to allow the printing of output messages
-             * @param stream The output stream to write to. Defaults to std::cout
+             * @param stream The output stream to write to. Defaults to std::clog
              */
-            explicit Logger( LogLevel defaultLevel = LogLevel::Normal, std::ostream& stream = std::cout);
+            explicit Logger( LogLevel defaultLevel = LogLevel::Normal, std::ostream& stream = std::clog);
 
             /**
              * @brief Chack if the Logger is in a verbose state or not
