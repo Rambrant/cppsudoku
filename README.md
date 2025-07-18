@@ -135,4 +135,4 @@ Thanks to:
 
 ## 📚 Full Documentation
 
-Full reference docs are available [here](docs/html/index.html).  
+Full reference docs are available on [GitHub Pages](https://rambrant.github.io/cppsudoku/annotated.html).  
