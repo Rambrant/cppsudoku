@@ -6,6 +6,10 @@ on:
     types:
       - completed
 
+permissions:
+  contents: write  # Allows pushing commits
+  pages: write     # If you're using GitHub Pages deploy
+
 jobs:
   build-docs:
     name: Build Doxygen Docs
