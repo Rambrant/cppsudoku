@@ -1,3 +1,5 @@
+find_package( nlohmann_json CONFIG REQUIRED)
+
 # Create the core library (excluding main.cpp)
 file( GLOB_RECURSE LIB_SOURCES CONFIGURE_DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp

@@ -20,17 +20,15 @@ set( SUDOKU_CLI_COMMAND "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${SUDOKU_CLI_NAME}")
 # External libraries
 include( FetchContent)
 
-find_package( nlohmann_json CONFIG REQUIRED)
 FetchContent_Declare( Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git GIT_TAG v3.5.2)
 FetchContent_MakeAvailable( Catch2)
 
-# Build targets
 add_subdirectory( src)
 add_subdirectory( tests/unit)
 add_subdirectory( tests/acceptance)
 
-if(ENABLE_DOCS)
-    add_subdirectory(docs)
+if( ENABLE_DOCS)
+    add_subdirectory( docs)
 endif()
 
 # Custom target that ensures CLI app + tests are built, then runs tests
