@@ -1,0 +1,17 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classcom_1_1rambrant_1_1sudoku_1_1ICommandOption.html" title="An interface for the template class CommandOption used by the CommandLineParser." alt="" coords="5,117,177,157"/>
+<area shape="rect" id="Node000001" href="$classcom_1_1rambrant_1_1sudoku_1_1CommandOption.html" title=" " alt="" coords="225,5,424,45"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="131,108,175,81,224,55,254,43,256,48,226,60,178,85,134,112"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1rambrant_1_1sudoku_1_1CommandOption.html" title=" " alt="" coords="234,70,415,125"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="191,118,233,110,234,115,192,123"/>
+<area shape="rect" id="Node000005" href="$classcom_1_1rambrant_1_1sudoku_1_1CommandOption.html" title=" " alt="" coords="237,149,412,203"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="192,151,238,159,237,164,191,156"/>
+<area shape="rect" id="Node000007" href="$classcom_1_1rambrant_1_1sudoku_1_1CommandOption.html" title="A template class that implements the interface ICommandOption and is used by the CommandLineParser." alt="" coords="235,228,414,268"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="135,163,178,189,226,214,256,225,254,230,224,218,176,193,132,167"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1rambrant_1_1sudoku_1_1BoolOption.html" title="Convenience class introducing a short notion for Option&lt;bool&gt;" alt="" coords="472,5,644,45"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="438,23,472,23,472,28,438,28"/>
+<area shape="rect" id="Node000004" href="$classcom_1_1rambrant_1_1sudoku_1_1ListOption.html" title="Convenience class introducing a short notion for Option&lt;std::vector&lt;std::string&gt;&gt;" alt="" coords="472,77,644,117"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="429,95,472,95,472,100,429,100"/>
+<area shape="rect" id="Node000006" href="$classcom_1_1rambrant_1_1sudoku_1_1StringOption.html" title="Convenience class introducing a short notion for Option&lt;std::string&gt;" alt="" coords="472,156,644,196"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="426,173,472,173,472,179,426,179"/>
+</map>

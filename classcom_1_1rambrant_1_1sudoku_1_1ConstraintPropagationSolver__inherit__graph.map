@@ -1,0 +1,5 @@
+<map id="com::rambrant::sudoku::ConstraintPropagationSolver" name="com::rambrant::sudoku::ConstraintPropagationSolver">
+<area shape="rect" id="Node000001" title="A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvi..." alt="" coords="5,93,221,133"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1rambrant_1_1sudoku_1_1ISolver.html" title="A solver interface for classes that can solve a Sudoku board using some sort of algorithm." alt="" coords="27,5,199,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,59,116,93,111,93,111,59"/>
+</map>

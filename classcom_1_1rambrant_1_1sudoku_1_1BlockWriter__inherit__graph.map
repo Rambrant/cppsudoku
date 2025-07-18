@@ -1,0 +1,5 @@
+<map id="com::rambrant::sudoku::BlockWriter" name="com::rambrant::sudoku::BlockWriter">
+<area shape="rect" id="Node000001" title="A board writer that prints out a pretty formatted output to the stream." alt="" coords="5,93,177,133"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1rambrant_1_1sudoku_1_1IWriter.html" title="A reader interface for classes that can read a Sudoku board from some sort of source." alt="" coords="5,5,177,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,59,94,93,89,93,89,59"/>
+</map>

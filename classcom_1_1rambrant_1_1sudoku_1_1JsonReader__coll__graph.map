@@ -1,0 +1,9 @@
+<map id="com::rambrant::sudoku::JsonReader" name="com::rambrant::sudoku::JsonReader">
+<area shape="rect" id="Node000001" title="A reader that reads a board in JSON format from an input stream. Reads all digits,..." alt="" coords="17,315,189,355"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1rambrant_1_1sudoku_1_1IReader.html" title="A reader interface for classes that can read a Sudoku board from some sort of source." alt="" coords="17,225,189,265"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,279,105,315,100,315,100,279"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1rambrant_1_1sudoku_1_1Logger.html" title="A std::ostream compatible logger that supports different levels of logging." alt="" coords="17,123,189,163"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="105,177,105,225,100,225,100,177"/>
+<area shape="rect" id="Node000004" href="$structcom_1_1rambrant_1_1sudoku_1_1Logger_1_1LevelManipulator.html" title="An internal manipulator to control the level of the messages printed on the stream." alt="" coords="5,5,200,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="105,59,105,122,100,122,100,59"/>
+</map>

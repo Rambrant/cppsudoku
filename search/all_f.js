@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['rangeview_0',['rangeview',['../classcom_1_1rambrant_1_1sudoku_1_1RangeView.html',1,'com::rambrant::sudoku::RangeView&lt; Container &gt;'],['../classcom_1_1rambrant_1_1sudoku_1_1RangeView.html#a515b5334bc2b13a4e37ce8becfceb864',1,'com::rambrant::sudoku::RangeView::RangeView()']]],
+  ['read_1',['read',['../classcom_1_1rambrant_1_1sudoku_1_1FileStream.html#a1377b6f8fec24f86070b0058d5cc37fca7a1a5f3e79fdc91edf2f5ead9d66abb4',1,'com::rambrant::sudoku::FileStream::Read'],['../classcom_1_1rambrant_1_1sudoku_1_1AsciiReader.html#a538c820870386e347fbcfe96ce6770ba',1,'com::rambrant::sudoku::AsciiReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1IReader.html#a90658cd0016aa4658ef9fb522ec3a6ea',1,'com::rambrant::sudoku::IReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1JsonReader.html#ac8bed9970284ec07500e2ae826dbbd94',1,'com::rambrant::sudoku::JsonReader::read()'],['../classcom_1_1rambrant_1_1sudoku_1_1SudokuBoard.html#a6993f1ffd4ef1f139aaadf526ea10948',1,'com::rambrant::sudoku::SudokuBoard::read()']]],
+  ['readwrite_2',['ReadWrite',['../classcom_1_1rambrant_1_1sudoku_1_1FileStream.html#a1377b6f8fec24f86070b0058d5cc37fca70a2a84088d405a2e3f1e3accaa16723',1,'com::rambrant::sudoku::FileStream']]]
+];

@@ -1,0 +1,7 @@
+<map id="com::rambrant::sudoku::ListOption" name="com::rambrant::sudoku::ListOption">
+<area shape="rect" id="Node000001" title="Convenience class introducing a short notion for Option&lt;std::vector&lt;std::string&gt;&gt;" alt="" coords="10,196,182,236"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1rambrant_1_1sudoku_1_1CommandOption.html" title=" " alt="" coords="5,93,187,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,162,99,196,93,196,93,162"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1rambrant_1_1sudoku_1_1ICommandOption.html" title="An interface for the template class CommandOption used by the CommandLineParser." alt="" coords="10,5,182,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="99,59,99,93,93,93,93,59"/>
+</map>

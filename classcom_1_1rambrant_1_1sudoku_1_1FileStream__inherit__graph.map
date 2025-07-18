@@ -1,0 +1,5 @@
+<map id="com::rambrant::sudoku::FileStream" name="com::rambrant::sudoku::FileStream">
+<area shape="rect" id="Node000001" title="Encapsulates the concept of a file stream that handles failures in opening the file." alt="" coords="5,79,177,119"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="41,5,142,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,44,94,79,89,79,89,44"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classcom_1_1rambrant_1_1sudoku_1_1IWriter.html" title="A reader interface for classes that can read a Sudoku board from some sort of source." alt="" coords="5,101,177,141"/>
+<area shape="rect" id="Node000001" href="$classcom_1_1rambrant_1_1sudoku_1_1BlockWriter.html" title="A board writer that prints out a pretty formatted output to the stream." alt="" coords="225,5,397,45"/>
+<area shape="poly" id="edge12_Node000000_Node000001" title=" " alt="" coords="143,93,224,55,254,43,256,48,226,60,146,97"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1rambrant_1_1sudoku_1_1JsonWriter.html" title="A board writer that prints out a pretty formatted output to the stream." alt="" coords="225,69,397,109"/>
+<area shape="poly" id="edge13_Node000000_Node000002" title=" " alt="" coords="191,104,225,99,226,104,192,109"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1rambrant_1_1sudoku_1_1LineWriter.html" title="A board writer that prints out the board as a single line with whitespace separated values." alt="" coords="225,133,397,173"/>
+<area shape="poly" id="edge14_Node000000_Node000003" title=" " alt="" coords="192,133,226,138,225,144,191,138"/>
+<area shape="rect" id="Node000004" href="$classcom_1_1rambrant_1_1sudoku_1_1PrettyWriter.html" title="A board writer that prints out a pretty formatted output to the stream." alt="" coords="225,197,397,237"/>
+<area shape="poly" id="edge15_Node000000_Node000004" title=" " alt="" coords="146,145,226,183,256,195,254,200,224,188,143,150"/>
+</map>

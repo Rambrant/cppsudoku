@@ -1,0 +1,5 @@
+<map id="com::rambrant::sudoku::CommandOption&lt; T &gt;" name="com::rambrant::sudoku::CommandOption&lt; T &gt;">
+<area shape="rect" id="Node000001" title="A template class that implements the interface ICommandOption and is used by the CommandLineParser." alt="" coords="5,93,184,133"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1rambrant_1_1sudoku_1_1ICommandOption.html" title="An interface for the template class CommandOption used by the CommandLineParser." alt="" coords="9,5,181,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,59,97,93,92,93,92,59"/>
+</map>

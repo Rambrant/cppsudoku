@@ -1,0 +1,5 @@
+<map id="com::rambrant::sudoku::Logger" name="com::rambrant::sudoku::Logger">
+<area shape="rect" id="Node000001" title="A std::ostream compatible logger that supports different levels of logging." alt="" coords="17,123,189,163"/>
+<area shape="rect" id="Node000002" href="$structcom_1_1rambrant_1_1sudoku_1_1Logger_1_1LevelManipulator.html" title="An internal manipulator to control the level of the messages printed on the stream." alt="" coords="5,5,200,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,59,105,122,100,122,100,59"/>
+</map>
