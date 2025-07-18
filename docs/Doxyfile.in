@@ -1,0 +1,14 @@
+# Doxyfile 1.13.2
+
+PROJECT_NAME           = @PROJECT_NAME@
+PROJECT_BRIEF          = "A simple Sudoku solver written in modern C++17"
+OUTPUT_DIRECTORY       = @DOXYGEN_OUTPUT_DIR@
+INPUT                  = @DOXYGEN_INPUT_DIR@
+FULL_PATH_NAMES        = NO
+FILE_PATTERNS          = *.cpp \
+                         *.h \
+                         *.hpp
+EXTRACT_ALL            = NO
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+QUIET                  = YES

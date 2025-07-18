@@ -1,6 +1,7 @@
 cmake_minimum_required( VERSION 3.10)
 project( SudokuSolver VERSION 1.0 LANGUAGES CXX)
 
+option( ENABLE_DOCS "Enable building documentation" ON)
 enable_testing()
 
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
@@ -28,6 +29,10 @@ add_subdirectory( src)
 add_subdirectory( tests/unit)
 add_subdirectory( tests/acceptance)
 
+if(ENABLE_DOCS)
+    add_subdirectory(docs)
+endif()
+
 # Custom target that ensures CLI app + tests are built, then runs tests
 add_custom_target( build_solver_and_run_tests
         DEPENDS ${SUDOKU_CLI_NAME} sudoku_unit_tests sudoku_acceptance_tests
@@ -39,18 +44,3 @@ add_custom_target( run_all_tests
         DEPENDS sudoku_unit_tests sudoku_acceptance_tests
         COMMENT "🏃 Running all tests..."
 )
-
-# Doxygen
-find_package( Doxygen REQUIRED)
-option( BUILD_DOC "Build documentation with Doxygen" ON)
-if( BUILD_DOC)
-    set( DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
-    set( DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-    configure_file( ${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
-    file( MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/docs)
-    add_custom_target( doxygen
-            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-            COMMENT "Generating API documentation with Doxygen"
-            VERBATIM)
-endif()

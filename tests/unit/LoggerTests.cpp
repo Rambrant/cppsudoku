@@ -87,13 +87,13 @@ TEST_CASE( "Logger: Default values", "[unit]")
 {
     std::ostringstream out;
 
-    auto* orgBuff = std::clog.rdbuf();           // Save the original buffer of std::cout
+    auto* orgBuff = std::clog.rdbuf();           // Save the original buffer of std::clog
     std::clog.rdbuf( out.rdbuf());               // Redirect std::clog to out
 
     const Logger logger{};
     logger << "Captured output!" << std::endl;
 
-    std::clog.rdbuf( orgBuff);                   // Restore original std::cout buffer
+    std::clog.rdbuf( orgBuff);                   // Restore original std::clog buffer
     std::string captured = out.str();            // Now we can use the captured output
 
     CHECK( captured.find( "Captured output!") != std::string::npos);

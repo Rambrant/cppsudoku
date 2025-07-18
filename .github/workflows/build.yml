@@ -27,11 +27,8 @@ jobs:
           runVcpkgInstall: true
           vcpkgDirectory: '${{ github.workspace }}/.vcpkg'
 
-      - name: Install Doxygen
-        run: sudo apt-get update && sudo apt-get install -y doxygen
-
       - name: Configure CMake
-        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
+        run: cmake -DENABLE_DOCS=OFF -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
 
       - name: Build
         run: cmake --build build --target build_solver_and_run_tests
