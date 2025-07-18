@@ -31,15 +31,17 @@ jobs:
       - name: Build documentation
         run: cmake --build build --target build_documentation
 
-      - name: Upload generated docs as artifact (optional)
-        uses: actions/upload-artifact@v4
-        with:
-          name: doxygen-docs
-          path: build/docs/html
+      - name: Copy docs to publish folder
+        run: |
+          mkdir -p ghpages
+          cp -r build/docs/html/* ghpages/
 
-      - name: Deploy to GitHub Pages (main branch only)
+      - name: Deploy to gh-pages branch
         if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/docs/html
+          publish_dir: ./ghpages
+          publish_branch: gh-pages
+          force_orphan: true
+          enable_jekyll: false
