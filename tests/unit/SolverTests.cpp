@@ -119,11 +119,12 @@ namespace
     {
         Logger     logger{};
         SolverType solver{ logger};
+        std::atomic<bool> cancelFlag;
 
         SECTION( "Solves a board", "[unit]")
         {
             Board board      = unsolvedBoard;
-            auto [result, _] = solver.solve( board);
+            auto [result, _] = solver.solve( board, cancelFlag);
 
             REQUIRE( result == args.at( "solvesUnsolved"));
 
@@ -133,7 +134,7 @@ namespace
         SECTION( "Solves a hard board with guesses", "[unit]")
         {
             Board board      = hardBoard;
-            auto [result, _] = solver.solve( board);
+            auto [result, _] = solver.solve( board, cancelFlag);
 
             REQUIRE( result == args.at( "solvesHardBoard"));
             if( result) REQUIRE( board == solvedHardBoard);
@@ -142,7 +143,7 @@ namespace
         SECTION( "Solves an already solved board without modifying it")
         {
             Board board      = solvedBoard;
-            auto [result, _] = solver.solve( board);
+            auto [result, _] = solver.solve( board, cancelFlag);
 
             REQUIRE( result == args.at( "solvesSolved"));
             if( result) REQUIRE( board == solvedBoard);
@@ -151,7 +152,7 @@ namespace
         SECTION( "Gracefully fail to solve a board with contradiction")
         {
             Board board      = invalidBoard;
-            auto [result, _] = solver.solve(board);
+            auto [result, _] = solver.solve(board, cancelFlag);
 
             REQUIRE( result == args.at( "solverContradicted"));
         }
@@ -159,7 +160,7 @@ namespace
         SECTION( "Solves an empty board (brute force or by deduction)")
         {
             Board board      = emptyBoard;
-            auto [result, _] = solver.solve(board);
+            auto [result, _] = solver.solve(board, cancelFlag);
 
             REQUIRE( result == args.at( "solvesEmpty"));
 
@@ -201,4 +202,33 @@ TEST_CASE( "Solvers: ConstraintPropagationSolver", "[unit]")
         { "solverContradicted", false},
         { "solvesEmpty",        true}}
     );
+}
+
+TEST_CASE( "Solvers: Premature Exit", "[unit]")
+{
+    std::atomic cancelFlag{ true};
+
+    SECTION( "Exit BackTracking Solver", "[unit]")
+    {
+        Logger             logger{};
+        BackTrackingSolver solver = BackTrackingSolver( logger);
+        Board              board  = unsolvedBoard;
+
+        auto [result, recursions] = solver.solve( board, cancelFlag);
+
+        REQUIRE( result == false);
+        REQUIRE( recursions == 0);
+    }
+
+    SECTION( "Exit ConstraintPropagation Solver", "[unit]")
+    {
+        Logger                      logger{};
+        ConstraintPropagationSolver solver = ConstraintPropagationSolver( logger);
+        Board                       board  = unsolvedBoard;
+
+        auto [result, recursions] = solver.solve( board, cancelFlag);
+
+        REQUIRE( result == false);
+        REQUIRE( recursions == 0);
+    }
 }

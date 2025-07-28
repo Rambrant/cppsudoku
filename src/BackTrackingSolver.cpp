@@ -22,7 +22,7 @@ namespace com::rambrant::sudoku
         auto columnConstraint( const Traits::Board & board, Traits::Value value, int columnPos) -> bool;
         auto boxConstraint( const Traits::Board & board, Traits::Value value, int rowPos, int columnPos) -> bool;
         auto isValid( Traits::Board& board, Traits::Value value, int rowPos, int columnPos) -> bool;
-        auto search( Traits::Board & board, int& recursions) -> bool;
+        auto search( Traits::Board & board, int& recursions, std::atomic<bool>& cancelFlag) -> bool;
 
         //
         // Helper function implementations
@@ -107,8 +107,13 @@ namespace com::rambrant::sudoku
             return result;
         }
 
-        auto search( Traits::Board & board, int& recursions) -> bool // NOLINT(misc-no-recursion)
+        auto search( Traits::Board & board, int& recursions, std::atomic<bool>& cancelFlag) -> bool // NOLINT(misc-no-recursion)
 {
+            if( cancelFlag.load())
+            {
+                throw CancelledException{}; // Exit early
+            }
+
             ++recursions;
 
             for( const int rowIdx : Traits::INDEX_RANGE)
@@ -120,7 +125,7 @@ namespace com::rambrant::sudoku
                         for( const int value : Traits::VALUE_RANGE)
                         {
                             if( isValid( board, value, rowIdx, colIdx) &&
-                                search( board, recursions))
+                                search( board, recursions, cancelFlag))
                             {
                                 return true;
                             }
@@ -142,12 +147,22 @@ namespace com::rambrant::sudoku
         ISolver( logger)
     {}
 
-    auto BackTrackingSolver::solve( Traits::Board &board) const -> Traits::BoardResult
+    auto BackTrackingSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag) const -> Traits::BoardResult
     {
         int  recursions{ 0};
 
-        bool result = search( board, recursions);
+        try
+        {
+            bool result = search( board, recursions, cancelFlag);
 
-        return std::make_tuple( result, recursions);
+            return std::make_tuple( result, recursions);
+        }
+        catch( const CancelledException&)
+        {
+            //
+            // Returned prematurely
+            //
+            return std::make_tuple( false, recursions);
+        }
     }
 }

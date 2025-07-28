@@ -26,9 +26,10 @@ namespace com::rambrant::sudoku
             /**
              * @brief Solves the given Sudoku board using a brute force backtracking algorithm.
              * @param board A @ref SudokuTraits.Board.
+             * @param cancelFlag A reference to an atomic flag used to signal the premature exit of thread
              * @return A @ref SudokuTraits.BoardResult.
              */
             [[nodiscard]]
-            auto solve( Traits::Board& board) const -> Traits::BoardResult override;
+            auto solve( Traits::Board& board, std::atomic<bool>& cancelFlag) const -> Traits::BoardResult override;
     };
 }

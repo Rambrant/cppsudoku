@@ -116,11 +116,15 @@ Documentation will be generated in the `docs/` directory.
 ## Project Layout
 
 ```
-includes/       # Header files
-src/            # Source files
-docs/           # Doxygen output
-CMakeLists.txt  # Build configuration
-Doxyfile        # Doxygen configuration
+includes/               # Header files
+src/                    # Source files
+tests/unit              # Unit tests
+tests/acceptance        # Acceptance tests
+tests/test-resources    # Common resources for the tests
+docs/                   # Doxygen configuration
+.github                 # GitHub workflows
+CMakeLists.txt          # Root build configuration
+vcpkg.json              # External dependencies
 ```
 
 ## License

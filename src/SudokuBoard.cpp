@@ -37,14 +37,15 @@ namespace com::rambrant::sudoku
     {
         mLogger << "Solving Sudoku board" << std::endl;
 
-        int count{1};
+        int         count{1};
+        std::atomic cancelFlag{ false};
 
         for( const auto& solver : mSolvers)
         {
             mLogger << Logger::verbose << "...Trying solver " << count++ << " --> ";
 
             Traits::Board       board{ mBoard};
-            auto [ result, recursions] = solver->solve( board);
+            auto [ result, recursions] = solver->solve( board, cancelFlag);
 
             mLogger << Logger::verbose << "result: " << std::boolalpha << result << ", recursions: " << recursions << std::endl;
 
