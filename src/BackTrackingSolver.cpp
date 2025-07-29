@@ -155,6 +155,9 @@ namespace com::rambrant::sudoku
         {
             bool result = search( board, recursions, cancelFlag);
 
+            if( result)
+                cancelFlag.store( true);    // Terminate any other solver prematurely
+
             return std::make_tuple( result, recursions);
         }
         catch( const CancelledException&)

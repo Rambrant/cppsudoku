@@ -317,6 +317,9 @@ namespace com::rambrant::sudoku
             result = false;
         }
 
+        if( result)
+            cancelFlag.store( true);    // Terminate any other solver prematurely
+
         return std::make_tuple( result, recursions);
     }
 }
