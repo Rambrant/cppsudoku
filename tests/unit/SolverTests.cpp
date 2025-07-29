@@ -123,8 +123,7 @@ namespace
 
         SECTION( "Solves a board", "[unit]")
         {
-            Board board      = unsolvedBoard;
-            auto [result, _] = solver.solve( board, cancelFlag);
+            auto [result, _, board] = solver.solve( unsolvedBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesUnsolved"));
 
@@ -133,8 +132,7 @@ namespace
 
         SECTION( "Solves a hard board with guesses", "[unit]")
         {
-            Board board      = hardBoard;
-            auto [result, _] = solver.solve( board, cancelFlag);
+            auto [result, _, board] = solver.solve( hardBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesHardBoard"));
             if( result) REQUIRE( board == solvedHardBoard);
@@ -142,8 +140,7 @@ namespace
 
         SECTION( "Solves an already solved board without modifying it")
         {
-            Board board      = solvedBoard;
-            auto [result, _] = solver.solve( board, cancelFlag);
+            auto [result, _, board] = solver.solve( solvedBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesSolved"));
             if( result) REQUIRE( board == solvedBoard);
@@ -151,16 +148,14 @@ namespace
 
         SECTION( "Gracefully fail to solve a board with contradiction")
         {
-            Board board      = invalidBoard;
-            auto [result, _] = solver.solve(board, cancelFlag);
+            auto [result, _, board] = solver.solve( invalidBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solverContradicted"));
         }
 
         SECTION( "Solves an empty board (brute force or by deduction)")
         {
-            Board board      = emptyBoard;
-            auto [result, _] = solver.solve(board, cancelFlag);
+            auto [result, _, board] = solver.solve( emptyBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesEmpty"));
 
@@ -212,9 +207,8 @@ TEST_CASE( "Solvers: Premature Exit", "[unit]")
     {
         Logger             logger{};
         BackTrackingSolver solver = BackTrackingSolver( logger);
-        Board              board  = unsolvedBoard;
 
-        auto [result, recursions] = solver.solve( board, cancelFlag);
+        auto [result, recursions, board] = solver.solve( unsolvedBoard, cancelFlag);
 
         REQUIRE( result == false);
         REQUIRE( recursions == 0);
@@ -224,9 +218,8 @@ TEST_CASE( "Solvers: Premature Exit", "[unit]")
     {
         Logger                      logger{};
         ConstraintPropagationSolver solver = ConstraintPropagationSolver( logger);
-        Board                       board  = unsolvedBoard;
 
-        auto [result, recursions] = solver.solve( board, cancelFlag);
+        auto [result, recursions, board] = solver.solve( unsolvedBoard, cancelFlag);
 
         REQUIRE( result == false);
         REQUIRE( recursions == 0);

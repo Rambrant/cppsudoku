@@ -4,6 +4,9 @@
 //
 #pragma once
 
+#include <tuple>
+#include <tuple>
+
 #include "ISolver.hpp"
 
 namespace com::rambrant::sudoku
@@ -30,6 +33,6 @@ namespace com::rambrant::sudoku
              * @return A @ref SudokuTraits.BoardResult.
              */
             [[nodiscard]]
-            auto solve( Traits::Board& board, std::atomic<bool>& cancelFlag) const -> Traits::BoardResult override;
+            auto solve( Traits::Board board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult override;
     };
 }

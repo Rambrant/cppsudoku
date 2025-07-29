@@ -30,7 +30,7 @@ using namespace std::string_literals;
 auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Logger
 {
     const auto logLevel{ verboseOpt.isSet() ? Logger::LogLevel::Verbose : quietOpt.isSet() ? Logger::LogLevel::Quiet : Logger::LogLevel::Normal};
-    const auto logger = Logger{ logLevel};
+    const auto logger = Logger{ logLevel, std::cout};
 
     logger <<  "Initializing" << std::endl << Logger::verbose << "...Logger" << std::endl;
 

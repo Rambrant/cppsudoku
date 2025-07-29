@@ -44,10 +44,8 @@ namespace com::rambrant::sudoku
         {
             mLogger << Logger::verbose << "...Trying solver " << count++ << " --> ";
 
-            Traits::Board       board{ mBoard};
-            auto [ result, recursions] = solver->solve( board, cancelFlag);
-
-            mLogger << Logger::verbose << "result: " << std::boolalpha << result << ", recursions: " << recursions << std::endl;
+//            Traits::Board       board{ mBoard};
+            auto [ result, recursions, board] = solver->solve( mBoard, cancelFlag);
 
             if( result)
             {
