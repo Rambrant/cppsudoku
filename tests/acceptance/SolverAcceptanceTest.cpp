@@ -74,15 +74,17 @@ SCENARIO( "Sudoku with both solvers [acceptance]")
     struct TestCase
     {
         std::string file;
-        int         numberOfTriedSolvers;
+        int         numberOfAddedSolvers;
+        int         numberOfSuccessfulSolvers;
     };
 
     CliRunner  runner( SUDOKU_CLI_COMMAND, SUDOKU_CLI_WORKING_DIR);
-    std::regex triedSolversRegex( R"(Trying solver)");
+    std::regex addedSolversRegex( R"(Adding asynchronous solver)");
+    std::regex solvedSolversRegex( R"(solved the board in)");
 
     auto testCase = GENERATE(
-            TestCase{ "board_simple.txt", 1},
-            TestCase{ "board_hard.txt", 2});
+            TestCase{ "board_simple.txt", 2, 1},
+            TestCase{ "board_hard.txt", 2, 1});
 
     GIVEN( "Input file " + testCase.file)
     {
@@ -92,9 +94,10 @@ SCENARIO( "Sudoku with both solvers [acceptance]")
         {
             const auto exitCode = runner.run( { "-v", "-i" , inputFile});
 
-            THEN( "The number of solver tried should be " + std::to_string( testCase.numberOfTriedSolvers))
+            THEN( "The number of solver tried should be " + std::to_string( testCase.numberOfAddedSolvers))
             {
-                CHECK( runner.countOutputMatches( triedSolversRegex) == testCase.numberOfTriedSolvers);
+                CHECK( runner.countOutputMatches( addedSolversRegex)  == testCase.numberOfAddedSolvers);
+                CHECK( runner.countOutputMatches( solvedSolversRegex) == testCase.numberOfSuccessfulSolvers);
                 CHECK( exitCode == 0);
             }
         }

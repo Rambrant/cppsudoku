@@ -150,7 +150,7 @@ namespace com::rambrant::sudoku
         ISolver( logger)
     {}
 
-    auto BackTrackingSolver::solve( Traits::Board board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
+    auto BackTrackingSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
     {
         int  recursions{ 0};
 
@@ -160,8 +160,6 @@ namespace com::rambrant::sudoku
 
             if( result)
                 cancelFlag.store( true);    // Terminate any other solver prematurely
-
-            mLogger << Logger::verbose << "result: " << std::boolalpha << result << ", recursions: " << recursions << std::endl;
 
             return std::make_tuple( result, recursions, board);
         }

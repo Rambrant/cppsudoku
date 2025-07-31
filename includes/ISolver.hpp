@@ -43,7 +43,7 @@ namespace com::rambrant::sudoku
              * @return A SudokuTraits.BoardResult
              */
             [[nodiscard]]
-            virtual auto solve( Traits::Board board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult = 0;
+            virtual auto solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult = 0;
 
         protected:
 

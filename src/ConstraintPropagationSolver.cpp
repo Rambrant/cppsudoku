@@ -287,7 +287,7 @@ namespace com::rambrant::sudoku
         ISolver( logger)
     {}
 
-    auto ConstraintPropagationSolver::solve( Traits::Board board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
+    auto ConstraintPropagationSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
     {
         int  recursions{ 0};
         bool result{ false};
@@ -306,8 +306,6 @@ namespace com::rambrant::sudoku
             {
                 board[square.first][square.second] = values[0];   // The values for the square are guarantied to be just one...
             }
-
-            mLogger << Logger::verbose << "result: " << std::boolalpha << result << ", recursions: " << recursions << std::endl;
 
             if( result)
                 cancelFlag.store( true);    // Terminate any other solver prematurely

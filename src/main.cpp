@@ -227,7 +227,7 @@ int main( int argc, char* argv[])
         //
         if( result)
         {
-            logger << "Solved in " << duration.count() << " µs" << std::endl << std::endl;
+            logger << "Time to solve the board " << duration.count() << " µs" << std::endl << std::endl;
 
             board.write();
         }
