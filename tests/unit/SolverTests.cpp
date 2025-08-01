@@ -119,10 +119,10 @@ namespace
     {
         Logger     logger{};
         SolverType solver{ logger};
-        std::atomic<bool> cancelFlag;
 
         SECTION( "Solves a board", "[unit]")
         {
+            std::atomic cancelFlag( false);
             auto orgBoard{ unsolvedBoard};
             auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
@@ -133,6 +133,7 @@ namespace
 
         SECTION( "Solves a hard board with guesses", "[unit]")
         {
+            std::atomic cancelFlag( false);
             auto orgBoard{ hardBoard};
             auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
@@ -142,6 +143,7 @@ namespace
 
         SECTION( "Solves an already solved board without modifying it")
         {
+            std::atomic cancelFlag( false);
             auto orgBoard{ solvedBoard};
             auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
@@ -151,6 +153,7 @@ namespace
 
         SECTION( "Gracefully fail to solve a board with contradiction")
         {
+            std::atomic cancelFlag( false);
             auto orgBoard{ invalidBoard};
             auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
@@ -159,6 +162,7 @@ namespace
 
         SECTION( "Solves an empty board (brute force or by deduction)")
         {
+            std::atomic cancelFlag( false);
             auto orgBoard{ emptyBoard};
             auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
@@ -206,10 +210,9 @@ TEST_CASE( "Solvers: ConstraintPropagationSolver", "[unit]")
 
 TEST_CASE( "Solvers: Premature Exit", "[unit]")
 {
-    std::atomic cancelFlag{ true};
-
     SECTION( "Exit BackTracking Solver", "[unit]")
     {
+        std::atomic        cancelFlag( true);
         Logger             logger{};
         BackTrackingSolver solver = BackTrackingSolver( logger);
 
@@ -222,6 +225,7 @@ TEST_CASE( "Solvers: Premature Exit", "[unit]")
 
     SECTION( "Exit ConstraintPropagation Solver", "[unit]")
     {
+        std::atomic                 cancelFlag( true);
         Logger                      logger{};
         ConstraintPropagationSolver solver = ConstraintPropagationSolver( logger);
 
