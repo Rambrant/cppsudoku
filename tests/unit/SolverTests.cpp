@@ -122,8 +122,9 @@ namespace
 
         SECTION( "Solves a board", "[unit]")
         {
-            Board board      = unsolvedBoard;
-            auto [result, _] = solver.solve( board);
+            std::atomic cancelFlag( false);
+            auto orgBoard{ unsolvedBoard};
+            auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesUnsolved"));
 
@@ -132,8 +133,9 @@ namespace
 
         SECTION( "Solves a hard board with guesses", "[unit]")
         {
-            Board board      = hardBoard;
-            auto [result, _] = solver.solve( board);
+            std::atomic cancelFlag( false);
+            auto orgBoard{ hardBoard};
+            auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesHardBoard"));
             if( result) REQUIRE( board == solvedHardBoard);
@@ -141,8 +143,9 @@ namespace
 
         SECTION( "Solves an already solved board without modifying it")
         {
-            Board board      = solvedBoard;
-            auto [result, _] = solver.solve( board);
+            std::atomic cancelFlag( false);
+            auto orgBoard{ solvedBoard};
+            auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesSolved"));
             if( result) REQUIRE( board == solvedBoard);
@@ -150,16 +153,18 @@ namespace
 
         SECTION( "Gracefully fail to solve a board with contradiction")
         {
-            Board board      = invalidBoard;
-            auto [result, _] = solver.solve(board);
+            std::atomic cancelFlag( false);
+            auto orgBoard{ invalidBoard};
+            auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solverContradicted"));
         }
 
         SECTION( "Solves an empty board (brute force or by deduction)")
         {
-            Board board      = emptyBoard;
-            auto [result, _] = solver.solve(board);
+            std::atomic cancelFlag( false);
+            auto orgBoard{ emptyBoard};
+            auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesEmpty"));
 
@@ -201,4 +206,33 @@ TEST_CASE( "Solvers: ConstraintPropagationSolver", "[unit]")
         { "solverContradicted", false},
         { "solvesEmpty",        true}}
     );
+}
+
+TEST_CASE( "Solvers: Premature Exit", "[unit]")
+{
+    SECTION( "Exit BackTracking Solver", "[unit]")
+    {
+        std::atomic        cancelFlag( true);
+        Logger             logger{};
+        BackTrackingSolver solver = BackTrackingSolver( logger);
+
+        auto orgBoard{ unsolvedBoard};
+        auto [result, recursions, board] = solver.solve( orgBoard, cancelFlag);
+
+        REQUIRE( result == false);
+        REQUIRE( recursions == 0);
+    }
+
+    SECTION( "Exit ConstraintPropagation Solver", "[unit]")
+    {
+        std::atomic                 cancelFlag( true);
+        Logger                      logger{};
+        ConstraintPropagationSolver solver = ConstraintPropagationSolver( logger);
+
+        auto orgBoard{ unsolvedBoard};
+        auto [result, recursions, board] = solver.solve( orgBoard, cancelFlag);
+
+        REQUIRE( result == false);
+        REQUIRE( recursions == 0);
+    }
 }

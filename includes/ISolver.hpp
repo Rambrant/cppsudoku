@@ -4,11 +4,20 @@
 //
 #pragma once
 
+#include <atomic>
 #include "SudokuTraits.hpp"
 
 namespace com::rambrant::sudoku
 {
     class Logger;
+
+    /**
+     * @brief An exception used to signal the premature exit of the solver
+     */
+    struct CancelledException : std::exception
+    {
+        const char* what() const noexcept override { return "Solver prematurely cancelled"; }
+    };
 
     /**
      * @brief A solver interface for classes that can solve a Sudoku board using some sort of algorithm.
@@ -30,10 +39,11 @@ namespace com::rambrant::sudoku
             /**
              * @brief Solves the given Sudoku board
              * @param board A SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
+             * @param cancelFlag A reference to an atomic flag used to signal the premature exit of thread
              * @return A SudokuTraits.BoardResult
              */
             [[nodiscard]]
-            virtual auto solve( Traits::Board& board) const -> Traits::BoardResult = 0;
+            virtual auto solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult = 0;
 
         protected:
 

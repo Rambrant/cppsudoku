@@ -4,8 +4,10 @@
 //
 #include "SudokuBoard.hpp"
 
+#include <future>
 #include <regex>
 #include <tuple>
+#include <thread>
 #include <utility>
 
 #include "IReader.hpp"
@@ -37,25 +39,40 @@ namespace com::rambrant::sudoku
     {
         mLogger << "Solving Sudoku board" << std::endl;
 
-        int count{1};
+        int         count{1};
+        std::atomic cancelFlag{ false};
+        std::vector< std::future< Traits::BoardResult>> futures;
 
         for( const auto& solver : mSolvers)
         {
-            mLogger << Logger::verbose << "...Trying solver " << count++ << " --> ";
+            mLogger << Logger::verbose << "...Adding asynchronous solver " << count++ << std::endl;
 
-            Traits::Board       board{ mBoard};
-            auto [ result, recursions] = solver->solve( board);
+            futures.emplace_back( std::async( std::launch::async, [ &solver, board = mBoard, &cancelFlag]() mutable -> Traits::BoardResult {
+                return solver->solve( board, cancelFlag);
+            }));
+        }
 
-            mLogger << Logger::verbose << "result: " << std::boolalpha << result << ", recursions: " << recursions << std::endl;
+        //
+        // Wait for the first solver to solve the board
+        //
+        count = 1;  // reset the count
+
+        for( auto& future : futures)
+        {
+            auto [result, recursions, board] = future.get();
 
             if( result)
             {
+                mLogger << Logger::verbose << "Solver " << count << " solved the board in " << recursions << " recursions" << std::endl;
+
                 mBoard = board;
 
                 return result;
             }
+
+            ++count;
         }
 
-        return false;
+        return false; // None of the solvers solved the board
     }
 }

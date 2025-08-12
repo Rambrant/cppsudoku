@@ -9,7 +9,11 @@
 #include <limits>
 #include <map>
 #include <set>
+#include <tuple>
+#include <tuple>
 #include <vector>
+
+#include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -100,7 +104,7 @@ namespace com::rambrant::sudoku
         //
         auto eliminate( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
         auto assign( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
-        auto search( SquareValues allValues, int& recursions) -> SquareValues;
+        auto search( SquareValues allValues, int& recursions, std::atomic<bool>& cancelFlag) -> SquareValues;
         auto parseGrid( const Traits::Board & board) -> SquareValues;
 
         //
@@ -194,9 +198,13 @@ namespace com::rambrant::sudoku
             return true;
         }
 
-        auto search( SquareValues allValues, int& recursions ) -> SquareValues // NOLINT(misc-no-recursion)
+        auto search( SquareValues allValues, int& recursions, std::atomic<bool>& cancelFlag) -> SquareValues // NOLINT(misc-no-recursion)
         {
-            if( allValues.empty()) return {};
+            if( cancelFlag.load())
+                throw CancelledException{}; // Exit early
+
+            if( allValues.empty())
+                return {};
 
             recursions++;
 
@@ -232,7 +240,7 @@ namespace com::rambrant::sudoku
             {
                 if( SquareValues valueClone = allValues; assign( valueClone, key, value))
                 {
-                    if( auto result = search( valueClone, recursions); ! result.empty())
+                    if( auto result = search( valueClone, recursions, cancelFlag); ! result.empty())
                         return result;
                 }
             }
@@ -279,7 +287,7 @@ namespace com::rambrant::sudoku
         ISolver( logger)
     {}
 
-    auto ConstraintPropagationSolver::solve( Traits::Board& board) const -> Traits::BoardResult
+    auto ConstraintPropagationSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
     {
         int  recursions{ 0};
         bool result{ false};
@@ -287,7 +295,7 @@ namespace com::rambrant::sudoku
         try
         {
             const SquareValues originalValues{ parseGrid( board)};
-            const SquareValues resultingValues{ search( originalValues, recursions)};
+            const SquareValues resultingValues{ search( originalValues, recursions, cancelFlag)};
 
             result = ! resultingValues.empty();
 
@@ -298,14 +306,25 @@ namespace com::rambrant::sudoku
             {
                 board[square.first][square.second] = values[0];   // The values for the square are guarantied to be just one...
             }
+
+            if( result)
+                cancelFlag.store( true);    // Terminate any other solver prematurely
+
+            return std::make_tuple( result, recursions, board);
+
+        }
+        catch( const CancelledException&)
+        {
+            //
+            // Returned prematurely
+            //
+            return std::make_tuple( false, recursions, Traits::Board{});
         }
         catch( const std::exception& e)
         {
             std::cerr << e.what() << std::endl;
 
-            result = false;
+            return std::make_tuple( false, recursions, Traits::Board{});
         }
-
-        return std::make_tuple( result, recursions);
     }
 }

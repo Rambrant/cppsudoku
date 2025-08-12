@@ -43,14 +43,14 @@ namespace com::rambrant::sudoku
         /// @brief The internal value for each board cell.
         using Value = int;
 
-        /// @brief Result from a solver. Success or not and the number of recursions
-        using BoardResult = std::tuple< bool, std::size_t>;
-
         /// @brief Board row of size @ref BOARD_SIZE
         using BoardArray = std::array< Value, BOARD_SIZE>;
 
         /// @brief 2D grid of @ref BOARD_SIZE number of @ref BoardArray's
         using Board = std::array< BoardArray, BOARD_SIZE>;
+
+        /// @brief Result from a solver. Success or not and the number of recursions together with the resulting board
+        using BoardResult = std::tuple< bool, std::size_t, Board>;
     };
 
     /**

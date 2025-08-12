@@ -7,45 +7,33 @@ on:
       - completed
 
 permissions:
-  contents: write  # Allows pushing commits
-  pages: write     # If you're using GitHub Pages deploy
+  contents: write
+  pages: write
 
 jobs:
   build-docs:
     name: Build Doxygen Docs
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies via vcpkg
-        uses: lukka/run-vcpkg@v11
-        with:
-          vcpkgJsonGlob: 'vcpkg.json'
-          runVcpkgInstall: true
-          vcpkgDirectory: '${{ github.workspace }}/.vcpkg'
-
-      - name: Install dependencies
+      - name: Install Doxygen and Graphviz
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
 
-      - name: Configure CMake
-        run: cmake -S . -B build -DBUILD_DOC=ON -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
+      - name: Configure CMake (Docs)
+        run: cmake -S . -B build -DBUILD_DOC=ON
 
       - name: Build documentation
         run: cmake --build build --target build_documentation
 
-      - name: Copy docs to publish folder
-        run: |
-          mkdir -p ghpages
-          cp -r build/docs/html/* ghpages/
-
-      - name: Deploy to gh-pages branch
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload documentation to Pages
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./ghpages
-          publish_branch: gh-pages
-          force_orphan: true
-          enable_jekyll: false
+          path: build/docs/html
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
