@@ -46,6 +46,6 @@ jobs:
           tag_name: ${{ github.event.inputs.tag_name }}
           name: "Release ${{ github.event.inputs.tag_name }}"
           files: |
-            build/sudoku_solver
+            build/bin/sudoku_solver
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
