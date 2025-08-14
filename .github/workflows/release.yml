@@ -1,0 +1,51 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: "Commit SHA to build and tag (leave empty for HEAD)"
+        required: false
+      tag_name:
+        description: "Release tag (e.g. v1.0.0)"
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout specific commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.commit_sha || github.sha }}
+
+      - name: Cache vcpkg
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.vcpkg
+          key: ${{ runner.os }}-vcpkg-${{ hashFiles('vcpkg.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-
+
+      - name: Install dependencies via vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgJsonGlob: 'vcpkg.json'
+          runVcpkgInstall: true
+          vcpkgDirectory: '${{ github.workspace }}/.vcpkg'
+
+      - name: Configure CMake
+        run: cmake -DENABLE_DOCS=OFF -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
+
+      - name: Build
+        run: cmake --build build --target build_solver_and_run_tests
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.tag_name }}
+          name: "Release ${{ github.event.inputs.tag_name }}"
+          files: |
+            build/sudoku_solver
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
