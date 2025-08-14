@@ -50,6 +50,9 @@ jobs:
       - name: Build documentation
         run: cmake --build build --target build_documentation
 
+      - name: Disable Jekyll
+        run: touch build/docs/html/.nojekyll
+
       - name: Upload documentation to Pages
         uses: actions/upload-pages-artifact@v3
         with:
