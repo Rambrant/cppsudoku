@@ -1,0 +1,39 @@
+name: Deploy solver
+
+on:
+  workflow_dispatch:
+    inputs:
+      config_file:
+        description: "JSON file describing artifacts to download"
+        required: true
+        default: deployment-config.json
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read deployment config
+        id: config
+        run: |
+          echo "artifacts=$(jq -c '.artifacts' ${{ github.event.inputs.config_file }})" >> $GITHUB_OUTPUT
+
+      - name: Download artifacts from config
+        run: |
+          echo '${{ steps.config.outputs.artifacts }}' | jq -c '.[]' | while read artifact; do
+            REPO=$(echo "$artifact" | jq -r '.repo')
+            TAG=$(echo "$artifact" | jq -r '.tag')
+            FILE=$(echo "$artifact" | jq -r '.file')
+
+            echo "Downloading $FILE from $REPO ($TAG)"
+            curl -L \
+              -o "$FILE" \
+              "https://github.com/$REPO/releases/download/$TAG/$FILE"
+          done
+
+      - name: Deploy Sudoku Solver
+        run: |
+          echo "Deploying Sudoku Solver..."

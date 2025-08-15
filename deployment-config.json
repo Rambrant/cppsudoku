@@ -1,0 +1,9 @@
+{
+    "artifacts": [
+      {
+        "repo": "Rambrant/cppsudoku",
+        "tag": "3.3",
+        "file": "sudoku_solver"
+      }
+    ]
+  }
