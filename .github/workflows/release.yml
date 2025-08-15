@@ -1,4 +1,4 @@
-name: Manual Release
+name: Build and Release Solver
 
 on:
   workflow_dispatch:
@@ -7,8 +7,12 @@ on:
         description: "Commit SHA to build and tag (leave empty for HEAD)"
         required: false
       tag_name:
-        description: "Release tag (e.g. v1.0.0)"
+        description: "Release tag (e.g. 1.0.0)"
         required: true
+
+permissions:
+  contents: write
+  id-token: write
 
 jobs:
   release:
