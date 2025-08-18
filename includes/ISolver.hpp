@@ -16,6 +16,9 @@ namespace com::rambrant::sudoku
      */
     struct CancelledException : std::exception
     {
+        /**
+         * @brief Returns the reason the exception as a char array
+         */
         const char* what() const noexcept override { return "Solver prematurely cancelled"; }
     };
 

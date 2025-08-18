@@ -51,10 +51,26 @@ Usage: sudoku_solver [OPTIONS]
 
 ## Getting Started
 
-The code is delivered as is and must be compiled for the target platform. No binary releases are available.
->The code has been developed using JetBrain CLion IDE on macOS Sequoia (15.0) running on Apple Silicon (arm64). Other target environments have not been tested
+The code is delivered as is together with released binaries for Ubuntu. It must be compiled for any other target platform.
 
-### Prerequisites
+The code has been developed and tested using JetBrain CLion IDE on macOS Sequoia (15.0) running on Apple Silicon (arm64).
+The released version is built using GitHub Actions using Ubuntu latest as environment. 
+
+## Project Layout
+
+```
+includes/               # Header files
+src/                    # Source files
+tests/unit              # Unit tests using the Catch2 framework
+tests/acceptance        # Acceptance tests using the catch2 Given, When, Then BDD style 
+tests/test-resources    # Common resources for the tests
+docs/                   # Doxygen configuration
+.github                 # GitHub workflows
+CMakeLists.txt          # Root build configuration
+vcpkg.json              # External dependencies
+```
+
+## Prerequisites
 
 - A C++17 (or later) compatible compiler (e.g., GCC 10+, Clang 10+, MSVC 2019+)
 - CMake (version 3.15 or later)
@@ -62,15 +78,15 @@ The code is delivered as is and must be compiled for the target platform. No bin
 - [vcpkg](https://github.com/microsoft/vcpkg) from Microsoft for installation of external packages
 - [Catch2](https://github.com/catchorg/Catch2) a Unit and BDD test framework
 
-#### Install Doxygen
-```
+### Install Doxygen
+```bash
 brew install doxygen
 ```
 
-#### Install vcpkg
+### Install vcpkg
 
 Run this in the ~/Developer directory
-```
+```bash
 cd ~
 git clone https://github.com/microsoft/vcpkg.git
 cd vcpkg
@@ -78,54 +94,61 @@ cd vcpkg
 ```
 
 Install needed dependencies
-```
+```bash
 brew install pkg-config
 ```
 
 Add this line to your ~/.zshrc file
-```
+```bash
 export PATH="$HOME/vcpkg:$PATH"
 ```
 
-#### Configure CLion
+### Configure CLion
 Set the following CMake option in Settings—Build,Execution,Deployment—CMake
- ```
+ ```bash
  -DCMAKE_TOOLCHAIN_FILE=<path to vcpkg>/vcpkg/scripts/buildsystems/vcpkg.cmake
  ```
 
-### Build Instructions
+## Build Instructions
 
-Clone the repository and from the root of the project you run the following commands
+### Build the code
+Clone the repository and from the root of the project you run the following commands to build the solver and run the tests
 ```bash
 mkdir build && cd build
 cmake ..
-cmake --build .
+cmake --build . --target build_solver_and_run_tests
 ```
 
-To build the documentation, you run
+### Build the documentation
+Run the following target
 ```bash
-cmake --build . --target doc
+cmake --build . --target build_documentation
 ```
-Documentation will be generated in the `docs/` directory.
+Documentation will be generated in the `build/docs/html` directory.
 
 ### Run the Solver
 ```bash
-./bin/sudoku_solver
+build//bin/sudoku_solver
 ```
 
-## Project Layout
+## GitHub Actions
+The GitHub Actions lives in the .github directory, and they form a simple pipeline to build, run tests, generate documentation,
+create a release and finally allow us to deploy the solver.
 
-```
-includes/               # Header files
-src/                    # Source files
-tests/unit              # Unit tests
-tests/acceptance        # Acceptance tests
-tests/test-resources    # Common resources for the tests
-docs/                   # Doxygen configuration
-.github                 # GitHub workflows
-CMakeLists.txt          # Root build configuration
-vcpkg.json              # External dependencies
-```
+### build.yml (Build and Test)
+Triggered by a commit on any branch. Builds the code and executes all the tests, unit and acceptance
+
+### docs.yml (Build and Publish Docs
+Triggered by a successful execution of the "build and Test" action if the action is executed for a commit on the main branch.
+Builds the Doxygen documentation and publishes it on the [GitHup Page](https://rambrant.github.io/cppsudoku/index.html).
+
+### release.yml (Build and Release Solver)
+Manually triggered action that asks for the commit to build from and the version tag to set on the Git repository.
+The built Sudoku solver will be uploaded as an release artefact.
+
+### deploy.yml (Deploy solver)
+Manually triggered action that exemplifies a deployment action. It downloads the artefact configured in the 
+deployment-config.json file in the project root directory
 
 ## License
 
@@ -137,6 +160,6 @@ Thanks to:
 - Peter Norvig for his original Python Sudoku solver inspiration. See [Solving Every Sudoku Puzzle](http://norvig.com/sudoku.html)
 - The C++ community for tooling and best practices.
 
-## 📚 Full Documentation
+## Full Source Code Documentation
 
-Full reference docs are available on [GitHub Pages](https://rambrant.github.io/cppsudoku/annotated.html).  
+Full reference docs are available on [GitHub Page](https://rambrant.github.io/cppsudoku/index.html).
