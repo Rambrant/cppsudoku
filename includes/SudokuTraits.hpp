@@ -59,4 +59,5 @@ namespace com::rambrant::sudoku
      */
     template <typename Container>
     constexpr bool is_random_access_container = std::is_base_of_v< std::random_access_iterator_tag,
-        typename std::iterator_traits< typename Container::iterator>::iterator_category>;}
+        typename std::iterator_traits< typename Container::iterator>::iterator_category>;
+}

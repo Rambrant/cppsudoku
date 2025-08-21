@@ -15,22 +15,12 @@
 
 namespace com::rambrant::sudoku
 {
-    namespace
+    namespace detail
     {
-        //
-        // Helper functions
-        //
-        auto check( Traits::Value value, const Traits::BoardArray & unitValues) -> bool;
-        auto rowConstraint( const Traits::Board & board, Traits::Value value, int rowPos) -> bool;
-        auto columnConstraint( const Traits::Board & board, Traits::Value value, int columnPos) -> bool;
-        auto boxConstraint( const Traits::Board & board, Traits::Value value, int rowPos, int columnPos) -> bool;
-        auto isValid( Traits::Board& board, Traits::Value value, int rowPos, int columnPos) -> bool;
-        auto search( Traits::Board & board, int& recursions, std::atomic<bool>& cancelFlag) -> bool;
-
         //
         // Helper function implementations
         //
-        auto check( Traits::Value value, const Traits::BoardArray & unitValues ) -> bool
+        auto checkValue( Traits::Value value, const Traits::BoardArray & unitValues ) -> bool
         {
             //
             // Returns true if none of the elements in the array matches the given value
@@ -42,7 +32,7 @@ namespace com::rambrant::sudoku
 
         auto rowConstraint( const Traits::Board & board, const Traits::Value value, const int rowPos ) -> bool
         {
-            return check( value, board[ rowPos]);
+            return checkValue( value, board[ rowPos]);
         }
 
         auto columnConstraint( const Traits::Board & board, const Traits::Value value, const int columnPos ) -> bool
@@ -52,7 +42,7 @@ namespace com::rambrant::sudoku
             std::transform( board.begin(), board.end(), columnValues.begin(),
                 [columnPos]( const Traits::BoardArray& row){ return row[columnPos]; });
 
-            return check( value, columnValues);
+            return checkValue( value, columnValues);
         }
 
         auto boxConstraint( const Traits::Board & board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool
@@ -60,11 +50,11 @@ namespace com::rambrant::sudoku
             //
             // Calculate the board coordinates for the top left corner of the box
             //
-            int startRow = (rowPos / Traits::BOX_SIZE) * Traits::BOX_SIZE;
-            int endRow   = startRow + Traits::BOX_SIZE;
+            const int startRow = (rowPos / Traits::BOX_SIZE) * Traits::BOX_SIZE;
+            const int endRow   = startRow + Traits::BOX_SIZE;
 
-            int startCol = (columnPos / Traits::BOX_SIZE) * Traits::BOX_SIZE;
-            int endCol   = startCol + Traits::BOX_SIZE;
+            const int startCol = (columnPos / Traits::BOX_SIZE) * Traits::BOX_SIZE;
+            const int endCol   = startCol + Traits::BOX_SIZE;
 
             //
             // Loop over the box squares and collect the values
@@ -83,14 +73,14 @@ namespace com::rambrant::sudoku
                 }
             }
 
-            return check( value, boxValues);
+            return checkValue( value, boxValues);
         }
 
-        auto isValid( Traits::Board& board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool
+        auto setValid( Traits::Board& board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool
         {
-            bool result = rowConstraint( board, value, rowPos)                  &&
-                          columnConstraint( board, value, columnPos)            &&
-                          boxConstraint( board, value, rowPos, columnPos);
+            const bool result = rowConstraint( board, value, rowPos)            &&
+                                columnConstraint( board, value, columnPos)      &&
+                                boxConstraint( board, value, rowPos, columnPos);
 
             if( result)
             {
@@ -127,7 +117,7 @@ namespace com::rambrant::sudoku
                     {
                         for( const int value : Traits::VALUE_RANGE)
                         {
-                            if( isValid( board, value, rowIdx, colIdx) &&
+                            if( setValid( board, value, rowIdx, colIdx) &&
                                 search( board, recursions, cancelFlag))
                             {
                                 return true;
@@ -152,11 +142,11 @@ namespace com::rambrant::sudoku
 
     auto BackTrackingSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
     {
-        int  recursions{ 0};
+        int recursions{ 0};
 
         try
         {
-            bool result = search( board, recursions, cancelFlag);
+            bool result = detail::search( board, recursions, cancelFlag);
 
             if( result)
                 cancelFlag.store( true);    // Terminate any other solver prematurely

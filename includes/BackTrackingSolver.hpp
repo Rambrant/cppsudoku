@@ -16,7 +16,7 @@ namespace com::rambrant::sudoku
     /**
      * @brief A Sudoku solver that uses a simple brute force backtracking algorithm
      */
-    class BackTrackingSolver : public ISolver
+    class BackTrackingSolver final : public ISolver
     {
         public:
 
@@ -35,4 +35,17 @@ namespace com::rambrant::sudoku
             [[nodiscard]]
             auto solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult override;
     };
+
+    namespace detail
+    {
+        //
+        // Helper functions
+        //
+        auto checkValue( Traits::Value value, const Traits::BoardArray & unitValues) -> bool;
+        auto rowConstraint( const Traits::Board & board, Traits::Value value, int rowPos) -> bool;
+        auto columnConstraint( const Traits::Board & board, Traits::Value value, int columnPos) -> bool;
+        auto boxConstraint( const Traits::Board & board, Traits::Value value, int rowPos, int columnPos) -> bool;
+        auto setValid( Traits::Board& board, Traits::Value value, int rowPos, int columnPos) -> bool;
+        auto search( Traits::Board & board, int& recursions, std::atomic<bool>& cancelFlag) -> bool;
+    }
 }
