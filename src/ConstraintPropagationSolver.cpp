@@ -10,35 +10,14 @@
 #include <map>
 #include <set>
 #include <tuple>
-#include <tuple>
 #include <vector>
 
 #include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
-    namespace
+    namespace detail
     {
-        //
-        // The control structure defining the squares, units and peers for the Sudoku board
-        //
-        using Square        = std::pair<int, int>;                          // Row and column index
-        using Squares       = std::set<Square>;                             // All squares on the board
-        using SquareValues  = std::map<Square, std::vector<Traits::Value>>; // Map from each square to its current list of possible values.
-        using Units         = std::map<Square, std::vector<Squares>>;       // Map from each square to its units, row, column and box.
-        using Peers         = std::map<Square, Squares>;                    // Map from each square to its peers.
-
-        struct BoardStructure
-        {
-            Squares mSquares{};
-            Units   mUnits{};
-            Peers   mPeers{};
-
-            BoardStructure();
-        };
-
-        const BoardStructure gBoardsStructure;
-
         BoardStructure::BoardStructure()
         {
             //
@@ -98,14 +77,6 @@ namespace com::rambrant::sudoku
                 mPeers[square].erase( square);                     // Remove the current square from the collected peers
             }
         }
-
-        //
-        // Helper functions
-        //
-        auto eliminate( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
-        auto assign( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
-        auto search( SquareValues allValues, int& recursions, std::atomic<bool>& cancelFlag) -> SquareValues;
-        auto parseGrid( const Traits::Board & board) -> SquareValues;
 
         //
         // Helper function implementations
@@ -294,8 +265,8 @@ namespace com::rambrant::sudoku
 
         try
         {
-            const SquareValues originalValues{ parseGrid( board)};
-            const SquareValues resultingValues{ search( originalValues, recursions, cancelFlag)};
+            const detail::SquareValues originalValues{ detail::parseGrid( board)};
+            const detail::SquareValues resultingValues{ detail::search( originalValues, recursions, cancelFlag)};
 
             result = ! resultingValues.empty();
 

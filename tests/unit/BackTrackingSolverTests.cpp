@@ -6,7 +6,6 @@
 #include <catch2/catch_all.hpp>
 
 #include "BackTrackingSolver.hpp"
-#include "ConstraintPropagationSolver.hpp"
 #include "Logger.hpp"
 #include "SudokuTraits.hpp"
 

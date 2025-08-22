@@ -6,20 +6,47 @@
 
 #include <algorithm>
 #include <tuple>
-#include <tuple>
-#include <tuple>
 
-#include "Logger.hpp"
 #include "RangeView.hpp"
 #include "SudokuBoard.hpp"
 
 namespace com::rambrant::sudoku
 {
+
+    //
+    // Member functions
+    //
+    BackTrackingSolver::BackTrackingSolver( const Logger & logger) :
+        ISolver( logger)
+    {}
+
+    auto BackTrackingSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
+    {
+        int recursions{ 0};
+
+        try
+        {
+            bool result = detail::search( board, recursions, cancelFlag);
+
+            if( result)
+                cancelFlag.store( true);    // Terminate any other solver prematurely
+
+            return std::make_tuple( result, recursions, board);
+        }
+        catch( const CancelledException&)
+        {
+            //
+            // Returned prematurely
+            //
+            return std::make_tuple( false, recursions, Traits::Board{});
+        }
+    }
+
+    //
+    // Helper function implementations
+    //
     namespace detail
     {
-        //
-        // Helper function implementations
-        //
         auto checkValue( Traits::Value value, const Traits::BoardArray & unitValues ) -> bool
         {
             //
@@ -130,35 +157,6 @@ namespace com::rambrant::sudoku
             }
 
             return true;
-        }
-    }
-
-    //
-    // Member functions
-    //
-    BackTrackingSolver::BackTrackingSolver( const Logger & logger) :
-        ISolver( logger)
-    {}
-
-    auto BackTrackingSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
-    {
-        int recursions{ 0};
-
-        try
-        {
-            bool result = detail::search( board, recursions, cancelFlag);
-
-            if( result)
-                cancelFlag.store( true);    // Terminate any other solver prematurely
-
-            return std::make_tuple( result, recursions, board);
-        }
-        catch( const CancelledException&)
-        {
-            //
-            // Returned prematurely
-            //
-            return std::make_tuple( false, recursions, Traits::Board{});
         }
     }
 }

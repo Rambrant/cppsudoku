@@ -13,8 +13,6 @@ using namespace com::rambrant::sudoku;
 
 namespace
 {
-    using Board = SudokuTraits::Board;
-
     //
     // An unresolved board to solve
     //
@@ -82,7 +80,7 @@ namespace
     //
     // A board with a contradiction (duplicate 5's in top row)
     //
-    constexpr Board invalidBoard
+    constexpr SudokuTraits::Board invalidBoard
     {{
         std::array{ 5, 3, 5, 0, 7, 0, 0, 0, 0},
         std::array{ 6, 0, 0, 1, 9, 5, 0, 0, 0},
@@ -98,7 +96,7 @@ namespace
     //
     // An empty board (all zeroes)
     //
-    constexpr Board emptyBoard
+    constexpr SudokuTraits::Board emptyBoard
     {{
         std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
         std::array{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
