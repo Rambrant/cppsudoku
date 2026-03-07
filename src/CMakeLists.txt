@@ -22,8 +22,9 @@ target_link_libraries( sudoku_solver_lib
 
 # Set C++ standard
 set_target_properties( sudoku_solver_lib PROPERTIES
-        CXX_STANDARD 17
+        CXX_STANDARD 26
         CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSION OFF
 )
 
 # CLI app
