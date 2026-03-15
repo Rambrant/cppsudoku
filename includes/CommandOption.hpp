@@ -7,6 +7,7 @@
 #include <functional>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "ICommandOption.hpp"
@@ -44,13 +45,10 @@ namespace com::rambrant::sudoku
              * @param shortFlag The short version of the longFlag, usually just one letter prepended with a single '-'
              * @param defaultValue The default value if no value is set in the form of a bace-initializer or a vector of strings.
              */
-            //
-            // Using a constraint to ensure that this constructor is only used for List types of options
-            //
-            template< typename U = T, typename = std::enable_if_t< std::is_same_v<U, std::vector<std::string>> >>
+            template< typename U = T>
+            requires std::same_as<U, std::vector<std::string>>
             CommandOption( std::string longFlag, std::string shortFlag, std::vector<std::string> defaultValue = {} ) :
                 CommandOption( std::move( longFlag), std::move( shortFlag), std::optional{ std::move( defaultValue)}) {}
-
 
             /**
              * @brief Sets the validator function. The validator function is called with the option as an argument.
