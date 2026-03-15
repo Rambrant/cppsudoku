@@ -101,3 +101,23 @@ TEST_CASE( "CommandOption: expectsValue logic", "[unit]")
     REQUIRE( StringOption( "--name", "-n").expectsValue());
     REQUIRE( ListOption( "--list", "-l").expectsValue());
 }
+
+TEST_CASE( "CommandOption: list constructor default initializer", "[unit]")
+{
+    SECTION( "ListOption uses vector<string> default directly")
+    {
+        ListOption opt( "--solvers", "-s", { "backtracking", "constraint"});
+
+        REQUIRE_FALSE( opt.isSet());
+        REQUIRE( opt.get() == std::vector<std::string>{ "backtracking", "constraint"});
+    }
+
+    SECTION( "ListOption default is overridden once a value is set")
+    {
+        ListOption opt( "--solvers", "-s", { "backtracking", "constraint"});
+
+        opt.convertValue( "constraint");
+        REQUIRE( opt.isSet());
+        REQUIRE( opt.get() == std::vector<std::string>{ "constraint"});
+    }
+}
