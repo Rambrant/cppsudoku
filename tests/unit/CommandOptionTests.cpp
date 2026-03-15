@@ -61,11 +61,15 @@ TEST_CASE( "CommandOption: default handling", "[unit]")
         REQUIRE( opt.get() == "default.txt");
     }
 
-    SECTION( "Throws if neither value nor default exists")
+    SECTION( "isSet() returns false when neither value nor default exists")
     {
+        //
+        // get() pre-condition: either a value or a default must be set.
+        // Callers must guard with isSet() / has a default before calling get().
+        //
         StringOption opt( "--missing", "-m");
 
-        REQUIRE_THROWS_AS( opt.get(), std::runtime_error);
+        REQUIRE_FALSE( opt.isSet());
     }
 }
 

@@ -86,7 +86,7 @@ namespace com::rambrant::sudoku
             auto expectsValue() const -> bool override;
 
             /**
-              * @brief Gets the value or default. If none exists, an exception is thrown
+              * @brief Gets the value or default.
               * @return The value  if set and the default value otherwise
               */
             [[nodiscard]]
@@ -230,7 +230,7 @@ namespace com::rambrant::sudoku
         if( mDefaultValue)
             return *mDefaultValue;
 
-        throw std::runtime_error( "No value set for option " + mLongFlag);
+        std::unreachable();
     }
 
     template<typename T>
