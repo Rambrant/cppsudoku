@@ -21,7 +21,7 @@ namespace com::rambrant::sudoku
       * }
       * @endcode
       */
-    template <typename Container>
+    template <RandomAccessContainer Container>
     class RangeView
     {
         public:
@@ -59,12 +59,12 @@ namespace com::rambrant::sudoku
 
     /// \cond DOXYGEN_SUPPRESS
 
-    template <typename Container>
+    template <RandomAccessContainer Container>
     constexpr RangeView<Container>::RangeView( Container& container, std::size_t from, std::size_t to) :
         mBegin( container.begin() + from),
         mEnd( container.begin() + to)
     {
-        static_assert(is_random_access_container<Container>, "RangeView requires random-access iterators");
+           static_assert( RandomAccessContainer<Container>, "RangeView requires random-access iterators");
     }
 
     /// \endcond
