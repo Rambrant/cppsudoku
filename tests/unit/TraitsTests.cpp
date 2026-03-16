@@ -2,7 +2,12 @@
 //  Created by Thomas Rambrant, 2025
 //  This project is licensed under the MIT License - see the LICENSE file for details.
 //
+#include <deque>
+#include <forward_list>
 #include <list>
+#include <set>
+#include <span>
+#include <string>
 #include <catch2/catch_test_macros.hpp>
 
 #include "SudokuTraits.hpp"
@@ -57,10 +62,10 @@ TEST_CASE( "Traits: Index and value ranges", "[unit]")
 
         for( Traits::Value value = 0; value < Traits::BOARD_SIZE; ++value)
         {
-            expected.push_back(value);
+            expected.push_back( value);
         }
 
-        REQUIRE( std::equal(expected.begin(), expected.end(), Traits::INDEX_RANGE.begin()));
+        REQUIRE( std::equal( expected.begin(), expected.end(), Traits::INDEX_RANGE.begin()));
     }
 
     SECTION( "VALUE_RANGE contains values [1..MAX_VALUE]")
@@ -79,7 +84,19 @@ TEST_CASE( "Traits: Index and value ranges", "[unit]")
 
 TEST_CASE( "Traits: Is Random Access Container trait", "[unit]")
 {
-    static_assert( is_random_access_container<std::vector<int>>);
-    static_assert( is_random_access_container<std::array<int, 9>>);
-    static_assert( ! is_random_access_container<std::list<int>>);
+    //
+    // Satisfy — random-access iterators
+    //
+    STATIC_REQUIRE(  RandomAccessContainer< std::vector<int>>);
+    STATIC_REQUIRE(  RandomAccessContainer< std::array<int, 9>>);
+    STATIC_REQUIRE(  RandomAccessContainer< std::deque<int>>);
+    STATIC_REQUIRE(  RandomAccessContainer< std::span<int>>);
+    STATIC_REQUIRE(  RandomAccessContainer< std::string>);
+
+    //
+    // Do not satisfy — bidirectional or weaker iterators
+    //
+    STATIC_REQUIRE( ! RandomAccessContainer< std::list<int>>);
+    STATIC_REQUIRE( ! RandomAccessContainer< std::forward_list<int>>);
+    STATIC_REQUIRE( ! RandomAccessContainer< std::set<int>>);
 }
