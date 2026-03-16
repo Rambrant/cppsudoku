@@ -54,10 +54,11 @@ namespace com::rambrant::sudoku
     };
 
     /**
-     * @brief A trait for checking iterators for random_access
-     * @tparam Container The container to test for random_access iterator type
-     */
+    * @brief Concept that constrains a type to containers with random-access iterators.
+    * @tparam Container The container type to test.
+    */
     template <typename Container>
-    constexpr bool is_random_access_container = std::is_base_of_v< std::random_access_iterator_tag,
+    concept RandomAccessContainer = std::is_base_of_v<
+        std::random_access_iterator_tag,
         typename std::iterator_traits< typename Container::iterator>::iterator_category>;
 }
