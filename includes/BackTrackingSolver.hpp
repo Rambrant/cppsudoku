@@ -45,6 +45,6 @@ namespace com::rambrant::sudoku
         auto columnConstraint( const Traits::Board & board, Traits::Value value, int columnPos) -> bool;
         auto boxConstraint( const Traits::Board & board, Traits::Value value, int rowPos, int columnPos) -> bool;
         auto setValid( Traits::Board& board, Traits::Value value, int rowPos, int columnPos) -> bool;
-        auto search( Traits::Board & board, int& recursions, std::atomic<bool>& cancelFlag) -> bool;
+        auto search( Traits::Board & board, size_t& recursions, std::atomic<bool>& cancelFlag) -> bool;
     }
 }

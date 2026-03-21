@@ -5,7 +5,6 @@
 #pragma once
 
 #include <array>
-#include <tuple>
 
 #include "ConstSqrt.hpp"
 #include "RangeArray.hpp"
@@ -50,7 +49,12 @@ namespace com::rambrant::sudoku
         using Board = std::array< BoardArray, BOARD_SIZE>;
 
         /// @brief Result from a solver. Success or not and the number of recursions together with the resulting board
-        using BoardResult = std::tuple< bool, std::size_t, Board>;
+        struct BoardResult
+        {
+            bool        solved;
+            std::size_t recursions;
+            Board       board;
+        };
     };
 
     /**
