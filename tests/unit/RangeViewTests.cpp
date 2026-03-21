@@ -13,6 +13,46 @@
 
 using namespace com::rambrant::sudoku;
 
+TEST_CASE( "RangeView: size() and empty()", "[unit]")
+{
+    std::vector vec = {1, 2, 3, 4, 5, 6};
+
+    SECTION( "non-empty view reports correct size")
+    {
+        RangeView view( vec, 1, 5);
+        REQUIRE( view.size() == 4);
+        REQUIRE_FALSE( view.empty());
+    }
+
+    SECTION( "zero-length view reports size 0 and empty")
+    {
+        RangeView view( vec, 3, 3);
+        REQUIRE( view.size() == 0);
+        REQUIRE( view.empty());
+    }
+
+    SECTION( "full-range view size equals container size")
+    {
+        RangeView view( vec, 0, vec.size());
+        REQUIRE( view.size() == vec.size());
+    }
+}
+
+TEST_CASE( "RangeView: mutation through view modifies underlying container", "[unit]")
+{
+    std::vector vec = {1, 2, 3, 4, 5};
+    RangeView view( vec, 1, 4);   // covers indices 1, 2, 3
+
+    for( auto& x : view)
+        x = -1;
+
+    REQUIRE( vec[0] ==  1);   // untouched
+    REQUIRE( vec[1] == -1);   // mutated
+    REQUIRE( vec[2] == -1);   // mutated
+    REQUIRE( vec[3] == -1);   // mutated
+    REQUIRE( vec[4] ==  5);   // untouched
+}
+
 TEST_CASE( "RangeView: generates correct sequences", "[unit]")
 {
     SECTION( "RangeView with std::vector")
@@ -94,4 +134,43 @@ TEST_CASE( "RangeView returns random-access iterators", "[unit]")
     using Category = std::iterator_traits<Iterator>::iterator_category;
 
     STATIC_REQUIRE( std::is_base_of_v<std::random_access_iterator_tag, Category>);
+}
+
+TEST_CASE( "RangeView: const correctness", "[unit]")
+{
+    SECTION( "view over const container yields read-only elements")
+    {
+        const std::vector vec = {1, 2, 3};
+        RangeView view( vec, 0, 3);
+
+        using DerefType = decltype( *view.begin());
+
+        //
+        // Dereferencing gives a const reference — elements are not assignable
+        //
+        STATIC_REQUIRE( std::is_const_v<std::remove_reference_t<DerefType>>);
+        STATIC_REQUIRE_FALSE( std::is_assignable_v<DerefType, int>);
+    }
+
+    SECTION( "view over mutable container yields writable elements")
+    {
+        std::vector vec = {1, 2, 3};
+        RangeView view( vec, 0, 3);
+
+        using DerefType = decltype( *view.begin());
+
+        // Dereferencing gives a mutable reference — elements are assignable
+        STATIC_REQUIRE_FALSE( std::is_const_v<std::remove_reference_t<DerefType>>);
+        STATIC_REQUIRE( std::is_assignable_v<DerefType, int>);
+    }
+
+    SECTION( "const RangeView over mutable container — constness propagation")
+    {
+        std::vector vec = {1, 2, 3};
+        const RangeView view( vec, 0, 3);
+
+        using DerefType = decltype( *view.begin());
+
+        STATIC_REQUIRE_FALSE( std::is_const_v<std::remove_reference_t<DerefType>>);
+    }
 }
