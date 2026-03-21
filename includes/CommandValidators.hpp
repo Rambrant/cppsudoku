@@ -68,10 +68,12 @@ namespace com::rambrant::sudoku
 
             if( std::find( mAllowed.begin(), mAllowed.end(), value) == mAllowed.end())
             {
-                std::cerr << "Invalid value '" << value << "' for option " << self.getLongFlag() << ". Allowed values: ";
+                std::print( mOut, "Invalid value '{}' for option {}. Allowed values:", value, self.getLongFlag());
 
                 for( const auto& val : mAllowed)
-                    std::cerr << val << " ";
+                    std::print( " {}", val);
+
+                std::println( mOut);
 
                 return false;
             }
@@ -91,10 +93,12 @@ namespace com::rambrant::sudoku
             {
                 if( std::find( mAllowed.begin(), mAllowed.end(), item) == mAllowed.end())
                 {
-                    std::cerr << "Invalid value '" << item << "' for option " << self.getLongFlag() << ". Allowed values: ";
+                    std::print( mOut, "Invalid value '{}' for option {}. Allowed values:", item, self.getLongFlag());
 
                     for( const auto& val : mAllowed)
-                        std::cerr << val << " ";
+                        std::print( mOut, " {}", val);
+
+                    std::println();
 
                     return false;
                 }
@@ -114,7 +118,7 @@ namespace com::rambrant::sudoku
         {
             if( self.isSet() && mOther.isSet())
             {
-                std::cerr << "Option " << self.getLongFlag() << " may not be used together with " << mOther.getLongFlag() << std::endl;
+                std::println( mOut, "Option {} may not be used together with {}", self.getLongFlag(), mOther.getLongFlag());
                 return false;
             }
 
