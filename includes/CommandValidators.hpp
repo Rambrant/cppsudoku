@@ -139,9 +139,9 @@ namespace com::rambrant::sudoku
      * @return A validator function that can be used with @ref CommandOption::addValidator
      */
     template< typename T>
-    auto ValuesIn( std::initializer_list<T> allowed)
+    auto ValuesIn( std::initializer_list<T> allowed,  std::ostream& out = std::cout)
     {
-        return detail::ValuesInImpl<T>(std::vector<T>(allowed.begin(), allowed.end()));
+        return detail::ValuesInImpl<T>( std::vector<T>(allowed.begin(), allowed.end()), out);
     }
 
     /**
@@ -151,7 +151,7 @@ namespace com::rambrant::sudoku
      * @param allowed The set of allowed values
      * @return A validator function that can be used with @ref CommandOption::addValidator
      */
-    inline auto ValuesIn( const std::initializer_list<const char*> allowed)
+    inline auto ValuesIn( const std::initializer_list<const char*> allowed,  std::ostream& out = std::cout)
     {
         std::vector<std::string> values;
         values.reserve(allowed.size());
@@ -159,7 +159,7 @@ namespace com::rambrant::sudoku
         for( auto s : allowed)
             values.emplace_back(s);
 
-        return detail::ValuesInImpl( std::move(values));
+        return detail::ValuesInImpl( std::move(values), out);
     }
 
     /**
@@ -170,8 +170,8 @@ namespace com::rambrant::sudoku
      * @return true if the option isn't given together with other, false otherwise
      */
     template< typename T>
-    auto NotWith( const CommandOption<T>& other)
+    auto NotWith( const CommandOption<T>& other, std::ostream& out = std::cout)
     {
-        return detail::NotWithImpl<T>( other);
+        return detail::NotWithImpl<T>( other, out);
     }
 }
