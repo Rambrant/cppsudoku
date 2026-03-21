@@ -43,7 +43,11 @@ namespace com::rambrant::sudoku
             constexpr Iterator begin() const { return mBegin; }
 
             /// The iterator for the element one past the last viewed element
-            constexpr Iterator end()   const { return mEnd;   }
+            constexpr Iterator end() const { return mEnd;   }
+
+            constexpr std::size_t size() const { return mEnd - mBegin; }
+
+            constexpr auto empty() const { return mEnd == mBegin;}
 
         private:
 
