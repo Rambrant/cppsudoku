@@ -4,7 +4,7 @@
 //
 #pragma once
 
-#include <iostream>
+#include <print>
 #include <vector>
 
 class CommandOption;
@@ -21,8 +21,8 @@ namespace com::rambrant::sudoku
         class ValuesInImpl
         {
             public:
-                ValuesInImpl( std::initializer_list<T> allowed);
-                explicit ValuesInImpl( std::vector<T> allowed);
+                ValuesInImpl( std::initializer_list<T> allowed, std::ostream& out = std::cout);
+                explicit ValuesInImpl( std::vector<T> allowed, std::ostream& out = std::cout);
 
                 bool operator()(const CommandOption<T>& self) const;
                 bool operator()(const CommandOption<std::vector<T>>& self) const;
@@ -30,28 +30,32 @@ namespace com::rambrant::sudoku
             private:
 
                 std::vector<T> mAllowed; // Typical small set of values so vector should be faster
+                std::ostream&  mOut;
         };
 
         template<typename T>
         class NotWithImpl
         {
             public:
-                explicit NotWithImpl( const CommandOption<T>& other);
+                explicit NotWithImpl( const CommandOption<T>& other, std::ostream& out = std::cout);
 
                 auto operator()( const CommandOption<T>& self) const -> bool;
 
             private:
                 const CommandOption<T>& mOther;
+                std::ostream&           mOut;
         };
 
         template<typename T>
-        ValuesInImpl<T>::ValuesInImpl( std::initializer_list<T> allowed ) :
-            mAllowed( allowed.begin(), allowed.end())
+        ValuesInImpl<T>::ValuesInImpl( std::initializer_list<T> allowed, std::ostream& out) :
+            mAllowed( allowed.begin(), allowed.end()),
+            mOut( out)
         {}
 
         template<typename T>
-        ValuesInImpl<T>::ValuesInImpl( std::vector<T> allowed ) :
-            mAllowed( std::move(allowed))
+        ValuesInImpl<T>::ValuesInImpl( std::vector<T> allowed, std::ostream& out) :
+            mAllowed( std::move(allowed)),
+            mOut( out)
         {}
 
         template<typename T>
@@ -100,8 +104,9 @@ namespace com::rambrant::sudoku
         }
 
         template<typename T>
-        NotWithImpl<T>::NotWithImpl( const CommandOption<T> & other ) :
-            mOther( other)
+        NotWithImpl<T>::NotWithImpl( const CommandOption<T> & other,  std::ostream& out) :
+            mOther( other),
+            mOut( out)
         {}
 
         template<typename T>
