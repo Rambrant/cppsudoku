@@ -40,6 +40,12 @@ endif()
 
 add_compile_options( -Wall -Wextra -Wpedantic -Werror)
 
+# Use LLVM's libc++ on Linux — GCC's libstdc++ on ubuntu-latest is too old for C++23 features
+if( CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    add_compile_options( -stdlib=libc++)
+    add_link_options( -stdlib=libc++)
+endif()
+
 # C++26 Contracts — not yet in Clang mainline (as of Clang 22).
 # Enable manually once you have a contracts-capable Clang build:
 #   cmake -B build -DENABLE_CONTRACTS=ON
