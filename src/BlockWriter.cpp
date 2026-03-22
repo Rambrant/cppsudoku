@@ -33,7 +33,7 @@ namespace com::rambrant::sudoku
                     mStream << " "; // extra spacing between box columns
                 }
 
-                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
+                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]).value_or('?') << " ";
             }
 
             mStream << std::endl;
