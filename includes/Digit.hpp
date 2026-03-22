@@ -4,6 +4,7 @@
 //
 #pragma once
 
+#include <expected>
 #include "SudokuTraits.hpp"
 
 namespace com::rambrant::sudoku
@@ -21,26 +22,30 @@ namespace com::rambrant::sudoku
      * @endcode
      */
     template< int size>
-    int digitToValue( Traits::Digit digit)
+    std::expected<Traits::Value, std::string> digitToValue( Traits::Digit digit)
     {
         if( digit == '.')
+        {
             digit = '0';
+        }
 
         if( std::isdigit( digit))
+        {
             return digit - '0';
+        }
 
         //
         // Don't even compile this if the size of the board is 9 or less
         //
         if constexpr( size > 9)
         {
-            char c = static_cast<char>( std::toupper( static_cast<unsigned char>(digit))); // A mouthful to avoid 'narrowing conversion' warnings
+            char c = static_cast<char>( std::toupper( static_cast<unsigned char>( digit))); // A mouthful to avoid 'narrowing conversion' warnings
 
             if( c >= 'A' && c < 'A' + (size - 9))
                 return 10 + (c - 'A');
         }
 
-        return -1;  // skip or invalid
+        return std::unexpected( std::string("Invalid digit: ") + digit);
     }
 
     /**
@@ -50,10 +55,12 @@ namespace com::rambrant::sudoku
      * @return Value or -1 if the string could not be converted, or if it contains more than one character.
      */
     template< int size>
-    int digitToValue( const std::string& digit)
+    std::expected<Traits::Value, std::string> digitToValue( const std::string& digit)
     {
         if( digit.size() != 1)
-            return -1;
+        {
+            return std::unexpected( "Invalid digit: expected single character, got '" + digit + "'");
+        }
 
         return digitToValue<size>( digit[0]);
     }
@@ -69,7 +76,7 @@ namespace com::rambrant::sudoku
      * @endcode
      */
     template< int size>
-    char valueToDigit( const Traits::Value value)
+    std::expected<Traits::Digit, std::string> valueToDigit( const Traits::Value value)
     {
         if( value >= 0 && value <= 9)
         {
@@ -85,6 +92,6 @@ namespace com::rambrant::sudoku
                 return static_cast<char>( 'A' + (value - 10));
         }
 
-        return '?'; // fallback for unexpected values
+        return std::unexpected( "Invalid value: " + std::to_string( value));
     }
 }
