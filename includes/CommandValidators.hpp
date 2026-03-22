@@ -73,7 +73,7 @@ namespace com::rambrant::sudoku
                 for( const auto& val : mAllowed)
                     std::print( " {}", val);
 
-                std::println( mOut);
+                mOut << '\n';
 
                 return false;
             }
@@ -98,7 +98,7 @@ namespace com::rambrant::sudoku
                     for( const auto& val : mAllowed)
                         std::print( mOut, " {}", val);
 
-                    std::println();
+                    mOut << '\n';;
 
                     return false;
                 }
