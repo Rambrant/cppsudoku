@@ -19,7 +19,9 @@ namespace com::rambrant::sudoku
         /**
          * @brief Returns the reason the exception as a char array
          */
+        [[nodiscard]]
         const char* what() const noexcept override { return "Solver prematurely cancelled"; }
+        ~CancelledException() noexcept override = default;
     };
 
     /**
