@@ -7,11 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <limits>
-#include <map>
-#include <set>
 #include <vector>
-
-#include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
