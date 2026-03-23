@@ -4,11 +4,9 @@
 //
 #pragma once
 
-#include <map>
-#include <set>
-#include <tuple>
+#include <flat_map>
+#include <flat_set>
 #include <vector>
-
 #include "ISolver.hpp"
 
 namespace com::rambrant::sudoku
@@ -45,11 +43,10 @@ namespace com::rambrant::sudoku
         // The control structure defining the squares, units and peers for the Sudoku board
         //
         using Square        = std::pair<int, int>;                          // Row and column index
-        using Squares       = std::set<Square>;                             // All squares on the board
-        using SquareValues  = std::map<Square, std::vector<Traits::Value>>; // Map from each square to its current list of possible values.
-        using Units         = std::map<Square, std::vector<Squares>>;       // Map from each square to its units, row, column and box.
-        using Peers         = std::map<Square, Squares>;                    // Map from each square to its peers.
-
+        using Squares       = std::flat_set<Square>;
+        using SquareValues  = std::flat_map<Square, std::vector<Traits::Value>>;
+        using Units         = std::flat_map<Square, std::vector<Squares>>;
+        using Peers         = std::flat_map<Square, Squares>;
         /**
          * @brief Internal struct used to hold the structure of peers and units associated with a board square
          */
