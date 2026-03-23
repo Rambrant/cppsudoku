@@ -44,19 +44,21 @@ jobs:
       - name: Install Doxygen and Graphviz
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
 
-      - name: Install LLVM/Clang 18
+      - name: Install LLVM/Clang 19
         run: |
           wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
-          sudo add-apt-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-18 main"
+          . /etc/os-release
+          sudo add-apt-repository "deb http://apt.llvm.org/${VERSION_CODENAME}/ llvm-toolchain-${VERSION_CODENAME}-19 main"
           sudo apt-get update
-          sudo apt-get install -y clang-18 libc++-18-dev libc++abi-18-dev
+          sudo apt-get install -y clang-19 libc++-19-dev libc++abi-19-dev lld-19
+          clang++-19 --version
 
       - name: Configure CMake (Docs)
         run: >
           cmake -S . -B build
           -DBUILD_DOC=ON
-          -DCMAKE_CXX_COMPILER=clang++-18
-          -DCMAKE_C_COMPILER=clang-18
+          -DCMAKE_CXX_COMPILER=clang++-19
+          -DCMAKE_C_COMPILER=clang-19
           -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
 
       - name: Build documentation
