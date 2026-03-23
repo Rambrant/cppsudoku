@@ -37,33 +37,20 @@ auto getLogger( const BoolOption& verboseOpt, const BoolOption & quietOpt) -> Lo
     return logger;
 }
 
-template<typename Stream>
-struct StreamDeleter
-{
-    bool ownsStream = false;
-
-    void operator()( const Stream* stream) const
-    {
-        if( ownsStream)
-        {
-            delete stream;
-        }
-        // Do nothing if we don't own the stream (e.g., std::cin)
-    }
-};
-
 auto getInputStream( const StringOption& opt, const Logger& logger)
 {
+    using StreamPtr = std::unique_ptr<std::istream, void(*)(std::istream*)>;
+
     if( opt.isSet())
     {
-        const auto& path = opt.get();
-
         logger << Logger::verbose << "...Reading from file '" << opt.get() << "'";
-        return std::unique_ptr<std::istream, StreamDeleter<std::istream>>( new FileStream(path) , StreamDeleter<std::istream>{ true});
+
+        return StreamPtr( new FileStream( opt.get()), []( std::istream* s){ delete s; });
     }
 
     logger << Logger::verbose << "...Reading from stdin";
-    return std::unique_ptr<std::istream, StreamDeleter<std::istream>>( &std::cin, StreamDeleter<std::istream>{ false}); // no-op deleter
+
+    return StreamPtr( &std::cin, []( std::istream*){});
 }
 
 auto getReader( const StringOption& opt, std::istream& stream, const Logger& logger) -> std::unique_ptr<IReader>
@@ -71,25 +58,28 @@ auto getReader( const StringOption& opt, std::istream& stream, const Logger& log
     if( opt.get() == "json")
     {
         logger << Logger::verbose << " [json format]" << std::endl;
+
         return std::make_unique<JsonReader>( stream, logger);
     }
 
     logger << Logger::verbose << " [text format]" << std::endl;
+
     return std::make_unique<AsciiReader>( stream, logger);
 }
 
 auto getOutputStream( const StringOption& opt, const Logger& logger)
 {
-    if( opt.isSet())
-    {
-        const auto& path = opt.get();
+        using StreamPtr = std::unique_ptr<std::ostream, void(*)(std::ostream*)>;
 
-        logger << Logger::verbose << "...Writing to file '" << opt.get() << "'";
-        return std::unique_ptr<std::ostream, StreamDeleter<std::ostream>>( new FileStream(path, FileStream::Mode::Write) , StreamDeleter<std::ostream>{ true});
-    }
+        if( opt.isSet())
+        {
+            logger << Logger::verbose << "...Writing to file '" << opt.get() << "'";
+            return StreamPtr( new FileStream( opt.get(), FileStream::Mode::Write), []( std::ostream* s){ delete s; });
+        }
 
-    logger << Logger::verbose << "...Writing to stdout";
-    return std::unique_ptr<std::ostream, StreamDeleter<std::ostream>>( &std::cout, StreamDeleter<std::ostream>{ false}); // no-op deleter
+        logger << Logger::verbose << "...Writing to stdout";
+
+        return StreamPtr( &std::cout, []( std::ostream*){});
 }
 
 auto getWriter( const StringOption& opt, std::ostream& stream, const Logger& logger) -> std::unique_ptr<IWriter>
@@ -148,8 +138,6 @@ int main( int argc, char* argv[])
 {
     try
     {
-        using Traits = SudokuTraits;
-
         //
         // Parse the command line
         //
@@ -207,7 +195,7 @@ int main( int argc, char* argv[])
         //
         // Setting up and solving the board
         //
-        SudokuBoard  board{ *reader, *writer, std::move(solvers), logger};
+        SudokuBoard  board{ *reader, *writer, std::move( solvers), logger};
 
         logger << Logger::verbose << "Reading [" << Traits::BOARD_SIZE << "x" << Traits::BOARD_SIZE <<"] board" << std::endl;
 
