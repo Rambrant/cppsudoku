@@ -38,21 +38,20 @@ jobs:
           runVcpkgInstall: true
           vcpkgDirectory: '${{ github.workspace }}/.vcpkg'
 
-      - name: Install LLVM/Clang 20
+      - name: Install LLVM/Clang 22
         run: |
-          wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
-          . /etc/os-release
-          sudo add-apt-repository "deb http://apt.llvm.org/${VERSION_CODENAME}/ llvm-toolchain-${VERSION_CODENAME}-20 main"
-          sudo apt-get update
-          sudo apt-get install -y clang-20 libc++-20-dev libc++abi-20-dev lld-20
-          clang++-20 --version
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 22 all
+          clang++-22 --version
+          echo "#include <flat_map>" | clang++-22 -std=c++23 -stdlib=libc++ -x c++ - -fsyntax-only && echo "flat_map OK" || echo "flat_map NOT FOUND"
 
       - name: Configure CMake
         run: >
           cmake -DENABLE_DOCS=OFF -B build -S .
           -DCMAKE_BUILD_TYPE=Release
-          -DCMAKE_CXX_COMPILER=clang++-20
-          -DCMAKE_C_COMPILER=clang-20
+          -DCMAKE_CXX_COMPILER=clang++-22
+          -DCMAKE_C_COMPILER=clang-22
           -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
 
       - name: Build
