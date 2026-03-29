@@ -11,7 +11,7 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief A board writer that prints out a pretty formatted output to the stream
+     * @brief A board writer that outputs one row per line with space-separated values.
      */
     class BlockWriter : public IWriter
     {

@@ -43,7 +43,7 @@ namespace com::rambrant::sudoku
              * @brief Construct the option with the given value. This is an alternative version that supports a list of values
              * @param longFlag  The long option name, usually prepended with '--'
              * @param shortFlag The short version of the longFlag, usually just one letter prepended with a single '-'
-             * @param defaultValue The default value if no value is set in the form of a bace-initializer or a vector of strings.
+             * @param defaultValue The default value if no value is set in the form of a brace-initializer or a vector of strings.
              */
             template< typename U = T>
             requires std::same_as<U, std::vector<std::string>>

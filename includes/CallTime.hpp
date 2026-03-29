@@ -17,7 +17,7 @@ namespace com::rambrant::sudoku
      * @return A tuple containing the result of the callable object and the execution time.
      *
      * @code
-     * auto [result, duration] = timedCall( [&] {return board.solve( solver); });
+     * auto [result, duration] = CallTime( [&] {return board.solve(); });
      * @endcode
      */
     template <typename Func, typename... Args>

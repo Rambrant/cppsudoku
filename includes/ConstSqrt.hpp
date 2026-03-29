@@ -7,7 +7,9 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief Computes integer square root of a perfect square at compile time using the Newton-Raphson method.
+     * @brief Computes the integer square root of a perfect square at compile time using Newton-Raphson.
+     * @param number A non-negative perfect square integer.
+     * @return The integer square root of @p number.
      */
     constexpr auto ConstSqrt( const int number) -> int
     {

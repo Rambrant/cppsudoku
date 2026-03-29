@@ -18,7 +18,7 @@ namespace com::rambrant::sudoku
     class ISolver;
 
     /**
-     * @brief A Sudoku solver that uses a constraint propagation algorithm. Modeled after the idea from Peter Norvig, @see https://norvig.com/sudoku.html
+     * /// @brief Manages reading, solving, and writing a Sudoku board using injected strategies.
      */
     class SudokuBoard
     {

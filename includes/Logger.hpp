@@ -60,7 +60,7 @@ namespace com::rambrant::sudoku
             explicit Logger( LogLevel defaultLevel = LogLevel::Normal, std::ostream& stream = std::clog);
 
             /**
-             * @brief Chack if the Logger is in a verbose state or not
+             * @brief Check if the Logger is in a verbose state or not
              * @return true if the level i set to Verbose
              */
             [[nodiscard]]

@@ -39,14 +39,17 @@ namespace com::rambrant::sudoku
              */
             constexpr RangeView( Container& container, std::size_t from, std::size_t to);
 
-            /// The iterator for the first viewed element
+            /// @brief The iterator for the first viewed element
             constexpr Iterator begin() const { return mBegin; }
 
-            /// The iterator for the element one past the last viewed element
+            /// @brief The iterator for the element one past the last viewed element
             constexpr Iterator end() const { return mEnd;   }
 
+            /// @brief Returns the number of elements in the view.
+            [[nodiscard]]
             constexpr std::size_t size() const { return mEnd - mBegin; }
 
+            /// @brief Returns true if the view contains no elements.
             constexpr auto empty() const { return mEnd == mBegin;}
 
         private:

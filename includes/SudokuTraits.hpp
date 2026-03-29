@@ -48,7 +48,7 @@ namespace com::rambrant::sudoku
         /// @brief 2D grid of @ref BOARD_SIZE number of @ref BoardArray's
         using Board = std::array< BoardArray, BOARD_SIZE>;
 
-        /// @brief Result from a solver. Success or not and the number of recursions together with the resulting board
+        /// @brief Result from a solver: whether it succeeded, recursion count, and the resulting board.
         struct BoardResult
         {
             bool        solved;

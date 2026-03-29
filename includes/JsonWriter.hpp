@@ -11,7 +11,7 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief A board writer that prints out a pretty formatted output to the stream
+     * @brief A board writer that outputs the board in JSON array format.
      */
     class JsonWriter final : public IWriter
     {
