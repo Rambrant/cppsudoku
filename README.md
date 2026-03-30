@@ -47,13 +47,13 @@ Usage: sudoku_solver [OPTIONS]
 - **Compile-Time Optimizations**: Utilizes `constexpr` and template metaprogramming to perform computations at compile time.
 - **Traits-Based Design**: Flexible traits system to define board size, value ranges, etc.
 - **Doxygen Documentation**: Automatically generated documentation.
-- **Modern C++ Practices**: Follows best practices and leverages C++17 features.
+- **Modern C++ Practices**: Follows best practices and leverages C++26 features.
 
 ## Getting Started
 
 The code is delivered as is together with released binaries for Ubuntu. It must be compiled for any other target platform.
 
-The code has been developed and tested using JetBrain CLion IDE on macOS Sequoia (15.0) running on Apple Silicon (arm64).
+The code has been developed and tested using JetBrain CLion IDE on macOS Tahoe (26.0) running on Apple Silicon (arm64).
 The released version is built using GitHub Actions using Ubuntu latest as environment. 
 
 ## Project Layout
@@ -72,7 +72,7 @@ vcpkg.json              # External dependencies
 
 ## Prerequisites
 
-- A C++17 (or later) compatible compiler (e.g., GCC 10+, Clang 10+, MSVC 2019+)
+- A C++26 (or later) compatible compiler (Clang-22)
 - CMake (version 3.15 or later)
 - [Doxygen](https://www.doxygen.nl/) (optional, for building documentation)
 - [vcpkg](https://github.com/microsoft/vcpkg) from Microsoft for installation of external packages

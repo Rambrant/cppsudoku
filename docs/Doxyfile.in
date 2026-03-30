@@ -1,9 +1,11 @@
 # Doxyfile 1.13.2
 
 PROJECT_NAME           = @PROJECT_NAME@
-PROJECT_BRIEF          = "A simple Sudoku solver written in modern C++17"
+PROJECT_BRIEF          = "A simple Sudoku solver written in modern C++26"
 OUTPUT_DIRECTORY       = @DOXYGEN_OUTPUT_DIR@
-INPUT                  = @DOXYGEN_INPUT_DIR@
+INPUT                  = @DOXYGEN_README@ \
+                         @DOXYGEN_INPUT_DIR@
+USE_MDFILE_AS_MAINPAGE = @DOXYGEN_README@
 FULL_PATH_NAMES        = NO
 FILE_PATTERNS          = *.cpp \
                          *.h \
