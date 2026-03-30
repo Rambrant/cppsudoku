@@ -11,7 +11,7 @@ namespace com::rambrant::sudoku
     class Logger;
 
     /**
-     * @brief A reader interface for classes that can read a Sudoku board from some sort of source.
+     * @brief A writer interface for classes that can write a Sudoku board to some sort of destination.
      */
     class IWriter
     {

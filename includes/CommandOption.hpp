@@ -7,6 +7,7 @@
 #include <functional>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "ICommandOption.hpp"
@@ -42,15 +43,12 @@ namespace com::rambrant::sudoku
              * @brief Construct the option with the given value. This is an alternative version that supports a list of values
              * @param longFlag  The long option name, usually prepended with '--'
              * @param shortFlag The short version of the longFlag, usually just one letter prepended with a single '-'
-             * @param defaultValue The default value if no value is set in the form of a bace-initializer or a vector of strings.
+             * @param defaultValue The default value if no value is set in the form of a brace-initializer or a vector of strings.
              */
-            //
-            // Using a constraint to ensure that this constructor is only used for List types of options
-            //
-            template< typename U = T, typename = std::enable_if_t< std::is_same_v<U, std::vector<std::string>> >>
+            template< typename U = T>
+            requires std::same_as<U, std::vector<std::string>>
             CommandOption( std::string longFlag, std::string shortFlag, std::vector<std::string> defaultValue = {} ) :
                 CommandOption( std::move( longFlag), std::move( shortFlag), std::optional{ std::move( defaultValue)}) {}
-
 
             /**
              * @brief Sets the validator function. The validator function is called with the option as an argument.
@@ -86,7 +84,7 @@ namespace com::rambrant::sudoku
             auto expectsValue() const -> bool override;
 
             /**
-              * @brief Gets the value or default. If none exists, an exception is thrown
+              * @brief Gets the value or default.
               * @return The value  if set and the default value otherwise
               */
             [[nodiscard]]
@@ -230,7 +228,7 @@ namespace com::rambrant::sudoku
         if( mDefaultValue)
             return *mDefaultValue;
 
-        throw std::runtime_error( "No value set for option " + mLongFlag);
+        std::unreachable();
     }
 
     template<typename T>

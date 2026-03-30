@@ -5,7 +5,6 @@
 #pragma once
 
 #include <array>
-#include <tuple>
 
 #include "ConstSqrt.hpp"
 #include "RangeArray.hpp"
@@ -49,15 +48,21 @@ namespace com::rambrant::sudoku
         /// @brief 2D grid of @ref BOARD_SIZE number of @ref BoardArray's
         using Board = std::array< BoardArray, BOARD_SIZE>;
 
-        /// @brief Result from a solver. Success or not and the number of recursions together with the resulting board
-        using BoardResult = std::tuple< bool, std::size_t, Board>;
+        /// @brief Result from a solver: whether it succeeded, recursion count, and the resulting board.
+        struct BoardResult
+        {
+            bool        solved;
+            std::size_t recursions;
+            Board       board;
+        };
     };
 
     /**
-     * @brief A trait for checking iterators for random_access
-     * @tparam Container The container to test for random_access iterator type
-     */
+    * @brief Concept that constrains a type to containers with random-access iterators.
+    * @tparam Container The container type to test.
+    */
     template <typename Container>
-    constexpr bool is_random_access_container = std::is_base_of_v< std::random_access_iterator_tag,
+    concept RandomAccessContainer = std::is_base_of_v<
+        std::random_access_iterator_tag,
         typename std::iterator_traits< typename Container::iterator>::iterator_category>;
 }

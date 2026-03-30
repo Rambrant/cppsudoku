@@ -49,7 +49,14 @@ namespace com::rambrant::sudoku
                 }
                 else
                 {
-                    value = digitToValue<Traits::BOARD_SIZE>( cell.get<std::string>());
+                    const auto result = digitToValue<Traits::BOARD_SIZE>( cell.get<std::string>());
+
+                    if( ! result.has_value() || result.value() > Traits::MAX_VALUE)
+                    {
+                        throw std::runtime_error( "Invalid value '" + cell.dump() + "' in JSON file.");
+                    }
+
+                    value = result.value();
                 }
 
                 if( value < 0 || value > Traits::MAX_VALUE)

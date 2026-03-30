@@ -7,12 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <limits>
-#include <map>
-#include <set>
-#include <tuple>
 #include <vector>
-
-#include "Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -169,7 +164,7 @@ namespace com::rambrant::sudoku
             return true;
         }
 
-        auto search( SquareValues allValues, int& recursions, std::atomic<bool>& cancelFlag) -> SquareValues // NOLINT(misc-no-recursion)
+        auto search( SquareValues allValues, size_t& recursions, std::atomic<bool>& cancelFlag) -> SquareValues // NOLINT(misc-no-recursion)
         {
             if( cancelFlag.load())
                 throw CancelledException{}; // Exit early
@@ -260,8 +255,8 @@ namespace com::rambrant::sudoku
 
     auto ConstraintPropagationSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
     {
-        int  recursions{ 0};
-        bool result{ false};
+        size_t  recursions{ 0};
+        bool    result{ false};
 
         try
         {
@@ -281,7 +276,7 @@ namespace com::rambrant::sudoku
             if( result)
                 cancelFlag.store( true);    // Terminate any other solver prematurely
 
-            return std::make_tuple( result, recursions, board);
+            return Traits::BoardResult{ result, recursions, board};
 
         }
         catch( const CancelledException&)
@@ -289,13 +284,13 @@ namespace com::rambrant::sudoku
             //
             // Returned prematurely
             //
-            return std::make_tuple( false, recursions, Traits::Board{});
+            return Traits::BoardResult{ false, recursions, Traits::Board{}};
         }
         catch( const std::exception& e)
         {
             std::cerr << e.what() << std::endl;
 
-            return std::make_tuple( false, recursions, Traits::Board{});
+            return Traits::BoardResult{ false, recursions, Traits::Board{}};
         }
     }
 }

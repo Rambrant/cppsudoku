@@ -61,11 +61,15 @@ TEST_CASE( "CommandOption: default handling", "[unit]")
         REQUIRE( opt.get() == "default.txt");
     }
 
-    SECTION( "Throws if neither value nor default exists")
+    SECTION( "isSet() returns false when neither value nor default exists")
     {
+        //
+        // get() pre-condition: either a value or a default must be set.
+        // Callers must guard with isSet() / has a default before calling get().
+        //
         StringOption opt( "--missing", "-m");
 
-        REQUIRE_THROWS_AS( opt.get(), std::runtime_error);
+        REQUIRE_FALSE( opt.isSet());
     }
 }
 
@@ -96,4 +100,24 @@ TEST_CASE( "CommandOption: expectsValue logic", "[unit]")
     REQUIRE_FALSE( BoolOption( "--flag", "-f").expectsValue());
     REQUIRE( StringOption( "--name", "-n").expectsValue());
     REQUIRE( ListOption( "--list", "-l").expectsValue());
+}
+
+TEST_CASE( "CommandOption: list constructor default initializer", "[unit]")
+{
+    SECTION( "ListOption uses vector<string> default directly")
+    {
+        ListOption opt( "--solvers", "-s", { "backtracking", "constraint"});
+
+        REQUIRE_FALSE( opt.isSet());
+        REQUIRE( opt.get() == std::vector<std::string>{ "backtracking", "constraint"});
+    }
+
+    SECTION( "ListOption default is overridden once a value is set")
+    {
+        ListOption opt( "--solvers", "-s", { "backtracking", "constraint"});
+
+        opt.convertValue( "constraint");
+        REQUIRE( opt.isSet());
+        REQUIRE( opt.get() == std::vector<std::string>{ "constraint"});
+    }
 }

@@ -5,7 +5,6 @@
 #include "BackTrackingSolver.hpp"
 
 #include <algorithm>
-#include <tuple>
 
 #include "RangeView.hpp"
 #include "SudokuBoard.hpp"
@@ -22,7 +21,7 @@ namespace com::rambrant::sudoku
 
     auto BackTrackingSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
     {
-        int recursions{ 0};
+        size_t recursions{ 0};
 
         try
         {
@@ -31,14 +30,14 @@ namespace com::rambrant::sudoku
             if( result)
                 cancelFlag.store( true);    // Terminate any other solver prematurely
 
-            return std::make_tuple( result, recursions, board);
+            return Traits::BoardResult{ result, recursions, board};
         }
         catch( const CancelledException&)
         {
             //
             // Returned prematurely
             //
-            return std::make_tuple( false, recursions, Traits::Board{});
+            return Traits::BoardResult{ false, recursions, Traits::Board{}};
         }
     }
 
@@ -127,7 +126,7 @@ namespace com::rambrant::sudoku
             return result;
         }
 
-        auto search( Traits::Board & board, int& recursions, std::atomic<bool>& cancelFlag) -> bool // NOLINT(misc-no-recursion)
+        auto search( Traits::Board & board, size_t& recursions, std::atomic<bool>& cancelFlag) -> bool // NOLINT(misc-no-recursion)
 {
             if( cancelFlag.load())
             {

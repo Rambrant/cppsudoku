@@ -44,8 +44,21 @@ jobs:
       - name: Install Doxygen and Graphviz
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
 
+      - name: Install LLVM/Clang 22
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 22 all
+          clang++-22 --version
+          echo "#include <flat_map>" | clang++-22 -std=c++23 -stdlib=libc++ -x c++ - -fsyntax-only && echo "flat_map OK" || echo "flat_map NOT FOUND"
+
       - name: Configure CMake (Docs)
-        run: cmake -S . -B build -DBUILD_DOC=ON -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
+        run: >
+          cmake -S . -B build
+          -DBUILD_DOC=ON
+          -DCMAKE_CXX_COMPILER=clang++-22
+          -DCMAKE_C_COMPILER=clang-22
+          -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
 
       - name: Build documentation
         run: cmake --build build --target build_documentation

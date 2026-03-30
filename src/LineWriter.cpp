@@ -21,7 +21,7 @@ namespace com::rambrant::sudoku
         {
             for( const auto colIdx : Traits::INDEX_RANGE)
             {
-                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << " ";
+                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]).value_or('?') << " ";
             }
         }
     }

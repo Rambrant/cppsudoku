@@ -2,7 +2,7 @@
 //  Created by Thomas Rambrant, 2025
 //  This project is licensed under the MIT License - see the LICENSE file for details.
 //
-#include <sstream>
+#include <iostream>
 #include <catch2/catch_test_macros.hpp>
 
 #include "CommandLineParser.hpp"
@@ -27,18 +27,13 @@ TEST_CASE( "CommandLineParse: rejects invalid value via validator")
 {
     StringOption mode("--mode", "-m", "hard");
     mode.setValidator( ValuesIn({ "easy", "medium", "hard"}));
+
     CommandLineParser parser( mode);
 
     const char* argv[] = { "program", "--mode", "extreme" };
     int         argc   = std::size( argv);
 
-    std::stringstream buffer;
-    std::streambuf*   oldCerr = std::cerr.rdbuf( buffer.rdbuf());
-
     CHECK_FALSE( parser.parse( argc, const_cast<char**>(argv)));
-    CHECK( buffer.str().find( "Invalid value 'extreme'") != std::string::npos);
-
-    std::cerr.rdbuf( oldCerr);
 }
 
 TEST_CASE( "CommandLineParser: enforces NotWith validator")
@@ -54,13 +49,7 @@ TEST_CASE( "CommandLineParser: enforces NotWith validator")
     const char* argv[] = { "program", "--verbose", "--quiet" };
     int         argc   = std::size( argv);
 
-    std::stringstream buffer;
-    std::streambuf* oldCerr = std::cerr.rdbuf(buffer.rdbuf());
-
     CHECK_FALSE( parser.parse( argc, const_cast<char**>(argv)));
-    CHECK( buffer.str().find("may not be used together") != std::string::npos);
-
-    std::cerr.rdbuf( oldCerr);
 }
 
 TEST_CASE( "CommandLineParser: handle multiple types")

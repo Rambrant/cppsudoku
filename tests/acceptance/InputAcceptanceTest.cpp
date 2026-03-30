@@ -37,7 +37,7 @@ SCENARIO( "Reading Sudoku boards [acceptance]")
 
     auto testCase = GENERATE(
         TestCase{ "-I", "board_simple.txt", "text"},
-        TestCase{ "--input_format", "board_json.txt", "json"});
+        TestCase{ "--input-format", "board_json.txt", "json"});
 
     GIVEN( "Standard input from " + testCase.file + " with format " + testCase.format)
     {

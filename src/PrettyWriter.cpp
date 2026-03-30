@@ -32,7 +32,7 @@ namespace com::rambrant::sudoku
                     mStream << "| "; // extra spacing between box columns
                 }
 
-                const Traits::Digit digit = valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]);
+                const Traits::Digit digit = valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]).value_or('?');
 
                 mStream << (digit == '0' ? '.' : digit) << " ";
             }

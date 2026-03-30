@@ -30,9 +30,9 @@ namespace com::rambrant::sudoku
             if( digit == '.')
                 digit = '0';
 
-            if( const Traits::Value value = digitToValue<Traits::BOARD_SIZE>( digit); value != -1)
+            if( const auto result = digitToValue<Traits::BOARD_SIZE>( digit); result.has_value())
             {
-                board[count / Traits::BOARD_SIZE][count % Traits::BOARD_SIZE] = value;
+                board[count / Traits::BOARD_SIZE][count % Traits::BOARD_SIZE] = result.value();
                 ++count;
             }
         }

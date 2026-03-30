@@ -27,7 +27,7 @@ namespace com::rambrant::sudoku
 
             for( const auto colIdx : Traits::INDEX_RANGE)
             {
-                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]) << (colIdx < Traits::BOARD_SIZE -1 ? ", " : " ");
+                mStream << valueToDigit<Traits::BOARD_SIZE>( board[rowIdx][colIdx]).value_or('?') << (colIdx < Traits::BOARD_SIZE -1 ? ", " : " ");
             }
 
             mStream << "]" << (rowIdx < Traits::BOARD_SIZE -1 ? "," : "") << std::endl;
