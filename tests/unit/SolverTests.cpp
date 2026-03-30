@@ -122,7 +122,7 @@ namespace
         {
             std::atomic cancelFlag( false);
             auto orgBoard{ unsolvedBoard};
-            auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
+            auto [result, recursion, board] = solver.solve( orgBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesUnsolved"));
 
@@ -133,7 +133,7 @@ namespace
         {
             std::atomic cancelFlag( false);
             auto orgBoard{ hardBoard};
-            auto [result, _, board] = solver.solve( orgBoard, cancelFlag);
+            auto [result, recurison, board] = solver.solve( orgBoard, cancelFlag);
 
             REQUIRE( result == args.at( "solvesHardBoard"));
             if( result) REQUIRE( board == solvedHardBoard);

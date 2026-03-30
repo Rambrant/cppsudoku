@@ -22,7 +22,7 @@ TEST_CASE( "CommandValidator: ValuesIn validator works for single string option"
         CHECK( mode.isValid());
     }
 
-    SECTION( "Rejects disallowed value and reports it")
+    SECTION( "Rejects disallowed value")
     {
         std::stringstream out;
         StringOption      mode( "--mode", "-m");

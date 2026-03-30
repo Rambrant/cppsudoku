@@ -24,6 +24,10 @@ SCENARIO( "Sudoku backtracking solver [acceptance]")
 
     CliRunner  runner( SUDOKU_CLI_COMMAND, SUDOKU_CLI_WORKING_DIR);
 
+    //
+    // board_hard.txt is solvable by constraint propagation but not by backtracking alone.
+    // Exit code 1 is expected because backtracking returns no solution for this board.
+    //
     auto testCase = GENERATE(
         TestCase{ "board_simple.txt", "[backtracking]", 0},
         TestCase{ "board_hard.txt", "No solution", 1});

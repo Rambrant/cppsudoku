@@ -36,9 +36,9 @@ SCENARIO( "Writing Sudoku boards [acceptance]")
 
     auto testCase = GENERATE(
         TestCase{ "-O", "pretty"},
-        TestCase{ "-output_format", "block"},
+        TestCase{ "--output-format", "block"},
         TestCase{ "-O", "line"},
-        TestCase{ "--output_format", "json"});
+        TestCase{ "--output-format", "json"});
 
     GIVEN( "Standard output with format " + testCase.format)
     {

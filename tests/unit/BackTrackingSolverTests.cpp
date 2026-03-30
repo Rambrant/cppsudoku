@@ -122,7 +122,7 @@ TEST_CASE( "BackTrackingSolver: boxConstraint", "[unit]")
     constexpr int colPos{5};
     constexpr int rowPos{4};
 
-    const std::vector used{ 0, 6, 0, 8, 0, 3, 0, 2, 0};
+    const std::vector used{ 6, 8, 3, 2};
     const std::vector unused = filterUnused( used);
 
     SECTION( "Given value exists", "[unit]")
