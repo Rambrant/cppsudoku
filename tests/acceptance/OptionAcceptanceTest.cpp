@@ -5,7 +5,7 @@
 #include <regex>
 #include <catch2/catch_test_macros.hpp>
 
-#include "SudokuTraits.hpp"
+#include "core/SudokuTraits.hpp"
 #include "catch2/generators/catch_generators.hpp"
 
 using namespace com::rambrant::sudoku;
