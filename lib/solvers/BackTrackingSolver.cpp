@@ -2,12 +2,11 @@
 //  Created by Thomas Rambrant, 2025
 //  This project is licensed under the MIT License - see the LICENSE file for details.
 //
-#include "BackTrackingSolver.hpp"
+#include "solvers/BackTrackingSolver.hpp"
 
 #include <algorithm>
 
-#include "core/RangeView.hpp"
-#include "core/SudokuBoard.hpp"
+#include "core/BoardUnits.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -63,43 +62,12 @@ namespace com::rambrant::sudoku
 
         auto columnConstraint( const Traits::Board & board, const Traits::Value value, const int columnPos ) -> bool
         {
-            Traits::BoardArray columnValues;
-
-            std::transform( board.begin(), board.end(), columnValues.begin(),
-                [columnPos]( const Traits::BoardArray& row){ return row[columnPos]; });
-
-            return checkValue( value, columnValues);
+            return checkValue( value, extractColumn( board, columnPos));
         }
 
         auto boxConstraint( const Traits::Board & board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool
         {
-            //
-            // Calculate the board coordinates for the top left corner of the box
-            //
-            const int startRow = (rowPos / Traits::BOX_SIZE) * Traits::BOX_SIZE;
-            const int endRow   = startRow + Traits::BOX_SIZE;
-
-            const int startCol = (columnPos / Traits::BOX_SIZE) * Traits::BOX_SIZE;
-            const int endCol   = startCol + Traits::BOX_SIZE;
-
-            //
-            // Loop over the box squares and collect the values
-            //
-            Traits::BoardArray boxValues;
-
-            auto boxIter = boxValues.begin();
-
-            for( const auto& row : RangeView( board, startRow, endRow))
-            {
-                for( const int  squareValue : RangeView( row, startCol, endCol))
-                {
-                    *boxIter =  squareValue;
-
-                    boxIter++;
-                }
-            }
-
-            return checkValue( value, boxValues);
+            return checkValue( value, extractBox( board, rowPos, columnPos));
         }
 
         auto setValid( Traits::Board& board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool

@@ -8,7 +8,8 @@ add_dependencies( sudoku_unit_tests ${SUDOKU_CLI_NAME})
 target_link_libraries( sudoku_unit_tests
         PRIVATE
         sudoku_solver_lib
-        sudoku_cli_lib        # ← add this
+        sudoku_cli_lib
+        sudoku_gui_lib
         Catch2::Catch2WithMain
 )
 

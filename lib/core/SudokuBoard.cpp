@@ -10,6 +10,7 @@
 #include <thread>
 #include <utility>
 
+#include "BoardValidator.hpp"
 #include "../readers/IReader.hpp"
 #include "../solvers/ISolver.hpp"
 #include "../writers/IWriter.hpp"
@@ -28,6 +29,11 @@ namespace com::rambrant::sudoku
     auto SudokuBoard::read() const -> void
     {
         mBoard = mReader.read();
+
+        if( ! isValidBoard( mBoard))
+        {
+            throw std::invalid_argument( "Board read from input violates Sudoku constraints");
+        }
     }
 
     auto SudokuBoard::write() const -> void
