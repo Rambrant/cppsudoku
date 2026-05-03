@@ -1,0 +1,102 @@
+//
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
+//
+#include <deque>
+#include <forward_list>
+#include <list>
+#include <set>
+#include <span>
+#include <string>
+#include <catch2/catch_test_macros.hpp>
+
+#include "core/SudokuTraits.hpp"
+
+using namespace com::rambrant::sudoku;
+using Traits = SudokuTraits;
+
+
+TEST_CASE( "Traits: Board structure and values", "[unit]")
+{
+    constexpr Traits::BoardArray array{};
+    constexpr Traits::Board      board{};
+
+    SECTION( "BoardArray has correct size")
+    {
+        REQUIRE( array.size() == Traits::BOARD_SIZE);
+    }
+
+    SECTION(" Board has correct size")
+    {
+        REQUIRE( board.size()    == Traits::BOARD_SIZE);
+        REQUIRE( board[0].size() == Traits::BOARD_SIZE);
+    }
+
+    SECTION( "Board is initialized to NO_VALUE")
+    {
+        for( const auto& row : board)
+        {
+            for( const int square : row)
+            {
+                REQUIRE( square == Traits::NO_VALUE);
+            }
+        }
+    }
+}
+
+TEST_CASE( "Traits: Constants are consistent", "[unit]")
+{
+    SECTION( "BOX_SIZE squared equals BOARD_SIZE")
+    {
+        REQUIRE( Traits::BOX_SIZE * Traits::BOX_SIZE == Traits::BOARD_SIZE);
+    }
+}
+
+TEST_CASE( "Traits: Index and value ranges", "[unit]")
+{
+    SECTION( "INDEX_RANGE contains values [0..BOARD_SIZE-1]")
+    {
+        std::vector<int> expected;
+
+        expected.reserve( Traits::BOARD_SIZE);
+
+        for( Traits::Value value = 0; value < Traits::BOARD_SIZE; ++value)
+        {
+            expected.push_back( value);
+        }
+
+        REQUIRE( std::equal( expected.begin(), expected.end(), Traits::INDEX_RANGE.begin()));
+    }
+
+    SECTION( "VALUE_RANGE contains values [1..MAX_VALUE]")
+    {
+        std::vector<int> expected;
+        expected.reserve( Traits::MAX_VALUE);
+
+        for(Traits::Value value = 1; value <= Traits::MAX_VALUE; ++value)
+        {
+            expected.push_back( value);
+        }
+
+        REQUIRE( std::equal( expected.begin(), expected.end(), Traits::VALUE_RANGE.begin()));
+    }
+}
+
+TEST_CASE( "Traits: Is Random Access Container trait", "[unit]")
+{
+    //
+    // Satisfy — random-access iterators
+    //
+    STATIC_REQUIRE(  RandomAccessContainer< std::vector<int>>);
+    STATIC_REQUIRE(  RandomAccessContainer< std::array<int, 9>>);
+    STATIC_REQUIRE(  RandomAccessContainer< std::deque<int>>);
+    STATIC_REQUIRE(  RandomAccessContainer< std::span<int>>);
+    STATIC_REQUIRE(  RandomAccessContainer< std::string>);
+
+    //
+    // Do not satisfy — bidirectional or weaker iterators
+    //
+    STATIC_REQUIRE( ! RandomAccessContainer< std::list<int>>);
+    STATIC_REQUIRE( ! RandomAccessContainer< std::forward_list<int>>);
+    STATIC_REQUIRE( ! RandomAccessContainer< std::set<int>>);
+}

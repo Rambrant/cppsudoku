@@ -1,0 +1,129 @@
+//
+//  Created by Thomas Rambrant, 2025
+//  This project is licensed under the MIT License - see the LICENSE file for details.
+//
+#include "solvers/BackTrackingSolver.hpp"
+
+#include <algorithm>
+
+#include "core/BoardUnits.hpp"
+
+namespace com::rambrant::sudoku
+{
+
+    //
+    // Member functions
+    //
+    BackTrackingSolver::BackTrackingSolver( const Logger & logger) :
+        ISolver( logger)
+    {}
+
+    auto BackTrackingSolver::solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult
+    {
+        size_t recursions{ 0};
+
+        try
+        {
+            bool result = detail::search( board, recursions, cancelFlag);
+
+            if( result)
+                cancelFlag.store( true);    // Terminate any other solver prematurely
+
+            return Traits::BoardResult{ result, recursions, board};
+        }
+        catch( const CancelledException&)
+        {
+            //
+            // Returned prematurely
+            //
+            return Traits::BoardResult{ false, recursions, Traits::Board{}};
+        }
+    }
+
+    //
+    // Helper function implementations
+    //
+    namespace detail
+    {
+        auto checkValue( Traits::Value value, const Traits::BoardArray & unitValues ) -> bool
+        {
+            //
+            // Returns true if none of the elements in the array matches the given value
+            //
+            return std::all_of( unitValues.begin(), unitValues.end(),
+                [value]( const int element) { return element != value; }
+            );
+        }
+
+        auto rowConstraint( const Traits::Board & board, const Traits::Value value, const int rowPos ) -> bool
+        {
+            return checkValue( value, board[ rowPos]);
+        }
+
+        auto columnConstraint( const Traits::Board & board, const Traits::Value value, const int columnPos ) -> bool
+        {
+            return checkValue( value, extractColumn( board, columnPos));
+        }
+
+        auto boxConstraint( const Traits::Board & board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool
+        {
+            return checkValue( value, extractBox( board, rowPos, columnPos));
+        }
+
+        auto setValid( Traits::Board& board, const Traits::Value value, const int rowPos, const int columnPos ) -> bool
+        {
+            const bool result = rowConstraint( board, value, rowPos)            &&
+                                columnConstraint( board, value, columnPos)      &&
+                                boxConstraint( board, value, rowPos, columnPos);
+
+            if( result)
+            {
+                //
+                // Valid guess, set the value
+                //
+                board[rowPos][columnPos] = value;
+            }
+            else
+            {
+                //
+                // non-valid guess, back of
+                //
+                board[rowPos][columnPos] = Traits::NO_VALUE;
+            }
+
+            return result;
+        }
+
+        auto search( Traits::Board & board, size_t& recursions, std::atomic<bool>& cancelFlag) -> bool // NOLINT(misc-no-recursion)
+{
+            if( cancelFlag.load())
+            {
+                throw CancelledException{}; // Exit early
+            }
+
+            ++recursions;
+
+            for( const int rowIdx : Traits::INDEX_RANGE)
+            {
+                for( const int colIdx : Traits::INDEX_RANGE)
+                {
+                    if( board[rowIdx][colIdx] == Traits::NO_VALUE)
+                    {
+                        for( const int value : Traits::VALUE_RANGE)
+                        {
+                            if( setValid( board, value, rowIdx, colIdx) &&
+                                search( board, recursions, cancelFlag))
+                            {
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
+}
