@@ -44,10 +44,12 @@ Usage: sudoku_solver [OPTIONS]
 
 ## Features
 
+- **C++26** — uses `std::flat_map`, `std::expected`, concepts, and other modern features.
 - **Compile-Time Optimizations**: Utilizes `constexpr` and template metaprogramming to perform computations at compile time.
 - **Traits-Based Design**: Flexible traits system to define board size, value ranges, etc.
-- **Doxygen Documentation**: Automatically generated documentation.
-- **Modern C++ Practices**: Follows best practices and leverages C++26 features.
+- **Clean architecture** — solver logic is a reusable library; CLI and GUI are separate consumers.
+- **Fully tested** — unit tests (Catch2) covering core, solvers, readers, writers and CLI parsing.
+- **Doxygen documentation** — automatically generated API reference.
 
 ## Getting Started
 
@@ -59,13 +61,29 @@ The released version is built using GitHub Actions using Ubuntu latest as enviro
 ## Project Layout
 
 ```
-includes/               # Header files
-src/                    # Source files
-tests/unit              # Unit tests using the Catch2 framework
-tests/acceptance        # Acceptance tests using the catch2 Given, When, Then BDD style 
-tests/test-resources    # Common resources for the tests
+lib/                    # Reusable solver library (sudoku_solver_lib)
+  core/                 #   Board types, traits, utilities, validation
+  solvers/              #   BacktrackingSolver, ConstraintPropagationSolver
+  readers/              #   AsciiReader, JsonReader
+  writers/              #   BlockWriter, JsonWriter, LineWriter, PrettyWriter
+cli/                    # Command-line executable (sudoku_solver)
+gui/                    # GUI executable — Dear ImGui + SDL2 (in progress)
+  viewmodel/            #   ViewModel + Commands (no ImGui dependency, fully testable)
+  view/                 #   ImGui rendering layer (coming soon)
+tests/
+  unit/                 # Unit tests mirroring lib/ and gui/viewmodel/ structure
+    core/
+    solvers/
+    readers/
+    writers/
+    cli/
+    gui/
+  acceptance/           # Acceptance tests (BDD style with Catch2)
+    cli/
+    gui/                # Placeholder — imgui_test_engine planned
+  test-resources/       # Shared puzzle files used by acceptance tests
 docs/                   # Doxygen configuration
-.github                 # GitHub workflows
+.github/workflows/      # CI/CD pipelines
 CMakeLists.txt          # Root build configuration
 vcpkg.json              # External dependencies
 ```
@@ -126,14 +144,19 @@ cmake --build . --target build_documentation
 ```
 Documentation will be generated in the `build/docs/html` directory.
 
-### Run the Solver
 ```bash
-build//bin/sudoku_solver
+build/bin/sudoku_solver --input my_puzzle.txt
 ```
 
 ## GitHub Actions
-The GitHub Actions lives in the .github directory, and they form a simple pipeline to build, run tests, generate documentation,
-create a release and finally allow us to deploy the solver.
+Four workflows live in `.github/workflows/`:
+
+| Workflow | Trigger | What it does |
+|---|---|---|
+| `build.yml` | Every push/PR | Builds and runs all tests |
+| `docs.yml` | Successful build on `main` | Generates and publishes Doxygen docs to GitHub Pages |
+| `release.yml` | Manual | Tags the repo and uploads the binary as a release artifact |
+| `deploy.yml` | Manual | Downloads and deploys the artifact from `deployment-config.json` |
 
 ### build.yml (Build and Test)
 Triggered by a commit on any branch. Builds the code and executes all the tests, unit and acceptance
