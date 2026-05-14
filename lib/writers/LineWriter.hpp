@@ -19,6 +19,9 @@ namespace com::rambrant::sudoku
     {
         public:
 
+            /// @brief The format key used to select this writer from the command line.
+            static constexpr std::string_view formatName = "line";
+
             /**
              * @brief Constructs the class that writes the board in a single line
              * @param os The existing outstream to write to.
