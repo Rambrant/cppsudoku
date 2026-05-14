@@ -9,9 +9,10 @@
 #include <catch2/matchers/catch_matchers_contains.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
 
+#include "core/Logger.hpp"
 #include "readers/AsciiReader.hpp"
 #include "readers/JsonReader.hpp"
-#include "core/Logger.hpp"
+#include "readers/ReaderFactory.hpp"
 
 using namespace com::rambrant::sudoku;
 
@@ -32,9 +33,9 @@ TEST_CASE( "Readers: AsciiReader reads valid 9x9 boards", "unit")
 
         std::istringstream stream( input);
         Logger             logger{};
-        AsciiReader        reader( stream, logger);
+        auto               asciiReader = ReaderFactory::instance().create( "text", stream, logger);
 
-        auto board = reader.read();
+        auto board = (*asciiReader)->read();
 
         REQUIRE(board.size() == 9);
 
@@ -62,9 +63,9 @@ TEST_CASE( "Readers: AsciiReader reads valid 9x9 boards", "unit")
 
         std::istringstream stream( input);
         Logger       logger{};
-        AsciiReader  reader( stream, logger);
+        auto               asciiReader = ReaderFactory::instance().create( "text", stream, logger);
 
-        auto board = reader.read();
+        auto board = (*asciiReader)->read();
 
         CHECK( board[0][0] == 1);
         CHECK( board[8][8] == 8);
@@ -76,9 +77,9 @@ TEST_CASE( "Readers: AsciiReader reads valid 9x9 boards", "unit")
 
         std::istringstream stream( input);
         Logger             logger{};
-        AsciiReader reader( stream, logger);
+        auto               asciiReader = ReaderFactory::instance().create( "text", stream, logger);
 
-        [[maybe_unused]] auto board = reader.read();
+        [[maybe_unused]] auto board = (*asciiReader)->read();
 
         char leftover;
         stream >> leftover;
@@ -104,9 +105,9 @@ TEST_CASE( "Readers: AsciiReader reads valid 9x9 boards", "unit")
 
         std::istringstream stream( input);
         Logger             logger{};
-        AsciiReader reader( stream, logger);
+        auto               asciiReader = ReaderFactory::instance().create( "text", stream, logger);
 
-        auto board = reader.read();
+        auto board = (*asciiReader)->read();
 
         CHECK( board[0][0] == 1);
         CHECK( board[8][8] == 8);
@@ -119,9 +120,9 @@ TEST_CASE( "Readers: AsciiReader rejects input with fewer than 81 digits")
 
     std::istringstream stream( input);
     Logger             logger{};
-    AsciiReader reader(stream, logger);
+    auto               asciiReader = ReaderFactory::instance().create( "text", stream, logger);
 
-    REQUIRE_THROWS_AS( reader.read(), std::runtime_error);
+    REQUIRE_THROWS_AS( (*asciiReader)->read(), std::runtime_error);
 }
 
 TEST_CASE( "Readers: JsonReader reads valid 9x9 boards", "unit")
@@ -144,9 +145,9 @@ TEST_CASE( "Readers: JsonReader reads valid 9x9 boards", "unit")
     {
         std::istringstream input( json);
         Logger             logger{};
-        JsonReader         reader( input, logger);
+        auto               jsonReader = ReaderFactory::instance().create( "json", input, logger);
 
-        REQUIRE_NOTHROW( reader.read());
+        REQUIRE_NOTHROW( (*jsonReader)->read());
     }
 
     SECTION( "JsonReader reads a grid of string literals")
@@ -156,9 +157,9 @@ TEST_CASE( "Readers: JsonReader reads valid 9x9 boards", "unit")
 
         std::istringstream input( json);
         Logger             logger{};
-        JsonReader         reader( input, logger);
+        auto               jsonReader = ReaderFactory::instance().create( "json", input, logger);
 
-        REQUIRE_NOTHROW( reader.read());
+        REQUIRE_NOTHROW( (*jsonReader)->read());
     }
 
     SECTION( "JsonReader reads a grid of string literals with zero replaced by dot")
@@ -171,9 +172,9 @@ TEST_CASE( "Readers: JsonReader reads valid 9x9 boards", "unit")
 
         std::istringstream input( json);
         Logger             logger{};
-        JsonReader         reader( input, logger);
+        auto               jsonReader = ReaderFactory::instance().create( "json", input, logger);
 
-        REQUIRE_NOTHROW( reader.read());
+        REQUIRE_NOTHROW( (*jsonReader)->read());
     }
 }
 
@@ -185,9 +186,9 @@ TEST_CASE( "Readers: JsonReader throws on illegal input")
 
         std::istringstream input( json);
         Logger             logger{};
-        JsonReader         reader( input, logger);
+        auto               jsonReader = ReaderFactory::instance().create( "json", input, logger);
 
-        REQUIRE_THROWS_WITH( reader.read(), Catch::Matchers::ContainsSubstring("Wrong number of rows"));
+        REQUIRE_THROWS_WITH( (*jsonReader)->read(), Catch::Matchers::ContainsSubstring("Wrong number of rows"));
     }
 
     SECTION( "JsonReader throws on a row with too few columns")
@@ -208,9 +209,9 @@ TEST_CASE( "Readers: JsonReader throws on illegal input")
 
         std::istringstream input( json);
         Logger             logger{};
-        JsonReader         reader( input, logger);
+        auto               jsonReader = ReaderFactory::instance().create( "json", input, logger);
 
-        REQUIRE_THROWS_WITH( reader.read(), Catch::Matchers::ContainsSubstring( "Wrong number of columns"));
+        REQUIRE_THROWS_WITH( (*jsonReader)->read(), Catch::Matchers::ContainsSubstring( "Wrong number of columns"));
     }
 
     SECTION( "JsonReader throws on invalid cell value")
@@ -231,9 +232,9 @@ TEST_CASE( "Readers: JsonReader throws on illegal input")
 
         std::istringstream input( json);
         Logger             logger{};
-        JsonReader         reader( input, logger);
+        auto               jsonReader = ReaderFactory::instance().create( "json", input, logger);
 
-        REQUIRE_THROWS_WITH( reader.read(), Catch::Matchers::ContainsSubstring( "Invalid value"));
+        REQUIRE_THROWS_WITH( (*jsonReader)->read(), Catch::Matchers::ContainsSubstring( "Invalid value"));
     }
 
     SECTION(" JsonReader throws on invalid JSON format")
@@ -242,8 +243,8 @@ TEST_CASE( "Readers: JsonReader throws on illegal input")
 
         std::istringstream input( json);
         Logger             logger{};
-        JsonReader         reader( input, logger);
+        auto               jsonReader = ReaderFactory::instance().create( "json", input, logger);
 
-        REQUIRE_THROWS( reader.read());
+        REQUIRE_THROWS( (*jsonReader)->read());
     }
 }

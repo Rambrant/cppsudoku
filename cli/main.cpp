@@ -5,20 +5,15 @@
 #include <fstream>
 #include <iostream>
 
-#include "readers/AsciiReader.hpp"
-#include "solvers/BackTrackingSolver.hpp"
-#include "writers/BlockWriter.hpp"
 #include "core/CallTime.hpp"
+#include "core/SudokuBoard.hpp"
+#include "core/FileStream.hpp"
+#include "core/Logger.hpp"
 #include "CommandLineParser.hpp"
 #include "CommandValidators.hpp"
-#include "solvers/ConstraintPropagationSolver.hpp"
-#include "core/FileStream.hpp"
-#include "readers/JsonReader.hpp"
-#include "writers/JsonWriter.hpp"
-#include "writers/LineWriter.hpp"
-#include "core/Logger.hpp"
-#include "writers/PrettyWriter.hpp"
-#include "core/SudokuBoard.hpp"
+#include "readers/ReaderFactory.hpp"
+#include "writers/WriterFactory.hpp"
+#include "solvers/SolverFactory.hpp"
 
 using namespace com::rambrant::sudoku;
 using namespace std::string_literals;
@@ -55,16 +50,16 @@ auto getInputStream( const StringOption& opt, const Logger& logger)
 
 auto getReader( const StringOption& opt, std::istream& stream, const Logger& logger) -> std::unique_ptr<IReader>
 {
-    if( opt.get() == "json")
-    {
-        logger << Logger::verbose << " [json format]" << std::endl;
+    auto result = ReaderFactory::instance().create( opt.get(), stream, logger);
 
-        return std::make_unique<JsonReader>( stream, logger);
+    if( ! result)
+    {
+        throw std::runtime_error( result.error());
     }
 
-    logger << Logger::verbose << " [text format]" << std::endl;
+    logger << Logger::verbose << " [" << opt.get() << " format]" << std::endl;
 
-    return std::make_unique<AsciiReader>( stream, logger);
+    return std::move( *result);
 }
 
 auto getOutputStream( const StringOption& opt, const Logger& logger)
