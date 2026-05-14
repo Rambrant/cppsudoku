@@ -2,15 +2,13 @@
 //  Created by Thomas Rambrant, 2025
 //  This project is licensed under the MIT License - see the LICENSE file for details.
 //
-#include <writers/LineWriter.hpp>
-#include <core/Logger.hpp>
 #include <sstream>
-#include <core/SudokuTraits.hpp>
 #include <catch2/catch_test_macros.hpp>
 
-#include "writers/BlockWriter.hpp"
-#include "writers/JsonWriter.hpp"
-#include "writers/PrettyWriter.hpp"
+#include <core/Logger.hpp>
+#include <core/SudokuTraits.hpp>
+
+#include "writers/WriterFactory.hpp"
 
 TEST_CASE( "Writers: LineWriter writes valid 9x9 boards", "[unit]")
 {
@@ -32,9 +30,9 @@ TEST_CASE( "Writers: LineWriter writes valid 9x9 boards", "[unit]")
     {
         std::ostringstream stream;
         Logger             logger{};
-        LineWriter         writer{ stream, logger};
+        auto               lineWriter = WriterFactory::instance().create( "line", stream, logger);
 
-        writer.write( board);
+        (*lineWriter)->write( board);
 
         REQUIRE( stream.str() == "5 3 0 0 7 0 0 0 0 6 0 0 1 9 5 0 0 0 0 9 8 0 0 0 0 6 0 8 0 0 0 6 0 0 0 3 4 0 0 8 0 3 0 0 1 7 0 0 0 2 0 0 0 6 0 6 0 0 0 0 2 8 0 0 0 0 4 1 9 0 0 5 0 0 0 0 8 0 0 7 9 ");
     }
@@ -43,9 +41,9 @@ TEST_CASE( "Writers: LineWriter writes valid 9x9 boards", "[unit]")
     {
         std::ostringstream stream;
         Logger             logger{};
-        BlockWriter        writer{ stream, logger};
+        auto               blockWriter = WriterFactory::instance().create( "block", stream, logger);
 
-        writer.write( board);
+        (*blockWriter)->write( board);
 
         std::string expected =
             "5 3 0  0 7 0  0 0 0 \n"
@@ -67,9 +65,9 @@ TEST_CASE( "Writers: LineWriter writes valid 9x9 boards", "[unit]")
     {
         std::ostringstream stream;
         Logger             logger{};
-        PrettyWriter       writer{ stream, logger};
+        auto               prettyWriter = WriterFactory::instance().create( "pretty", stream, logger);
 
-        writer.write(board);
+        (*prettyWriter)->write( board);
 
         std::string expected =
             "5 3 . | . 7 . | . . . \n"
@@ -91,9 +89,9 @@ TEST_CASE( "Writers: LineWriter writes valid 9x9 boards", "[unit]")
     {
         std::ostringstream stream;
         Logger             logger{};
-        JsonWriter         writer{ stream, logger};
+        auto               jsonWriter = WriterFactory::instance().create( "json", stream, logger);
 
-        writer.write(board);
+        (*jsonWriter)->write( board);
 
         std::string expected =
             "[\n"

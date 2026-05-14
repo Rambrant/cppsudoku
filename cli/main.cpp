@@ -79,26 +79,16 @@ auto getOutputStream( const StringOption& opt, const Logger& logger)
 
 auto getWriter( const StringOption& opt, std::ostream& stream, const Logger& logger) -> std::unique_ptr<IWriter>
 {
-    if( opt.get() == "pretty")
+    auto result = WriterFactory::instance().create( opt.get(), stream, logger);
+
+    if( ! result)
     {
-        logger << Logger::verbose << " [pretty format]" << std::endl;
-        return std::make_unique<PrettyWriter>( stream, logger);
+        throw std::runtime_error( result.error());
     }
 
-    if( opt.get() == "line")
-    {
-        logger << Logger::verbose << " [line format]" << std::endl;
-        return std::make_unique<LineWriter>( stream, logger);
-    }
+    logger << Logger::verbose << " [" << opt.get() << " format]" << std::endl;
 
-    if( opt.get() == "json")
-    {
-        logger << Logger::verbose << " [json format]" << std::endl;
-        return std::make_unique<JsonWriter>( stream, logger);
-    }
-
-    logger << Logger::verbose << " [block format]" << std::endl;
-    return std::make_unique<BlockWriter>( stream, logger);
+    return std::move( *result);
 }
 
 auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::SolverList
