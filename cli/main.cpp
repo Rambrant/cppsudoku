@@ -122,6 +122,8 @@ auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::So
 //
 int main( int argc, char* argv[])
 {
+    using Traits = SudokuTraits;
+
     try
     {
         //
@@ -156,7 +158,9 @@ int main( int argc, char* argv[])
         CommandLineParser parser( helpOpt, verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);
 
         if( ! parser.parse( argc, argv))
+        {
             return 1;
+        }
 
         if( helpOpt.isSet())
         {
@@ -219,4 +223,3 @@ int main( int argc, char* argv[])
 
     return 1;
 }
-
