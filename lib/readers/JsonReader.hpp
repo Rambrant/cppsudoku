@@ -17,6 +17,9 @@ namespace com::rambrant::sudoku
     {
         public:
 
+            /// @brief The format key used to select this reader from the command line.
+            static constexpr std::string_view formatName = "json";
+
             /**
              * @brief Constructs the class with for an instream and a Logger
              * @param is The existing instream to read from
@@ -26,7 +29,7 @@ namespace com::rambrant::sudoku
 
             /**
              * @brief Reads the Sudoku board
-             * @return The @ref SudokuTraits.Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
+             * @return The @ref SudokuTraits::Board. Usually a 9x9 grid with values 1-9 (zero representing no value).
              */
             [[nodiscard]]
             auto read() const -> Traits::Board override;
