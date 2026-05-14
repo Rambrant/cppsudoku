@@ -96,20 +96,21 @@ auto getSolvers( const ListOption& opt, const Logger& logger) -> SudokuBoard::So
     std::size_t             count{};
     SudokuBoard::SolverList solvers;
 
-    for( const auto& solverArg : opt.get())
+    for( const auto& name : opt.get())
     {
         ++count;
 
-        if( solverArg == "backtracking")
+        auto result = SolverFactory::instance().create( name, logger);
+
+        if( ! result)
         {
-            logger << Logger::verbose << "...Adding solver " << count << " [backtracking]" << std::endl;
-            solvers.push_back( std::make_unique<BackTrackingSolver>( logger));
+            throw std::runtime_error( result.error());
         }
-        else
-        {
-            logger << Logger::verbose << "...Adding solver " << count << " [constraint propagation]" << std::endl;
-            solvers.push_back( std::make_unique<ConstraintPropagationSolver>( logger));
-        }
+
+        logger << Logger::verbose << "...Adding solver " << count
+               << " [" << name << "]" << std::endl;
+
+        solvers.push_back( std::move( *result));
     }
 
     return solvers;

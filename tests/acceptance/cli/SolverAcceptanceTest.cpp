@@ -83,7 +83,7 @@ SCENARIO( "Sudoku with both solvers [acceptance]")
     };
 
     CliRunner  runner( SUDOKU_CLI_COMMAND, SUDOKU_CLI_WORKING_DIR);
-    std::regex addedSolversRegex( R"(Adding asynchronous solver)");
+    std::regex addedSolversRegex( R"(Launching solver)");
     std::regex solvedSolversRegex( R"(solved the board in)");
 
     auto testCase = GENERATE(
