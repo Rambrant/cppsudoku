@@ -11,11 +11,15 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief A board writer that outputs one row per line with space-separated values.
+     *  @brief A board writer that outputs the board as a 9×9 grid with one row per line
+     *         and single-space-separated digit values.
      */
     class BlockWriter : public IWriter
     {
         public:
+
+            /// @brief The format key used to select this writer from the command line.
+            static constexpr std::string_view formatName = "block";
 
             /**
              * @brief Constructs the class that writes the board in a "block". A one row per line

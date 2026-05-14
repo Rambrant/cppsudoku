@@ -18,7 +18,7 @@ namespace com::rambrant::sudoku
     class ISolver;
 
     /**
-     * /// @brief Manages reading, solving, and writing a Sudoku board using injected strategies.
+     *  @brief Manages reading, solving, and writing a Sudoku board using injected strategies.
      */
     class SudokuBoard
     {

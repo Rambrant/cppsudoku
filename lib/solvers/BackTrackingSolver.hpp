@@ -4,7 +4,7 @@
 //
 #pragma once
 
-#include <tuple>
+#include <string_view>
 
 #include "ISolver.hpp"
 
@@ -19,6 +19,9 @@ namespace com::rambrant::sudoku
     {
         public:
 
+            /// @brief The solver key used to select this solver from the command line.
+            static constexpr std::string_view solverName = "backtracking";
+
             /**
              * @brief Constructs the class with a Logger
              * @param logger The @ref Logger instance. Must be valid during the lifetime of the solver
@@ -27,12 +30,22 @@ namespace com::rambrant::sudoku
 
             /**
              * @brief Solves the given Sudoku board using a brute force backtracking algorithm.
-             * @param board A @ref SudokuTraits.Board.
+             * @param board A @ref SudokuTraits::Board.
              * @param cancelFlag A reference to an atomic flag used to signal the premature exit of thread
-             * @return A @ref SudokuTraits.BoardResult.
+             * @return A @ref SudokuTraits::BoardResult.
              */
             [[nodiscard]]
             auto solve( Traits::Board& board, std::atomic<bool>& cancelFlag ) const -> Traits::BoardResult override;
+
+            /**
+             * @brief Returns @c "backtracking" — the command-line key for this solver.
+             * @see ISolver::name()
+             */
+            [[nodiscard]]
+            auto name() const noexcept -> std::string_view override
+            {
+                return solverName;
+            }
     };
 
     namespace detail

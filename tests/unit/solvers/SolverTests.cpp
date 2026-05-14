@@ -4,6 +4,7 @@
 //
 #include <catch2/catch_all.hpp>
 
+#include "solvers/ISolver.hpp"
 #include "solvers/BackTrackingSolver.hpp"
 #include "solvers/ConstraintPropagationSolver.hpp"
 #include "core/Logger.hpp"
@@ -233,4 +234,37 @@ TEST_CASE( "Solvers: Premature Exit", "[unit]")
         REQUIRE( result == false);
         REQUIRE( recursions == 0);
     }
+}
+
+TEST_CASE( "Solvers: name() returns the registered solver key", "[unit]")
+{
+    Logger logger{};
+
+    SECTION( "BackTrackingSolver returns 'backtracking'")
+    {
+        const BackTrackingSolver solver{ logger};
+
+        CHECK( solver.name() == "backtracking");
+    }
+
+    SECTION( "ConstraintPropagationSolver returns 'constraint'")
+    {
+        const ConstraintPropagationSolver solver{ logger};
+
+        CHECK( solver.name() == "constraint");
+    }
+
+    SECTION( "name() is accessible through the ISolver interface")
+    {
+        const std::unique_ptr<ISolver> solver = std::make_unique<BackTrackingSolver>( logger);
+
+        CHECK( solver->name() == "backtracking");
+    }
+}
+
+TEST_CASE( "Solvers: SolverPlugin concept", "[unit]")
+{
+    STATIC_REQUIRE( SolverPlugin<BackTrackingSolver>);
+    STATIC_REQUIRE( SolverPlugin<ConstraintPropagationSolver>);
+    STATIC_REQUIRE_FALSE( SolverPlugin<ISolver>);    // abstract base does not satisfy — no solverName
 }

@@ -4,6 +4,9 @@
 //
 #pragma once
 
+#include <concepts>
+#include <string_view>
+
 #include "core/SudokuTraits.hpp"
 
 namespace com::rambrant::sudoku
@@ -39,4 +42,31 @@ namespace com::rambrant::sudoku
             /// @brief internal logger reference to be used by the subclasses to write log messages to
             const Logger& mLogger;
     };
+
+    //
+    //  WriterPlugin concept
+    //
+
+    /**
+     * @brief Compile-time contract for every @ref IWriter implementation that
+     *        participates in @ref WriterFactory auto-registration.
+     *
+     * Mirrors @ref ReaderPlugin exactly — see its documentation for rationale
+     * and the P2996 migration note.
+     *
+     * @par Example
+     * @code
+     * class BlockWriter final : public IWriter {
+     * public:
+     *     static constexpr std::string_view formatName = "block";
+     *     BlockWriter( std::ostream&, const Logger&);
+     *     auto write( const Traits::Board&) const -> void override;
+     * };
+     * static_assert( WriterPlugin<BlockWriter>);
+     * @endcode
+     */
+    template<typename T>
+    concept WriterPlugin =
+        std::derived_from<T, IWriter> &&
+        requires { { T::formatName } -> std::convertible_to<std::string_view>; };
 }
