@@ -5,6 +5,7 @@
 #pragma once
 
 #include <expected>
+#include <functional>
 #include <istream>
 #include <memory>
 #include <string>
@@ -12,6 +13,7 @@
 #include <vector>
 
 #include "IReader.hpp"
+#include "factorybase//PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -20,30 +22,23 @@ namespace com::rambrant::sudoku
     /**
      * @brief Factory that creates @ref IReader instances by format name.
      *
-     * @par Registration mechanism (compile-time constexpr array)
-     * The registry is a @c constexpr @c std::array of {name, function-pointer}
-     * pairs, built and sorted at compile time from @ref ReaderList.
-     * It lives in @c .rodata — no heap allocation, zero startup cost.
+     * Inherits singleton access, registry storage, and fold-based registration
+     * from @ref PluginRegistry.
      *
-     * @par Adding a new reader
-     * Edit @ref ReaderList.hpp only.
+     * @par Registration mechanism (current: compile-time type list)
+     * The registry is populated in the constructor by folding over
+     * @ref ReaderList.  Edit @ref ReaderList.hpp only to add a new format.
      *
      * @par P2996 migration path
      * When Clang supports C++26 static reflection, @ref ReaderList.hpp is
-     * deleted entirely. The public interface of this class is unchanged.
-     * See @ref ReaderFactory.cpp for the exact diff.
+     * deleted.  The constructor discovers all @ref ReaderPlugin types in the
+     * namespace automatically.  The public interface is unchanged.
      */
-    class ReaderFactory
+    class ReaderFactory : public PluginRegistry<ReaderFactory,
+                              std::function<std::unique_ptr<IReader>( std::istream&, const Logger&)>>
     {
     public:
-
-        ReaderFactory( const ReaderFactory&)            = delete;
-        ReaderFactory& operator=( const ReaderFactory&) = delete;
-
-        /**
-         * @brief Returns the singleton instance.
-         */
-        static auto instance() -> const ReaderFactory&;
+        using CreatorFn = std::function<std::unique_ptr<IReader>( std::istream&, const Logger&)>;
 
         /**
          * @brief Constructs the @ref IReader for the given format name.
@@ -61,12 +56,18 @@ namespace com::rambrant::sudoku
 
         /**
          * @brief Sorted list of every registered format key.
+         *
+         * Feed this to @ref ValuesIn to keep command-line validation in sync
+         * with @ref ReaderList automatically.
          */
         [[nodiscard]]
         auto formats() const -> std::vector<std::string>;
 
     private:
+        ReaderFactory();
+        friend class PluginRegistry<ReaderFactory, CreatorFn>;
 
-        ReaderFactory() = default;
+        template<ReaderPlugin T>
+        static auto makeCreator() -> CreatorFn;
     };
 }
