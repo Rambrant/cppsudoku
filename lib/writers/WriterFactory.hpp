@@ -5,6 +5,7 @@
 #pragma once
 
 #include <expected>
+#include <functional>
 #include <memory>
 #include <ostream>
 #include <string>
@@ -12,6 +13,7 @@
 #include <vector>
 
 #include "IWriter.hpp"
+#include "factorybase//PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -20,30 +22,15 @@ namespace com::rambrant::sudoku
     /**
      * @brief Factory that creates @ref IWriter instances by format name.
      *
-     * @par Registration mechanism (compile-time constexpr array)
-     * The registry is a @c constexpr @c std::array of {name, function-pointer}
-     * pairs, built and sorted at compile time from @ref WriterList.
-     * It lives in @c .rodata — no heap allocation, zero startup cost.
-     *
-     * @par Adding a new writer
-     * Edit @ref WriterList.hpp only.
-     *
-     * @par P2996 migration path
-     * When Clang supports C++26 static reflection, @ref WriterList.hpp is
-     * deleted entirely. The public interface of this class is unchanged.
-     * See @ref WriterFactory.cpp for the exact diff.
+     * Mirrors @ref ReaderFactory exactly — inherits singleton access, registry
+     * storage, and fold-based registration from @ref PluginRegistry.
+     * See @ref ReaderFactory for the registration mechanism and P2996 migration path.
      */
-    class WriterFactory
+    class WriterFactory : public PluginRegistry<WriterFactory,
+                              std::function<std::unique_ptr<IWriter>( std::ostream&, const Logger&)>>
     {
     public:
-
-        WriterFactory( const WriterFactory&)            = delete;
-        WriterFactory& operator=( const WriterFactory&) = delete;
-
-        /**
-         * @brief Returns the singleton instance.
-         */
-        static auto instance() -> const WriterFactory&;
+        using CreatorFn = std::function<std::unique_ptr<IWriter>( std::ostream&, const Logger&)>;
 
         /**
          * @brief Constructs the @ref IWriter for the given format name.
@@ -61,12 +48,18 @@ namespace com::rambrant::sudoku
 
         /**
          * @brief Sorted list of every registered format key.
+         *
+         * Feed this to @ref ValuesIn to keep command-line validation in sync
+         * with @ref WriterList automatically.
          */
         [[nodiscard]]
         auto formats() const -> std::vector<std::string>;
 
     private:
+        WriterFactory();
+        friend class PluginRegistry<WriterFactory, CreatorFn>;
 
-        WriterFactory() = default;
+        template<WriterPlugin T>
+        static auto makeCreator() -> CreatorFn;
     };
 }
