@@ -4,8 +4,8 @@
 //
 #pragma once
 
-#include <flat_map>
-#include <ranges>
+#include <algorithm>
+#include <array>
 #include <string>
 #include <string_view>
 #include <tuple>
@@ -14,93 +14,100 @@
 namespace com::rambrant::sudoku
 {
     /**
-     * @brief CRTP base that provides singleton access, a keyed registry, and fold-based
-     *        plugin registration for ReaderFactory, WriterFactory, and SolverFactory.
+     * @brief A compile-time sorted lookup table mapping string keys to plugin creators.
      *
-     * ### Derived-class contract
-     * Each concrete factory must:
-     *  - Inherit `PluginRegistry<Derived, CreatorFn>`.
-     *  - Declare `friend class PluginRegistry<Derived, CreatorFn>` so the base can call
-     *    the private constructor and private @c makeCreator.
-     *  - Provide `template<ConceptT T> static auto makeCreator() -> CreatorFn` (private).
-     *  - Call `populate(std::type_identity<TypeList>{}, []<typename T>{ return T::key; })`
-     *    from its constructor to fill the registry.
-     *  - Expose a public `create(...)` that delegates to `findCreator()`.
+     * Stored as a @c static @c constexpr member of each concrete factory.
+     * Because the actual factory's @c constexpr initialiser uses only plugin-type statics and
+     * captureless lambdas — none of which require the factory to be complete.
      *
-     * @tparam Derived    The concrete factory type (CRTP pattern).
-     * @tparam CreatorFn  The callable type stored in the registry; its exact
-     *                    signature is factory-specific.
+     * @tparam CreatorFn  Raw function-pointer type — must be constexpr-constructible.
+     * @tparam RegSize    Number of registered plugins, deduced from the entry array.
      */
-    template<typename Derived, typename CreatorFn>
+    template<typename CreatorFn, std::size_t RegSize>
     class PluginRegistry
     {
     public:
-        PluginRegistry( const PluginRegistry&)            = delete;
-        PluginRegistry& operator=( const PluginRegistry&) = delete;
+        using Entry = std::pair<std::string_view, CreatorFn>;
 
         /**
-         * @brief Returns the Meyers-singleton instance.
-         *
-         * The registry is fully populated on the first call; subsequent calls
-         * are a plain static-local access.
+         * @brief Constructs the registry, sorting entries by key at compile time.
          */
-        static auto instance() -> Derived&
-        {
-            static Derived inst;
-            return inst;
-        }
+        constexpr explicit PluginRegistry( std::array<Entry, RegSize> entries) noexcept
+            : mEntries( sortedByKey( std::move( entries)))
+        {}
 
         /**
-         * @brief Sorted list of all registered plugin keys.
-         *
-         * The order is deterministic because @c std::flat_map keeps keys sorted.
-         * Concrete factories expose this under their own name (e.g. @c formats(),
-         * @c solverNames()) by delegating here.
+         * @brief Binary-searches for a creator by key.  O(log N) at runtime.
+         * @return Pointer to the matching @c CreatorFn, or @c nullptr.
+         *         Valid for the lifetime of the process (static storage).
          */
         [[nodiscard]]
-        auto registeredKeys() const -> std::vector<std::string>
+        constexpr auto find( std::string_view key) const noexcept -> const CreatorFn*
         {
-            return std::ranges::to<std::vector>( std::views::keys( mRegistry));
-        }
+            const auto it = std::lower_bound(
+                mEntries.begin(), mEntries.end(), key,
+                []( const Entry& e, std::string_view k) noexcept { return e.first < k; });
 
-    protected:
-        PluginRegistry() = default;
-
-        /**
-         * @brief Registers every plugin type in @p TypeList.
-         *
-         * @tparam TypeList  A @c std::tuple of plugin types.
-         * @tparam KeyOf     A generic lambda `[]<typename T>{ return T::keyMember; }`
-         *                   invoked once per plugin type to obtain its registry key.
-         *
-         * Calls `Derived::makeCreator<T>()` for each type, so the concrete factory
-         * decides how each plugin is constructed.
-         */
-        template<typename TypeList, typename KeyOf>
-        void populate( std::type_identity<TypeList>, KeyOf keyOf)
-        {
-            [this, keyOf]<typename... Ts>( std::type_identity<std::tuple<Ts...>>)
-            {
-                ( mRegistry.emplace(
-                    std::string{ keyOf.template operator()<Ts>()},
-                    Derived::template makeCreator<Ts>()
-                ), ...);
-            }( std::type_identity<TypeList>{});
+            return ( it != mEntries.end() && it->first == key) ? &it->second : nullptr;
         }
 
         /**
-         * @brief Looks up the creator for a given key.
-         *
-         * @return A pointer to the @c CreatorFn if found, @c nullptr otherwise.
-         *         The pointer is valid for the lifetime of this registry.
+         * @brief Returns all registered keys in sorted order.  O(N).
          */
         [[nodiscard]]
-        auto findCreator( std::string_view key) const -> const CreatorFn*
+        auto keys() const -> std::vector<std::string>
         {
-            const auto it = mRegistry.find( std::string{ key});
-            return it != mRegistry.end() ? &it->second : nullptr;
+            std::vector<std::string> result;
+
+            result.reserve( RegSize);
+
+            for( const auto& [key, _] : mEntries)
+                result.emplace_back( key);
+
+            return result;
         }
 
-        std::flat_map<std::string, CreatorFn> mRegistry;
+    private:
+        std::array<Entry, RegSize> mEntries;
+
+        static consteval auto sortedByKey( std::array<Entry, RegSize> arr) noexcept
+            -> std::array<Entry, RegSize>
+        {
+            std::sort( arr.begin(), arr.end(),
+                       []( const Entry& a, const Entry& b) noexcept
+                       {
+                           return a.first < b.first;
+                       });
+            return arr;
+        }
     };
+
+    /**
+     * @brief Builds a @ref Registry from a plugin type-list and a per-type entry factory.
+     *
+     * The entry factory is a consteval generic lambda:
+     * @code
+     *   []<ConceptT T> consteval {
+     *       return std::pair<std::string_view, CreatorFn>{
+     *           T::keyMember,
+     *           +[](...) -> ReturnType { return std::make_unique<T>(...); }
+     *       };
+     *   }
+     * @endcode
+     * Only plugin-type statics and captureless lambdas appear inside it —
+     * no reference to the factory class — so it evaluates while the factory
+     * is still incomplete.
+     *
+     * @tparam CreatorFn  Must be supplied explicitly; cannot be deduced.
+     */
+    template<typename CreatorFn, typename Fn, typename... Ts>
+    consteval auto makeRegistry( Fn makeEntry, std::type_identity<std::tuple<Ts...>>)
+        -> PluginRegistry<CreatorFn, sizeof...( Ts)>
+    {
+        using Entry = std::pair<std::string_view, CreatorFn>;
+
+        return PluginRegistry<CreatorFn, sizeof...( Ts)>{
+            std::array<Entry, sizeof...( Ts)>{ makeEntry.template operator()<Ts>()... }
+        };
+    }
 }
