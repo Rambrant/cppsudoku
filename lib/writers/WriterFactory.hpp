@@ -5,7 +5,6 @@
 #pragma once
 
 #include <expected>
-#include <functional>
 #include <memory>
 #include <ostream>
 #include <string>
@@ -13,7 +12,8 @@
 #include <vector>
 
 #include "IWriter.hpp"
-#include "factorybase//PluginRegistry.hpp"
+#include "WriterList.hpp"
+#include "factorybase/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -22,44 +22,46 @@ namespace com::rambrant::sudoku
     /**
      * @brief Factory that creates @ref IWriter instances by format name.
      *
-     * Mirrors @ref ReaderFactory exactly — inherits singleton access, registry
-     * storage, and fold-based registration from @ref PluginRegistry.
-     * See @ref ReaderFactory for the registration mechanism and P2996 migration path.
+     * Mirrors @ref ReaderFactory — see its documentation for the design rationale.
      */
-    class WriterFactory : public PluginRegistry<WriterFactory,
-                              std::function<std::unique_ptr<IWriter>( std::ostream&, const Logger&)>>
+    class WriterFactory
     {
-    public:
-        using CreatorFn = std::function<std::unique_ptr<IWriter>( std::ostream&, const Logger&)>;
+        public:
+            using CreatorFn = std::unique_ptr<IWriter>(*)(std::ostream&, const Logger&);
 
-        /**
-         * @brief Constructs the @ref IWriter for the given format name.
-         *
-         * @param format  Key as supplied on the command line (e.g. @c "block").
-         * @param os      Output stream forwarded verbatim to the concrete writer.
-         * @param logger  Logger forwarded verbatim to the concrete writer.
-         * @return The writer on success, or an error message if @p format is unknown.
-         */
-        [[nodiscard]]
-        auto create( std::string_view format,
-                     std::ostream&    os,
-                     const Logger&    logger) const
-            -> std::expected<std::unique_ptr<IWriter>, std::string>;
+            WriterFactory( const WriterFactory&)            = delete;
+            WriterFactory& operator=( const WriterFactory&) = delete;
 
-        /**
-         * @brief Sorted list of every registered format key.
-         *
-         * Feed this to @ref ValuesIn to keep command-line validation in sync
-         * with @ref WriterList automatically.
-         */
-        [[nodiscard]]
-        auto formats() const -> std::vector<std::string>;
+            static auto instance() -> WriterFactory&
+            {
+                static WriterFactory inst;
+                return inst;
+            }
 
-    private:
-        WriterFactory();
-        friend class PluginRegistry<WriterFactory, CreatorFn>;
+            [[nodiscard]]
+            auto create( std::string_view format,
+                         std::ostream&    os,
+                         const Logger&    logger) const
+                -> std::expected<std::unique_ptr<IWriter>, std::string>;
 
-        template<WriterPlugin T>
-        static auto makeCreator() -> CreatorFn;
+            [[nodiscard]]
+            auto formats() const -> std::vector<std::string>;
+
+        private:
+            WriterFactory() = default;
+
+            static constexpr auto kRegistry = makeRegistry<CreatorFn>(
+                []<WriterPlugin T> consteval
+                {
+                    return std::pair<std::string_view, CreatorFn>{
+                        T::formatName,
+                        +[]( std::ostream& os, const Logger& logger) -> std::unique_ptr<IWriter>
+                        {
+                            return std::make_unique<T>( os, logger);
+                        }
+                    };
+                },
+                std::type_identity<WriterList>{}
+            );
     };
 }
