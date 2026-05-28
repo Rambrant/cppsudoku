@@ -4,10 +4,8 @@
 //
 #pragma once
 
-#include <concepts>
-#include <string_view>
-
 #include "core/SudokuTraits.hpp"
+#include "factorybase/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -66,7 +64,5 @@ namespace com::rambrant::sudoku
      * @endcode
      */
     template<typename T>
-    concept WriterPlugin =
-        std::derived_from<T, IWriter> &&
-        requires { { T::formatName } -> std::convertible_to<std::string_view>; };
+    concept WriterPlugin = PluginType<T, IWriter>;
 }

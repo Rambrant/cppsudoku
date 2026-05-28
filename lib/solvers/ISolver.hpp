@@ -5,7 +5,9 @@
 #pragma once
 
 #include <atomic>
+
 #include "core/SudokuTraits.hpp"
+#include "factorybase/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -102,8 +104,6 @@ namespace com::rambrant::sudoku
      * The concept itself stays unchanged.
      */
     template<typename T>
-    concept SolverPlugin =
-        std::derived_from<T, ISolver> &&
-        requires { { T::solverName } -> std::convertible_to<std::string_view>; };
+    concept SolverPlugin = PluginType<T, ISolver>;
 
 }
