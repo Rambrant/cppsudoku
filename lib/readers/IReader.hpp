@@ -66,7 +66,7 @@ namespace com::rambrant::sudoku
      * @code
      * class AsciiReader final : public IReader {
      * public:
-     *     static constexpr std::string_view formatName = "text";
+     *     static constexpr std::string_view  entityName = "text";
      *     AsciiReader( std::istream&, const Logger&);
      *     auto read() const -> Traits::Board override;
      * };

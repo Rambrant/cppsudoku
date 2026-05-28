@@ -20,7 +20,7 @@ namespace com::rambrant::sudoku
         public:
 
             /// @brief The format key used to select this writer from the command line.
-            static constexpr std::string_view formatName = "line";
+            static constexpr std::string_view entityName = "line";
 
             /**
              * @brief Constructs the class that writes the board in a single line
