@@ -27,41 +27,31 @@ namespace com::rambrant::sudoku
     class WriterFactory
     {
         public:
-            using CreatorFn = std::unique_ptr<IWriter>(*)(std::ostream&, const Logger&);
 
             WriterFactory( const WriterFactory&)            = delete;
             WriterFactory& operator=( const WriterFactory&) = delete;
 
-            static auto instance() -> WriterFactory&
-            {
-                static WriterFactory inst;
-                return inst;
-            }
+            static auto instance() -> WriterFactory&;
 
             [[nodiscard]]
             auto create( std::string_view format,
                          std::ostream&    os,
                          const Logger&    logger) const
-                -> std::expected<std::unique_ptr<IWriter>, std::string>;
+                -> std::expected<std::unique_ptr<IWriter>, std::string>
+            {
+                return mRegistry.create( format, os, logger);
+            }
 
             [[nodiscard]]
-            auto formats() const -> std::vector<std::string>;
+            auto formats() const -> std::vector<std::string>
+            {
+                return mRegistry.keys();
+            }
 
         private:
+
             WriterFactory() = default;
 
-            static constexpr auto kRegistry = makeRegistry<CreatorFn>(
-                []<WriterPlugin T> consteval
-                {
-                    return std::pair<std::string_view, CreatorFn>{
-                        T::formatName,
-                        +[]( std::ostream& os, const Logger& logger) -> std::unique_ptr<IWriter>
-                        {
-                            return std::make_unique<T>( os, logger);
-                        }
-                    };
-                },
-                std::type_identity<WriterList>{}
-            );
+            PluginRegistry<IWriter, WriterList, std::ostream&> mRegistry;
     };
 }

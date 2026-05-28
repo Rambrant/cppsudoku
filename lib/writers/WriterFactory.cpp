@@ -8,23 +8,10 @@
 
 namespace com::rambrant::sudoku
 {
-    auto WriterFactory::create( std::string_view format,
-                                std::ostream&    os,
-                                const Logger&    logger) const
-        -> std::expected<std::unique_ptr<IWriter>, std::string>
+    auto WriterFactory::instance() -> WriterFactory&
     {
-        const auto* creator = kRegistry.find( format);
+        static WriterFactory factory;
 
-        if( ! creator)
-        {
-            return std::unexpected{ "Unknown writer format: " + std::string{ format}};
-        }
-
-        return (*creator)( os, logger);
-    }
-
-    auto WriterFactory::formats() const -> std::vector<std::string>
-    {
-        return kRegistry.keys();
+        return factory;
     }
 }
