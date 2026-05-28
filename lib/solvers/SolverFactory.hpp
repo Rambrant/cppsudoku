@@ -26,47 +26,34 @@ namespace com::rambrant::sudoku
      */
     class SolverFactory
     {
-    public:
-        using CreatorFn = std::unique_ptr<ISolver>(*)(const Logger&);
+        public:
 
-        SolverFactory( const SolverFactory&)            = delete;
-        SolverFactory& operator=( const SolverFactory&) = delete;
+            SolverFactory( const SolverFactory&)            = delete;
+            SolverFactory& operator=( const SolverFactory&) = delete;
 
-        static auto instance() -> SolverFactory&
-        {
-            static SolverFactory inst;
-            return inst;
-        }
+            static auto instance() -> SolverFactory&;
 
-        [[nodiscard]]
-        auto create( std::string_view name,
-                     const Logger&    logger) const
-            -> std::expected<std::unique_ptr<ISolver>, std::string>;
-
-        /**
-         * @brief Sorted list of every registered solver name.
-         *
-         * Feed this to @ref ValuesIn to keep command-line validation in sync
-         * with @ref SolverList automatically.
-         */
-        [[nodiscard]]
-        auto solverNames() const -> std::vector<std::string>;
-
-    private:
-        SolverFactory() = default;
-
-        static constexpr auto kRegistry = makeRegistry<CreatorFn>(
-            []<SolverPlugin T> consteval
+            [[nodiscard]]
+            auto create( std::string_view format,
+                         const Logger&    logger) const
+                -> std::expected<std::unique_ptr<ISolver>, std::string>
             {
-                return std::pair<std::string_view, CreatorFn>{
-                    T::solverName,
-                    +[]( const Logger& logger) -> std::unique_ptr<ISolver>
-                    {
-                        return std::make_unique<T>( logger);
-                    }
-                };
-            },
-            std::type_identity<SolverList>{}
-        );
+                return mRegistry.create( format, logger);
+            }
+
+            [[nodiscard]]
+            auto formats() const -> std::vector<std::string>
+            {
+                return mRegistry.keys();
+            }
+
+            [[nodiscard]]
+            auto solverNames() const -> std::vector<std::string>;
+
+        private:
+
+            SolverFactory() = default;   // ← sEntries already in .rodata, nothing to do
+
+            PluginRegistry<ISolver, SolverList> mRegistry;
     };
 }

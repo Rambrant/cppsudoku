@@ -4,26 +4,17 @@
 //
 #include "SolverFactory.hpp"
 
-#include "core/Logger.hpp"
-
 namespace com::rambrant::sudoku
 {
-    auto SolverFactory::create( std::string_view name,
-                                const Logger&    logger) const
-        -> std::expected<std::unique_ptr<ISolver>, std::string>
+    auto SolverFactory::instance() -> SolverFactory&
     {
-        const auto* creator = kRegistry.find( name);
+        static SolverFactory factory;
 
-        if( ! creator)
-        {
-            return std::unexpected{ "Unknown solver: " + std::string{ name}};
-        }
-
-        return (*creator)( logger);
+        return factory;
     }
 
     auto SolverFactory::solverNames() const -> std::vector<std::string>
     {
-        return kRegistry.keys();
+        return mRegistry.keys();
     }
 }
