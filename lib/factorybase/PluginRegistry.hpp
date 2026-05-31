@@ -73,13 +73,14 @@ namespace com::rambrant::sudoku
         auto create( std::string_view key, Args... args, const Logger& logger) const
             -> std::expected<std::unique_ptr<Base>, std::string>
         {
-            const auto it = std::ranges::lower_bound( sEntries, key, {}, &Entry::key);
+            const auto it = std::ranges::find( sEntries, key, &Entry::key);
 
-            if( it == sEntries.end() || it->key != key)
+            if( it == sEntries.end())
+            {
                 return std::unexpected{ "Unknown plugin: " + std::string{ key}};
+            }
 
-            return it->creator( std::forward<Args>( args)..., logger);
-        }
+            return it->creator( std::forward<Args>( args)..., logger);        }
 
         /**
          * @brief Sorted list of all registered keys.
