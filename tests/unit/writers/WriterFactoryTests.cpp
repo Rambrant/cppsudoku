@@ -24,6 +24,7 @@ TEST_CASE( "WriterPlugin: concept is satisfied by concrete writers", "[unit]")
     STATIC_REQUIRE(  WriterPlugin<JsonWriter>);
     STATIC_REQUIRE(  WriterPlugin<LineWriter>);
     STATIC_REQUIRE(  WriterPlugin<PrettyWriter>);
+
     STATIC_REQUIRE_FALSE( WriterPlugin<IWriter>);   // abstract base — no formatName
 }
 

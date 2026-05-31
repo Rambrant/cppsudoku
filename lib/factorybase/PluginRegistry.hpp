@@ -93,7 +93,9 @@ namespace com::rambrant::sudoku
             result.reserve( SIZE);
 
             for( const auto& [key, _] : sEntries)
+            {
                 result.emplace_back( key);
+            }
 
             return result;
         }
@@ -137,6 +139,7 @@ namespace com::rambrant::sudoku
 
             return arr;
         }
+
         //
         //  The entire registry lives here — in .rodata, zero runtime cost.
         //
