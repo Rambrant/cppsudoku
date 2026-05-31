@@ -33,6 +33,13 @@ namespace com::rambrant::sudoku
 
             static auto instance() -> WriterFactory&;
 
+            /**
+             * @brief Creates the plugin identified by @p key.
+             *
+             * Uses @c std::ranges::lower_bound on the compile-time sorted table.
+             *
+             * @return The plugin on success; an error string if @p key is unknown.
+             */
             [[nodiscard]]
             auto create( std::string_view format,
                          std::ostream&    os,

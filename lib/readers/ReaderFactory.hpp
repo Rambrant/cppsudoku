@@ -38,6 +38,13 @@ namespace com::rambrant::sudoku
 
             static auto instance() -> ReaderFactory&;
 
+            /**
+             * @brief Creates the plugin identified by @p key.
+             *
+             * Delegates to @ref ReaderFactory
+             *
+             * @return The plugin on success; an error string if @p key is unknown.
+             */
             [[nodiscard]]
             auto create( std::string_view format,
                          std::istream&    is,
