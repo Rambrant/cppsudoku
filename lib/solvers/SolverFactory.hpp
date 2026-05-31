@@ -48,14 +48,27 @@ namespace com::rambrant::sudoku
                 return mRegistry.create( format, logger);
             }
 
+            /**
+             * @brief Return sorted list of formats.
+             *            *
+             * @return The sorted list of the plugins entityNames
+             */
             [[nodiscard]]
             auto formats() const -> std::vector<std::string>
             {
                 return mRegistry.keys();
             }
 
+            /**
+             * @brief Return sorted list of formats.
+             *            *
+             * @return The sorted list of the plugins entityNames
+             */
             [[nodiscard]]
-            auto solverNames() const -> std::vector<std::string>;
+            auto solverNames() const -> std::vector<std::string>
+            {
+                return mRegistry.keys();
+            }
 
         private:
 

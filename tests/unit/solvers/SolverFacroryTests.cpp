@@ -58,3 +58,17 @@ TEST_CASE( "SolverFactory: create() returns an error for an unknown name", "[uni
     REQUIRE_FALSE( result.has_value());
     CHECK( result.error().find( "bruteforce") != std::string::npos);
 }
+
+TEST_CASE( "SolverFactory: formats() are in ascending order", "[unit]")
+{
+    const auto formats = SolverFactory::instance().formats();
+
+    REQUIRE( std::ranges::is_sorted( formats));
+}
+
+TEST_CASE( "SolverFactory: solverNames() are in ascending order", "[unit]")
+{
+    const auto names = SolverFactory::instance().solverNames();
+
+    REQUIRE( std::ranges::is_sorted( names));
+}

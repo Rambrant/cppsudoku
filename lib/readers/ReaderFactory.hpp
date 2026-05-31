@@ -54,6 +54,11 @@ namespace com::rambrant::sudoku
                 return mRegistry.create( format, is, logger);
             }
 
+            /**
+             * @brief Return sorted list of formats.
+             *            *
+             * @return The sorted list of the plugins entityNames
+             */
             [[nodiscard]]
             auto formats() const -> std::vector<std::string>
             {

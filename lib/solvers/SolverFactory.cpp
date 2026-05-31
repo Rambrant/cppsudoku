@@ -12,9 +12,4 @@ namespace com::rambrant::sudoku
 
         return factory;
     }
-
-    auto SolverFactory::solverNames() const -> std::vector<std::string>
-    {
-        return mRegistry.keys();
-    }
 }
