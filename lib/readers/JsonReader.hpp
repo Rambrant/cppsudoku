@@ -18,7 +18,7 @@ namespace com::rambrant::sudoku
         public:
 
             /// @brief The format key used to select this reader from the command line.
-            static constexpr std::string_view formatName = "json";
+            static constexpr std::string_view entityName = "json";
 
             /**
              * @brief Constructs the class with for an instream and a Logger

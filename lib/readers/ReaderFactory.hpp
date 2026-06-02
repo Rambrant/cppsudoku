@@ -1,12 +1,6 @@
-//
-//  Created by Thomas Rambrant, 2026
-//  This project is licensed under the MIT License - see the LICENSE file for details.
-//
 #pragma once
 
 #include <expected>
-#include <flat_map>
-#include <functional>
 #include <istream>
 #include <memory>
 #include <string>
@@ -14,81 +8,67 @@
 #include <vector>
 
 #include "IReader.hpp"
+#include "ReaderList.hpp"         // needed — TypeList must be visible here
+#include "factorybase//PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
     class Logger;
 
     /**
-     * @brief Factory that creates @ref IReader instances by format name.
+     * @brief Singleton facade over the compile-time @ref PluginRegistry for readers.
      *
-     * @par Registration mechanism (current: compile-time type list)
-     * The registry is populated in the constructor by folding over
-     * @ref ReaderList, a @c std::tuple of all @ref ReaderPlugin types.
-     * Each type contributes its @c formatName key and a constructor wrapper.
-     * No static initialisers and no @c WHOLE_ARCHIVE linker flag are involved.
+     * All registry data lives in @c PluginRegistry::sEntries — a
+     * @c constexpr array in @c .rodata.  This class has no instance data;
+     * its sole purpose is to expose the familiar factory API.
      *
-     * @par Adding a new reader
-     * Edit @ref ReaderList.hpp only — include the new header and append the
-     * type to @c ReaderList.  Nothing else needs to change.
+     * @par Adding a reader
+     * Edit @ref ReaderList.hpp only.
      *
-     * @par P2996 migration path
-     * When Clang supports C++26 static reflection, @ref ReaderList.hpp is
-     * deleted entirely.  The constructor discovers all @ref ReaderPlugin types
-     * in the @c com::rambrant::sudoku namespace automatically.  The public
-     * interface of this class is unchanged.  See @ref ReaderFactory.cpp for
-     * the exact diff.
+     * @par P2996 migration
+     * Delete @ref ReaderList.hpp and remove the @p TypeList parameter from the
+     * @ref PluginRegistry instantiation.  Nothing else changes.
      */
     class ReaderFactory
     {
-    public:
+        public:
 
-        using CreatorFn = std::function<std::unique_ptr<IReader>( std::istream&, const Logger&)>;
+            ReaderFactory( const ReaderFactory&)            = delete;
+            ReaderFactory& operator=( const ReaderFactory&) = delete;
 
-        ReaderFactory( const ReaderFactory&)            = delete;
-        ReaderFactory& operator=( const ReaderFactory&) = delete;
+            static auto instance() -> ReaderFactory&;
 
-        /**
-         * @brief Returns the Meyer's-singleton instance.
-         *
-         * The registry is fully populated on first call; every subsequent call
-         * is a plain @c static local access.
-         */
-        static auto instance() -> ReaderFactory&;
+            /**
+             * @brief Creates the plugin identified by @p key.
+             *
+             * Delegates to @ref ReaderFactory
+             *
+             * @return The plugin on success; an error string if @p key is unknown.
+             */
+            [[nodiscard]]
+            auto create( std::string_view format,
+                         std::istream&    is,
+                         const Logger&    logger) const
+                -> std::expected<std::unique_ptr<IReader>, std::string>
+            {
+                return mRegistry.create( format, is, logger);
+            }
 
-        /**
-         * @brief Constructs the @ref IReader for the given format name.
-         *
-         * @param format  Key as supplied on the command line (e.g. @c "text").
-         * @param is      Input stream forwarded verbatim to the concrete reader.
-         * @param logger  Logger forwarded verbatim to the concrete reader.
-         * @return The reader on success, or an error message if @p format is
-         *         unknown.
-         */
-        [[nodiscard]]
-        auto create( std::string_view format,
-                     std::istream&    is,
-                     const Logger&    logger) const
-            -> std::expected<std::unique_ptr<IReader>, std::string>;
+            /**
+             * @brief Return sorted list of formats.
+             *            *
+             * @return The sorted list of the plugins entityNames
+             */
+            [[nodiscard]]
+            auto formats() const -> std::vector<std::string>
+            {
+                return mRegistry.keys();
+            }
 
-        /**
-         * @brief Sorted list of every registered format key.
-         *
-         * Feed this to @ref ValuesIn to keep command-line validation in sync
-         * with @ref ReaderList automatically:
-         * @code
-         *   inFormatOpt.setValidator(
-         *       ValuesIn( ReaderFactory::instance().formats()));
-         * @endcode
-         */
-        [[nodiscard]]
-        auto formats() const -> std::vector<std::string>;
+        private:
 
-    private:
+            ReaderFactory() = default;
 
-        ReaderFactory();
-
-        std::flat_map<std::string, CreatorFn> mRegistry;
+            PluginRegistry<IReader, ReaderList, std::istream&> mRegistry;
     };
-
 }

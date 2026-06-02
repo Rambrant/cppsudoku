@@ -24,6 +24,7 @@ TEST_CASE( "WriterPlugin: concept is satisfied by concrete writers", "[unit]")
     STATIC_REQUIRE(  WriterPlugin<JsonWriter>);
     STATIC_REQUIRE(  WriterPlugin<LineWriter>);
     STATIC_REQUIRE(  WriterPlugin<PrettyWriter>);
+
     STATIC_REQUIRE_FALSE( WriterPlugin<IWriter>);   // abstract base — no formatName
 }
 
@@ -34,7 +35,6 @@ TEST_CASE( "WriterFactory: formats() lists all registered writer keys", "[unit]"
 {
     const auto formats = WriterFactory::instance().formats();
 
-    // std::flat_map sorts by key, so the order is deterministic
     REQUIRE( formats == std::vector<std::string>{ "block", "json", "line", "pretty"});
 }
 
@@ -62,4 +62,11 @@ TEST_CASE( "WriterFactory: create() returns an error for an unknown format", "[u
 
     REQUIRE_FALSE( result.has_value());
     CHECK( result.error().find( "xml") != std::string::npos);
+}
+
+TEST_CASE( "WriterFactory: formats() are in ascending order", "[unit]")
+{
+    const auto formats = WriterFactory::instance().formats();
+
+    REQUIRE( std::ranges::is_sorted( formats));
 }

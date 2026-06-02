@@ -45,7 +45,7 @@ Usage: sudoku_solver [OPTIONS]
 ## Features
 
 - **C++26** — uses `std::flat_map`, `std::expected`, concepts, and other modern features.
-- **Compile-Time Optimizations**: Utilizes `constexpr` and template metaprogramming to perform computations at compile time.
+- **Compile-Time Optimizations**: Utilizes `constexpr`, `consteval` and template metaprogramming to perform computations at compile time.
 - **Traits-Based Design**: Flexible traits system to define board size, value ranges, etc.
 - **Clean architecture** — solver logic is a reusable library; CLI and GUI are separate consumers.
 - **Fully tested** — unit tests (Catch2) covering core, solvers, readers, writers and CLI parsing.
@@ -63,9 +63,10 @@ The released version is built using GitHub Actions using Ubuntu latest as enviro
 ```
 lib/                    # Reusable solver library (sudoku_solver_lib)
   core/                 #   Board types, traits, utilities, validation
-  solvers/              #   BacktrackingSolver, ConstraintPropagationSolver
-  readers/              #   AsciiReader, JsonReader
-  writers/              #   BlockWriter, JsonWriter, LineWriter, PrettyWriter
+  factorybase/          #   PluginRegistry, a common building block for concrete factories
+  solvers/              #   Various Sudoku solvers
+  readers/              #   Different Sudoku board readers
+  writers/              #   Different Sudoku board writers
 cli/                    # Command-line executable (sudoku_solver)
 gui/                    # GUI executable — Dear ImGui + SDL2 (in progress)
   viewmodel/            #   ViewModel + Commands (no ImGui dependency, fully testable)

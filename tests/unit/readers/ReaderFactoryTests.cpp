@@ -30,7 +30,6 @@ TEST_CASE( "ReaderFactory: formats() lists all registered reader keys", "[unit]"
 {
     const auto formats = ReaderFactory::instance().formats();
 
-    // std::flat_map sorts by key, so the order is deterministic
     REQUIRE( formats == std::vector<std::string>{ "json", "text"});
 }
 
@@ -58,4 +57,11 @@ TEST_CASE( "ReaderFactory: create() returns an error for an unknown format", "[u
 
     REQUIRE_FALSE( result.has_value());
     CHECK( result.error().find( "csv") != std::string::npos);
+}
+
+TEST_CASE( "ReaderFactory: formats() are in ascending order", "[unit]")
+{
+    const auto formats = ReaderFactory::instance().formats();
+
+    REQUIRE( std::ranges::is_sorted( formats));
 }

@@ -4,10 +4,9 @@
 //
 #pragma once
 
-#include <concepts>
-#include <string_view>
 
 #include "core/SudokuTraits.hpp"
+#include "factorybase/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -66,7 +65,7 @@ namespace com::rambrant::sudoku
      * @code
      * class AsciiReader final : public IReader {
      * public:
-     *     static constexpr std::string_view formatName = "text";
+     *     static constexpr std::string_view  entityName = "text";
      *     AsciiReader( std::istream&, const Logger&);
      *     auto read() const -> Traits::Board override;
      * };
@@ -80,8 +79,5 @@ namespace com::rambrant::sudoku
      * time — with no hand-maintained list.  The concept itself stays unchanged.
      */
     template<typename T>
-    concept ReaderPlugin =
-        std::derived_from<T, IReader> &&
-        requires { { T::formatName } -> std::convertible_to<std::string_view>; };
-
+    concept ReaderPlugin = PluginType<T, IReader>;
 }

@@ -5,8 +5,6 @@
 #pragma once
 
 #include <expected>
-#include <flat_map>
-#include <functional>
 #include <memory>
 #include <ostream>
 #include <string>
@@ -14,6 +12,8 @@
 #include <vector>
 
 #include "IWriter.hpp"
+#include "WriterList.hpp"
+#include "factorybase/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -22,51 +22,48 @@ namespace com::rambrant::sudoku
     /**
      * @brief Factory that creates @ref IWriter instances by format name.
      *
-     * Mirrors @ref ReaderFactory exactly — see its documentation for the
-     * registration mechanism, how to add a new writer, and the P2996
-     * migration path.
+     * Mirrors @ref ReaderFactory — see its documentation for the design rationale.
      */
     class WriterFactory
     {
-    public:
+        public:
 
-        using CreatorFn = std::function<std::unique_ptr<IWriter>( std::ostream&, const Logger&)>;
+            WriterFactory( const WriterFactory&)            = delete;
+            WriterFactory& operator=( const WriterFactory&) = delete;
 
-        WriterFactory( const WriterFactory&)            = delete;
-        WriterFactory& operator=( const WriterFactory&) = delete;
+            static auto instance() -> WriterFactory&;
 
-        /** @brief Returns the Meyer's-singleton instance. */
-        static auto instance() -> WriterFactory&;
+            /**
+             * @brief Creates the plugin identified by @p key.
+             *
+             * Uses @c std::ranges::lower_bound on the compile-time sorted table.
+             *
+             * @return The plugin on success; an error string if @p key is unknown.
+             */
+            [[nodiscard]]
+            auto create( std::string_view format,
+                         std::ostream&    os,
+                         const Logger&    logger) const
+                -> std::expected<std::unique_ptr<IWriter>, std::string>
+            {
+                return mRegistry.create( format, os, logger);
+            }
 
-        /**
-         * @brief Constructs the @ref IWriter for the given format name.
-         *
-         * @param format  Key as supplied on the command line (e.g. @c "block").
-         * @param os      Output stream forwarded verbatim to the concrete writer.
-         * @param logger  Logger forwarded verbatim to the concrete writer.
-         * @return The writer on success, or an error message if @p format is
-         *         unknown.
-         */
-        [[nodiscard]]
-        auto create( std::string_view format,
-                     std::ostream&    os,
-                     const Logger&    logger) const
-            -> std::expected<std::unique_ptr<IWriter>, std::string>;
+            /**
+             * @brief Return sorted list of formats.
+             *            *
+             * @return The sorted list of the plugins entityNames
+             */
+            [[nodiscard]]
+            auto formats() const -> std::vector<std::string>
+            {
+                return mRegistry.keys();
+            }
 
-        /**
-         * @brief Sorted list of every registered format key.
-         *
-         * Feed this to @ref ValuesIn to keep command-line validation in sync
-         * with @ref WriterList automatically.
-         */
-        [[nodiscard]]
-        auto formats() const -> std::vector<std::string>;
+        private:
 
-    private:
+            WriterFactory() = default;
 
-        WriterFactory();
-
-        std::flat_map<std::string, CreatorFn> mRegistry;
+            PluginRegistry<IWriter, WriterList, std::ostream&> mRegistry;
     };
-
 }
