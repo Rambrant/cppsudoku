@@ -13,7 +13,7 @@
 
 #include "IWriter.hpp"
 #include "WriterList.hpp"
-#include "factorybase/PluginRegistry.hpp"
+#include "core/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {

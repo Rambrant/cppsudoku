@@ -4,7 +4,7 @@
 //
 #include <catch2/catch_test_macros.hpp>
 
-#include "factorybase/PluginRegistry.hpp"
+#include "core/PluginRegistry.hpp"
 #include "core/Logger.hpp"
 
 using namespace com::rambrant::sudoku;

@@ -9,7 +9,7 @@
 
 #include "IReader.hpp"
 #include "ReaderList.hpp"         // needed — TypeList must be visible here
-#include "factorybase//PluginRegistry.hpp"
+#include "core/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
