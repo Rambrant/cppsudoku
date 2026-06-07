@@ -22,7 +22,7 @@ namespace com::rambrant::sudoku
 
 
             /// @brief The solver key used to select this solver from the command line.
-            static constexpr std::string_view entityName = "constraint";
+            static constexpr std::string_view pluginKey = "constraint";
 
             /**
              * @brief Constructs the class with a Logger
@@ -47,7 +47,7 @@ namespace com::rambrant::sudoku
             [[nodiscard]]
             auto name() const noexcept -> std::string_view override
             {
-                return entityName;
+                return pluginKey;
             }
     };
 

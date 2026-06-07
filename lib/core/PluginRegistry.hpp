@@ -23,7 +23,7 @@ namespace com::rambrant::sudoku
      *
      * A type satisfies @c PluginType<Base> when it:
      *   - publicly derives from @p Base, and
-     *   - exposes @c static constexpr std::string_view entityName.
+     *   - exposes @c static constexpr std::string_view pluginKey.
      *
      * @tparam T    The concrete plugin class.
      * @tparam Base The abstract base it must derive from.
@@ -31,7 +31,7 @@ namespace com::rambrant::sudoku
     template<typename T, typename Base>
     concept PluginType =
         std::derived_from<T, Base> &&
-        requires { { T::entityName } -> std::convertible_to<std::string_view>; };
+        requires { { T::pluginKey } -> std::convertible_to<std::string_view>; };
 
     /**
      * @brief Compile-time plugin registry mapping string keys to factory functions.
@@ -127,12 +127,12 @@ namespace com::rambrant::sudoku
         //  Builds and sorts the entry table entirely at compile time.
         //  std::ranges::sort is constexpr since C++20.
         //
-            static constexpr auto buildEntries() -> std::array<Entry, SIZE>
+        static constexpr auto buildEntries() -> std::array<Entry, SIZE>
         {
             auto arr = []<typename... Ts>( std::type_identity<std::tuple<Ts...>>)
                 -> std::array<Entry, sizeof...( Ts)>
             {
-                return { Entry{ Ts::entityName, makeCreatorFn<Ts>() }... };
+                return { Entry{ Ts::pluginKey, makeCreatorFn<Ts>() }... };
             }( std::type_identity<std::remove_cvref_t<TypeList>>{});
 
             std::ranges::sort( arr, {}, &Entry::key);

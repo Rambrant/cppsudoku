@@ -95,7 +95,7 @@ namespace com::rambrant::sudoku
         }
 
         auto search( Traits::Board & board, size_t& recursions, std::atomic<bool>& cancelFlag) -> bool // NOLINT(misc-no-recursion)
-{
+        {
             if( cancelFlag.load())
             {
                 throw CancelledException{}; // Exit early

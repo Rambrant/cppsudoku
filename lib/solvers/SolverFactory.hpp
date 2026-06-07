@@ -49,23 +49,12 @@ namespace com::rambrant::sudoku
             }
 
             /**
-             * @brief Return sorted list of formats.
+             * @brief Return sorted list of pluginKeys.
              *            *
-             * @return The sorted list of the plugins entityNames
+             * @return The sorted list of the plugins pluginKey string_view
              */
             [[nodiscard]]
-            auto formats() const -> std::vector<std::string>
-            {
-                return mRegistry.keys();
-            }
-
-            /**
-             * @brief Return sorted list of formats.
-             *            *
-             * @return The sorted list of the plugins entityNames
-             */
-            [[nodiscard]]
-            auto solverNames() const -> std::vector<std::string>
+            auto pluginKeys() const -> std::vector<std::string>
             {
                 return mRegistry.keys();
             }

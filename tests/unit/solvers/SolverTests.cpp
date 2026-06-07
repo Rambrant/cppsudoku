@@ -266,5 +266,5 @@ TEST_CASE( "Solvers: SolverPlugin concept", "[unit]")
 {
     STATIC_REQUIRE( SolverPlugin<BackTrackingSolver>);
     STATIC_REQUIRE( SolverPlugin<ConstraintPropagationSolver>);
-    STATIC_REQUIRE_FALSE( SolverPlugin<ISolver>);    // abstract base does not satisfy — no solverName
+    STATIC_REQUIRE_FALSE( SolverPlugin<ISolver>);    // abstract base does not satisfy — no pluginKey
 }

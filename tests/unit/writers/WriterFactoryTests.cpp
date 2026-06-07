@@ -25,15 +25,15 @@ TEST_CASE( "WriterPlugin: concept is satisfied by concrete writers", "[unit]")
     STATIC_REQUIRE(  WriterPlugin<LineWriter>);
     STATIC_REQUIRE(  WriterPlugin<PrettyWriter>);
 
-    STATIC_REQUIRE_FALSE( WriterPlugin<IWriter>);   // abstract base — no formatName
+    STATIC_REQUIRE_FALSE( WriterPlugin<IWriter>);   // abstract base — no pluginKey
 }
 
 //
 //  WriterFactory
 //
-TEST_CASE( "WriterFactory: formats() lists all registered writer keys", "[unit]")
+TEST_CASE( "WriterFactory: pluginKeys() lists all registered writer keys", "[unit]")
 {
-    const auto formats = WriterFactory::instance().formats();
+    const auto formats = WriterFactory::instance().pluginKeys();
 
     REQUIRE( formats == std::vector<std::string>{ "block", "json", "line", "pretty"});
 }
@@ -42,7 +42,7 @@ TEST_CASE( "WriterFactory: create() returns a writer for every registered format
 {
     Logger logger{};
 
-    for( const auto& format : WriterFactory::instance().formats())
+    for( const auto& format : WriterFactory::instance().pluginKeys())
     {
         std::ostringstream stream;
 
@@ -64,9 +64,9 @@ TEST_CASE( "WriterFactory: create() returns an error for an unknown format", "[u
     CHECK( result.error().find( "xml") != std::string::npos);
 }
 
-TEST_CASE( "WriterFactory: formats() are in ascending order", "[unit]")
+TEST_CASE( "WriterFactory: pluginKeys() are in ascending order", "[unit]")
 {
-    const auto formats = WriterFactory::instance().formats();
+    const auto formats = WriterFactory::instance().pluginKeys();
 
     REQUIRE( std::ranges::is_sorted( formats));
 }

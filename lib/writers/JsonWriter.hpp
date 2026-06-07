@@ -18,7 +18,7 @@ namespace com::rambrant::sudoku
         public:
 
             /// @brief The format key used to select this writer from the command line.
-            static constexpr std::string_view entityName = "json";
+            static constexpr std::string_view pluginKey = "json";
 
             /**
              * @brief Constructs the class that writes the board in JSON format.

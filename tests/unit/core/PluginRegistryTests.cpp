@@ -27,24 +27,24 @@ namespace
     //
     struct ZebraPlugin final : ITestPlugin
     {
-        static constexpr std::string_view entityName = "zebra";
+        static constexpr std::string_view pluginKey = "zebra";
         using ITestPlugin::ITestPlugin;
     };
 
     struct AlphaPlugin final : ITestPlugin
     {
-        static constexpr std::string_view entityName = "alpha";
+        static constexpr std::string_view pluginKey = "alpha";
         using ITestPlugin::ITestPlugin;
     };
 
     struct MidPlugin final : ITestPlugin
     {
-        static constexpr std::string_view entityName = "mid";
+        static constexpr std::string_view pluginKey = "mid";
         using ITestPlugin::ITestPlugin;
     };
 
     //
-    // A type that deliberately OMITS entityName — must not satisfy PluginType.
+    // A type that deliberately OMITS pluginKey — must not satisfy PluginType.
     //
     struct NotAPlugin final : ITestPlugin
     {
@@ -69,7 +69,7 @@ TEST_CASE( "PluginType: concept is satisfied by concrete plugins", "[unit][regis
     STATIC_REQUIRE(  PluginType<MidPlugin,   ITestPlugin>);
 }
 
-TEST_CASE( "PluginType: concept is not satisfied without entityName", "[unit][registry]")
+TEST_CASE( "PluginType: concept is not satisfied without pluginKey", "[unit][registry]")
 {
     STATIC_REQUIRE_FALSE( PluginType<NotAPlugin,  ITestPlugin>);
 }

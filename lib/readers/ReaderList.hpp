@@ -10,7 +10,7 @@
 //   1. Create MyReader.hpp / MyReader.cpp.
 //      The class must:  (a) inherit from IReader
 //                       (b) declare static constexpr std::string_view
-//                               formatName = "myformat";
+//                               pluginKey = "myformat";
 //
 //   2. #include "MyReader.hpp" below.
 //   3. Add MyReader to ReaderList.
@@ -47,7 +47,7 @@ namespace com::rambrant::sudoku
      * @brief Compile-time manifest of every @ref IReader implementation.
      *
      * @ref ReaderFactory folds over this tuple in its constructor to populate
-     * the runtime registry.  Every type's @c formatName and constructor are
+     * the runtime registry.  Every type's @c pluginKey and constructor are
      * resolved statically — the only runtime work is inserting into the map.
      *
      * @note This type alias is the sole item that @ref ReaderFactory.cpp
@@ -62,7 +62,7 @@ namespace com::rambrant::sudoku
 
     // -------------------------------------------------------------------------
     // Compile-time guard: every type in ReaderList must satisfy ReaderPlugin.
-    // If you add a class without a valid formatName, the build fails here with
+    // If you add a class without a valid pluginKey, the build fails here with
     // a clear message rather than silently at runtime.
     // -------------------------------------------------------------------------
     namespace detail
@@ -77,6 +77,6 @@ namespace com::rambrant::sudoku
     static_assert(
         detail::allSatisfyReaderPlugin( std::type_identity<ReaderList>{}),
         "Every type in ReaderList must satisfy ReaderPlugin "
-        "(inherit IReader and expose static constexpr std::string_view formatName)"
+        "(inherit IReader and expose static constexpr std::string_view pluginKey)"
     );
 }
