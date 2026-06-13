@@ -27,7 +27,9 @@ namespace com::rambrant::sudoku
             bool result = detail::search( board, recursions, cancelFlag);
 
             if( result)
+            {
                 cancelFlag.store( true);    // Terminate any other solver prematurely
+            }
 
             return Traits::BoardResult{ result, recursions, board};
         }

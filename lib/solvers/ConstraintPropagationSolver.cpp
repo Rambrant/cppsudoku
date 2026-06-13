@@ -84,7 +84,9 @@ namespace com::rambrant::sudoku
             // Is the value already eliminated? Then signal success and return early
             //
             if( std::find( squareValues.begin(), squareValues.end(), value) == squareValues.end())
+            {
                 return true;
+            }
 
             //
             // Remove the value. If the list becomes empty, something is wrong... return early and signal failure
@@ -92,7 +94,9 @@ namespace com::rambrant::sudoku
             squareValues.erase( remove( squareValues.begin(), squareValues.end(), value), squareValues.end());
 
             if( squareValues.empty())
+            {
                 return false;
+            }
 
             //
             // If there is only one value left, we found a potential solution. Remove that value from all of its peers
@@ -104,7 +108,9 @@ namespace com::rambrant::sudoku
                 for( const auto& peer : gBoardsStructure.mPeers.at(square))
                 {
                     if( ! eliminate( allValues, peer, lastValue))
+                    {
                         return false;
+                    }
                 }
             }
 
@@ -118,14 +124,18 @@ namespace com::rambrant::sudoku
                 for( const auto& k : unit)
                 {
                     if( std::find( allValues[k].begin(), allValues[k].end(), value) != allValues[k].end())
+                    {
                         places.push_back(k);
+                    }
                 }
 
                 //
                 // The value wasn't found anywhere among the units. This is a contradiction, bail out
                 //
                 if( places.empty())
+                {
                     return false;
+                }
 
                 //
                 // Only one place where the value can go, assign it there
@@ -133,7 +143,9 @@ namespace com::rambrant::sudoku
                 if( places.size() == 1)
                 {
                     if( ! assign( allValues, places[0], value))
+                    {
                         return false;
+                    }
                 }
             }
 
@@ -170,7 +182,9 @@ namespace com::rambrant::sudoku
                 throw CancelledException{}; // Exit early
 
             if( allValues.empty())
+            {
                 return {};
+            }
 
             recursions++;
 
@@ -183,7 +197,9 @@ namespace com::rambrant::sudoku
             });
 
             if( solved)
+            {
                 return allValues;
+            }
 
             //
             // Find the cell with the least number of possible values (not taking the already solved ones into account)
@@ -207,14 +223,16 @@ namespace com::rambrant::sudoku
                 if( SquareValues valueClone = allValues; assign( valueClone, key, value))
                 {
                     if( auto result = search( valueClone, recursions, cancelFlag); ! result.empty())
+                    {
                         return result;
+                    }
                 }
             }
 
             return {};
         }
 
-        auto parseGrid( const Traits::Board & board) -> SquareValues
+        auto parseGrid( const Traits::Board & board) -> std::expected<SquareValues, std::string>
         {
             SquareValues values;
 
