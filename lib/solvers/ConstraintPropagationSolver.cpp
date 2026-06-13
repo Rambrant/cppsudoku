@@ -5,9 +5,10 @@
 #include "ConstraintPropagationSolver.hpp"
 
 #include <algorithm>
-#include <iostream>
 #include <limits>
+#include <ostream>
 #include <vector>
+#include "core/Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
