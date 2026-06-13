@@ -243,6 +243,7 @@ namespace com::rambrant::sudoku
             for( auto square : gBoardsStructure.mSquares)
             {
                 auto& squareValues = values[square];
+
                 squareValues.insert( squareValues.end(), Traits::VALUE_RANGE.begin(), Traits::VALUE_RANGE.end());
             }
 
