@@ -4,6 +4,7 @@
 //
 #pragma once
 
+#include <expected>
 #include <flat_map>
 #include <flat_set>
 #include <vector>
@@ -82,6 +83,6 @@ namespace com::rambrant::sudoku
         auto eliminate( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
         auto assign( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
         auto search( SquareValues allValues, int& recursions, std::atomic<bool>& cancelFlag) -> SquareValues;
-        auto parseGrid( const Traits::Board & board) -> SquareValues;
+        auto parseGrid( const Traits::Board & board) -> std::expected<SquareValues, std::string>;
     }
 }

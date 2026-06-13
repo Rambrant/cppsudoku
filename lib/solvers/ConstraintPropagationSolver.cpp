@@ -257,7 +257,8 @@ namespace com::rambrant::sudoku
                     if( ! assign( values, { rowIdx, colIdx }, value))
                     {
                         const std::string square = "[" + std::to_string( rowIdx) + "," + std::to_string( colIdx) + "]";
-                        throw std::runtime_error("Illegal board: contradiction at [" + square + "] for digit " + std::to_string(value));
+
+                        return std::unexpected( "Illegal board: contradiction at [" + square + "] for digit " + std::to_string( value));
                     }
                 }
             }
@@ -280,8 +281,16 @@ namespace com::rambrant::sudoku
 
         try
         {
-            const detail::SquareValues originalValues{ detail::parseGrid( board)};
-            const detail::SquareValues resultingValues{ detail::search( originalValues, recursions, cancelFlag)};
+            const auto parsedGrid = detail::parseGrid( board);
+
+            if( ! parsedGrid)
+            {
+                mLogger << parsedGrid.error() << std::endl;
+
+                return Traits::BoardResult{ false, recursions, Traits::Board{}};
+            }
+
+            const detail::SquareValues resultingValues{ detail::search( *parsedGrid, recursions, cancelFlag)};
 
             result = ! resultingValues.empty();
 
@@ -304,12 +313,6 @@ namespace com::rambrant::sudoku
             //
             // Returned prematurely
             //
-            return Traits::BoardResult{ false, recursions, Traits::Board{}};
-        }
-        catch( const std::exception& e)
-        {
-            std::cerr << e.what() << std::endl;
-
             return Traits::BoardResult{ false, recursions, Traits::Board{}};
         }
     }

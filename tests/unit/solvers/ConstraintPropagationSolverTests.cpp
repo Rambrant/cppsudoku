@@ -102,7 +102,7 @@ TEST_CASE( "ConstraintPropagationSolver: parseGrid", "[unit]")
 {
     SECTION( "Given a valid board", "[unit]")
     {
-        detail::SquareValues values{ detail::parseGrid( simpleBoard)};
+        detail::SquareValues values{ *detail::parseGrid( simpleBoard)};
 
         CHECK( values.size() == SudokuTraits::BOARD_SIZE * SudokuTraits::BOARD_SIZE);
 
@@ -124,14 +124,17 @@ TEST_CASE( "ConstraintPropagationSolver: parseGrid", "[unit]")
 
     SECTION( "Given an invalid board", "[unit]")
     {
-        REQUIRE_THROWS_WITH( detail::parseGrid( invalidBoard), "Illegal board: contradiction at [[0,2]] for digit 5");
+        auto result = detail::parseGrid( invalidBoard);
+
+        REQUIRE_FALSE( result.has_value());
+        REQUIRE( result.error() == "Illegal board: contradiction at [[0,2]] for digit 5");
     }
 }
 
 TEST_CASE( "ConstraintPropagationSolver: assign", "[unit]")
 {
     detail::BoardStructure        boardStructure{};
-    detail::SquareValues          squareValues{ detail::parseGrid( emptyBoard)}; // Fill all values with [1-9]
+    detail::SquareValues          squareValues{ *detail::parseGrid( emptyBoard)}; // Fill all values with [1-9]
     constexpr detail::Square      square{0,0};
     constexpr SudokuTraits::Value value{1};
 
@@ -157,7 +160,7 @@ TEST_CASE( "ConstraintPropagationSolver: assign", "[unit]")
 TEST_CASE( "ConstraintPropagationSolver: eliminate", "[unit]")
 {
     detail::BoardStructure   boardStructure{};
-    detail::SquareValues     squareValues{ detail::parseGrid( emptyBoard)}; // Fill all values with [1-9]
+    detail::SquareValues     squareValues{ *detail::parseGrid( emptyBoard)}; // Fill all values with [1-9]
     constexpr detail::Square s00{0,0};
 
     SECTION( "Basic elimination", "[unit]")
