@@ -75,14 +75,14 @@ namespace com::rambrant::sudoku
             BoardStructure();
         };
 
-        const BoardStructure gBoardsStructure;
+        inline const BoardStructure gBoardsStructure;
 
         //
         // Helper functions
         //
         auto eliminate( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
         auto assign( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
-        auto search( SquareValues allValues, int& recursions, std::atomic<bool>& cancelFlag) -> SquareValues;
+        auto search( SquareValues allValues, size_t& recursions, std::atomic<bool>& cancelFlag) -> SquareValues;
         auto parseGrid( const Traits::Board & board) -> std::expected<SquareValues, std::string>;
     }
 }
