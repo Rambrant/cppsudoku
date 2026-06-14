@@ -88,7 +88,7 @@ namespace com::rambrant::sudoku
             else
             {
                 //
-                // non-valid guess, back of
+                // Non-valid guess, back off
                 //
                 board[rowPos][columnPos] = Traits::NO_VALUE;
             }
