@@ -23,6 +23,8 @@ namespace com::rambrant::sudoku::gui
         }
 
         const Logger             logger( Logger::LogLevel::Quiet);
+
+        //GUI uses backtracking only — constraint solver not yet wired up
         const BackTrackingSolver solver( logger);
 
         auto workingBoard = viewModel.getBoard();
