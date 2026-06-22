@@ -31,20 +31,21 @@ jobs:
           runVcpkgInstall: true
           vcpkgDirectory: '${{ github.workspace }}/.vcpkg'
 
-      - name: Install LLVM/Clang 22
+      - name: Install GCC 16
         run: |
-          wget https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh 22 all
-          clang++-22 --version
-          echo "#include <flat_map>" | clang++-22 -std=c++23 -stdlib=libc++ -x c++ - -fsyntax-only && echo "flat_map OK" || echo "flat_map NOT FOUND"
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+          sudo apt-get update
+          sudo apt-get install -y gcc-16 g++-16
+          g++-16 --version
 
       - name: Configure CMake
         run: >
           cmake -DENABLE_DOCS=OFF -B build -S .
           -DCMAKE_BUILD_TYPE=Release
-          -DCMAKE_CXX_COMPILER=clang++-22
-          -DCMAKE_C_COMPILER=clang-22
+          -DCMAKE_CXX_COMPILER=g++-16
+          -DCMAKE_C_COMPILER=gcc-16
           -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake
 
       - name: Build
