@@ -52,10 +52,18 @@ namespace com::rambrant::sudoku
             /**
              * @brief Solves the Sudoku board using the solvers given in the constructor, The solvers are tried in the given order
              * @return A boolean indicating success or failure
+             * @post If @c true is returned, no cell on the board contains @ref SudokuTraits::NO_VALUE.
              */
-            auto solve() const -> bool;
+            auto solve() const -> bool
+                post( result: ! result || isSolved());
 
         private:
+
+            /**
+             * @brief Returns @c true if every cell on the board holds a non-zero value.
+             * @note Used internally to verify the postcondition of @ref solve().
+             */
+            [[nodiscard]] bool isSolved() const;
 
             mutable Traits::Board  mBoard;
             const   Logger&        mLogger;

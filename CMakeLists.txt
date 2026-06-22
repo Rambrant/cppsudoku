@@ -4,20 +4,18 @@ cmake_minimum_required( VERSION 3.25)
 # Auto-detect Homebrew LLVM Clang before project() locks in the compiler.
 # This must come BEFORE the project() call.
 # ---------------------------------------------------------------------------
-if( NOT DEFINED CMAKE_CXX_COMPILER)
-    find_program( LLVM_CLANGPP
-            NAMES clang++
-            PATHS /opt/homebrew/opt/llvm/bin   # Apple Silicon
-            /usr/local/opt/llvm/bin       # Intel Mac
-            NO_DEFAULT_PATH
-    )
-    if( LLVM_CLANGPP)
-        message( STATUS "Found Homebrew LLVM Clang: ${LLVM_CLANGPP}")
-        set( CMAKE_CXX_COMPILER "${LLVM_CLANGPP}" CACHE STRING "" FORCE)
-        set( CMAKE_C_COMPILER   "${LLVM_CLANGPP}/../clang" CACHE STRING "" FORCE)
+# Before project() — auto-detect GCC 16 if no compiler is explicitly set
+if(NOT DEFINED CMAKE_CXX_COMPILER)
+    find_program(GCC16 NAMES g++-16)
+    if(GCC16)
+        message(STATUS "Found GCC 16: ${GCC16}")
+        set(CMAKE_CXX_COMPILER "${GCC16}" CACHE STRING "" FORCE)
+        find_program(GCC16_C NAMES gcc-16)
+        set(CMAKE_C_COMPILER "${GCC16_C}" CACHE STRING "" FORCE)
     else()
-        message( WARNING "Homebrew LLVM not found — falling back to system compiler.\n"
-                "Install with: brew install llvm")
+        message(WARNING "GCC 16 not found — falling back to system compiler.\n"
+                "Install with: sudo apt install gcc-16 g++-16  (Linux)\n"
+                "              brew install gcc@16              (macOS)")
     endif()
 endif()
 
@@ -26,36 +24,19 @@ project( SudokuSolver VERSION 1.0 LANGUAGES CXX)
 option( ENABLE_DOCS "Enable building documentation" ON)
 enable_testing()
 
-# Enforce LLVM Clang (not Apple Clang, which lacks C++26 and -fcontracts)
-if( CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
-    message( FATAL_ERROR
-            "Apple Clang does not support C++26 or -fcontracts.\n"
-            "Install LLVM via Homebrew:  brew install llvm\n"
-            "Then delete your build folder and re-run CMake.")
-elseif( NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    message( FATAL_ERROR
-            "This project requires Clang. Current compiler: ${CMAKE_CXX_COMPILER_ID}\n"
-            "Re-run CMake with: -DCMAKE_CXX_COMPILER=clang++")
+# Require GCC 16+
+if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    message(FATAL_ERROR
+            "This project requires GCC. Current compiler: ${CMAKE_CXX_COMPILER_ID}\n"
+            "Re-run CMake with: -DCMAKE_CXX_COMPILER=g++-16")
 endif()
 
-add_compile_options( -Wall -Wextra -Wpedantic -Werror)
-
-# Use LLVM's libc++ on Linux — GCC's libstdc++ on ubuntu-latest is too old for C++23 features
-if( CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    add_compile_options( -stdlib=libc++)
-    add_link_options( -stdlib=libc++)
+if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "16")
+    message(FATAL_ERROR
+            "GCC 16+ is required for C++26 support. Found: GCC ${CMAKE_CXX_COMPILER_VERSION}")
 endif()
 
-# C++26 Contracts — not yet in Clang mainline (as of Clang 22).
-# Enable manually once you have a contracts-capable Clang build:
-#   cmake -B build -DENABLE_CONTRACTS=ON
-if( ENABLE_CONTRACTS)
-    message( STATUS "Contracts enabled: -fcontract-semantic=enforce")
-    add_compile_options( -fcontract-semantic=enforce)
-else()
-    message( STATUS "Contracts disabled (ENABLE_CONTRACTS=OFF). "
-            "Enable when using a contracts-capable Clang fork.")
-endif()
+add_compile_options( -Wall -Wextra -Wpedantic -Werror -fcontracts)
 
 set( CMAKE_TOOLCHAIN_FILE "$ENV{HOME}/Developer/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 set( CMAKE_OSX_ARCHITECTURES arm64 CACHE STRING "" FORCE)
