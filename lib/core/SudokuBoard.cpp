@@ -76,4 +76,12 @@ namespace com::rambrant::sudoku
 
         return false; // None of the solvers solved the board
     }
+
+    bool SudokuBoard::isSolved() const
+    {
+        return std::ranges::none_of(
+            mBoard | std::views::join,
+            []( int v ){ return v == Traits::NO_VALUE; }
+        );
+    }
 }
