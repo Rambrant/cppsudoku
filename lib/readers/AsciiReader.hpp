@@ -18,7 +18,7 @@ namespace com::rambrant::sudoku
         public:
 
             /// @brief The format key used to select this reader from the command line.
-            static constexpr std::string_view entityName = "text";
+            static constexpr std::string_view pluginKey = "text";
 
             /**
              * @brief Constructs the class with for an instream and a Logger

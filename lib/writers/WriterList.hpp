@@ -10,7 +10,7 @@
 //   1. Create MyWriter.hpp / MyWriter.cpp.
 //      The class must:  (a) inherit from IWriter
 //                       (b) declare static constexpr std::string_view
-//                               formatName = "myformat";
+//                               pluginKey = "myformat";
 //
 //   2. #include "MyWriter.hpp" below.
 //   3. Add MyWriter to WriterList.
@@ -53,7 +53,7 @@ namespace com::rambrant::sudoku
     static_assert(
         detail::allSatisfyWriterPlugin( std::type_identity<WriterList>{}),
         "Every type in WriterList must satisfy WriterPlugin "
-        "(inherit IWriter and expose static constexpr std::string_view formatName)"
+        "(inherit IWriter and expose static constexpr std::string_view pluginKey)"
     );
 
 }

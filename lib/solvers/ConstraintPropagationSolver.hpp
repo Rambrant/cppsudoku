@@ -4,6 +4,7 @@
 //
 #pragma once
 
+#include <expected>
 #include <flat_map>
 #include <flat_set>
 #include <vector>
@@ -22,7 +23,7 @@ namespace com::rambrant::sudoku
 
 
             /// @brief The solver key used to select this solver from the command line.
-            static constexpr std::string_view entityName = "constraint";
+            static constexpr std::string_view pluginKey = "constraint";
 
             /**
              * @brief Constructs the class with a Logger
@@ -47,7 +48,7 @@ namespace com::rambrant::sudoku
             [[nodiscard]]
             auto name() const noexcept -> std::string_view override
             {
-                return entityName;
+                return pluginKey;
             }
     };
 
@@ -74,14 +75,14 @@ namespace com::rambrant::sudoku
             BoardStructure();
         };
 
-        const BoardStructure gBoardsStructure;
+        inline const BoardStructure gBoardsStructure;
 
         //
         // Helper functions
         //
         auto eliminate( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
         auto assign( SquareValues& allValues, const Square& square, Traits::Value value ) -> bool;
-        auto search( SquareValues allValues, int& recursions, std::atomic<bool>& cancelFlag) -> SquareValues;
-        auto parseGrid( const Traits::Board & board) -> SquareValues;
+        auto search( SquareValues allValues, size_t& recursions, std::atomic<bool>& cancelFlag) -> SquareValues;
+        auto parseGrid( const Traits::Board & board) -> std::expected<SquareValues, std::string>;
     }
 }

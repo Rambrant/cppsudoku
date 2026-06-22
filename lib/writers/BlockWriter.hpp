@@ -19,7 +19,7 @@ namespace com::rambrant::sudoku
         public:
 
             /// @brief The format key used to select this writer from the command line.
-            static constexpr std::string_view entityName = "block";
+            static constexpr std::string_view pluginKey = "block";
 
             /**
              * @brief Constructs the class that writes the board in a "block". A one row per line

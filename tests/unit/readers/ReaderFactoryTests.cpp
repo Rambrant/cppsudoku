@@ -20,15 +20,15 @@ TEST_CASE( "ReaderPlugin: concept is satisfied by concrete readers", "[unit]")
 {
     STATIC_REQUIRE(  ReaderPlugin<AsciiReader>);
     STATIC_REQUIRE(  ReaderPlugin<JsonReader>);
-    STATIC_REQUIRE_FALSE( ReaderPlugin<IReader>);   // abstract base — no formatName
+    STATIC_REQUIRE_FALSE( ReaderPlugin<IReader>);   // abstract base — no pluginKey
 }
 
 //
 //  ReaderFactory
 //
-TEST_CASE( "ReaderFactory: formats() lists all registered reader keys", "[unit]")
+TEST_CASE( "ReaderFactory: pluginKeys() lists all registered reader keys", "[unit]")
 {
-    const auto formats = ReaderFactory::instance().formats();
+    const auto formats = ReaderFactory::instance().pluginKeys();
 
     REQUIRE( formats == std::vector<std::string>{ "json", "text"});
 }
@@ -37,7 +37,7 @@ TEST_CASE( "ReaderFactory: create() returns a reader for every registered format
 {
     Logger logger{};
 
-    for( const auto& format : ReaderFactory::instance().formats())
+    for( const auto& format : ReaderFactory::instance().pluginKeys())
     {
         std::istringstream stream{};
 
@@ -59,9 +59,9 @@ TEST_CASE( "ReaderFactory: create() returns an error for an unknown format", "[u
     CHECK( result.error().find( "csv") != std::string::npos);
 }
 
-TEST_CASE( "ReaderFactory: formats() are in ascending order", "[unit]")
+TEST_CASE( "ReaderFactory: pluginKeys() are in ascending order", "[unit]")
 {
-    const auto formats = ReaderFactory::instance().formats();
+    const auto formats = ReaderFactory::instance().pluginKeys();
 
     REQUIRE( std::ranges::is_sorted( formats));
 }

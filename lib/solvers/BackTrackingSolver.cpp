@@ -27,7 +27,9 @@ namespace com::rambrant::sudoku
             bool result = detail::search( board, recursions, cancelFlag);
 
             if( result)
+            {
                 cancelFlag.store( true);    // Terminate any other solver prematurely
+            }
 
             return Traits::BoardResult{ result, recursions, board};
         }
@@ -86,7 +88,7 @@ namespace com::rambrant::sudoku
             else
             {
                 //
-                // non-valid guess, back of
+                // Non-valid guess, back off
                 //
                 board[rowPos][columnPos] = Traits::NO_VALUE;
             }
@@ -95,7 +97,7 @@ namespace com::rambrant::sudoku
         }
 
         auto search( Traits::Board & board, size_t& recursions, std::atomic<bool>& cancelFlag) -> bool // NOLINT(misc-no-recursion)
-{
+        {
             if( cancelFlag.load())
             {
                 throw CancelledException{}; // Exit early

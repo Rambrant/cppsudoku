@@ -10,7 +10,7 @@
 //  1. Create MySolver.hpp / MySolver.cpp.
 //     The class must:  (a) inherit from ISolver
 //                      (b) declare static constexpr std::string_view
-//                              solverName = "myname";
+//                              pluginKey = "myname";
 //
 //  2. #include "MySolver.hpp" below.
 //  3. Add MySolver to SolverList.
@@ -35,7 +35,7 @@ namespace com::rambrant::sudoku
      * @brief Compile-time manifest of every @ref ISolver implementation.
      *
      * @ref SolverFactory folds over this tuple in its constructor to populate
-     * the runtime registry.  Every type's @c solverName and constructor are
+     * the runtime registry.  Every type's @c pluginKey and constructor are
      * resolved statically — the only runtime work is inserting into the map.
      *
      * @note When P2996 reflection lands in Clang, delete this file and update
@@ -58,7 +58,7 @@ namespace com::rambrant::sudoku
     static_assert(
         detail::allSatisfySolverPlugin( std::type_identity<SolverList>{}),
         "Every type in SolverList must satisfy SolverPlugin "
-        "(inherit ISolver and expose static constexpr std::string_view solverName)"
+        "(inherit ISolver and expose static constexpr std::string_view pluginKey)"
     );
 
 }

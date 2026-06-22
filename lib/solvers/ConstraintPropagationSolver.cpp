@@ -5,9 +5,10 @@
 #include "ConstraintPropagationSolver.hpp"
 
 #include <algorithm>
-#include <iostream>
 #include <limits>
+#include <ostream>
 #include <vector>
+#include "core/Logger.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -84,7 +85,9 @@ namespace com::rambrant::sudoku
             // Is the value already eliminated? Then signal success and return early
             //
             if( std::find( squareValues.begin(), squareValues.end(), value) == squareValues.end())
+            {
                 return true;
+            }
 
             //
             // Remove the value. If the list becomes empty, something is wrong... return early and signal failure
@@ -92,7 +95,9 @@ namespace com::rambrant::sudoku
             squareValues.erase( remove( squareValues.begin(), squareValues.end(), value), squareValues.end());
 
             if( squareValues.empty())
+            {
                 return false;
+            }
 
             //
             // If there is only one value left, we found a potential solution. Remove that value from all of its peers
@@ -104,7 +109,9 @@ namespace com::rambrant::sudoku
                 for( const auto& peer : gBoardsStructure.mPeers.at(square))
                 {
                     if( ! eliminate( allValues, peer, lastValue))
+                    {
                         return false;
+                    }
                 }
             }
 
@@ -118,14 +125,18 @@ namespace com::rambrant::sudoku
                 for( const auto& k : unit)
                 {
                     if( std::find( allValues[k].begin(), allValues[k].end(), value) != allValues[k].end())
+                    {
                         places.push_back(k);
+                    }
                 }
 
                 //
                 // The value wasn't found anywhere among the units. This is a contradiction, bail out
                 //
                 if( places.empty())
+                {
                     return false;
+                }
 
                 //
                 // Only one place where the value can go, assign it there
@@ -133,7 +144,9 @@ namespace com::rambrant::sudoku
                 if( places.size() == 1)
                 {
                     if( ! assign( allValues, places[0], value))
+                    {
                         return false;
+                    }
                 }
             }
 
@@ -170,7 +183,9 @@ namespace com::rambrant::sudoku
                 throw CancelledException{}; // Exit early
 
             if( allValues.empty())
+            {
                 return {};
+            }
 
             recursions++;
 
@@ -183,7 +198,9 @@ namespace com::rambrant::sudoku
             });
 
             if( solved)
+            {
                 return allValues;
+            }
 
             //
             // Find the cell with the least number of possible values (not taking the already solved ones into account)
@@ -207,14 +224,16 @@ namespace com::rambrant::sudoku
                 if( SquareValues valueClone = allValues; assign( valueClone, key, value))
                 {
                     if( auto result = search( valueClone, recursions, cancelFlag); ! result.empty())
+                    {
                         return result;
+                    }
                 }
             }
 
             return {};
         }
 
-        auto parseGrid( const Traits::Board & board) -> SquareValues
+        auto parseGrid( const Traits::Board & board) -> std::expected<SquareValues, std::string>
         {
             SquareValues values;
 
@@ -224,6 +243,7 @@ namespace com::rambrant::sudoku
             for( auto square : gBoardsStructure.mSquares)
             {
                 auto& squareValues = values[square];
+
                 squareValues.insert( squareValues.end(), Traits::VALUE_RANGE.begin(), Traits::VALUE_RANGE.end());
             }
 
@@ -237,7 +257,8 @@ namespace com::rambrant::sudoku
                     if( ! assign( values, { rowIdx, colIdx }, value))
                     {
                         const std::string square = "[" + std::to_string( rowIdx) + "," + std::to_string( colIdx) + "]";
-                        throw std::runtime_error("Illegal board: contradiction at [" + square + "] for digit " + std::to_string(value));
+
+                        return std::unexpected( "Illegal board: contradiction at [" + square + "] for digit " + std::to_string( value));
                     }
                 }
             }
@@ -260,8 +281,16 @@ namespace com::rambrant::sudoku
 
         try
         {
-            const detail::SquareValues originalValues{ detail::parseGrid( board)};
-            const detail::SquareValues resultingValues{ detail::search( originalValues, recursions, cancelFlag)};
+            const auto parsedGrid = detail::parseGrid( board);
+
+            if( ! parsedGrid)
+            {
+                mLogger << parsedGrid.error() << std::endl;
+
+                return Traits::BoardResult{ false, recursions, Traits::Board{}};
+            }
+
+            const detail::SquareValues resultingValues{ detail::search( *parsedGrid, recursions, cancelFlag)};
 
             result = ! resultingValues.empty();
 
@@ -284,12 +313,6 @@ namespace com::rambrant::sudoku
             //
             // Returned prematurely
             //
-            return Traits::BoardResult{ false, recursions, Traits::Board{}};
-        }
-        catch( const std::exception& e)
-        {
-            std::cerr << e.what() << std::endl;
-
             return Traits::BoardResult{ false, recursions, Traits::Board{}};
         }
     }

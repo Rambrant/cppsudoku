@@ -5,7 +5,7 @@
 #pragma once
 
 #include "core/SudokuTraits.hpp"
-#include "factorybase/PluginRegistry.hpp"
+#include "core/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -30,7 +30,7 @@ namespace com::rambrant::sudoku
 
             /**
              * @brief A method that writes a Sudoku board to destination.
-             * @param board The board to print ou to the stream
+             * @param board The board to print out to the stream
              */
             virtual auto write( const Traits::Board& board) const -> void = 0;
 
@@ -56,7 +56,7 @@ namespace com::rambrant::sudoku
      * @code
      * class BlockWriter final : public IWriter {
      * public:
-     *     static constexpr std::string_view formatName = "block";
+     *     static constexpr std::string_view pluginKey = "block";
      *     BlockWriter( std::ostream&, const Logger&);
      *     auto write( const Traits::Board&) const -> void override;
      * };

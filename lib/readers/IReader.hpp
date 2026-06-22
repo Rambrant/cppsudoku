@@ -6,7 +6,7 @@
 
 
 #include "core/SudokuTraits.hpp"
-#include "factorybase/PluginRegistry.hpp"
+#include "core/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -54,18 +54,18 @@ namespace com::rambrant::sudoku
      *
      * A type satisfies @c ReaderPlugin when it:
      *   - publicly derives from @ref IReader, and
-     *   - exposes @c static constexpr std::string_view formatName.
+     *   - exposes @c static constexpr std::string_view pluginKey.
      *
      * The name is the exact key users pass on the command line (e.g. @c "text",
      * @c "json").  @ref ReaderList.hpp verifies every listed type against this
-     * concept at build time, so a missing or mis-typed @c formatName is a
+     * concept at build time, so a missing or mis-typed @c pluginKey is a
      * compile error, not a runtime surprise.
      *
      * @par Example
      * @code
      * class AsciiReader final : public IReader {
      * public:
-     *     static constexpr std::string_view  entityName = "text";
+     *     static constexpr std::string_view  pluginKey = "text";
      *     AsciiReader( std::istream&, const Logger&);
      *     auto read() const -> Traits::Board override;
      * };

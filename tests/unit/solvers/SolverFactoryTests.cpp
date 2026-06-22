@@ -20,15 +20,15 @@ TEST_CASE( "SolverPlugin: concept is satisfied by concrete solvers", "[unit]")
 {
     STATIC_REQUIRE(  SolverPlugin<BackTrackingSolver>);
     STATIC_REQUIRE(  SolverPlugin<ConstraintPropagationSolver>);
-    STATIC_REQUIRE_FALSE( SolverPlugin<ISolver>);   // abstract base — no formatName
+    STATIC_REQUIRE_FALSE( SolverPlugin<ISolver>);   // abstract base — no pluginKey
 }
 
 //
 //  SolverFactory
 //
-TEST_CASE( "SolverFactory: solverNames() lists all registered solver keys", "[unit]")
+TEST_CASE( "SolverFactory: pluginKeys() lists all registered solver keys", "[unit]")
 {
-    const auto names = SolverFactory::instance().solverNames();
+    const auto names = SolverFactory::instance().pluginKeys();
 
     REQUIRE( names == std::vector<std::string>{ "backtracking", "constraint"});
 }
@@ -37,7 +37,7 @@ TEST_CASE( "SolverFactory: create() returns a solver for every registered name",
 {
     Logger logger{};
 
-    for( const auto& name : SolverFactory::instance().solverNames())
+    for( const auto& name : SolverFactory::instance().pluginKeys())
     {
         CAPTURE( name);
         auto result = SolverFactory::instance().create( name, logger);
@@ -59,16 +59,9 @@ TEST_CASE( "SolverFactory: create() returns an error for an unknown name", "[uni
     CHECK( result.error().find( "bruteforce") != std::string::npos);
 }
 
-TEST_CASE( "SolverFactory: formats() are in ascending order", "[unit]")
+TEST_CASE( "SolverFactory: pluginKeys() are in ascending order", "[unit]")
 {
-    const auto formats = SolverFactory::instance().formats();
+    const auto formats = SolverFactory::instance().pluginKeys();
 
     REQUIRE( std::ranges::is_sorted( formats));
-}
-
-TEST_CASE( "SolverFactory: solverNames() are in ascending order", "[unit]")
-{
-    const auto names = SolverFactory::instance().solverNames();
-
-    REQUIRE( std::ranges::is_sorted( names));
 }

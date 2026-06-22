@@ -133,7 +133,7 @@ int main( int argc, char* argv[])
                       + "Options:\n"s
                       + "  -h, --help                 Show this help message and exit\n"s
                       + "  -i, --input <file>         Read puzzle from file. (Default: stdin)\n"s
-                      + "  -I, --input-format <fmt>   Output format: text or json. (Default: text)\n"s
+                      + "  -I, --input-format <fmt>   Input format: text or json. (Default: text)\n"s
                       + "  -o, --output <file>        Write solution to file. (Default: stdout\n"s
                       + "  -O, --output-format <fmt>  Output format: pretty, block, line or json. (Default: block)\n"s
                       + "  -s, --solvers <solver,...> Solvers to use: backtracking or constraint. (Default: backtracking and constraint)\n"s

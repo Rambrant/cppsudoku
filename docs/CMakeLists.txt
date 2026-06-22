@@ -6,7 +6,6 @@ set( DOXYGEN_INPUT_DIRS
         "${PROJECT_SOURCE_DIR}/cli"
         "${PROJECT_SOURCE_DIR}/gui/viewmodel"
         "${PROJECT_SOURCE_DIR}/lib/core"
-        "${PROJECT_SOURCE_DIR}/lib/factorybase"
         "${PROJECT_SOURCE_DIR}/lib/readers"
         "${PROJECT_SOURCE_DIR}/lib/solvers"
         "${PROJECT_SOURCE_DIR}/lib/writers"

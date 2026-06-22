@@ -13,7 +13,7 @@
 
 #include "IWriter.hpp"
 #include "WriterList.hpp"
-#include "factorybase/PluginRegistry.hpp"
+#include "core/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -52,10 +52,10 @@ namespace com::rambrant::sudoku
             /**
              * @brief Return sorted list of formats.
              *            *
-             * @return The sorted list of the plugins entityNames
+             * @return The sorted list of the plugins pluginKey
              */
             [[nodiscard]]
-            auto formats() const -> std::vector<std::string>
+            auto pluginKeys() const -> std::vector<std::string>
             {
                 return mRegistry.keys();
             }

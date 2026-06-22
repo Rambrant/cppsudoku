@@ -7,7 +7,7 @@
 #include <atomic>
 
 #include "core/SudokuTraits.hpp"
-#include "factorybase/PluginRegistry.hpp"
+#include "core/PluginRegistry.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -55,7 +55,7 @@ namespace com::rambrant::sudoku
             /**
              * @brief Returns the solver's registered name (e.g. @c "backtracking").
              *
-             * Mirrors the @c solverName static constexpr through virtual dispatch
+             * Mirrors the @c pluginKey static constexpr through virtual dispatch
              * so @ref SudokuBoard can identify which solver won the race without
              * knowing the concrete type.
              */
@@ -78,18 +78,18 @@ namespace com::rambrant::sudoku
      *
      * A type satisfies @c SolverPlugin when it:
      *   - publicly derives from @ref ISolver, and
-     *   - exposes @c static constexpr std::string_view solverName.
+     *   - exposes @c static constexpr std::string_view pluginKey.
      *
      * The name is the exact key users pass on the command line
      * (e.g. @c "backtracking", @c "constraint").
      * @ref SolverList.hpp verifies every listed type against this concept at
-     * build time, so a missing or mis-typed @c solverName is a compile error.
+     * build time, so a missing or mis-typed @c pluginKey is a compile error.
      *
      * @par Example
      * @code
      * class BackTrackingSolver final : public ISolver {
      * public:
-     *     static constexpr std::string_view solverName = "backtracking";
+     *     static constexpr std::string_view pluginKey = "backtracking";
      *     explicit BackTrackingSolver( const Logger&);
      *     auto solve( Traits::Board&, std::atomic<bool>&) const
      *         -> Traits::BoardResult override;
@@ -105,5 +105,4 @@ namespace com::rambrant::sudoku
      */
     template<typename T>
     concept SolverPlugin = PluginType<T, ISolver>;
-
 }
