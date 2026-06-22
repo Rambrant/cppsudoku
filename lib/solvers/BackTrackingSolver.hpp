@@ -54,10 +54,18 @@ namespace com::rambrant::sudoku
         // Helper functions
         //
         auto checkValue( Traits::Value value, const Traits::BoardArray & unitValues) -> bool;
+
         auto rowConstraint( const Traits::Board & board, Traits::Value value, int rowPos) -> bool;
+
         auto columnConstraint( const Traits::Board & board, Traits::Value value, int columnPos) -> bool;
+
         auto boxConstraint( const Traits::Board & board, Traits::Value value, int rowPos, int columnPos) -> bool;
-        auto setValid( Traits::Board& board, Traits::Value value, int rowPos, int columnPos) -> bool;
+
+        auto setValid( Traits::Board& board, Traits::Value value, int rowPos, int columnPos) -> bool
+            pre( value >= 1 && value <= Traits::MAX_VALUE)
+            pre( rowPos >= 0 && rowPos < Traits::BOARD_SIZE)
+            pre( columnPos >= 0 && columnPos < Traits::BOARD_SIZE);
+
         auto search( Traits::Board & board, size_t& recursions, std::atomic<bool>& cancelFlag) -> bool;
     }
 }

@@ -16,9 +16,11 @@ namespace com::rambrant::sudoku
      * @param board  The board to extract from.
      * @param col    0-based column index.
      * @return A @ref SudokuTraits::BoardArray containing the column values.
+     * @pre @p col must be in the range [0, @ref SudokuTraits::BOARD_SIZE).
      */
     [[nodiscard]]
-    auto extractColumn( const Traits::Board& board, int col) -> Traits::BoardArray;
+    auto extractColumn( const Traits::Board& board, int col) -> Traits::BoardArray
+        pre( col >= 0 && col < Traits::BOARD_SIZE);
 
     /**
      * @brief Extracts the 3x3 box containing (row, col) as a flat array.
@@ -27,7 +29,11 @@ namespace com::rambrant::sudoku
      * @param row    0-based row index of any cell inside the target box.
      * @param col    0-based column index of any cell inside the target box.
      * @return A @ref SudokuTraits::BoardArray containing the box values in row-major order.
+     * @pre @p row must be in the range [0, @ref SudokuTraits::BOARD_SIZE).
+     * @pre @p col must be in the range [0, @ref SudokuTraits::BOARD_SIZE).
      */
     [[nodiscard]]
-    auto extractBox( const Traits::Board& board, int row, int col) -> Traits::BoardArray;
+    auto extractBox( const Traits::Board& board, int row, int col) -> Traits::BoardArray
+        pre( row >= 0 && row < Traits::BOARD_SIZE)
+        pre( col >= 0 && col < Traits::BOARD_SIZE);
 }
