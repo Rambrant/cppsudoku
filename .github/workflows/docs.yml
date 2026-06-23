@@ -55,7 +55,7 @@ jobs:
 
       - name: Configure CMake
         run: >
-          cmake -DENABLE_DOCS=OFF -B build -S .
+          cmake -DENABLE_DOCS=ON -B build -S .
           -DCMAKE_BUILD_TYPE=Release
           -DCMAKE_CXX_COMPILER=g++-16
           -DCMAKE_C_COMPILER=gcc-16
