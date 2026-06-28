@@ -36,7 +36,7 @@ if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "16")
             "GCC 16+ is required for C++26 support. Found: GCC ${CMAKE_CXX_COMPILER_VERSION}")
 endif()
 
-add_compile_options( -Wall -Wextra -Wpedantic -Werror -fcontracts)
+add_compile_options( -Wall -Wextra -Wpedantic -Werror -fcontracts -freflection)
 
 set( CMAKE_TOOLCHAIN_FILE "$ENV{HOME}/Developer/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 set( CMAKE_OSX_ARCHITECTURES arm64 CACHE STRING "" FORCE)
