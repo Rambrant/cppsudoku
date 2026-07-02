@@ -1,7 +1,7 @@
 cmake_minimum_required( VERSION 3.25)
 
 # ---------------------------------------------------------------------------
-# Auto-detect Homebrew LLVM Clang before project() locks in the compiler.
+# Auto-detect Homebrew LLVM GCC before project() locks in the compiler.
 # This must come BEFORE the project() call.
 # ---------------------------------------------------------------------------
 # Before project() — auto-detect GCC 16 if no compiler is explicitly set

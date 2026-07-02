@@ -98,7 +98,7 @@ namespace com::rambrant::sudoku
      * @endcode
      *
      * @par P2996 migration note
-     * When C++26 static reflection is available in Clang, @ref SolverList.hpp
+     * When C++26 static reflection is available in GCC, @ref SolverList.hpp
      * will be deleted and @ref SolverFactory will discover all types in the
      * @c com::rambrant::sudoku namespace that satisfy this concept automatically.
      * The concept itself stays unchanged.

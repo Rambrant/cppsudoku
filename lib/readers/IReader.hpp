@@ -73,7 +73,7 @@ namespace com::rambrant::sudoku
      * @endcode
      *
      * @par P2996 migration note
-     * When C++26 static reflection is available in Clang, @ref ReaderList.hpp
+     * When C++26 static reflection is available in GCC, @ref ReaderList.hpp
      * will be deleted and @ref ReaderFactory will discover all types in the
      * @c com::rambrant::sudoku namespace that satisfy this concept at compile
      * time — with no hand-maintained list.  The concept itself stays unchanged.

@@ -91,7 +91,7 @@ vcpkg.json              # External dependencies
 
 ## Prerequisites
 
-- A C++26 (or later) compatible compiler (Clang-22)
+- A C++26 (or later) compatible compiler (GCC 16)
 - CMake (version 3.15 or later)
 - [Doxygen](https://www.doxygen.nl/) (optional, for building documentation)
 - [vcpkg](https://github.com/microsoft/vcpkg) from Microsoft for installation of external packages
