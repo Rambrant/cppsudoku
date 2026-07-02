@@ -136,7 +136,7 @@ int main( int argc, char* argv[])
                       + "  -I, --input-format <fmt>   Input format: text or json. (Default: text)\n"s
                       + "  -o, --output <file>        Write solution to file. (Default: stdout\n"s
                       + "  -O, --output-format <fmt>  Output format: pretty, block, line or json. (Default: block)\n"s
-                      + "  -s, --solvers <solver,...> Solvers to use: backtracking or constraint. (Default: backtracking and constraint)\n"s
+                      + "  -s, --solvers <solver,...> Solvers to use: rules, backtracking or constraint. (Default: rules, backtracking and constraint)\n"s
                       + "  -v, --verbose              Verbose output\n"s
                       + "  -q, --quiet                Quiet output\n"s;
 
@@ -147,13 +147,13 @@ int main( int argc, char* argv[])
         StringOption outputOpt{    "--output", "-o"};
         StringOption outFormatOpt{ "--output-format", "-O", "block"};
         StringOption inFormatOpt{  "--input-format", "-I", "text"};
-        ListOption   solversOpt{   "--solvers", "-s", { "backtracking", "constraint"}};
+        ListOption   solversOpt{   "--solvers", "-s", { "backtracking", "constraint", "rules"}};
 
         verboseOpt.setValidator( NotWith( quietOpt));
         quietOpt.setValidator( NotWith( verboseOpt));
         outFormatOpt.setValidator( ValuesIn( { "pretty", "block", "line", "json"}));
         inFormatOpt.setValidator( ValuesIn( { "text", "json"}));
-        solversOpt.setValidator( ValuesIn( { "backtracking", "constraint"}));
+        solversOpt.setValidator( ValuesIn( { "backtracking", "constraint", "rules"}));
 
         CommandLineParser parser( helpOpt, verboseOpt, quietOpt, inputOpt, outputOpt, outFormatOpt, inFormatOpt, solversOpt);
 

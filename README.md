@@ -7,7 +7,7 @@ The code supports 9x9 Sudoku boards but can be built for 16x16 by changing the b
 Two different strategies are implemented for solving the Sudoku:
 - Backtracking, a simple and fast brute force algorithm, but it might fail to solve more complicated boards
 - Constraint Propagation, a more sophisticated algorithm that uses constraint propagation to solve the Sudoku, modeled after Peter Norvig's original idea.
-
+- Rule based, an experimental algorithm using the rules that seasoned Sudoku masters uses
 The solver accepts a Sudoku board in virtually any format. It basically just reads the first 81 characters that are identified as a cell value,
 (0-9 and A-F for 16x16 boards). A dot '.' or a zero '0' represents an empty cell.
 
@@ -37,7 +37,7 @@ Usage: sudoku_solver [OPTIONS]
       -I, --input-format <fmt>   Output format: text or json. (Default: text)
       -o, --output <file>        Write solution to file. (Default: stdout
       -O, --output-format <fmt>  Output format: pretty, block, line or json. (Default: block)
-      -s, --solvers <solver,...> Solvers to use: backtracking or constraint. (Default: backtracking and constraint)
+      -s, --solvers <solver,...> Solvers to use: rules, backtracking or constraint. (Default: backtracking, constraint and rules)
       -v, --verbose              Verbose output
       -q, --quiet                Quiet output
 ```

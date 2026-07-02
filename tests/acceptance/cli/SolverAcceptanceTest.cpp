@@ -122,8 +122,8 @@ SCENARIO( "Sudoku with both solvers [acceptance]")
     std::regex solvedSolversRegex( R"(solved the board in)");
 
     auto testCase = GENERATE(
-            TestCase{ "board_simple.txt", 2, 1},
-            TestCase{ "board_hard.txt", 2, 1});
+            TestCase{ "board_simple.txt", 3, 1},
+            TestCase{ "board_hard.txt", 3, 1});
 
     GIVEN( "Input file " + testCase.file)
     {
