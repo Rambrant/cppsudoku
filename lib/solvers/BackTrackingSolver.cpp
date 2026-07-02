@@ -2,7 +2,7 @@
 //  Created by Thomas Rambrant, 2025
 //  This project is licensed under the MIT License - see the LICENSE file for details.
 //
-#include "solvers/BackTrackingSolver.hpp"
+#include "BackTrackingSolver.hpp"
 
 #include <algorithm>
 
