@@ -13,6 +13,42 @@ using Traits = SudokuTraits;
 
 #include "CliRunner.hpp"
 
+SCENARIO( "Sudoku rule-based solver [acceptance]")
+{
+    struct TestCase
+    {
+        std::string file;
+        std::string expectedContent;
+        int         exitCode;
+    };
+
+    CliRunner  runner( SUDOKU_CLI_COMMAND, SUDOKU_CLI_WORKING_DIR);
+
+    //
+    // board_hard.txt requires bifurcation (hypothesis) to solve; pure deductive
+    // rules stall on it, so exit code 1 is expected — the same outcome as the
+    // backtracking solver for the same board.
+    //
+    auto testCase = GENERATE(
+        TestCase{ "board_simple.txt", "[rules]",    0},
+        TestCase{ "board_hard.txt",   "No solution", 1});
+
+    GIVEN( "Input file " + testCase.file)
+    {
+        const std::string inputFile = "tests/test-resources/" + testCase.file;
+
+        WHEN( "The solver is run")
+        {
+            const auto exitCode = runner.run( { "-v", "-s", "rules", "-i", inputFile});
+
+            THEN( "The output should contain " + testCase.expectedContent)
+            {
+                CHECK( runner.outputContains( testCase.expectedContent));
+                CHECK( exitCode == testCase.exitCode);
+            }
+        }
+    }
+}
 SCENARIO( "Sudoku backtracking solver [acceptance]")
 {
     struct TestCase
