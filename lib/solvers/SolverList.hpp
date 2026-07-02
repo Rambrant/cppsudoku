@@ -21,13 +21,14 @@
 //  line.
 //
 //
-//  P2996 MIGRATION — delete this entire file when Clang supports P2996.
+//  P2996 MIGRATION — delete this entire file when GCC supports P2996.
 //  See SolverFactory.cpp for the full constructor migration diff.
 //
 #include <tuple>
 
 #include "BackTrackingSolver.hpp"
 #include "ConstraintPropagationSolver.hpp"
+#include "RuleBasedSolver.hpp"
 
 namespace com::rambrant::sudoku
 {
@@ -38,12 +39,13 @@ namespace com::rambrant::sudoku
      * the runtime registry.  Every type's @c pluginKey and constructor are
      * resolved statically — the only runtime work is inserting into the map.
      *
-     * @note When P2996 reflection lands in Clang, delete this file and update
+     * @note When P2996 reflection lands in GCC, delete this file and update
      *       the factory constructor as documented in @ref SolverFactory.cpp.
      */
     using SolverList = std::tuple<
         BackTrackingSolver,
-        ConstraintPropagationSolver
+        ConstraintPropagationSolver,
+        RuleBasedSolver
     >;
 
     namespace detail

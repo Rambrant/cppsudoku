@@ -30,7 +30,7 @@ TEST_CASE( "SolverFactory: pluginKeys() lists all registered solver keys", "[uni
 {
     const auto names = SolverFactory::instance().pluginKeys();
 
-    REQUIRE( names == std::vector<std::string>{ "backtracking", "constraint"});
+    REQUIRE( names == std::vector<std::string>{ "backtracking", "constraint", "rules"});
 }
 
 TEST_CASE( "SolverFactory: create() returns a solver for every registered name", "[unit]")
